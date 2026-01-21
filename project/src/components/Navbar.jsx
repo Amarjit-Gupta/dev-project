@@ -2,6 +2,7 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import { useState } from 'react';
 import logo from '../assets/Logo-Integers.svg';
 import { RxCross2 } from "react-icons/rx";
+import { Link } from "react-router-dom";
 const Navbar = () => {
 
     const [menu, setMenu] = useState(false);
@@ -14,7 +15,7 @@ const Navbar = () => {
                 <ul className={`transition-all duration-500 fixed top-21 lg:sticky lg:top-0 lg:w-auto w-full h-full lg:h-auto text-center bg-surface ${menu ? "right-0" : "-right-[100%]"}`}>
                     <li className='lg:inline-block py-5 lg:py-0'>Home</li>
                     <li className='lg:inline-block lg:pl-9 py-5 lg:py-0'>Industries</li>
-                    <li className='lg:inline-block lg:pl-9 py-5 lg:py-0'>Reports</li>
+                    <li className='lg:inline-block lg:pl-9 py-5 lg:py-0'><Link to={'/report'}>Reports</Link></li>
                     <li className='lg:inline-block lg:pl-9 py-5 lg:py-0'>Use Cases</li>
                     <li className='lg:inline-block lg:pl-9 py-5 lg:py-0'>Pricing</li>
 
