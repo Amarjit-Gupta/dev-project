@@ -383,7 +383,6 @@ const HomePage = () => {
                 <div className="border-brand-primary py-3 text-center">Buyers Favourite</div>
                 <div className="border-brand-primary py-3 text-center">Best Ingredients</div>
             </div>
-
         </>
     );
 };
