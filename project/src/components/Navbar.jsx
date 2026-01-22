@@ -13,7 +13,7 @@ const Navbar = () => {
                 <div className=" w-55 h-11"><img src={logo} alt="logo" className='h-full w-full' /></div>
                 <button className='lg:hidden text-2xl' onClick={() => setMenu(!menu)}>{menu ? <span><RxCross2 /></span> : <span><RxHamburgerMenu /></span>}</button>
                 <ul className={`transition-all duration-500 fixed top-21 lg:sticky lg:top-0 lg:w-auto w-full h-full lg:h-auto text-center bg-surface ${menu ? "right-0" : "-right-[100%]"}`}>
-                    <li className='lg:inline-block py-5 lg:py-0'>Home</li>
+                    <li className='lg:inline-block py-5 lg:py-0'><Link to={'/'}>Home</Link></li>
                     <li className='lg:inline-block lg:pl-9 py-5 lg:py-0'>Industries</li>
                     <li className='lg:inline-block lg:pl-9 py-5 lg:py-0'><Link to={'/report'}>Reports</Link></li>
                     <li className='lg:inline-block lg:pl-9 py-5 lg:py-0'>Use Cases</li>
