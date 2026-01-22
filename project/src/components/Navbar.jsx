@@ -11,7 +11,7 @@ const Navbar = () => {
 
     return (
         <>
-            <div className="border h-21 flex justify-around items-center sticky top-0 left-0 z-50">
+            <div className="border bg-surface h-21 flex justify-around items-center sticky top-0 left-0 z-50">
                 <div className="w-55 h-11 hidden sm:block"><img src={logo} alt="logo" className='h-full w-full' /></div>
                 <div className="w-11 h-11 sm:hidden border"><img src={logoSmall} alt="logo" className='h-full w-full' /></div>
 
