@@ -104,7 +104,10 @@ const ReportingList = () => {
 
                         <div className="border flex justify-around sm:justify-between items-center">
                             <div className="border">
-                                <h1 className="text-primary text-20 font-medium">234 reports available</h1>
+                                {/* <h1 className="text-primary text-20 font-medium">234 reports available</h1> */}
+                                <h1 className="text-primary text-[13px] sm:text-[20px] font-medium">
+                                    234 reports available
+                                </h1>
                             </div>
                             <div className="border flex gap-8">
                                 <div className="hidden xl:block">
