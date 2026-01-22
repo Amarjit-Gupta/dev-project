@@ -16,7 +16,7 @@ const Navbar = () => {
                 <div className="w-11 h-11 sm:hidden border"><img src={logoSmall} alt="logo" className='h-full w-full' /></div>
 
                 <div className="lg:hidden">
-                    <div className="h-9 border-brand-primary w-45 sm:w-59 flex py-2 px-4 items-center">
+                    <div className="h-9 border-brand-primary w-45 sm:w-59 flex py-1 sm:py-2 px-2 sm:px-4 items-center">
                         <input type="search" className='h-full text-16 outline-0 w-full' placeholder='Search report...' />
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                             <path d="M16.4197 16.4197C16.7126 16.1268 17.1874 16.1268 17.4803 16.4197L21.5301 20.4695C21.823 20.7624 21.823 21.2372 21.5301 21.5301C21.2372 21.823 20.7624 21.823 20.4695 21.5301L16.4197 17.4803C16.1268 17.1874 16.1268 16.7126 16.4197 16.4197Z" fill="#3CD690" />
