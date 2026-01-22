@@ -802,5 +802,11 @@
 }
 
 
+
+.active{
+  text-decoration: underline;font-weight: 500;
+}
+
+
 .hero-bg-img{background-image: url("assets/hero.svg");background-repeat: no-repeat;background-position: center;background-size: cover;}
 .reportlisting-bg-img{background-image: url("assets/reportListing.svg");background-repeat: no-repeat;background-position: center;background-size: cover;}
