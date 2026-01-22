@@ -12,6 +12,8 @@ const ReportingList = () => {
 
     const [view, setView] = useState('grid');
 
+
+
     return (
         <>
             {/* main content */}
@@ -92,14 +94,18 @@ const ReportingList = () => {
 
 
                 <div className="border w-80 sm:w-144 xl:w-285 m-auto grid grid-cols-1 xl:grid-cols-[22%_auto] gap-7.5">
-                    <div className="border flex flex-col gap-8">
+
+
+                    <div className="border flex flex-col gap-3 xl:gap-8">
                         <FilterCategory />
                     </div>
 
                     <div className="border">
 
                         <div className="border flex justify-around sm:justify-between items-center">
-                            <div className="border"><h1 className="text-primary text-13 sm:text-20 font-medium">234 reports available</h1></div>
+                            <div className="border">
+                                <h1 className="text-primary text-20 font-medium">234 reports available</h1>
+                            </div>
                             <div className="border flex gap-8">
                                 <div className="hidden xl:block">
                                     <button className={`border-text-secondary p-2 cursor-pointer ${view == "grid" ? "bg-brand" : ""}`} onClick={() => setView("grid")}><TfiLayoutGrid2 className="h-6 w-6" /></button>
