@@ -16,7 +16,8 @@ const FilterCategory = () => {
                 <button className="px-8 py-2 text-primary text-15 font-medium bg-brand">Reset Filter</button>
             </div>
 
-            <div className="border">
+            {/* select filter */}
+            {/* <div className="border">
                 <h1 className="text-primary text-20 font-medium">Selected Filter</h1>
                 <div className="border mt-2 flex flex-wrap gap-2">
                     <div className="border px-2 py-1 text-primary text-12 font-regular">Filter1 <span>&times;</span></div>
@@ -26,7 +27,7 @@ const FilterCategory = () => {
                     <div className="border px-2 py-1 text-primary text-12 font-regular">Filter3 <span>&times;</span></div>
                     <div className="border px-2 py-1 text-primary text-12 font-regular">Filter3 <span>&times;</span></div>
                 </div>
-            </div>
+            </div> */}
 
             <div className="border flex flex-col gap-2">
                 {/* <div className="border">
