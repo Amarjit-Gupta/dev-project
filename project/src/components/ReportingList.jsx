@@ -2,17 +2,128 @@ import FilterCategory from "./FilterCategory";
 import AZ from '../assets/sorting-a-z-02.svg';
 import { RxHamburgerMenu } from "react-icons/rx";
 import { TfiLayoutGrid2 } from "react-icons/tfi";
-
 import GridView from "./GridView";
 import ListView from "./ListView";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import RelevantReports from "./RelevantReports";
+import { FilterURL } from "../URL";
 
 const ReportingList = () => {
 
     const [view, setView] = useState('grid');
 
+    // filter category
+    const [industry, setIndustry] = useState([]);
+    const [country, setCountry] = useState([]);
+    const [region, setRegion] = useState([]);
+    const [report_type, setReport_type] = useState([]);
+    const [sub_industry, setSub_industry] = useState([]);
 
+    const [totalReport, setTotalReport] = useState(null);
+
+
+    const [listData,setListData] = useState([]);
+
+
+    const [selectedFilters, setSelectedFilters] = useState({
+        industries: [],
+        sub_industries: [],
+        report_types: [],
+        regions: [],
+        countries: []
+    });
+
+
+    const handleCheckboxChange = (group, value) => {
+        setSelectedFilters(prev => {
+            const exists = prev[group].includes(value);
+
+            return {
+                ...prev,
+                [group]: exists
+                    ? prev[group].filter(item => item !== value)
+                    : [...prev[group], value]
+            };
+        });
+    };
+
+
+    const getListData = async () => {
+        try {
+            let listResult = await fetch(`${FilterURL}/reports/filter`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(selectedFilters)
+            });
+            let listData = await listResult.json();
+            console.log("listData: ", listData);
+            if (listData) {
+                setListData(listData?.items ?? []);
+                setTotalReport(listData?.total ?? null);
+            }
+            else {
+                alert("data not found...");
+            }
+        }
+        catch (err) {
+            console.log("something went wrong...");
+        }
+    }
+
+    const getCheckBoxData = async () => {
+        try {
+            let result = await fetch(`${FilterURL}/filters`);
+            let data = await result.json();
+            // console.log("checkboxData: ", data);
+            if (data) {
+                setIndustry(data?.industries ?? []);
+                setCountry(data?.countries ?? []);
+                setRegion(data?.regions ?? []);
+                setReport_type(data?.report_types ?? []);
+                setSub_industry(data?.sub_industries ?? []);
+            }
+            else {
+                alert("data not found...");
+            }
+        }
+        catch (err) {
+            console.log("something went wrong...");
+        }
+    }
+
+    // console.log("industry", industry);
+    // console.log("country", country);
+    // console.log("region", region);
+    // console.log("report_type", report_type);
+    // console.log("sub_industry", sub_industry);
+
+
+
+
+    // console.log("Selected Filters:", selectedFilters);
+
+
+
+
+    const resetFilters = () => {
+        setSelectedFilters({
+            industries: [],
+            sub_industries: [],
+            report_types: [],
+            regions: [],
+            countries: []
+        });
+    };
+
+    useEffect(() => {
+        getCheckBoxData();
+    }, []);
+
+    useEffect(() => {
+        getListData();
+    }, [selectedFilters]);
+
+    console.log("list: ",listData);
 
     return (
         <>
@@ -97,7 +208,7 @@ const ReportingList = () => {
 
 
                     <div className="border flex flex-col gap-3 xl:gap-8">
-                        <FilterCategory />
+                        <FilterCategory resetFilters={resetFilters} selectedFilters={selectedFilters} setSelectedFilters={setSelectedFilters} handleCheckboxChange={handleCheckboxChange} industry={industry} sub_industry={sub_industry} report_type={report_type} region={region} country={country} />
                     </div>
 
                     <div className="border">
@@ -106,7 +217,7 @@ const ReportingList = () => {
                             <div className="border">
                                 {/* <h1 className="text-primary text-20 font-medium">234 reports available</h1> */}
                                 <h1 className="text-primary text-[13px] sm:text-[20px] font-medium">
-                                    234 reports available
+                                     {totalReport ?? "--"} reports available
                                 </h1>
                             </div>
                             <div className="border flex gap-8">
@@ -129,13 +240,13 @@ const ReportingList = () => {
 
                         {/* grid view w-219 grid-cols-3*/}
                         {view === "grid" && <div className="border w-80 sm:w-144 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 mx-auto xl:w-auto gap-6 mt-7">
-                            <GridView />
+                            <GridView listData={listData} />
                         </div>}
 
 
                         {/* list view */}
                         {view === "list" && <div className="border mt-7 flex flex-col gap-6">
-                            <ListView />
+                            <ListView listData={listData} />
                         </div>}
 
 

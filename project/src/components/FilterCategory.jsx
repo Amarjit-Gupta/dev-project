@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const FilterCategory = () => {
+const FilterCategory = ({resetFilters,selectedFilters,setSelectedFilters,handleCheckboxChange,industry,sub_industry,report_type,region,country}) => {
 
 
     const [open, setOpen] = useState(null);
@@ -9,11 +9,10 @@ const FilterCategory = () => {
         setOpen(open === id ? null : id);
     };
 
-
     return (
         <>
             <div className="border">
-                <button className="px-8 py-2 text-primary text-15 font-medium bg-brand">Reset Filter</button>
+                <button className="px-8 py-2 text-primary text-15 font-medium bg-brand cursor-pointer" onClick={resetFilters}>Reset Filter</button>
             </div>
 
             {/* select filter */}
@@ -28,18 +27,50 @@ const FilterCategory = () => {
                     <div className="border px-2 py-1 text-primary text-12 font-regular">Filter3 <span>&times;</span></div>
                 </div>
             </div> */}
+            {/* Selected Filters */}
+            {Object.values(selectedFilters).some(arr => arr.length > 0) && (
+                <div className="border mt-4">
+                    <h1 className="text-primary text-18 font-medium mb-2">Selected Filters</h1>
+
+                    <div className="border hidden xl:block">
+                        <div className="flex flex-wrap gap-1">
+
+                            {Object.entries(selectedFilters).map(([group, items]) =>
+                                items.map((item) => (
+                                    <div
+                                        key={`${group}-${item}`}
+                                        className="px-2 py-1 bg-gray-100 text-12 rounded flex items-center gap-2"
+                                    >
+                                        <span>{item}</span>
+
+                                        <button
+                                            className="text-red-500 font-bold border px-1 cursor-pointer"
+                                            onClick={() =>
+                                                setSelectedFilters(prev => ({
+                                                    ...prev,
+                                                    [group]: prev[group].filter(i => i !== item)
+                                                }))
+                                            }
+                                        >
+                                            x
+                                        </button>
+                                    </div>
+                                ))
+                            )}
+
+                        </div>
+                    </div>
+                </div>
+            )}
+
+
 
             <div className="border flex flex-col gap-2">
-                {/* <div className="border">
-                    <h1 className="text-primary text-15 font-medium">Industry</h1> */}
                 <div
                     className="border flex justify-between items-center cursor-pointer xl:cursor-default"
                     onClick={() => toggle(1)}
                 >
-                    <h1 className="text-primary text-15 font-medium">Industry</h1>
-                    {/* <span className="text-xl font-bold xl:hidden">
-                        {open === 1 ? "×" : "+"}
-                    </span> */}
+                    <h1 className="text-primary text-15 font-medium">Industries</h1>
 
                     <span className={`text-xl font-bold xl:hidden transition-transform duration-300 ${open === 1 ? "rotate-45" : "rotate-0"}`}>+</span>
 
@@ -47,482 +78,164 @@ const FilterCategory = () => {
                 </div>
 
                 {/* </div> */}
-                <div className={`overflow-hidden transition-all duration-300 ${open === 1 ? "max-h-96 opacity-100 mt-2" : "max-h-0 opacity-0"} xl:max-h-full xl:opacity-100 xl:mt-2`}>
+                <div className={`overflow-hidden transition-all duration-300 ${open === 1 ? "h-auto opacity-100 mt-2" : "max-h-0 opacity-0"} xl:max-h-full xl:opacity-100 xl:mt-2`}>
 
-                    <div className="border">
-                        <label className="flex items-center gap-2 cursor-pointer">
-                            <input
-                                type="checkbox"
-                                className="h-4 w-4 accent-[var(--color-brand-primary)]"
-                            />
-                            <span className="text-primary text-16 font-regular">Vitamins & Minerals (10)</span>
-                        </label>
-                    </div>
-                    <div className="border">
-                        <label className="flex items-center gap-2 cursor-pointer">
-                            <input
-                                type="checkbox"
-                                className="h-4 w-4 accent-[var(--color-brand-primary)]"
-                            />
-                            <span className="text-primary text-16 font-regular">Amino Acids (5)</span>
-                        </label>
-                    </div>
-                    <div className="border">
-                        <label className="flex items-center gap-2 cursor-pointer">
-                            <input
-                                type="checkbox"
-                                className="h-4 w-4 accent-[var(--color-brand-primary)]"
-                            />
-                            <span className="text-primary text-16 font-regular">Herbal Extract (3)</span>
-                        </label>
-                    </div>
-                    <div className="border">
-                        <label className="flex items-center gap-2 cursor-pointer">
-                            <input
-                                type="checkbox"
-                                className="h-4 w-4 accent-[var(--color-brand-primary)]"
-                            />
-                            <span className="text-primary text-16 font-regular">Functional Ingredients (7)</span>
-                        </label>
-                    </div>
+                    {/* industry */}
+                    {industry?.map((ind, i) => {
+                        return (
+                            <label key={ind.id} className="flex items-center gap-2 cursor-pointer">
+                                {/* <input
+                                    type="checkbox"
+                                    // value={ind}
+                                    className="h-4 w-4 accent-[var(--color-brand-primary)]"
+                                /> */}
+                                <input
+                                    type="checkbox"
+                                    className="h-4 w-4 accent-[var(--color-brand-primary)]"
+                                    checked={selectedFilters.industries.includes(ind?.name)}
+                                    onChange={() => handleCheckboxChange("industries", ind?.name)}
+                                />
+
+                                <span className="text-primary text-16 font-regular">{ind?.name}</span>
+                            </label>
+                        )
+                    })}
                 </div>
             </div>
 
             <div className="border flex flex-col gap-2">
-                {/* <div className="border">
-                    <h1 className="text-primary text-15 font-medium">Report Type</h1>
-                </div> */}
                 <div
                     className="border flex justify-between items-center cursor-pointer xl:cursor-default"
                     onClick={() => toggle(2)}
                 >
-                    <h1 className="text-primary text-15 font-medium">Report Type</h1>
-                    {/* <span className="text-xl font-bold xl:hidden">
-                        {open === 2 ? "×" : "+"}
-                    </span> */}
+                    <h1 className="text-primary text-15 font-medium">Sub Industries</h1>
                     <span className={`text-xl font-bold xl:hidden transition-transform duration-300 ${open === 2 ? "rotate-45" : "rotate-0"}`}>+</span>
                 </div>
-                <div className={` overflow-hidden transition-all duration-300 ${open === 2 ? "max-h-96 opacity-100 mt-2" : "max-h-0 opacity-0"} xl:max-h-full xl:opacity-100 xl:mt-2`}>
-                    <div className="border">
-                        <label className="flex items-center gap-2 cursor-pointer">
-                            <input
-                                type="checkbox"
-                                className="h-4 w-4 accent-[var(--color-brand-primary)]"
-                            />
-                            <span className="text-primary text-16 font-regular">Market Intelligence Reports (1)</span>
-                        </label>
-                    </div>
-                    <div className="border">
-                        <label className="flex items-center gap-2 cursor-pointer">
-                            <input
-                                type="checkbox"
-                                className="h-4 w-4 accent-[var(--color-brand-primary)]"
-                            />
-                            <span className="text-primary text-16 font-regular">Market Size & Forecast</span>
-                        </label>
-                    </div>
-                    <div className="border">
-                        <label className="flex items-center gap-2 cursor-pointer">
-                            <input
-                                type="checkbox"
-                                className="h-4 w-4 accent-[var(--color-brand-primary)]"
-                            />
-                            <span className="text-primary text-16 font-regular">Competitive Landscape</span>
-                        </label>
-                    </div>
-                    <div className="border">
-                        <label className="flex items-center gap-2 cursor-pointer">
-                            <input
-                                type="checkbox"
-                                className="h-4 w-4 accent-[var(--color-brand-primary)]"
-                            />
-                            <span className="text-primary text-16 font-regular">Pricing & Cost Analysis</span>
-                        </label>
-                    </div>
-                    <div className="border">
-                        <label className="flex items-center gap-2 cursor-pointer">
-                            <input
-                                type="checkbox"
-                                className="h-4 w-4 accent-[var(--color-brand-primary)]"
-                            />
-                            <span className="text-primary text-16 font-regular">Consumer / Usage Insights</span>
-                        </label>
-                    </div>
-                    <div className="border">
-                        <label className="flex items-center gap-2 cursor-pointer">
-                            <input
-                                type="checkbox"
-                                className="h-4 w-4 accent-[var(--color-brand-primary)]"
-                            />
-                            <span className="text-primary text-16 font-regular">Import / Export & Trade</span>
-                        </label>
-                    </div>
-                    <div className="border">
-                        <label className="flex items-center gap-2 cursor-pointer">
-                            <input
-                                type="checkbox"
-                                className="h-4 w-4 accent-[var(--color-brand-primary)]"
-                            />
-                            <span className="text-primary text-16 font-regular">Regulatory Environment</span>
-                        </label>
-                    </div>
-                    <div className="border">
-                        <label className="flex items-center gap-2 cursor-pointer">
-                            <input
-                                type="checkbox"
-                                className="h-4 w-4 accent-[var(--color-brand-primary)]"
-                            />
-                            <span className="text-primary text-16 font-regular">Innovation & Trends</span>
-                        </label>
-                    </div>
+                <div className={` overflow-hidden transition-all duration-300 ${open === 2 ? "h-auto opacity-100 mt-2" : "max-h-0 opacity-0"} xl:max-h-full xl:opacity-100 xl:mt-2`}>
+
+                    {/* sub industry */}
+                    {sub_industry?.map((sub, i) => {
+                        return (
+                            <label key={sub.id} className="flex items-center gap-2 cursor-pointer">
+                                {/* <input
+                                    type="checkbox"
+                                    // value={ind}
+                                    className="h-4 w-4 accent-[var(--color-brand-primary)]"
+                                /> */}
+                                <input
+                                    type="checkbox"
+                                    className="h-4 w-4 accent-[var(--color-brand-primary)]"
+                                    checked={selectedFilters.sub_industries.includes(sub?.name)}
+                                    onChange={() => handleCheckboxChange("sub_industries", sub?.name)}
+                                />
+
+                                <span className="text-primary text-16 font-regular">{sub?.name}</span>
+                            </label>
+                        )
+                    })}
                 </div>
             </div>
 
             <div className="border flex flex-col gap-2">
-                {/* <div className="border">
-                    <h1 className="text-primary text-15 font-medium">Region</h1>
-                </div> */}
                 <div
                     className="border flex justify-between items-center cursor-pointer xl:cursor-default"
                     onClick={() => toggle(3)}
                 >
-                    <h1 className="text-primary text-15 font-medium">Region</h1>
-                    {/* <span className="text-xl font-bold xl:hidden">
-                        {open === 3 ? "×" : "+"}
-                    </span> */}
+                    <h1 className="text-primary text-15 font-medium">Report Types</h1>
                     <span className={`text-xl font-bold xl:hidden transition-transform duration-300 ${open === 3 ? "rotate-45" : "rotate-0"}`}>+</span>
                 </div>
-                <div className={` overflow-hidden transition-all duration-300 ${open === 3 ? "max-h-96 opacity-100 mt-2" : "max-h-0 opacity-0"} xl:max-h-full xl:opacity-100 xl:mt-2`}>
-                    <div className="border">
-                        <label className="flex items-center gap-2 cursor-pointer">
-                            <input
-                                type="checkbox"
-                                className="h-4 w-4 accent-[var(--color-brand-primary)]"
-                            />
-                            <span className="text-primary text-16 font-regular">Global</span>
-                        </label>
-                    </div>
-                    <div className="border">
-                        <label className="flex items-center gap-2 cursor-pointer">
-                            <input
-                                type="checkbox"
-                                className="h-4 w-4 accent-[var(--color-brand-primary)]"
-                            />
-                            <span className="text-primary text-16 font-regular">North America</span>
-                        </label>
-                    </div>
-                    <div className="border">
-                        <label className="flex items-center gap-2 cursor-pointer">
-                            <input
-                                type="checkbox"
-                                className="h-4 w-4 accent-[var(--color-brand-primary)]"
-                            />
-                            <span className="text-primary text-16 font-regular">Latin America</span>
-                        </label>
-                    </div>
-                    <div className="border">
-                        <label className="flex items-center gap-2 cursor-pointer">
-                            <input
-                                type="checkbox"
-                                className="h-4 w-4 accent-[var(--color-brand-primary)]"
-                            />
-                            <span className="text-primary text-16 font-regular">Europe</span>
-                        </label>
-                    </div>
-                    <div className="border">
-                        <label className="flex items-center gap-2 cursor-pointer">
-                            <input
-                                type="checkbox"
-                                className="h-4 w-4 accent-[var(--color-brand-primary)]"
-                            />
-                            <span className="text-primary text-16 font-regular">Middle East & Africa</span>
-                        </label>
-                    </div>
-                    <div className="border">
-                        <label className="flex items-center gap-2 cursor-pointer">
-                            <input
-                                type="checkbox"
-                                className="h-4 w-4 accent-[var(--color-brand-primary)]"
-                            />
-                            <span className="text-primary text-16 font-regular">Asia Pacific</span>
-                        </label>
-                    </div>
+                <div className={` overflow-hidden transition-all duration-300 ${open === 3 ? "h-auto opacity-100 mt-2" : "max-h-0 opacity-0"} xl:max-h-full xl:opacity-100 xl:mt-2`}>
+                    {/* report_types */}
+                    {report_type?.map((report, i) => {
+                        return (
+                            <label key={report.id} className="flex items-center gap-2 cursor-pointer">
+                                {/* <input
+                                    type="checkbox"
+                                    // value={report}
+                                    className="h-4 w-4 accent-[var(--color-brand-primary)]"
+                                /> */}
+                                <input
+                                    type="checkbox"
+                                    className="h-4 w-4 accent-[var(--color-brand-primary)]"
+                                    checked={selectedFilters.report_types.includes(report?.name)}
+                                    onChange={() => handleCheckboxChange("report_types", report?.name)}
+                                />
+
+                                <span className="text-primary text-16 font-regular">{report?.name}</span>
+                            </label>
+                        )
+                    })}
+
                 </div>
             </div>
 
             <div className="border flex flex-col gap-2">
-                {/* <div className="border">
-                    <h1 className="text-primary text-15 font-medium">Popular Countries</h1>
-                </div> */}
                 <div
                     className="border flex justify-between items-center cursor-pointer xl:cursor-default"
                     onClick={() => toggle(4)}
                 >
-                    <h1 className="text-primary text-15 font-medium">Popular Countries</h1>
-                    {/* <span className="text-xl font-bold xl:hidden">
-                        {open === 4 ? "×" : "+"}
-                    </span> */}
+                    <h1 className="text-primary text-15 font-medium">Regions</h1>
                     <span className={`text-xl font-bold xl:hidden transition-transform duration-300 ${open === 4 ? "rotate-45" : "rotate-0"}`}>+</span>
                 </div>
-                <div className={` overflow-hidden transition-all duration-300 ${open === 4 ? "max-h-96 opacity-100 mt-2" : "max-h-0 opacity-0"} xl:max-h-full xl:opacity-100 xl:mt-2`}>
-                    <div className="border">
-                        <label className="flex items-center gap-2 cursor-pointer">
-                            <input
-                                type="checkbox"
-                                className="h-4 w-4 accent-[var(--color-brand-primary)]"
-                            />
-                            <span className="text-primary text-16 font-regular">US</span>
-                        </label>
-                    </div>
-                    <div className="border">
-                        <label className="flex items-center gap-2 cursor-pointer">
-                            <input
-                                type="checkbox"
-                                className="h-4 w-4 accent-[var(--color-brand-primary)]"
-                            />
-                            <span className="text-primary text-16 font-regular">Germany</span>
-                        </label>
-                    </div>
-                    <div className="border">
-                        <label className="flex items-center gap-2 cursor-pointer">
-                            <input
-                                type="checkbox"
-                                className="h-4 w-4 accent-[var(--color-brand-primary)]"
-                            />
-                            <span className="text-primary text-16 font-regular">Spain</span>
-                        </label>
-                    </div>
-                    <div className="border">
-                        <label className="flex items-center gap-2 cursor-pointer">
-                            <input
-                                type="checkbox"
-                                className="h-4 w-4 accent-[var(--color-brand-primary)]"
-                            />
-                            <span className="text-primary text-16 font-regular">China</span>
-                        </label>
-                    </div>
-                    <div className="border">
-                        <label className="flex items-center gap-2 cursor-pointer">
-                            <input
-                                type="checkbox"
-                                className="h-4 w-4 accent-[var(--color-brand-primary)]"
-                            />
-                            <span className="text-primary text-16 font-regular">UK</span>
-                        </label>
-                    </div>
-                    <div className="border">
-                        <label className="flex items-center gap-2 cursor-pointer">
-                            <input
-                                type="checkbox"
-                                className="h-4 w-4 accent-[var(--color-brand-primary)]"
-                            />
-                            <span className="text-primary text-16 font-regular">UAE</span>
-                        </label>
-                    </div>
+                <div className={` overflow-hidden transition-all duration-300 ${open === 4 ? "h-auto opacity-100 mt-2" : "max-h-0 opacity-0"} xl:max-h-full xl:opacity-100 xl:mt-2`}>
+
+                    {/* regions */}
+                    {region?.map((reg, i) => {
+                        return (
+                            <label key={reg.id} className="flex items-center gap-2 cursor-pointer">
+                                {/* <input
+                                    type="checkbox"
+                                    // value={reg}
+                                    className="h-4 w-4 accent-[var(--color-brand-primary)]"
+                                /> */}
+                                <input
+                                    type="checkbox"
+                                    className="h-4 w-4 accent-[var(--color-brand-primary)]"
+                                    checked={selectedFilters.regions.includes(reg?.name)}
+                                    onChange={() => handleCheckboxChange("regions", reg?.name)}
+                                />
+
+                                <span className="text-primary text-16 font-regular">{reg?.name}</span>
+                            </label>
+                        )
+                    })}
+
                 </div>
             </div>
 
             <div className="border flex flex-col gap-2">
-                {/* <div className="border">
-                    <h1 className="text-primary text-15 font-medium">Popular Countries</h1>
-                </div> */}
                 <div
                     className="border flex justify-between items-center cursor-pointer xl:cursor-default"
                     onClick={() => toggle(5)}
                 >
-                    <h1 className="text-primary text-15 font-medium">Popular Countries</h1>
-                    {/* <span className="text-xl font-bold xl:hidden">
-                        {open === 5 ? "×" : "+"}
-                    </span> */}
+                    <h1 className="text-primary text-15 font-medium">Countries</h1>
                     <span className={`text-xl font-bold xl:hidden transition-transform duration-300 ${open === 5 ? "rotate-45" : "rotate-0"}`}>+</span>
                 </div>
-                <div className={` overflow-hidden transition-all duration-300 ${open === 5 ? "max-h-96 opacity-100 mt-2" : "max-h-0 opacity-0"} xl:max-h-full xl:opacity-100 xl:mt-2`}>
-                    <div className="border">
-                        <label className="flex items-center gap-2 cursor-pointer">
-                            <input
-                                type="checkbox"
-                                className="h-4 w-4 accent-[var(--color-brand-primary)]"
-                            />
-                            <span className="text-primary text-16 font-regular">US</span>
-                        </label>
-                    </div>
-                    <div className="border">
-                        <label className="flex items-center gap-2 cursor-pointer">
-                            <input
-                                type="checkbox"
-                                className="h-4 w-4 accent-[var(--color-brand-primary)]"
-                            />
-                            <span className="text-primary text-16 font-regular">Germany</span>
-                        </label>
-                    </div>
-                    <div className="border">
-                        <label className="flex items-center gap-2 cursor-pointer">
-                            <input
-                                type="checkbox"
-                                className="h-4 w-4 accent-[var(--color-brand-primary)]"
-                            />
-                            <span className="text-primary text-16 font-regular">Spain</span>
-                        </label>
-                    </div>
-                    <div className="border">
-                        <label className="flex items-center gap-2 cursor-pointer">
-                            <input
-                                type="checkbox"
-                                className="h-4 w-4 accent-[var(--color-brand-primary)]"
-                            />
-                            <span className="text-primary text-16 font-regular">China</span>
-                        </label>
-                    </div>
-                    <div className="border">
-                        <label className="flex items-center gap-2 cursor-pointer">
-                            <input
-                                type="checkbox"
-                                className="h-4 w-4 accent-[var(--color-brand-primary)]"
-                            />
-                            <span className="text-primary text-16 font-regular">UK</span>
-                        </label>
-                    </div>
-                    <div className="border">
-                        <label className="flex items-center gap-2 cursor-pointer">
-                            <input
-                                type="checkbox"
-                                className="h-4 w-4 accent-[var(--color-brand-primary)]"
-                            />
-                            <span className="text-primary text-16 font-regular">UAE</span>
-                        </label>
-                    </div>
+                <div className={` overflow-hidden transition-all duration-300 ${open === 5 ? "h-auto opacity-100 mt-2" : "max-h-0 opacity-0"} xl:max-h-full xl:opacity-100 xl:mt-2`}>
+
+                    {/* countries */}
+                    {country?.map((coun, i) => {
+                        return (
+                            <label key={coun.id} className="flex items-center gap-2 cursor-pointer">
+                                {/* <input
+                                    type="checkbox"
+                                    // value={coun}
+                                    className="h-4 w-4 accent-[var(--color-brand-primary)]"
+                                /> */}
+                                <input
+                                    type="checkbox"
+                                    className="h-4 w-4 accent-[var(--color-brand-primary)]"
+                                    checked={selectedFilters.countries.includes(coun?.name)}
+                                    onChange={() => handleCheckboxChange("countries", coun?.name)}
+                                />
+
+                                <span className="text-primary text-16 font-regular">{coun?.name}</span>
+                            </label>
+                        )
+                    })}
                 </div>
             </div>
         </>
     );
 };
 export default FilterCategory;
-
-
-
-
-
-
-
-
-// import { useState } from "react";
-
-// const FilterCategory = () => {
-//     const [open, setOpen] = useState(null);
-
-//     const toggle = (id) => {
-//         setOpen(open === id ? null : id);
-//     };
-
-//     const Section = ({ id, title, children }) => (
-//         <div className="border flex flex-col gap-2">
-
-//             {/* Header */}
-//             <div
-//                 className="border flex justify-between items-center cursor-pointer xl:cursor-default"
-//                 onClick={() => toggle(id)}
-//             >
-//                 <h1 className="text-primary text-15 font-medium">{title}</h1>
-//                 <span className="xl:hidden text-xl font-bold">
-//                     {open === id ? "×" : "+"}
-//                 </span>
-//             </div>
-
-//             {/* Content */}
-//             <div className={`overflow-hidden transition-all duration-300 ease-in-out
-//                 xl:max-h-full xl:opacity-100
-//                 ${open === id ? "max-h-[1000px] opacity-100 mt-2" : "max-h-0 opacity-0"}
-//             `}>
-//                 <div className="flex flex-col gap-2">
-//                     {children}
-//                 </div>
-//             </div>
-//         </div>
-//     );
-
-//     return (
-//         <>
-//             {/* Reset */}
-//             <div className="border">
-//                 <button className="px-8 py-2 text-primary text-15 font-medium bg-brand">
-//                     Reset Filter
-//                 </button>
-//             </div>
-
-//             {/* Selected Filter */}
-//             <div className="border">
-//                 <h1 className="text-primary text-20 font-medium">Selected Filter</h1>
-//                 <div className="border mt-2 flex flex-wrap gap-2">
-//                     <div className="border px-2 py-1 text-primary text-12 font-regular">Filter1 ×</div>
-//                     <div className="border px-2 py-1 text-primary text-12 font-regular">Filter2 ×</div>
-//                     <div className="border px-2 py-1 text-primary text-12 font-regular">Filter3 ×</div>
-//                 </div>
-//             </div>
-
-//             {/* INDUSTRY */}
-//             <Section id={1} title="Industry">
-//                 <Checkbox text="Vitamins & Minerals (10)" />
-//                 <Checkbox text="Amino Acids (5)" />
-//                 <Checkbox text="Herbal Extract (3)" />
-//                 <Checkbox text="Functional Ingredients (7)" />
-//             </Section>
-
-//             {/* REPORT TYPE */}
-//             <Section id={2} title="Report Type">
-//                 <Checkbox text="Market Intelligence Reports (1)" />
-//                 <Checkbox text="Market Size & Forecast" />
-//                 <Checkbox text="Competitive Landscape" />
-//                 <Checkbox text="Pricing & Cost Analysis" />
-//                 <Checkbox text="Consumer / Usage Insights" />
-//                 <Checkbox text="Import / Export & Trade" />
-//                 <Checkbox text="Regulatory Environment" />
-//                 <Checkbox text="Innovation & Trends" />
-//             </Section>
-
-//             {/* REGION */}
-//             <Section id={3} title="Region">
-//                 <Checkbox text="Global" />
-//                 <Checkbox text="North America" />
-//                 <Checkbox text="Latin America" />
-//                 <Checkbox text="Europe" />
-//                 <Checkbox text="Middle East & Africa" />
-//                 <Checkbox text="Asia Pacific" />
-//             </Section>
-
-//             {/* POPULAR COUNTRIES */}
-//             <Section id={4} title="Popular Countries">
-//                 <Checkbox text="US" />
-//                 <Checkbox text="Germany" />
-//                 <Checkbox text="Spain" />
-//                 <Checkbox text="China" />
-//                 <Checkbox text="UK" />
-//                 <Checkbox text="UAE" />
-//             </Section>
-
-//             {/* MORE COUNTRIES */}
-//             <Section id={5} title="Popular Countries">
-//                 <Checkbox text="US" />
-//                 <Checkbox text="Germany" />
-//                 <Checkbox text="Spain" />
-//                 <Checkbox text="China" />
-//                 <Checkbox text="UK" />
-//                 <Checkbox text="UAE" />
-//             </Section>
-//         </>
-//     );
-// };
-
-// /* Checkbox Component */
-// const Checkbox = ({ text }) => (
-//     <div className="border">
-//         <label className="flex items-center gap-2 cursor-pointer">
-//             <input
-//                 type="checkbox"
-//                 className="h-4 w-4 accent-[var(--color-brand-primary)]"
-//             />
-//             <span className="text-primary text-16 font-regular">{text}</span>
-//         </label>
-//     </div>
-// );
-
-// export default FilterCategory;
