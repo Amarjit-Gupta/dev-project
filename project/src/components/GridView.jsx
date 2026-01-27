@@ -5,7 +5,7 @@ const GridView = ({ listData }) => {
             {/* card1 */}
             {listData?.map((data, i) => {
                 return (
-                    <div className="border h-102 xl:w-auto bg-surface" key={data.report_id}>
+                    <div className=" h-102 xl:w-auto bg-surface" key={data.report_id}>
                         <div className=" h-[42%]">
                             <div className=" px-4 pt-4">
                                 <h1 className='text-primary text-20 font-medium'>{data?.title}</h1>
@@ -23,7 +23,7 @@ const GridView = ({ listData }) => {
 
 
                         <div className="relative h-[58%]">
-                            <img src={frame1} alt="image" className='h-full w-full' />
+                            <img src={data?.image_path} alt="image" className='h-full w-full' />
                             <div className=" absolute flex gap-2 px-4 bottom-4">
                                 <div className='bg-surface border-text-secondary px-2 py-0.5 text-13 text-primary font-regular'>Market Study</div>
                                 <div className='bg-surface border-text-secondary px-2 py-0.5 text-13 text-primary font-regular'>Importers</div>

@@ -5,27 +5,27 @@ const ListView = ({ listData }) => {
             {/* card1 */}
             {listData?.map((data, i) => {
                 return (
-            <div className="border grid grid-cols-[31%_auto] h-46" key={data.report_id}>
-                <div className="border h-46"><img src={frame1} alt="image" className="h-full w-full" /></div>
-                <div className="border p-4 flex flex-col justify-between">
-                    <div className="border-2 flex flex-col gap-2">
-                        <div className="border"><h1 className="text-primary text-20 font-medium">{data?.title}</h1></div>
+            <div className=" grid grid-cols-[31%_auto] h-46" key={data.report_id}>
+                <div className=" h-46"><img src={data?.image_path} alt="image" className="h-full w-full" /></div>
+                <div className=" p-4 flex flex-col justify-between">
+                    <div className=" flex flex-col gap-2">
+                        <div className=""><h1 className="text-primary text-20 font-medium">{data?.title}</h1></div>
 
-                        <div className="border">
+                        <div className="">
                             <p className="text-primary text-16 font-regular">{data?.subtitle}</p>
                         </div>
 
-                        <div className="border flex gap-2">
-                            <div className="border px-2 py-0.5 text-primary text-13 font-regular">Market Analysis</div>
-                            <div className="border px-2 py-0.5 text-primary text-13 font-regular">Distributors</div>
-                            <div className="border px-2 py-0.5 text-primary text-13 font-regular">Pricing</div>
+                        <div className=" flex gap-2">
+                            <div className=" px-2 py-0.5 text-primary text-13 font-regular">Market Analysis</div>
+                            <div className=" px-2 py-0.5 text-primary text-13 font-regular">Distributors</div>
+                            <div className=" px-2 py-0.5 text-primary text-13 font-regular">Pricing</div>
                         </div>
                     </div>
 
-                    <div className="border">
-                        <div className="border flex justify-end gap-8">
-                            <div className="border content-center text-16 text-primary font-regular">${data?.price_usd}</div>
-                            <div className="border">
+                    <div className="">
+                        <div className=" flex justify-end gap-8">
+                            <div className=" content-center text-16 text-primary font-regular">${data?.price_usd}</div>
+                            <div className="">
                                 <button className="flex gap-2 px-6 py-2 border bg-brand">
                                     <span className="text-15 text-primary font-medium">View Insights</span>
                                     <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">

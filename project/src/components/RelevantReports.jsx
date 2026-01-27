@@ -2,11 +2,11 @@ import frame1 from '../assets/frame1.jpeg';
 const RelevantReports = () => {
     return(
         <>
-        <div className="border">
-                    <h1 className="border text-24 text-primary font-semibold text-center my-12">Relevant Reports</h1>
-                    <div className="border grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
+        <div className="">
+                    <h1 className=" text-24 text-primary font-semibold text-center my-12">Relevant Reports</h1>
+                    <div className=" grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
                         {/* card1 */}
-                        <div className="border h-102 bg-surface">
+                        <div className=" h-102 bg-surface">
                             <div className=" h-[42%]">
                                 <div className=" px-4 pt-4">
                                     <h1 className='text-primary text-20 font-medium'>Consumer Goods Market Report - Consumer and Exporters</h1>
@@ -33,7 +33,7 @@ const RelevantReports = () => {
                             </div>
                         </div>
                         {/* card2 */}
-                        <div className="border h-102 bg-surface">
+                        <div className=" h-102 bg-surface">
                             <div className=" h-[42%]">
                                 <div className=" px-4 pt-4">
                                     <h1 className='text-primary text-20 font-medium'>Consumer Goods Market Report - Consumer and Exporters</h1>
@@ -61,7 +61,7 @@ const RelevantReports = () => {
                         </div>
 
                         {/* card3 */}
-                        <div className="border h-102 bg-surface">
+                        <div className=" h-102 bg-surface">
                             <div className=" h-[42%]">
                                 <div className=" px-4 pt-4">
                                     <h1 className='text-primary text-20 font-medium'>Consumer Goods Market Report - Consumer and Exporters</h1>
@@ -89,7 +89,7 @@ const RelevantReports = () => {
                         </div>
 
                         {/* card4 */}
-                        <div className="border h-102 bg-surface">
+                        <div className=" h-102 bg-surface">
                             <div className=" h-[42%]">
                                 <div className=" px-4 pt-4">
                                     <h1 className='text-primary text-20 font-medium'>Consumer Goods Market Report - Consumer and Exporters</h1>

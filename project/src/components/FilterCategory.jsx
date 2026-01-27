@@ -11,7 +11,7 @@ const FilterCategory = ({resetFilters,selectedFilters,setSelectedFilters,handleC
 
     return (
         <>
-            <div className="border">
+            <div className="">
                 <button className="px-8 py-2 text-primary text-15 font-medium bg-brand cursor-pointer" onClick={resetFilters}>Reset Filter</button>
             </div>
 
@@ -29,10 +29,10 @@ const FilterCategory = ({resetFilters,selectedFilters,setSelectedFilters,handleC
             </div> */}
             {/* Selected Filters */}
             {Object.values(selectedFilters).some(arr => arr.length > 0) && (
-                <div className="border mt-4">
+                <div className=" mt-4">
                     <h1 className="text-primary text-18 font-medium mb-2">Selected Filters</h1>
 
-                    <div className="border hidden xl:block">
+                    <div className=" hidden xl:block">
                         <div className="flex flex-wrap gap-1">
 
                             {Object.entries(selectedFilters).map(([group, items]) =>
@@ -44,7 +44,7 @@ const FilterCategory = ({resetFilters,selectedFilters,setSelectedFilters,handleC
                                         <span>{item}</span>
 
                                         <button
-                                            className="text-red-500 font-bold border px-1 cursor-pointer"
+                                            className="text-red-500 font-bold  px-1 cursor-pointer"
                                             onClick={() =>
                                                 setSelectedFilters(prev => ({
                                                     ...prev,
@@ -65,9 +65,9 @@ const FilterCategory = ({resetFilters,selectedFilters,setSelectedFilters,handleC
 
 
 
-            <div className="border flex flex-col gap-2">
+            <div className=" flex flex-col gap-2">
                 <div
-                    className="border flex justify-between items-center cursor-pointer xl:cursor-default"
+                    className=" flex justify-between items-center cursor-pointer xl:cursor-default"
                     onClick={() => toggle(1)}
                 >
                     <h1 className="text-primary text-15 font-medium">Industries</h1>
@@ -103,9 +103,9 @@ const FilterCategory = ({resetFilters,selectedFilters,setSelectedFilters,handleC
                 </div>
             </div>
 
-            <div className="border flex flex-col gap-2">
+            <div className=" flex flex-col gap-2">
                 <div
-                    className="border flex justify-between items-center cursor-pointer xl:cursor-default"
+                    className=" flex justify-between items-center cursor-pointer xl:cursor-default"
                     onClick={() => toggle(2)}
                 >
                     <h1 className="text-primary text-15 font-medium">Sub Industries</h1>
@@ -136,9 +136,9 @@ const FilterCategory = ({resetFilters,selectedFilters,setSelectedFilters,handleC
                 </div>
             </div>
 
-            <div className="border flex flex-col gap-2">
+            <div className=" flex flex-col gap-2">
                 <div
-                    className="border flex justify-between items-center cursor-pointer xl:cursor-default"
+                    className=" flex justify-between items-center cursor-pointer xl:cursor-default"
                     onClick={() => toggle(3)}
                 >
                     <h1 className="text-primary text-15 font-medium">Report Types</h1>
@@ -169,9 +169,9 @@ const FilterCategory = ({resetFilters,selectedFilters,setSelectedFilters,handleC
                 </div>
             </div>
 
-            <div className="border flex flex-col gap-2">
+            <div className=" flex flex-col gap-2">
                 <div
-                    className="border flex justify-between items-center cursor-pointer xl:cursor-default"
+                    className=" flex justify-between items-center cursor-pointer xl:cursor-default"
                     onClick={() => toggle(4)}
                 >
                     <h1 className="text-primary text-15 font-medium">Regions</h1>
@@ -203,9 +203,9 @@ const FilterCategory = ({resetFilters,selectedFilters,setSelectedFilters,handleC
                 </div>
             </div>
 
-            <div className="border flex flex-col gap-2">
+            <div className=" flex flex-col gap-2">
                 <div
-                    className="border flex justify-between items-center cursor-pointer xl:cursor-default"
+                    className=" flex justify-between items-center cursor-pointer xl:cursor-default"
                     onClick={() => toggle(5)}
                 >
                     <h1 className="text-primary text-15 font-medium">Countries</h1>
