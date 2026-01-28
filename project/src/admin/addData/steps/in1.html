@@ -1,0 +1,262 @@
+import { useState } from "react";
+import FormStep1 from "./steps/FormStep1";
+import FormStep2 from "./steps/FormStep2";
+import FormStep3 from "./steps/FormStep3";
+import FormStep4 from "./steps/FormStep4";
+import FormStep5 from "./steps/FormStep5";
+import FormStep6 from "./steps/FormStep6";
+import ReviewStep from "./steps/ReviewStep";
+import StepIndicator from "./steps/StepIndicator";
+
+const totalSteps = 7;
+
+const MultiStepForm = () => {
+  const [step, setStep] = useState(1);
+  const [loading, setLoading] = useState(false);
+
+  // ------------------ Step 1 ------------------
+  const [reportTitle, setReportTitle] = useState("");
+  const [subTitle, setSubTitle] = useState("");
+  const [industry, setIndustry] = useState("");
+  const [subIndustry, setSubIndustry] = useState("");
+  const [regions, setRegions] = useState([]);
+  const [country, setCountry] = useState([]);
+  const [reportType, setReportType] = useState("");
+  const [publishDate, setPublishDate] = useState("");
+  const [coveragePeriodFrom, setCoveragePeriodFrom] = useState("");
+  const [coveragePeriodTo, setCoveragePeriodTo] = useState("");
+
+  // ------------------ Step 2 ------------------
+  const [reportCovers, setReportCovers] = useState([]);
+  const [reportSupports, setReportSupports] = useState([]);
+
+  // ------------------ Step 3 ------------------
+  const [availableReports, setAvailableReports] = useState("");
+  const [uploadedFile, setUploadedFile] = useState(null);
+  const [samplePDF, setSamplePDF] = useState(null);
+  const [image, setImage] = useState(null);
+  const [charts, setCharts] = useState(null);
+
+  // ------------------ Step 4 ------------------
+  const [sectionName, setSectionName] = useState("");
+  const [sectionGroup, setSectionGroup] = useState("");
+  const [shortDescription, setShortDescription] = useState("");
+  const [previewAvailable, setPreviewAvailable] = useState(null);
+  const [sDescription, setSDescription] = useState("");
+  const [fullReport, setFullReport] = useState(null);
+  const [sectionPDF, setSectionPDF] = useState(null);
+
+  // ------------------ Step 5 ------------------
+  const [reportPrice, setReportPrice] = useState("");
+
+  // ------------------ Step 6 ------------------
+  const [status, setStatus] = useState("");
+  const [fHomepage, setFHomepage] = useState(null);
+  const [seoSlug, setSeoSlug] = useState("");
+  const [seoTitle, setSeoTitle] = useState("");
+  const [seoKeywords, setSeoKeywords] = useState("");
+  const [seoDescription, setSeoDescription] = useState("");
+
+  const handleNext = async () => {
+    setLoading(true);
+
+    try {
+      let response;
+
+      // ------------------ Step 1 ------------------
+      if (step === 1) {
+        // validation
+        if (!reportTitle || !subTitle || !industry) {
+          throw new Error("Please fill all required fields in Step 1");
+        }
+
+        response = await fetch("/api/step1", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            reportTitle,
+            subTitle,
+            industry,
+            subIndustry,
+            regions,
+            country,
+            reportType,
+            publishDate,
+            coveragePeriodFrom,
+            coveragePeriodTo,
+          }),
+        });
+      }
+
+      // ------------------ Step 2 ------------------
+      if (step === 2) {
+        if (!reportCovers.length || !reportSupports.length) {
+          throw new Error("Please fill all required fields in Step 2");
+        }
+
+        response = await fetch("/api/step2", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ reportCovers, reportSupports }),
+        });
+      }
+
+      // ------------------ Step 3 ------------------
+      if (step === 3) {
+        if (!availableReports || !uploadedFile) {
+          throw new Error("Please fill all required fields in Step 3");
+        }
+
+        const formData = new FormData();
+        formData.append("availableReports", availableReports);
+        formData.append("uploadedFile", uploadedFile);
+        if (samplePDF) formData.append("samplePDF", samplePDF);
+        if (image) formData.append("image", image);
+        if (charts) formData.append("charts", charts);
+
+        response = await fetch("/api/step3", {
+          method: "POST",
+          body: formData,
+        });
+      }
+
+      // ------------------ Step 4 ------------------
+      if (step === 4) {
+        if (!sectionName || !sectionGroup || !shortDescription) {
+          throw new Error("Please fill all required fields in Step 4");
+        }
+
+        const formData = new FormData();
+        formData.append("sectionName", sectionName);
+        formData.append("sectionGroup", sectionGroup);
+        formData.append("shortDescription", shortDescription);
+        formData.append("previewAvailable", previewAvailable);
+        formData.append("sDescription", sDescription);
+        formData.append("fullReport", fullReport);
+        if (sectionPDF) formData.append("sectionPDF", sectionPDF);
+
+        response = await fetch("/api/step4", {
+          method: "POST",
+          body: formData,
+        });
+      }
+
+      // ------------------ Step 5 ------------------
+      if (step === 5) {
+        if (!reportPrice) throw new Error("Please enter report price");
+        response = await fetch("/api/step5", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ reportPrice }),
+        });
+      }
+
+      // ------------------ Step 6 ------------------
+      if (step === 6) {
+        if (!status) throw new Error("Please select status in Step 6");
+
+        response = await fetch("/api/step6", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            status,
+            fHomepage,
+            seoSlug,
+            seoTitle,
+            seoKeywords,
+            seoDescription,
+          }),
+        });
+      }
+
+      if (!response) throw new Error("Invalid step");
+
+      const result = await response.json();
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.message || "Something went wrong");
+      }
+
+      alert(result.message || `Step ${step} submitted successfully`);
+
+      if (step < totalSteps) setStep(step + 1);
+
+    } catch (err) {
+      alert(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handlePrev = () => {
+    if (step > 1) setStep(step - 1);
+  };
+
+  return (
+    <div>
+      <h1>MultiStepForm</h1>
+      <StepIndicator step={step} setStep={setStep} />
+
+      <div>
+        {step === 1 && (
+          <FormStep1
+            reportTitle={reportTitle} setReportTitle={setReportTitle}
+            subTitle={subTitle} setSubTitle={setSubTitle}
+            industry={industry} setIndustry={setIndustry}
+            subIndustry={subIndustry} setSubIndustry={setSubIndustry}
+            regions={regions} setRegions={setRegions}
+            country={country} setCountry={setCountry}
+            reportType={reportType} setReportType={setReportType}
+            publishDate={publishDate} setPublishDate={setPublishDate}
+            coveragePeriodFrom={coveragePeriodFrom} setCoveragePeriodFrom={setCoveragePeriodFrom}
+            coveragePeriodTo={coveragePeriodTo} setCoveragePeriodTo={setCoveragePeriodTo}
+          />
+        )}
+
+        {step === 2 && (
+          <FormStep2 reportCovers={reportCovers} setReportCovers={setReportCovers}
+            reportSupports={reportSupports} setReportSupports={setReportSupports} />
+        )}
+
+        {step === 3 && (
+          <FormStep3 availableReports={availableReports} setAvailableReports={setAvailableReports}
+            uploadedFile={uploadedFile} setUploadedFile={setUploadedFile}
+            samplePDF={samplePDF} setSamplePDF={setSamplePDF}
+            image={image} setImage={setImage} charts={charts} setCharts={setCharts} />
+        )}
+
+        {step === 4 && (
+          <FormStep4 sectionName={sectionName} setSectionName={setSectionName}
+            sectionGroup={sectionGroup} setSectionGroup={setSectionGroup}
+            shortDescription={shortDescription} setShortDescription={setShortDescription}
+            previewAvailable={previewAvailable} setPreviewAvailable={setPreviewAvailable}
+            sDescription={sDescription} setSDescription={setSDescription}
+            fullReport={fullReport} setFullReport={setFullReport}
+            sectionPDF={sectionPDF} setSectionPDF={setSectionPDF} />
+        )}
+
+        {step === 5 && (
+          <FormStep5 reportPrice={reportPrice} setReportPrice={setReportPrice} />
+        )}
+
+        {step === 6 && (
+          <FormStep6 status={status} setStatus={setStatus} fHomepage={fHomepage} setFHomepage={setFHomepage}
+            seoSlug={seoSlug} setSeoSlug={setSeoSlug} seoTitle={seoTitle} setSeoTitle={setSeoTitle}
+            seoKeywords={seoKeywords} setSeoKeywords={setSeoKeywords} seoDescription={seoDescription} setSeoDescription={setSeoDescription} />
+        )}
+
+        {step === 7 && <ReviewStep />}
+      </div>
+
+      <div>
+        {step > 1 && <button onClick={handlePrev}>Back</button>}
+        {step < totalSteps
+          ? <button onClick={handleNext} disabled={loading}>{loading ? "Submitting..." : "Next"}</button>
+          : <button disabled={loading}>{loading ? "Submitting..." : "Publish Report"}</button>
+        }
+      </div>
+    </div>
+  );
+};
+
+export default MultiStepForm;
