@@ -1,5 +1,3 @@
-import { IoArrowForwardSharp } from "react-icons/io5";
-import MultiSelectDropdown from "./MultiSelectDropDown";
 import { useState } from "react";
 import FileUpload from "./FileUpload";
 const FormStep4 = () => {

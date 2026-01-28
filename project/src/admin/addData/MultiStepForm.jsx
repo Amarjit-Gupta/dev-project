@@ -31,10 +31,10 @@ const MultiStepForm = () => {
             <h1>MultiStepForm</h1>
             {/*  steps */}
             {/* <StepIndicator step={formStep} /> */}
-        <div className="border hidden xl:block"><StepIndicator step={formStep} setStep={setFormStep} /></div>
+        <div className="border"><StepIndicator step={formStep} setStep={setFormStep} /></div>
             
 
-            <div className="border w-80 xl:w-230 m-auto p-4">
+            <div className="border w-230 m-auto p-4">
                 {formStep === 1 && <FormStep1 />}
                 {formStep === 2 && <FormStep2 />}
                 {formStep === 3 && <FormStep3 />}
@@ -44,7 +44,7 @@ const MultiStepForm = () => {
                 {formStep === 7 && <ReviewStep />}
             </div>
 
-            <div className="border w-80 xl:w-230 h-9 m-auto relative">
+            <div className="border w-230 h-9 m-auto relative">
 
                 {formStep > 1 && (
                     <button className="border absolute left-4 h-full px-4 font-medium text-primary border-text-primary cursor-pointer" onClick={handlePrev}>

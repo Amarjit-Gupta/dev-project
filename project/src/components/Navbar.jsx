@@ -32,7 +32,7 @@ const Navbar = () => {
                     <li className="block lg:inline-block lg:pl-9 py-5 lg:py-0">Industries</li>
                     <li className="block lg:inline-block lg:pl-9 py-5 lg:py-0"><NavLink to={'/report'}>Reports</NavLink></li>
                     <li className="block lg:inline-block lg:pl-9 py-5 lg:py-0">Use Cases</li>
-                    <li className="block lg:inline-block lg:pl-9 py-5 lg:py-0">Pricing</li>
+                    <li className="block lg:inline-block lg:pl-9 py-5 lg:py-0"><NavLink to={"/pricing"}>Pricing</NavLink></li>
                 </ul>
 
                 <div className="hidden lg:block">
