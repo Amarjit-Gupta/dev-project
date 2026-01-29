@@ -126,7 +126,7 @@ const MultiStepForm = () => {
     // };
 
 
-    const handleNext = () => {
+    const handleNext = async () => {
         try {
 
             // step1  // see regions and country
@@ -135,6 +135,22 @@ const MultiStepForm = () => {
                     setError(true);
                     return;
                 }
+
+                // for test only
+                // try{
+                //     let result = await fetch("https://andy-joint-playlist-commerce.trycloudflare.com/reports/step1/save-draft",{
+                //         method:"POST",
+                //         body:JSON.stringify({reportTitle, subTitle, industry, subIndustry, regions, country, reportType, publishDate, coveragePeriodFrom, coveragePeriodTo}),
+                //         headers:{"Content-Type":"application/json"},
+                //         credentials:"include"
+                //     });
+                //     let data = await result.json();
+                //     console.log(data);
+                // }
+                // catch(err){
+                //     console.log("Something went wrong");
+                // }
+                
                 setError(false);
                 console.log(reportTitle, subTitle, industry, subIndustry, regions, country, reportType, publishDate, coveragePeriodFrom, coveragePeriodTo);
             }
@@ -338,7 +354,7 @@ const MultiStepForm = () => {
             <div className="border hidden lg:block"><StepIndicator step={formStep} setStep={setFormStep} /></div>
 
 
-            <div className="border w-80 sm:w-160 md:w-190 lg:w-230 m-auto p-4">
+            <div className="border w-80 sm:w-160 md:w-190 lg:w-230 m-auto p-2">
                 {formStep === 1 && <FormStep1
                     reportTitle={reportTitle} setReportTitle={setReportTitle}
                     subTitle={subTitle} setSubTitle={setSubTitle}
@@ -408,12 +424,12 @@ const MultiStepForm = () => {
             <div className="border w-80 sm:w-160 md:w-190 lg:w-230 h-9 m-auto relative my-6">
 
                 {formStep > 1 && (
-                    <button className="border absolute left-4 h-full px-4 font-medium text-primary border-text-primary cursor-pointer" onClick={handlePrev}>
+                    <button className="border absolute left-2 h-full px-4 font-medium text-primary border-text-primary cursor-pointer" onClick={handlePrev}>
                         Back
                     </button>
                 )}
 
-                <div className="absolute right-4 flex gap-2 h-full">
+                <div className="absolute right-2 flex gap-2 h-full">
                     <button className="border h-full px-4 font-medium text-primary border-text-primary cursor-pointer">
                         Save Draft
                     </button>

@@ -7,10 +7,65 @@ import c1 from '../assets/c1.svg';
 import c2 from '../assets/c2.svg';
 import c3 from '../assets/c3.svg';
 import c4 from '../assets/c4.svg';
+import { nURL } from '../URL';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const HomePage = () => {
+
+    const navigate = useNavigate();
+
+    const handleLogout = async () => {
+        try {
+            const result = await fetch(`${nURL}/logout`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                credentials: "include"
+            });
+
+            const data = await result.json();
+
+            console.log(data);
+
+            if (data.message) {
+                alert(data.message);
+                navigate("/login");
+            }
+
+        } catch (err) {
+            console.error("Something went wrong:", err.message);
+        }
+    }
+
+    const authMe = async() => {
+        try {
+            const result = await fetch(`${nURL}/auth/me`, {
+                method: "GET",
+                // headers: { "Content-Type": "application/json" },
+                credentials: "include"
+            });
+
+            const data = await result.json();
+
+            console.log("auth: ",data);
+
+            // if (data.message) {
+            //     alert(data.message);
+            //     navigate("/login");
+            // }
+
+        } catch (err) {
+            console.error("Something went wrong:", err.message);
+        }
+    }
+
+    useEffect(() => {
+        authMe();
+    }, []);
+
     return (
         <>
+            <button onClick={handleLogout} className="border cursor-pointer">logout</button>
             {/* main content w-140 */}
             <div className=" h-120 flex items-center w-full bg-gray-300 hero-bg-img">
                 <div className=" w-80 sm:w-140 xl:w-285 m-auto flex gap-5 justify-center">
@@ -387,3 +442,4 @@ const HomePage = () => {
     );
 };
 export default HomePage;
+

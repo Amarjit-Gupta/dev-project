@@ -28,9 +28,9 @@ const Navbar = () => {
                 <button className='lg:hidden text-2xl' onClick={() => setMenu(!menu)}>{menu ? <span><RxCross2 /></span> : <span><RxHamburgerMenu /></span>}</button>
 
                 <ul className={`transition-all duration-500 fixed top-21 lg:top-0 lg:static w-full lg:w-auto h-full lg:h-auto text-center bg-surface ${menu ? "right-0" : "-right-[100%]"}`}>
-                    <li className="block lg:inline-block py-5 lg:py-0"><NavLink to={'/'}>Home</NavLink></li>
+                    <li className="block lg:inline-block py-5 lg:py-0"><NavLink to={'/'} onClick={()=>setMenu(false)}>Home</NavLink></li>
                     <li className="block lg:inline-block lg:pl-9 py-5 lg:py-0">Industries</li>
-                    <li className="block lg:inline-block lg:pl-9 py-5 lg:py-0"><NavLink to={'/report'}>Reports</NavLink></li>
+                    <li className="block lg:inline-block lg:pl-9 py-5 lg:py-0"><NavLink to={'/report'} onClick={()=>setMenu(false)}>Reports</NavLink></li>
                     <li className="block lg:inline-block lg:pl-9 py-5 lg:py-0">Use Cases</li>
                     <li className="block lg:inline-block lg:pl-9 py-5 lg:py-0"><NavLink to={"/pricing"}>Pricing</NavLink></li>
                 </ul>
