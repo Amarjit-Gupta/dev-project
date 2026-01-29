@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FormStep1 from "./steps/FormStep1";
 import FormStep2 from "./steps/FormStep2";
 import FormStep3 from "./steps/FormStep3";
@@ -7,6 +7,7 @@ import FormStep5 from "./steps/FormStep5";
 import ReviewStep from "./steps/ReviewStep";
 import StepIndicator from "./steps/StepIndicator";
 import FormStep6 from "./steps/FormStep6";
+import { nURL } from "../../URL";
 
 const totalSteps = 7;
 
@@ -347,6 +348,37 @@ const MultiStepForm = () => {
             setFormStep(formStep - 1);
         }
     };
+
+
+
+
+
+    // for test 
+    const authMe = async() => {
+            try {
+                const result = await fetch(`${nURL}/auth/me`, {
+                    method: "GET",
+                    // headers: { "Content-Type": "application/json" },
+                    credentials: "include"
+                });
+    
+                const data = await result.json();
+    
+                console.log("auth: ",data);
+    
+                // if (data.message) {
+                //     alert(data.message);
+                //     navigate("/login");
+                // }
+    
+            } catch (err) {
+                console.error("Something went wrong:", err.message);
+            }
+        }
+    
+        useEffect(() => {
+            authMe();
+        }, []);
 
     return (
         <>

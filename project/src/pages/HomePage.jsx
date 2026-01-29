@@ -37,32 +37,6 @@ const HomePage = () => {
         }
     }
 
-    const authMe = async() => {
-        try {
-            const result = await fetch(`${nURL}/auth/me`, {
-                method: "GET",
-                // headers: { "Content-Type": "application/json" },
-                credentials: "include"
-            });
-
-            const data = await result.json();
-
-            console.log("auth: ",data);
-
-            // if (data.message) {
-            //     alert(data.message);
-            //     navigate("/login");
-            // }
-
-        } catch (err) {
-            console.error("Something went wrong:", err.message);
-        }
-    }
-
-    useEffect(() => {
-        authMe();
-    }, []);
-
     return (
         <>
             <button onClick={handleLogout} className="border cursor-pointer">logout</button>
@@ -443,3 +417,103 @@ const HomePage = () => {
 };
 export default HomePage;
 
+
+
+
+
+
+
+
+
+
+// import { useState, useEffect } from 'react';
+
+// import { useNavigate } from 'react-router-dom';
+ 
+// export default function HomePage() {
+
+//   const [isLoggedIn, setIsLoggedIn] = useState(null);
+
+//   const [redirecting, setRedirecting] = useState(false);
+
+//   const navigate = useNavigate();
+ 
+//   useEffect(() => {
+
+//     const authMe = async () => {
+
+//       try {
+
+//         const res = await fetch(`https://andy-joint-playlist-commerce.trycloudflare.com/auth/me`, {
+
+//           method: "GET",
+
+//           credentials: "include"
+
+//         });
+ 
+//         if (res.status === 401) {
+
+//           setIsLoggedIn(false);
+
+//           return;
+
+//         }
+ 
+//         if (!res.ok) {
+
+//           setIsLoggedIn(false);
+
+//           return;
+
+//         }
+ 
+//         const data = await res.json();
+
+//         console.log("auth:", data);
+
+//         setIsLoggedIn(true);
+
+//       } catch (err) {
+
+//         console.error("Auth check failed:", err);
+
+//         setIsLoggedIn(false);
+
+//       }
+
+//     };
+ 
+//     authMe();
+
+//   }, []);
+ 
+//   // ✅ Safe navigation: only in useEffect, not during render
+
+//   useEffect(() => {
+
+//     if (isLoggedIn === false && !redirecting) {
+
+//       setRedirecting(true);
+
+//       navigate("/login");
+
+//     }
+
+//   }, [isLoggedIn, redirecting, navigate]);
+ 
+//   if (isLoggedIn === null) return <div>Loading...</div>;
+
+//   if (isLoggedIn === false) return <div>Redirecting...</div>;
+ 
+//   // Authenticated
+
+//   return (
+// <div>
+// <h1>Welcome to Reports Dashboard</h1>
+// </div>
+
+//   );
+
+// }
+ 

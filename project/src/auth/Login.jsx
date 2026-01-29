@@ -66,7 +66,7 @@ const Login = () => {
 
             if (data.message) {
                 alert(data.message);
-                navigate("/");
+                navigate("/add");
 
             }
             else {
