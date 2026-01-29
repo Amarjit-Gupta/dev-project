@@ -37,6 +37,35 @@ const HomePage = () => {
         }
     }
 
+
+
+     // for test 
+    const authMe = async() => {
+            try {
+                const result = await fetch(`${nURL}/auth/me`, {
+                    method: "GET",
+                    // headers: { "Content-Type": "application/json" },
+                    credentials: "include"
+                });
+    
+                const data = await result.json();
+    
+                console.log("auth: ",data);
+    
+                // if (data.message) {
+                //     alert(data.message);
+                //     navigate("/login");
+                // }
+    
+            } catch (err) {
+                console.error("Something went wrong:", err.message);
+            }
+        }
+    
+        useEffect(() => {
+            authMe();
+        }, []);
+
     return (
         <>
             <button onClick={handleLogout} className="border cursor-pointer">logout</button>

@@ -66,6 +66,15 @@ const MultiStepForm = () => {
     const [seoKeywords, setSeoKeywords] = useState("");  // text
     const [seoDescription, setSeoDescription] = useState("");  // text
 
+
+    // for get form data
+
+    const [getIndustry, setGetIndustry] = useState([]);
+    const [getSubindustry, setGetSubindustry] = useState([]);
+    const [getRegions, setGetRegions] = useState([]);
+    const [getCountries, setGetCountries] = useState([]);
+    const [getReportTypes, setGetReportTypes] = useState([]);
+
     // step1 data (complete)
     // console.log("1", reportTitle);
     // console.log("2", subTitle);
@@ -137,23 +146,49 @@ const MultiStepForm = () => {
                     return;
                 }
 
+                // state data
+                const payload = {
+                    title: reportTitle,
+                    subtitle: subTitle,
+                    industry_id: industry,
+                    sub_industry_id: subIndustry,
+                    region_id: regions,       // ye array me hai
+                    country_id: country,      // ye array me hai
+                    report_type_id: reportType,
+                    coverage_start_year: Number(coveragePeriodFrom),
+                    coverage_end_year: Number(coveragePeriodTo),
+                    publish_date: publishDate
+                };
+                // console.log("allData: ",reportTitle, subTitle, industry, subIndustry, regions, country, reportType, publishDate, coveragePeriodFrom, coveragePeriodTo);
+
+                console.log("1: ", reportTitle);
+                console.log("2: ", subTitle);
+                console.log("3: ", industry);
+                console.log("4: ", subIndustry);
+                console.log("5: ", regions);
+                console.log("6: ", country);
+                console.log("7: ", reportType);
+                console.log("8: ", publishDate);
+                console.log("9: ", coveragePeriodFrom);
+                console.log("10: ", coveragePeriodTo);
+
                 // for test only
-                // try{
-                //     let result = await fetch("https://andy-joint-playlist-commerce.trycloudflare.com/reports/step1/save-draft",{
-                //         method:"POST",
-                //         body:JSON.stringify({reportTitle, subTitle, industry, subIndustry, regions, country, reportType, publishDate, coveragePeriodFrom, coveragePeriodTo}),
-                //         headers:{"Content-Type":"application/json"},
-                //         credentials:"include"
-                //     });
-                //     let data = await result.json();
-                //     console.log(data);
-                // }
-                // catch(err){
-                //     console.log("Something went wrong");
-                // }
-                
+                try {
+                    let result = await fetch("https://andy-joint-playlist-commerce.trycloudflare.com/reports/step1/save-draft", {
+                        method: "POST",
+                        body: JSON.stringify(payload),
+                        headers: { "Content-Type": "application/json" },
+                        credentials: "include"
+                    });
+                    let data = await result.json();
+                    console.log(data);
+                }
+                catch (err) {
+                    console.log("Something went wrong");
+                }
+
                 setError(false);
-                console.log(reportTitle, subTitle, industry, subIndustry, regions, country, reportType, publishDate, coveragePeriodFrom, coveragePeriodTo);
+                // console.log(reportTitle, subTitle, industry, subIndustry, regions, country, reportType, publishDate, coveragePeriodFrom, coveragePeriodTo);
             }
 
             // step2
@@ -350,35 +385,39 @@ const MultiStepForm = () => {
     };
 
 
-
-
-
-    // for test 
-    const authMe = async() => {
-            try {
-                const result = await fetch(`${nURL}/auth/me`, {
-                    method: "GET",
-                    // headers: { "Content-Type": "application/json" },
-                    credentials: "include"
-                });
-    
-                const data = await result.json();
-    
-                console.log("auth: ",data);
-    
-                // if (data.message) {
-                //     alert(data.message);
-                //     navigate("/login");
-                // }
-    
-            } catch (err) {
-                console.error("Something went wrong:", err.message);
+    const getFormData = async () => {
+        try {
+            let result = await fetch(`${nURL}/filters`);
+            let data = await result.json();
+            if (data) {
+                setGetIndustry(data?.industries);
+                setGetSubindustry(data?.sub_industries);
+                setGetRegions(data?.regions);
+                setGetCountries(data?.countries);
+                setGetReportTypes(data?.report_types);
+                // console.log(data);
+            }
+            else {
+                console.log("data not found");
             }
         }
-    
-        useEffect(() => {
-            authMe();
-        }, []);
+        catch (err) {
+            console.log("something went wrong...");
+        }
+    }
+
+
+    useEffect(() => {
+        getFormData();
+    }, []);
+
+
+    // console.log("getIndustry",getIndustry);
+    // console.log("getSubindustry",getSubindustry);
+    // console.log("getRegions",getRegions);
+    // console.log("getCountries",getCountries);
+    // console.log("getReportTypes",getReportTypes);
+
 
     return (
         <>
@@ -399,6 +438,11 @@ const MultiStepForm = () => {
                     coveragePeriodFrom={coveragePeriodFrom} setCoveragePeriodFrom={setCoveragePeriodFrom}
                     coveragePeriodTo={coveragePeriodTo} setCoveragePeriodTo={setCoveragePeriodTo}
                     error={error}
+                    getIndustry={getIndustry}
+                    getSubindustry={getSubindustry}
+                    getRegions={getRegions}
+                    getCountries={getCountries}
+                    getReportTypes={getReportTypes}
                 />}
                 {formStep === 2 && <FormStep2
                     reportCovers={reportCovers} setReportCovers={setReportCovers}

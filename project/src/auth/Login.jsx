@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IoEyeOutline } from "react-icons/io5";
 import { FaRegEyeSlash } from "react-icons/fa";
 import { FaRegEye } from "react-icons/fa";
@@ -66,7 +66,7 @@ const Login = () => {
 
             if (data.message) {
                 alert(data.message);
-                navigate("/add");
+                navigate("/");
 
             }
             else {
@@ -78,7 +78,6 @@ const Login = () => {
             console.error("Something went wrong:", err.message);
         }
     };
-
 
     return (
         <div className="h-[90vh] flex justify-center items-center">

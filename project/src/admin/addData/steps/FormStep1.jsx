@@ -23,7 +23,12 @@ const FormStep1 = (
         setCoveragePeriodFrom,
         coveragePeriodTo,
         setCoveragePeriodTo,
-        error }
+        error,
+        getIndustry,
+        getSubindustry,
+        getRegions,
+        getCountries,
+        getReportTypes }
 ) => {
 
 
@@ -89,7 +94,7 @@ const FormStep1 = (
                     </label>
                     <input type="text" id="reportTitle" className="w-full border h-10 px-0.5 text-20" placeholder="Enter Report Title" value={reportTitle} onChange={(e) => setReportTitle(e.target.value)} />
                     {error && !reportTitle && <p className="text-red-500 ml-1">Please Enter ReportTitle...</p>}
-                    
+
                 </div>
 
                 {/* field3 */}
@@ -100,7 +105,7 @@ const FormStep1 = (
                 </div>
 
                 {/* field4 */}
-                <div className="border">
+                {/* <div className="border">
                     <label className="text-15 font-medium text-primary" htmlFor="options">
                         Industry <sup>*</sup>
                     </label>
@@ -112,11 +117,36 @@ const FormStep1 = (
                         <option value="option5">option5</option>
                     </select>
                     {error && !industry && <p className="text-red-500 ml-1">Please select industry...</p>}
+                </div> */}
+                <div className="border">
+                    <label className="text-15 font-medium text-primary">
+                        Industry <sup>*</sup>
+                    </label>
+
+                    <select
+                        className="w-full mt-1 border h-10 text-20"
+                        value={industry}
+                        onChange={(e) => setIndustry(e.target.value)}
+                    >
+                        <option value="">-- Select Industry --</option>
+
+                        {getIndustry?.map((item) => (
+                            <option key={item.id} value={item.name}>
+                                {item.name}
+                            </option>
+                        ))}
+                    </select>
+
+                    {error && !industry && (
+                        <p className="text-red-500 ml-1">Please select industry...</p>
+                    )}
                 </div>
 
 
+
+
                 {/* field5 */}
-                <div className="border">
+                {/* <div className="border">
                     <label className="text-15 font-medium text-primary" htmlFor="options">
                         Sub-Industry <sup>*</sup>
                     </label>
@@ -128,13 +158,39 @@ const FormStep1 = (
                         <option value="option5">option5</option>
                     </select>
                     {error && !subIndustry && <p className="text-red-500 ml-1">Please select subIndustry...</p>}
+                </div> */}
+                <div className="border">
+                    <label className="text-15 font-medium text-primary">
+                        Sub-Industry <sup>*</sup>
+                    </label>
+
+                    <select
+                        className="w-full mt-1 border h-10 text-20"
+                        value={subIndustry}
+                        onChange={(e) => setSubIndustry(e.target.value)}
+                    >
+                        <option value="">-- Select Sub-Industry --</option>
+
+                        {getSubindustry?.map((item) => (
+                            <option key={item.id} value={item.name}>
+                                {item.name}
+                            </option>
+                        ))}
+                    </select>
+
+                    {error && !subIndustry && (
+                        <p className="text-red-500 ml-1">
+                            Please select subIndustry...
+                        </p>
+                    )}
                 </div>
+
 
                 {/* field6 */}
                 <div className="border">
                     <MultiSelectDropdown
                         label="Regions* (Multi select)"
-                        options={["Asia", "Europe", "Africa", "North America", "South America", "Middle East", "Southeast Asia", "South Asia", "East Asia", "Oceania (Australia & Pacific region)"]}
+                        options={getRegions?.map((item) => item.name)}
                         value={regions}
                         onChange={(val) => setRegions(val)}
                     />
@@ -145,7 +201,7 @@ const FormStep1 = (
                 <div className="border">
                     <MultiSelectDropdown
                         label="Country* (Multi select)"
-                        options={["India", "United States", "Canada", "United Kingdom", "Australia", "Germany", "France", "Japan", "China", "Brazil"]}
+                        options={getCountries?.map((item) => item.name)}
                         value={country}
                         onChange={(val) => setCountry(val)}
                     />
@@ -153,7 +209,7 @@ const FormStep1 = (
                 </div>
 
                 {/* field8 */}
-                <div className="border">
+                {/* <div className="border">
                     <label className="text-15 font-medium text-primary" htmlFor="reportType">
                         Report Type <sup>*</sup>
                     </label>
@@ -165,34 +221,113 @@ const FormStep1 = (
                         <option value="option5">option5</option>
                     </select>
                     {error && !reportType && <p className="text-red-500 ml-1">Please select ReportType...</p>}
+                </div> */}
+                <div className="border">
+                    <label className="text-15 font-medium text-primary" htmlFor="reportType">
+                        Report Type <sup>*</sup>
+                    </label>
+
+                    <select
+                        className="w-full mt-1 border h-10 text-20"
+                        id="reportType"
+                        value={reportType}
+                        onChange={(e) => setReportType(e.target.value)}
+                    >
+                        <option value="">-- Select Report Type --</option>
+
+                        {getReportTypes?.map((item) => (
+                            <option key={item.id} value={item.name}>
+                                {item.name}
+                            </option>
+                        ))}
+                    </select>
+
+                    {error && !reportType && (
+                        <p className="text-red-500 ml-1">
+                            Please select Report Type...
+                        </p>
+                    )}
                 </div>
+
 
                 {/* field9 */}
                 <div className="border">
                     <label className="text-16 font-medium text-primary" htmlFor="publishDate">Publish Date<sup>*</sup>
                     </label>
                     {/* {publishDate && */}
-                     <input type="text" id="publishDate" className="w-full border h-10 px-0.5 text-20" value={publishDate} onChange={(e) => setPublishDate(e.target.value)} />
-                    {error && !publishDate && <p className="text-red-500 ml-1">Please Enter publishDate...</p>}
+                    <input type="date" id="publishDate" className="w-full border h-10 px-0.5 text-20" value={publishDate} onChange={(e) => setPublishDate(e.target.value)} />
+                    {error && !publishDate && <p className="text-red-500 ml-1">Please select publishDate...</p>}
                 </div>
 
                 {/* field10 */}
-                <div className="border">
+                {/* <div className="border">
                     <label className="text-16 font-medium text-primary" htmlFor="coveragePeriodFrom">Coverage Period (From)<sup>*</sup>
                     </label>
-                    {/* {coveragePeriodFrom &&  */}
                     <input type="text" id="coveragePeriodFrom" className="w-full border h-10 px-0.5 text-20" value={coveragePeriodFrom} onChange={(e) => setCoveragePeriodFrom(e.target.value)} />
                     {error && !coveragePeriodFrom && <p className="text-red-500 ml-1">Please Enter coveragePeriodFrom...</p>}
+                </div> */}
+                <div className="border">
+                    <label
+                        className="text-16 font-medium text-primary"
+                        htmlFor="coveragePeriodFrom"
+                    >
+                        Coverage Period (From) <sup>*</sup>
+                    </label>
+
+                    <input
+                        type="number"
+                        id="coveragePeriodFrom"
+                        className="w-full border h-10 px-0.5 text-20"
+                        placeholder="Enter year"
+                        min="1900"
+                        max="2100"
+                        value={coveragePeriodFrom}
+                        onChange={(e) => setCoveragePeriodFrom(e.target.value)}
+                    />
+
+                    {error && !coveragePeriodFrom && (
+                        <p className="text-red-500 ml-1">
+                            Please select coverage period year...
+                        </p>
+                    )}
                 </div>
 
+
                 {/* field11 */}
-                <div className="border">
+                {/* <div className="border">
                     <label className="text-16 font-medium text-primary" htmlFor="coveragePeriodTo">Coverage Period (To)<sup>*</sup>
                     </label>
-                    {/* {coveragePeriodTo &&  */}
                     <input type="text" id="coveragePeriodTo" className="w-full border h-10 px-0.5 text-20" value={coveragePeriodTo} onChange={(e) => setCoveragePeriodTo(e.target.value)} />
                     {error && !coveragePeriodTo && <p className="text-red-500 ml-1">Please Enter coveragePeriodTo...</p>}
+                </div> */}
+                <div className="border">
+                    <label
+                        className="text-16 font-medium text-primary"
+                        htmlFor="coveragePeriodTo"
+                    >
+                        Coverage Period (To) <sup>*</sup>
+                    </label>
+
+                    <input
+                        type="number"
+                        id="coveragePeriodTo"
+                        className="w-full border h-10 px-0.5 text-20"
+                        placeholder="Enter year"
+                        min="1900"
+                        max="2100"
+                        value={coveragePeriodTo}
+                        onChange={(e) => setCoveragePeriodTo(e.target.value)}
+                    />
+
+                    {error && !coveragePeriodTo && (
+                        <p className="text-red-500 ml-1">
+                            Please select coverage period year...
+                        </p>
+                    )}
                 </div>
+
+
+
             </div>
         </>
     )
