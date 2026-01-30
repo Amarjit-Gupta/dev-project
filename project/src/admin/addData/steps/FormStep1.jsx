@@ -130,8 +130,8 @@ const FormStep1 = (
                     >
                         <option value="">-- Select Industry --</option>
 
-                        {getIndustry?.map((item) => (
-                            <option key={item.id} value={item.name}>
+                        {getIndustry?.map((item,i) => (
+                            <option key={i} value={item.name}>
                                 {item.name}
                             </option>
                         ))}
@@ -171,8 +171,8 @@ const FormStep1 = (
                     >
                         <option value="">-- Select Sub-Industry --</option>
 
-                        {getSubindustry?.map((item) => (
-                            <option key={item.id} value={item.name}>
+                        {getSubindustry?.map((item,i) => (
+                            <option key={i} value={item.name}>
                                 {item.name}
                             </option>
                         ))}
@@ -235,8 +235,8 @@ const FormStep1 = (
                     >
                         <option value="">-- Select Report Type --</option>
 
-                        {getReportTypes?.map((item) => (
-                            <option key={item.id} value={item.name}>
+                        {getReportTypes?.map((item,i) => (
+                            <option key={i} value={item.name}>
                                 {item.name}
                             </option>
                         ))}

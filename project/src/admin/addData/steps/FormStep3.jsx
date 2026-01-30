@@ -11,6 +11,7 @@ const FormStep3 = ({ availableReports,
     setImage,
     charts,
     setCharts,
+    getAvailableReport,
     error
 }) => {
 
@@ -57,7 +58,7 @@ const FormStep3 = ({ availableReports,
                 <div className="border">
                     <h1 className="text-20 font-medium text-primary">Upload Report Files</h1>
 
-                    <div className="border">
+                    {/* <div className="border">
                         <label className="text-15 font-medium text-primary" htmlFor="reportType">
                             Select from available reports <sup>*</sup>
                         </label>
@@ -76,7 +77,29 @@ const FormStep3 = ({ availableReports,
                             <option value="option4">option4</option>
                             <option value="option5">option5</option>
                         </select>
+                    </div> */}
+                    <div className="border">
+                        <label className="text-15 font-medium text-primary" htmlFor="reportType">
+                            Select from available reports <sup>*</sup>
+                        </label>
+
+                        <select
+                            className="w-full mt-1 border h-10 text-20"
+                            id="reportType"
+                            value={availableReports}
+                            onChange={handleReportChange}
+                            disabled={uploadedFile !== null}
+                        >
+                            <option value="">Select report</option>
+
+                            {getAvailableReport?.map((report) => (
+                                <option key={report.id} value={report.id}>
+                                    {report.name}
+                                </option>
+                            ))}
+                        </select>
                     </div>
+
 
                     <FileUpload
                         label=""

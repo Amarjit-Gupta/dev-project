@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { nURL } from "../../../URL";
 
 const FormStep2 = (
-    {reportCovers,setReportCovers,reportSupports,setReportSupports,error}
+    { reportCovers, setReportCovers, reportSupports, setReportSupports, error }
 ) => {
 
     //  for checkbox1

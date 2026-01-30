@@ -34,7 +34,7 @@ const FormStep6 = ({
                             <input
                                 type="radio"
                                 name="status"
-                                value="Draft"
+                                value="draft"
                                 onChange={(e) => setStatus(e.target.value)}
                             />
                             <span>Draft</span>
@@ -45,7 +45,7 @@ const FormStep6 = ({
                             <input
                                 type="radio"
                                 name="status"
-                                value="Published"
+                                value="published"
                                 onChange={(e) => setStatus(e.target.value)}
                             />
                             <span>Published</span>
