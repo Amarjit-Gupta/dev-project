@@ -3,7 +3,13 @@ import MultiSelectDropdown from "./MultiSelectDropdown";
 
 
 const FormStep1 = (
-    { reportTitle,
+    { selectedOption,
+        handleRadioChange,
+        reportDirectory,
+        selectedReportId,
+        setSelectedReportId,
+        versionNum,
+        reportTitle,
         setReportTitle,
         subTitle,
         setSubTitle,
@@ -44,6 +50,8 @@ const FormStep1 = (
     //     const [regions, setRegions] = useState([]);
     // const [country, setCountry] = useState([]);
 
+    console.log("reportDirectory", reportDirectory);
+
 
     return (
         <>
@@ -54,46 +62,119 @@ const FormStep1 = (
                 </div>
 
                 {/* field1 */}
-                <div className="border flex justify-between items-center gap-4">
-                    <div className="flex gap-4 items-center">
+                <div className="border flex justify-between items-center gap-3.5">
+                    <div className="flex gap-6 items-center">
                         <span className="flex items-center gap-1">
                             <input type="radio" id="insert" name="dataOption" />
                             <label className="text-15 font-medium text-primary" htmlFor="insert">
                                 Insert New
                             </label>
                         </span>
-                        <span className="flex items-center gap-1">
+                        {/* <span className="flex items-center gap-1">
                             <input type="radio" id="select" name="dataOption" />
                             <label className="text-15 font-medium text-primary" htmlFor="select">
                                 Select from generated data
                             </label>
+                        </span> */}
+                        <span className="flex items-center gap-1">
+                            <input
+                                type="radio"
+                                id="select"
+                                name="dataOption"
+                                value="generated"
+                                checked={selectedOption === "generated"}
+                                onChange={handleRadioChange}
+                            />
+                            <label
+                                className="text-15 font-medium text-primary"
+                                htmlFor="select"
+                            >
+                                Select from generated data
+                            </label>
                         </span>
+
+                        {/*  */}
+                        <span className="flex items-center gap-1">
+                            <input type="radio" id="Update" name="dataOption" />
+                            <label className="text-15 font-medium text-primary" htmlFor="Update">
+                                Update Version
+                            </label>
+                        </span>
+
+                        {/*  */}
                     </div>
 
-                    <div>
+                    {/* <div>
                         <IoArrowForwardSharp className="text-20 text-primary" />
-                    </div>
+                    </div> */}
 
-                    <div className="border w-110">
-                        <label className="text-15 font-medium text-primary" htmlFor="options">
-                            Report Directory
-                        </label>
-                        <select className="w-full mt-1 border p-1" id="options">
-                            <option value="option1">option1</option>
-                            <option value="option2">option2</option>
-                            <option value="option3">option3</option>
-                            <option value="option4">option4</option>
-                            <option value="option5">option5</option>
-                        </select>
+                    <div className="border flex justify-center gap-5">
+
+                        {/* <div className="border w-52.5">
+                            <label className="text-15 font-medium text-primary" htmlFor="options">
+                                Report Directory
+                            </label>
+                            <select className="w-full mt-1 border p-1" id="options">
+                                <option value="option1">option1</option>
+                                <option value="option2">option2</option>
+                                <option value="option3">option3</option>
+                                <option value="option4">option4</option>
+                                <option value="option5">option5</option>
+                            </select>
+                        </div> */}
+                        <div className="border w-52.5">
+                            <label className="text-15 font-medium text-primary" htmlFor="options">
+                                Report Directory
+                            </label>
+
+                            <select
+                                className="w-full mt-1 border p-1"
+                                id="options"
+                                value={selectedReportId}
+                                onChange={(e) => setSelectedReportId(e.target.value)}
+                            >
+                                <option value="">Select Report</option>
+
+                                {reportDirectory?.map((item) => (
+                                    <option key={item.id} value={item.id} className="wrap-break-word">
+                                        {/* {item.title} */}
+                                        {item.title.length > 53
+                                            ? item.title.slice(0, 53) + "..."
+                                            : item.title}
+                                    </option>
+
+
+                                ))}
+                            </select>
+                        </div>
+
+                        <div className="border w-39">
+                            <label className="text-15 font-medium text-primary" htmlFor="options">
+                                Version
+                            </label>
+                            <input type="text" value={versionNum || ""} readOnly className="outline-0 px-1 w-full font-medium" />
+                            {console.log("versionid: ",versionNum)}
+                        </div>
                     </div>
                 </div>
 
                 {/* field2 */}
-                <div className="border">
-                    <label className="text-16 font-medium text-primary" htmlFor="reportTitle">Report Title <sup>*</sup>
-                    </label>
-                    <input type="text" id="reportTitle" className="w-full border h-10 px-0.5 text-20" placeholder="Enter Report Title" value={reportTitle} onChange={(e) => setReportTitle(e.target.value)} />
-                    {error && !reportTitle && <p className="text-red-500 ml-1">Please Enter ReportTitle...</p>}
+                <div className="border flex justify-between">
+                    <div className="border w-[80.5%]">
+                        <label className="text-16 font-medium text-primary" htmlFor="reportTitle">Report Title <sup>*</sup>
+                        </label><br />
+                        <input type="text" id="reportTitle" className="w-full border h-10 px-0.5 text-20" placeholder="Enter Report Title" value={reportTitle} onChange={(e) => setReportTitle(e.target.value)} />
+                        {error && !reportTitle && <p className="text-red-500 ml-1">Please Enter ReportTitle...</p>}
+                    </div>
+
+                    <div className="border w-[17.3%]">
+                        {/*  */}
+                        <label className="text-16 font-medium text-primary" htmlFor="reportId">Report ID <sup>*</sup>
+                        </label><br />
+                        <input type="text" id="reportId" className="w-full border h-10 px-0.5 text-20" placeholder="Enter Report ID" />
+
+                        {/*  */}
+                    </div>
 
                 </div>
 
@@ -130,7 +211,7 @@ const FormStep1 = (
                     >
                         <option value="">-- Select Industry --</option>
 
-                        {getIndustry?.map((item,i) => (
+                        {getIndustry?.map((item, i) => (
                             <option key={i} value={item.name}>
                                 {item.name}
                             </option>
@@ -171,7 +252,7 @@ const FormStep1 = (
                     >
                         <option value="">-- Select Sub-Industry --</option>
 
-                        {getSubindustry?.map((item,i) => (
+                        {getSubindustry?.map((item, i) => (
                             <option key={i} value={item.name}>
                                 {item.name}
                             </option>
@@ -235,7 +316,7 @@ const FormStep1 = (
                     >
                         <option value="">-- Select Report Type --</option>
 
-                        {getReportTypes?.map((item,i) => (
+                        {getReportTypes?.map((item, i) => (
                             <option key={i} value={item.name}>
                                 {item.name}
                             </option>

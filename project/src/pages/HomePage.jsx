@@ -28,6 +28,7 @@ const HomePage = () => {
             console.log(data);
 
             if (data.message) {
+                authMe();
                 alert(data.message);
                 navigate("/login");
             }
