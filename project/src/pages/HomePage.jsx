@@ -67,6 +67,15 @@ const HomePage = () => {
             authMe();
         }, []);
 
+        const getAuth = () => {
+            console.log("getAyth");
+        }
+
+
+        setInterval(()=>{
+            getAuth();
+        },3000);
+
     return (
         <>
             <button onClick={handleLogout} className="border cursor-pointer">logout</button>
