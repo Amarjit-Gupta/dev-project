@@ -1,0 +1,819 @@
+
+
+// // for test without validation
+// import { useEffect, useState } from "react";
+// import FormStep1 from "./steps/FormStep1";
+// import FormStep2 from "./steps/FormStep2";
+// import FormStep3 from "./steps/FormStep3";
+// import FormStep4 from "./steps/FormStep4";
+// import FormStep5 from "./steps/FormStep5";
+// import ReviewStep from "./steps/ReviewStep";
+// import StepIndicator from "./steps/StepIndicator";
+// import FormStep6 from "./steps/FormStep6";
+// import { nURL } from "../../URL";
+
+// const FORM_STEPS = 6;  // Actual form steps
+// const TOTAL_STEPS = 7;  // Including review step
+
+// const MultiStepForm = () => {
+//     const [formStep, setFormStep] = useState(1);
+//     const [error, setError] = useState(false);
+//     const [errorMessage, setErrorMessage] = useState("");
+//     const [isSubmitting, setIsSubmitting] = useState(false);
+//     const [draftId, setDraftId] = useState(null);
+//     const [selectedOption, setSelectedOption] = useState("");
+//     const [reportDirectory, setReportDirectory] = useState([]);
+//     const [selectedReportId, setSelectedReportId] = useState("");
+//     const [versionNum, setVersionNum] = useState();
+//     const [versionID, setversionID] = useState("");
+
+//     // formstep1 state
+//     const [reportTitle, setReportTitle] = useState("");
+//     const [subTitle, setSubTitle] = useState("");
+//     const [industry, setIndustry] = useState("");
+//     const [subIndustry, setSubIndustry] = useState("");
+//     const [regions, setRegions] = useState([]);
+//     const [country, setCountry] = useState([]);
+//     const [reportType, setReportType] = useState("");
+//     const [publishDate, setPublishDate] = useState("");
+//     const [coveragePeriodFrom, setCoveragePeriodFrom] = useState("");
+//     const [coveragePeriodTo, setCoveragePeriodTo] = useState("");
+
+//     // formstep2 state
+//     const [reportCovers, setReportCovers] = useState([]);
+//     const [reportSupports, setReportSupports] = useState([]);
+
+//     // formstep3 state
+//     const [availableReports, setAvailableReports] = useState("");
+//     const [uploadedFile, setUploadedFile] = useState(null);
+//     const [samplePDF, setSamplePDF] = useState(null);
+//     const [image, setImage] = useState(null);
+//     const [charts, setCharts] = useState(null);
+
+//     // formstep4 state
+//     const [sectionName, setSectionName] = useState("");
+//     const [sectionGroup, setSectionGroup] = useState("");
+//     const [shortDescription, setShortDescription] = useState("");
+//     const [previewAvailable, setPreviewAvailable] = useState(null);
+//     const [sDescription, setSDescription] = useState("");
+//     const [fullReport, setFullReport] = useState(null);
+//     const [sectionPDF, setSectionPDF] = useState(null);
+
+//     // formstep5 state
+//     const [reportPrice, setReportPrice] = useState("");
+
+//     // formstep6 state
+//     const [status, setStatus] = useState("");
+//     const [fHomepage, setFHomepage] = useState(null);
+//     const [seoSlug, setSeoSlug] = useState("");
+//     const [seoTitle, setSeoTitle] = useState("");
+//     const [seoKeywords, setSeoKeywords] = useState("");
+//     const [seoDescription, setSeoDescription] = useState("");
+
+//     // for get form data
+//     const [getIndustry, setGetIndustry] = useState([]);
+//     const [getSubindustry, setGetSubindustry] = useState([]);
+//     const [getRegions, setGetRegions] = useState([]);
+//     const [getCountries, setGetCountries] = useState([]);
+//     const [getReportTypes, setGetReportTypes] = useState([]);
+//     const [getAvailableReport, setGetAvailableReport] = useState([]);
+
+//     // Clear errors function
+//     const clearErrors = () => {
+//         setError(false);
+//         setErrorMessage("");
+//     };
+
+//     const handleRadioChange = async (e) => {
+//         const value = e.target.value;
+//         setSelectedOption(value);
+//         clearErrors();
+
+//         if (value === "generated") {
+//             try {
+//                 const res = await fetch(`${nURL}/reports/generating`, {
+//                     method: "GET",
+//                     credentials: "include"
+//                 });
+//                 const data = await res.json();
+//                 if (data) {
+//                     setReportDirectory(data?.reports);
+//                 }
+//             } catch (error) {
+//                 console.error("API Error:", error);
+//                 setError(true);
+//                 setErrorMessage("Failed to fetch report directory");
+//             }
+//         }
+//     };
+
+//     const getselectedReportIdData = async () => {
+//         if (!selectedReportId) return;
+//         try {
+//             const res = await fetch(`${nURL}/reports/generating/${selectedReportId}`, {
+//                 method: "GET",
+//                 credentials: "include"
+//             });
+
+//             if (!res.ok) throw new Error("Failed to fetch report data");
+
+//             const rData = await res.json();
+//             console.log("getselectedReportIdData:", rData);
+//             if (rData) {
+//                 setVersionNum(rData?.version_number);
+//                 setversionID(rData?.version_id || "");
+//                 setReportTitle(rData?.title || "");
+//                 setSubTitle(rData?.description || "");
+//             }
+//         } catch (err) {
+//             console.error("Report API Error:", err);
+//             setError(true);
+//             setErrorMessage("Failed to load report details");
+//         }
+//     };
+
+//     const saveStepData = async ({ step, payload }) => {
+//         try {
+//             const isNew = !draftId;
+//             const url = isNew
+//                 ? `${nURL}/reports/step${step}/save-draft`
+//                 : `${nURL}/reports/${draftId}/step${step}`;
+//             const method = isNew ? "POST" : "PUT";
+
+//             const res = await fetch(url, {
+//                 method,
+//                 headers: { "Content-Type": "application/json" },
+//                 body: JSON.stringify(payload),
+//                 credentials: "include"
+//             });
+
+//             if (!res.ok) {
+//                 const errorData = await res.json();
+//                 throw new Error(errorData.message || "Failed to save step data");
+//             }
+
+//             const data = await res.json();
+//             console.log("postData: ", data);
+
+//             if (isNew && data?.report_id) {
+//                 setDraftId(data.report_id);
+//             }
+
+//             return { success: true, data };
+//         } catch (err) {
+//             console.error("Save Step Error:", err);
+//             throw err;
+//         }
+//     };
+
+//     const handleNext = async () => {
+//         try {
+//             setIsSubmitting(true);
+//             clearErrors();
+
+//             // Step 1 - NO VALIDATION FOR TESTING
+//             if (formStep === 1) {
+//                 const payload = {
+//                     title: reportTitle || "",
+//                     subtitle: subTitle || "",
+//                     industry_id: industry || "",
+//                     sub_industry_id: subIndustry || "",
+//                     region_id: regions || [],
+//                     country_id: country || [],
+//                     report_type_id: reportType || "",
+//                     version_id: versionID || "",
+//                     coverage_start_year: Number(coveragePeriodFrom) || 0,
+//                     coverage_end_year: Number(coveragePeriodTo) || 0,
+//                     publish_date: publishDate || ""
+//                 };
+
+//                 await saveStepData({ step: 1, payload });
+//             }
+
+//             // Step 2 - NO VALIDATION FOR TESTING
+//             if (formStep === 2) {
+//                 const payload = {
+//                     covers: reportCovers || [],
+//                     supports_decisions: reportSupports || []
+//                 };
+
+//                 await saveStepData({ step: 2, payload });
+//             }
+
+//             // Step 3 - NO VALIDATION FOR TESTING
+//             if (formStep === 3) {
+//                 const formData = new FormData();
+//                 if (availableReports) formData.append("full_asset_id", availableReports);
+//                 if (uploadedFile) formData.append("full_pdf", uploadedFile);
+//                 if (samplePDF) formData.append("sample_pdf", samplePDF);
+//                 if (charts) formData.append("charts_pdf", charts);
+//                 if (image) formData.append("image_file", image);
+
+//                 try {
+//                     const res = await fetch(
+//                         !draftId
+//                             ? `${nURL}/reports/step3/save-draft`
+//                             : `${nURL}/reports/${draftId}/step3`,
+//                         {
+//                             method: !draftId ? "POST" : "PUT",
+//                             body: formData,
+//                             credentials: "include"
+//                         }
+//                     );
+
+//                     const data = await res.json();
+//                     console.log("step3: ", data);
+
+//                     if (!res.ok) {
+//                         throw new Error(data.message || "Upload failed");
+//                     }
+//                 } catch (err) {
+//                     setError(true);
+//                     setErrorMessage(err.message || "Upload error");
+//                     return;
+//                 }
+//             }
+
+//             // Step 5 - NO VALIDATION FOR TESTING
+//             if (formStep === 5) {
+//                 const payload = {
+//                     amount_cents: Number(reportPrice) || 0,
+//                     download_allowed: true,
+//                     online_viewing_allowed: true
+//                 };
+
+//                 await saveStepData({ step: 4, payload });
+//             }
+
+//             // Step 6 - NO VALIDATION FOR TESTING
+//             if (formStep === 6) {
+//                 const payload = {
+//                     status: status || "",
+//                     seo_slug: seoSlug || "",
+//                     seo_title: seoTitle || "",
+//                     seo_keywords: seoKeywords || "",
+//                     seo_description: seoDescription || "",
+//                     feature_homepage: fHomepage || false
+//                 };
+
+//                 await saveStepData({ step: 5, payload });
+                
+//                 // Final submission successful
+//                 console.log("FINAL SUBMIT DONE ✅");
+                
+//                 // Here you can add logic to show success message or redirect
+//                 alert("Report published successfully!");
+//                 return;
+//             }
+
+//             // Move to next step if not step 6
+//             if (formStep < FORM_STEPS) {
+//                 setFormStep(formStep + 1);
+//             }
+//         } catch (err) {
+//             console.error("Handle Next Error:", err);
+//             setError(true);
+//             setErrorMessage(err.message || "Something went wrong");
+//         } finally {
+//             setIsSubmitting(false);
+//         }
+//     };
+
+//     const handleSaveDraft = async () => {
+//         try {
+//             setIsSubmitting(true);
+//             clearErrors();
+
+//             // Similar logic as handleNext but without navigation
+//             if (formStep === 1) {
+//                 const payload = {
+//                     title: reportTitle || "",
+//                     subtitle: subTitle || "",
+//                     industry_id: industry || "",
+//                     sub_industry_id: subIndustry || "",
+//                     region_id: regions || [],
+//                     country_id: country || [],
+//                     report_type_id: reportType || "",
+//                     version_id: versionID || "",
+//                     coverage_start_year: Number(coveragePeriodFrom) || 0,
+//                     coverage_end_year: Number(coveragePeriodTo) || 0,
+//                     publish_date: publishDate || ""
+//                 };
+//                 await saveStepData({ step: 1, payload });
+//             } else if (formStep === 2) {
+//                 const payload = {
+//                     covers: reportCovers,
+//                     supports_decisions: reportSupports
+//                 };
+//                 await saveStepData({ step: 2, payload });
+//             } else if (formStep === 3) {
+//                 const formData = new FormData();
+//                 if (availableReports) formData.append("full_asset_id", availableReports);
+//                 if (uploadedFile) formData.append("full_pdf", uploadedFile);
+//                 if (samplePDF) formData.append("sample_pdf", samplePDF);
+//                 if (charts) formData.append("charts_pdf", charts);
+//                 if (image) formData.append("image_file", image);
+
+//                 const res = await fetch(
+//                     !draftId
+//                         ? `${nURL}/reports/step3/save-draft`
+//                         : `${nURL}/reports/${draftId}/step3`,
+//                     {
+//                         method: !draftId ? "POST" : "PUT",
+//                         body: formData,
+//                         credentials: "include"
+//                     }
+//                 );
+
+//                 if (!res.ok) {
+//                     throw new Error("Failed to save draft");
+//                 }
+//             } else if (formStep === 5) {
+//                 const payload = {
+//                     amount_cents: Number(reportPrice) || 0,
+//                     download_allowed: true,
+//                     online_viewing_allowed: true
+//                 };
+//                 await saveStepData({ step: 4, payload });
+//             } else if (formStep === 6) {
+//                 const payload = {
+//                     status: status || "",
+//                     seo_slug: seoSlug || "",
+//                     seo_title: seoTitle || "",
+//                     seo_keywords: seoKeywords || "",
+//                     seo_description: seoDescription || "",
+//                     feature_homepage: fHomepage || false
+//                 };
+//                 await saveStepData({ step: 5, payload });
+//             }
+
+//             alert("Draft saved successfully!");
+//         } catch (err) {
+//             console.error("Save Draft Error:", err);
+//             setError(true);
+//             setErrorMessage("Failed to save draft");
+//         } finally {
+//             setIsSubmitting(false);
+//         }
+//     };
+
+//     const handlePrev = () => {
+//         clearErrors();
+//         if (formStep === 7) {
+//             setFormStep(6);
+//         } else if (formStep > 1) {
+//             setFormStep(formStep - 1);
+//         }
+//     };
+
+//     // Simple navigation without validation
+//     const handleSimpleNext = () => {
+//         clearErrors();
+//         if (formStep < FORM_STEPS) {
+//             setFormStep(formStep + 1);
+//         }
+//     };
+
+//     const handleSimplePrev = () => {
+//         clearErrors();
+//         if (formStep === 7) {
+//             setFormStep(6);
+//         } else if (formStep > 1) {
+//             setFormStep(formStep - 1);
+//         }
+//     };
+
+//     const getIndustryData = async () => {
+//         try {
+//             let result = await fetch(`${nURL}/industries/main`);
+//             let data = await result.json();
+//             if (data) {
+//                 setGetIndustry(data?.industries || []);
+//             }
+//         } catch (err) {
+//             console.error("Error fetching industries:", err);
+//             setError(true);
+//             setErrorMessage("Failed to load industries");
+//         }
+//     };
+
+//     const getSubIndustryData = async () => {
+//         if (!industry) return;
+//         try {
+//             const url = `${nURL}/industries/sub?industry=${encodeURIComponent(industry)}`;
+//             const res = await fetch(url);
+//             const data = await res.json();
+//             if (data) {
+//                 setGetSubindustry(data?.sub_industries || []);
+//             }
+//         } catch (err) {
+//             console.error("Error fetching sub-industries:", err);
+//             setError(true);
+//             setErrorMessage("Failed to load sub-industries");
+//         }
+//     };
+
+//     const getRegionsData = async () => {
+//         try {
+//             let result = await fetch(`${nURL}/regions`);
+//             let data = await result.json();
+//             if (data) {
+//                 setGetRegions(data?.regions || []);
+//             }
+//         } catch (err) {
+//             console.error("Error fetching regions:", err);
+//             setError(true);
+//             setErrorMessage("Failed to load regions");
+//         }
+//     };
+
+//     const getReportData = async () => {
+//         try {
+//             let result = await fetch(`${nURL}/report-types`);
+//             let data = await result.json();
+//             if (data) {
+//                 setGetReportTypes(data?.report_types || []);
+//             }
+//         } catch (err) {
+//             console.error("Error fetching report types:", err);
+//             setError(true);
+//             setErrorMessage("Failed to load report types");
+//         }
+//     };
+
+//     const getCountriesByRegion = async () => {
+//         try {
+//             if (!regions || regions.length === 0) {
+//                 setGetCountries([]);
+//                 return;
+//             }
+
+//             const regionParam = regions.join(",");
+//             const url = `${nURL}/countries?region=${encodeURIComponent(regionParam)}`;
+//             const res = await fetch(url);
+//             if (!res.ok) throw new Error("Failed to fetch countries");
+
+//             const data = await res.json();
+//             if (data) {
+//                 setGetCountries(data?.countries || []);
+//             }
+//         } catch (err) {
+//             console.error("Country API Error:", err);
+//             setError(true);
+//             setErrorMessage("Failed to load countries");
+//         }
+//     };
+
+//     const getAvailableReportsData = async () => {
+//         try {
+//             const res = await fetch(`${nURL}/report-assets`, {
+//                 method: "GET",
+//                 credentials: "include"
+//             });
+//             if (!res.ok) throw new Error("Failed to fetch available reports");
+
+//             const fData = await res.json();
+//             if (fData) {
+//                 setGetAvailableReport(fData || []);
+//             }
+//         } catch (err) {
+//             console.error("Available Reports API Error:", err);
+//             setError(true);
+//             setErrorMessage("Failed to load available reports");
+//         }
+//     };
+
+//     useEffect(() => {
+//         getIndustryData();
+//         getRegionsData();
+//         getReportData();
+//         clearErrors();
+//     }, []);
+
+//     useEffect(() => {
+//         if (industry) {
+//             getSubIndustryData();
+//         }
+//         getAvailableReportsData();
+//     }, [industry]);
+
+//     useEffect(() => {
+//         if (regions.length > 0) {
+//             getCountriesByRegion();
+//         } else {
+//             setGetCountries([]);
+//             setCountry([]);
+//         }
+//     }, [regions]);
+
+//     useEffect(() => {
+//         if (selectedReportId) {
+//             getselectedReportIdData();
+//         }
+//     }, [selectedReportId]);
+
+//     // Error message display component
+//     const ErrorDisplay = () => {
+//         if (!error || !errorMessage) return null;
+        
+//         return (
+//             <div className="fixed top-4 right-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded z-50">
+//                 <strong className="font-bold">Error!</strong>
+//                 <span className="block sm:inline"> {errorMessage}</span>
+//                 <button 
+//                     className="absolute top-0 bottom-0 right-0 px-4 py-3"
+//                     onClick={clearErrors}
+//                 >
+//                     ×
+//                 </button>
+//             </div>
+//         );
+//     };
+
+//     return (
+//         <>
+//             <ErrorDisplay />
+            
+//             {/* Loading overlay */}
+//             {isSubmitting && (
+//                 <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+//                     <div className="bg-white p-6 rounded-lg">
+//                         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto"></div>
+//                         <p className="mt-4 text-center">Processing...</p>
+//                     </div>
+//                 </div>
+//             )}
+
+//             {/* steps */}
+//             <div className="border hidden lg:block">
+//                 <StepIndicator step={formStep} setStep={setFormStep} />
+//             </div>
+
+//             <div className="border w-80 sm:w-160 md:w-190 lg:w-230 m-auto p-2">
+//                 {formStep === 1 && (
+//                     <FormStep1
+//                         selectedOption={selectedOption}
+//                         handleRadioChange={handleRadioChange}
+//                         reportDirectory={reportDirectory}
+//                         selectedReportId={selectedReportId}
+//                         setSelectedReportId={setSelectedReportId}
+//                         versionNum={versionNum}
+//                         reportTitle={reportTitle}
+//                         setReportTitle={setReportTitle}
+//                         subTitle={subTitle}
+//                         setSubTitle={setSubTitle}
+//                         industry={industry}
+//                         setIndustry={setIndustry}
+//                         subIndustry={subIndustry}
+//                         setSubIndustry={setSubIndustry}
+//                         regions={regions}
+//                         setRegions={setRegions}
+//                         country={country}
+//                         setCountry={setCountry}
+//                         reportType={reportType}
+//                         setReportType={setReportType}
+//                         publishDate={publishDate}
+//                         setPublishDate={setPublishDate}
+//                         coveragePeriodFrom={coveragePeriodFrom}
+//                         setCoveragePeriodFrom={setCoveragePeriodFrom}
+//                         coveragePeriodTo={coveragePeriodTo}
+//                         setCoveragePeriodTo={setCoveragePeriodTo}
+//                         error={error}
+//                         getIndustry={getIndustry}
+//                         getSubindustry={getSubindustry}
+//                         getRegions={getRegions}
+//                         getCountries={getCountries}
+//                         getReportTypes={getReportTypes}
+//                     />
+//                 )}
+//                 {formStep === 2 && (
+//                     <FormStep2
+//                         reportCovers={reportCovers}
+//                         setReportCovers={setReportCovers}
+//                         reportSupports={reportSupports}
+//                         setReportSupports={setReportSupports}
+//                         error={error}
+//                         draftId={draftId}
+//                     />
+//                 )}
+//                 {formStep === 3 && (
+//                     <FormStep3
+//                         availableReports={availableReports}
+//                         setAvailableReports={setAvailableReports}
+//                         uploadedFile={uploadedFile}
+//                         setUploadedFile={setUploadedFile}
+//                         samplePDF={samplePDF}
+//                         setSamplePDF={setSamplePDF}
+//                         image={image}
+//                         setImage={setImage}
+//                         charts={charts}
+//                         setCharts={setCharts}
+//                         getAvailableReport={getAvailableReport}
+//                         error={error}
+//                     />
+//                 )}
+//                 {formStep === 4 && (
+//                     <FormStep4
+//                         sectionName={sectionName}
+//                         setSectionName={setSectionName}
+//                         sectionGroup={sectionGroup}
+//                         setSectionGroup={setSectionGroup}
+//                         shortDescription={shortDescription}
+//                         setShortDescription={setShortDescription}
+//                         previewAvailable={previewAvailable}
+//                         setPreviewAvailable={setPreviewAvailable}
+//                         sDescription={sDescription}
+//                         setSDescription={setSDescription}
+//                         fullReport={fullReport}
+//                         setFullReport={setFullReport}
+//                         sectionPDF={sectionPDF}
+//                         setSectionPDF={setSectionPDF}
+//                         error={error}
+//                     />
+//                 )}
+//                 {formStep === 5 && (
+//                     <FormStep5
+//                         reportPrice={reportPrice}
+//                         setReportPrice={setReportPrice}
+//                         error={error}
+//                     />
+//                 )}
+//                 {formStep === 6 && (
+//                     <FormStep6
+//                         setStatus={setStatus}
+//                         fHomepage={fHomepage}
+//                         setFHomepage={setFHomepage}
+//                         seoSlug={seoSlug}
+//                         setSeoSlug={setSeoSlug}
+//                         seoTitle={seoTitle}
+//                         setSeoTitle={setSeoTitle}
+//                         seoKeywords={seoKeywords}
+//                         setSeoKeywords={setSeoKeywords}
+//                         seoDescription={seoDescription}
+//                         setSeoDescription={setSeoDescription}
+//                         error={error}
+//                     />
+//                 )}
+//                 {formStep === 7 && (
+//                     <ReviewStep
+//                         draftId={draftId}
+//                         reportTitle={reportTitle}
+//                         subTitle={subTitle}
+//                         industry={industry}
+//                         subIndustry={subIndustry}
+//                         regions={regions}
+//                         country={country}
+//                         reportType={reportType}
+//                         publishDate={publishDate}
+//                         coveragePeriodFrom={coveragePeriodFrom}
+//                         coveragePeriodTo={coveragePeriodTo}
+//                         reportCovers={reportCovers}
+//                         reportSupports={reportSupports}
+//                         availableReports={availableReports}
+//                         uploadedFile={uploadedFile}
+//                         samplePDF={samplePDF}
+//                         image={image}
+//                         charts={charts}
+//                         sectionName={sectionName}
+//                         sectionGroup={sectionGroup}
+//                         shortDescription={shortDescription}
+//                         previewAvailable={previewAvailable}
+//                         sDescription={sDescription}
+//                         fullReport={fullReport}
+//                         sectionPDF={sectionPDF}
+//                         reportPrice={reportPrice}
+//                         status={status}
+//                         fHomepage={fHomepage}
+//                         seoSlug={seoSlug}
+//                         seoTitle={seoTitle}
+//                         seoKeywords={seoKeywords}
+//                         seoDescription={seoDescription}
+//                     />
+//                 )}
+//             </div>
+
+//             {/* Navigation Buttons - SIMPLE VERSION FOR TESTING */}
+//             <div className="relative h-14 border w-230 m-auto mt-4">
+//                 <div className="absolute right-2 top-1/2 -translate-y-1/2 z-50 flex gap-2">
+//                     {/* Back Button */}
+//                     {formStep >= 2 && formStep < 7 && (
+//                         <button
+//                             className="border px-4 h-9 font-medium text-primary border-text-primary hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+//                             onClick={handleSimplePrev}
+//                             disabled={isSubmitting}
+//                         >
+//                             Back
+//                         </button>
+//                     )}
+
+//                     {/* Save Draft Button */}
+//                     {formStep <= 6 && (
+//                         <button
+//                             className="border px-4 h-9 font-medium text-primary border-text-primary hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+//                             onClick={handleSaveDraft}
+//                             disabled={isSubmitting}
+//                         >
+//                             {isSubmitting ? "Saving..." : "Save Draft"}
+//                         </button>
+//                     )}
+
+//                     {/* Next Button (Steps 1-5) */}
+//                     {formStep <= 5 && (
+//                         <button
+//                             className="border px-4 h-9 font-medium text-primary border-text-primary hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+//                             onClick={handleSimpleNext}
+//                             disabled={isSubmitting}
+//                         >
+//                             Next
+//                         </button>
+//                     )}
+
+//                     {/* Step 6 Buttons (Review and Publish) */}
+//                     {formStep === 6 && (
+//                         <>
+//                             <button
+//                                 className="border px-4 h-9 font-medium text-primary border-text-primary hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+//                                 onClick={() => setFormStep(7)}
+//                                 disabled={isSubmitting}
+//                             >
+//                                 Review
+//                             </button>
+//                             <button
+//                                 className="border px-4 h-9 font-medium text-primary border-text-primary hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+//                                 onClick={handleNext}
+//                                 disabled={isSubmitting}
+//                             >
+//                                 {isSubmitting ? "Publishing..." : "Publish Report"}
+//                             </button>
+//                         </>
+//                     )}
+
+//                     {/* Step 7 Back Button */}
+//                     {formStep === 7 && (
+//                         <button
+//                             className="border px-4 h-9 font-medium text-primary border-text-primary hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+//                             onClick={() => setFormStep(6)}
+//                             disabled={isSubmitting}
+//                         >
+//                             Back to Edit
+//                         </button>
+//                     )}
+
+//                     {/* TEST BUTTON - Direct Navigation for Testing */}
+//                     <div className="ml-4 flex gap-2">
+//                         <button
+//                             className="border px-2 h-9 text-xs font-medium text-white bg-blue-500 hover:bg-blue-600"
+//                             onClick={() => setFormStep(1)}
+//                         >
+//                             Step 1
+//                         </button>
+//                         <button
+//                             className="border px-2 h-9 text-xs font-medium text-white bg-blue-500 hover:bg-blue-600"
+//                             onClick={() => setFormStep(2)}
+//                         >
+//                             Step 2
+//                         </button>
+//                         <button
+//                             className="border px-2 h-9 text-xs font-medium text-white bg-blue-500 hover:bg-blue-600"
+//                             onClick={() => setFormStep(3)}
+//                         >
+//                             Step 3
+//                         </button>
+//                         <button
+//                             className="border px-2 h-9 text-xs font-medium text-white bg-blue-500 hover:bg-blue-600"
+//                             onClick={() => setFormStep(4)}
+//                         >
+//                             Step 4
+//                         </button>
+//                         <button
+//                             className="border px-2 h-9 text-xs font-medium text-white bg-blue-500 hover:bg-blue-600"
+//                             onClick={() => setFormStep(5)}
+//                         >
+//                             Step 5
+//                         </button>
+//                         <button
+//                             className="border px-2 h-9 text-xs font-medium text-white bg-blue-500 hover:bg-blue-600"
+//                             onClick={() => setFormStep(6)}
+//                         >
+//                             Step 6
+//                         </button>
+//                         <button
+//                             className="border px-2 h-9 text-xs font-medium text-white bg-blue-500 hover:bg-blue-600"
+//                             onClick={() => setFormStep(7)}
+//                         >
+//                             Step 7
+//                         </button>
+//                     </div>
+//                 </div>
+//             </div>
+
+//             {/* Current Step Display */}
+//             <div className="text-center mt-4">
+//                 <p className="font-bold">Current Step: {formStep} / {TOTAL_STEPS}</p>
+//                 <p className="text-sm text-gray-600">(Validation disabled for testing)</p>
+//             </div>
+//         </>
+//     );
+// };
+
+// export default MultiStepForm;
