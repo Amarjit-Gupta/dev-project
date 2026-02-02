@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { IoEyeOutline } from "react-icons/io5";
 import { FaRegEyeSlash } from "react-icons/fa";
 import { FaRegEye } from "react-icons/fa";
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { nURL } from "../URL";
+import { AuthContext } from "./AuthContext";
 
 const Login = () => {
 
@@ -16,6 +17,14 @@ const Login = () => {
     const [error, setError] = useState(false);
 
     const navigate = useNavigate();
+
+    const { isAuthenticated, setIsAuthenticated, getAuthUserData } = useContext(AuthContext);
+
+    console.log("is", isAuthenticated);
+
+    if (isAuthenticated) return <Navigate to={"/add"} replace />
+
+
 
     const handleChange = (event) => {
         setInputValue({ ...inputValue, [event.target.name]: event.target.value });
@@ -65,8 +74,10 @@ const Login = () => {
             const data = await result.json();
 
             if (data.message) {
-                alert(data.message);
+                await getAuthUserData();
+                setIsAuthenticated(true);
                 navigate("/");
+                alert(data.message);
 
             }
             else {

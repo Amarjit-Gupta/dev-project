@@ -34,7 +34,8 @@ const FormStep1 = (
         getSubindustry,
         getRegions,
         getCountries,
-        getReportTypes }
+        getReportTypes,
+        periodError }
 ) => {
 
 
@@ -153,7 +154,7 @@ const FormStep1 = (
                                 Version
                             </label>
                             <input type="text" value={versionNum || ""} readOnly className="outline-0 px-1 w-full font-medium" />
-                            {console.log("versionid: ",versionNum)}
+                            {console.log("versionid: ", versionNum)}
                         </div>
                     </div>
                 </div>
@@ -374,13 +375,10 @@ const FormStep1 = (
                 </div>
 
 
+
+
                 {/* field11 */}
-                {/* <div className="border">
-                    <label className="text-16 font-medium text-primary" htmlFor="coveragePeriodTo">Coverage Period (To)<sup>*</sup>
-                    </label>
-                    <input type="text" id="coveragePeriodTo" className="w-full border h-10 px-0.5 text-20" value={coveragePeriodTo} onChange={(e) => setCoveragePeriodTo(e.target.value)} />
-                    {error && !coveragePeriodTo && <p className="text-red-500 ml-1">Please Enter coveragePeriodTo...</p>}
-                </div> */}
+
                 <div className="border">
                     <label
                         className="text-16 font-medium text-primary"
@@ -400,9 +398,16 @@ const FormStep1 = (
                         onChange={(e) => setCoveragePeriodTo(e.target.value)}
                     />
 
+
                     {error && !coveragePeriodTo && (
                         <p className="text-red-500 ml-1">
                             Please select coverage period year...
+                        </p>
+                    )}
+
+                    {periodError && (
+                        <p className="text-red-500 ml-1">
+                            {periodError}
                         </p>
                     )}
                 </div>

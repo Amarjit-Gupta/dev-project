@@ -37,6 +37,7 @@
   --color-bg-card2: #F2E2BA;
   --color-bg-card3: #BAF2D8;
   --color-bg-section: #EBFBF4;
+  --color-bg-card: #D9D9D9;
 
   /* border */
   --color-border-default: #E6E6E6;
@@ -118,6 +119,10 @@
 
   .bg-surface {
     background-color: var(--color-bg-surface);
+  }
+
+  .bg-card {
+    background-color: var(--color-bg-card);
   }
 
   .bg-card1 {

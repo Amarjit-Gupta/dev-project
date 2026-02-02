@@ -1512,9 +1512,9 @@
 //                 await saveStepData({ step: 5, payload });
 
 //                 setError(false);
-//                 console.log("FINAL SUBMIT DONE ✅");
+//                 console.log("FINAL SUBMIT DONE");
 
-//                 return;   // ⛔ VERY IMPORTANT
+//                 return;   // VERY IMPORTANT
 //             }
 
 
@@ -2202,31 +2202,8 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// // // from deep seek (for production add it on github)
+// for test
+// // from deep
 // import { useEffect, useState } from "react";
 // import FormStep1 from "./steps/FormStep1";
 // import FormStep2 from "./steps/FormStep2";
@@ -2398,10 +2375,10 @@
 //             // Step 1 Validation
 //             if (formStep === 1) {
 
-//                 if (!reportTitle || !subTitle || !industry || !subIndustry || regions.length === 0 || country.length === 0 || !reportType || !publishDate || !coveragePeriodFrom || !coveragePeriodTo) {
-//                     setError(true);
-//                     return;
-//                 }
+//                 // if (!reportTitle || !subTitle || !industry || !subIndustry || regions.length === 0 || country.length === 0 || !reportType || !publishDate || !coveragePeriodFrom || !coveragePeriodTo) {
+//                 //     setError(true);
+//                 //     return;
+//                 // }
 
 //                 const payload = {
 //                     title: reportTitle,
@@ -2422,10 +2399,10 @@
 
 //             // Step 2 Validation
 //             if (formStep === 2) {
-//                 if (reportCovers.length === 0 || reportSupports.length === 0) {
-//                     setError(true);
-//                     return;
-//                 }
+//                 // if (reportCovers.length === 0 || reportSupports.length === 0) {
+//                 //     setError(true);
+//                 //     return;
+//                 // }
 
 //                 const payload = {
 //                     covers: reportCovers,
@@ -2437,61 +2414,62 @@
 
 //             // Step 3 Validation
 //             if (formStep === 3) {
-//                 if (!availableReports && !uploadedFile) {
-//                     setError(true);
-//                     return;
-//                 }
-//                 if (uploadedFile && uploadedFile.type !== "application/pdf") {
-//                     setError(true);
-//                     return;
-//                 }
-//                 if (!samplePDF) {
-//                     setError(true);
-//                     return;
-//                 }
-//                 if (samplePDF.type !== "application/pdf") {
-//                     setError(true);
-//                     return;
-//                 }
-//                 if (charts && charts.type !== "application/pdf") {
-//                     setError(true);
-//                     return;
-//                 }
-//                 if (image && image.type !== "image/webp") {
-//                     setError(true);
-//                     return;
-//                 }
+//                 console.log("step3");
+//                 // if (!availableReports && !uploadedFile) {
+//                 //     setError(true);
+//                 //     return;
+//                 // }
+//                 // if (uploadedFile && uploadedFile.type !== "application/pdf") {
+//                 //     setError(true);
+//                 //     return;
+//                 // }
+//                 // if (!samplePDF) {
+//                 //     setError(true);
+//                 //     return;
+//                 // }
+//                 // if (samplePDF.type !== "application/pdf") {
+//                 //     setError(true);
+//                 //     return;
+//                 // }
+//                 // if (charts && charts.type !== "application/pdf") {
+//                 //     setError(true);
+//                 //     return;
+//                 // }
+//                 // if (image && image.type !== "image/webp") {
+//                 //     setError(true);
+//                 //     return;
+//                 // }
 
-//                 const formData = new FormData();
-//                 if (availableReports) formData.append("full_asset_id", availableReports);
-//                 if (uploadedFile) formData.append("full_pdf", uploadedFile);
-//                 if (samplePDF) formData.append("sample_pdf", samplePDF);
-//                 if (charts) formData.append("charts_pdf", charts);
-//                 if (image) formData.append("image_file", image);
+//                 // const formData = new FormData();
+//                 // if (availableReports) formData.append("full_asset_id", availableReports);
+//                 // if (uploadedFile) formData.append("full_pdf", uploadedFile);
+//                 // if (samplePDF) formData.append("sample_pdf", samplePDF);
+//                 // if (charts) formData.append("charts_pdf", charts);
+//                 // if (image) formData.append("image_file", image);
 
-//                 try {
-//                     const res = await fetch(
-//                         !draftId
-//                             ? `${nURL}/reports/step3/save-draft`
-//                             : `${nURL}/reports/${draftId}/step3`,
-//                         {
-//                             method: !draftId ? "POST" : "PUT",
-//                             body: formData,
-//                             credentials: "include"
-//                         }
-//                     );
+//                 // try {
+//                 //     const res = await fetch(
+//                 //         !draftId
+//                 //             ? `${nURL}/reports/step3/save-draft`
+//                 //             : `${nURL}/reports/${draftId}/step3`,
+//                 //         {
+//                 //             method: !draftId ? "POST" : "PUT",
+//                 //             body: formData,
+//                 //             credentials: "include"
+//                 //         }
+//                 //     );
 
-//                     const data = await res.json();
-//                     console.log("step3: ", data);
+//                 //     const data = await res.json();
+//                 //     console.log("step3: ", data);
 
-//                     if (!res.ok) {
-//                         //  throw new Error(data.message || "Upload failed");
-//                         console.log("Upload failed");
-//                     }
-//                 } catch (err) {
-//                     setError(true);
-//                     return;
-//                 }
+//                 //     if (!res.ok) {
+//                 //         //  throw new Error(data.message || "Upload failed");
+//                 //         console.log("Upload failed");
+//                 //     }
+//                 // } catch (err) {
+//                 //     setError(true);
+//                 //     return;
+//                 // }
 //             }
 
 //             // Step 4 Validation
@@ -2502,10 +2480,10 @@
 
 //             // Step 5 Validation
 //             if (formStep === 5) {
-//                 if (!reportPrice || isNaN(reportPrice) || Number(reportPrice) <= 0) {
-//                     setError(true);
-//                     return;
-//                 }
+//                 // if (!reportPrice || isNaN(reportPrice) || Number(reportPrice) <= 0) {
+//                 //     setError(true);
+//                 //     return;
+//                 // }
 
 //                 const payload = {
 //                     amount_cents: Number(reportPrice),
@@ -2519,10 +2497,10 @@
 //             // Step 6 Validation and Final Submit
 //             if (formStep === 6) {
 
-//                 if (!seoSlug.trim() || !seoTitle.trim() || !seoKeywords.trim() || !seoDescription.trim() || fHomepage === null) {
-//                     setError(true);
-//                     return;
-//                 }
+//                 // if (!seoSlug.trim() || !seoTitle.trim() || !seoKeywords.trim() || !seoDescription.trim() || fHomepage === null) {
+//                 //     setError(true);
+//                 //     return;
+//                 // }
 
 //                 const payload = {
 //                     status,
@@ -3019,8 +2997,11 @@
 
 
 
-// for test
-// // from deep seek
+
+
+
+
+// // (for production add it on github)
 import { useEffect, useState } from "react";
 import FormStep1 from "./steps/FormStep1";
 import FormStep2 from "./steps/FormStep2";
@@ -3038,6 +3019,7 @@ const TOTAL_STEPS = 7;  // Including review step
 const MultiStepForm = () => {
     const [formStep, setFormStep] = useState(1);
     const [error, setError] = useState(false);
+    const [periodError, setPeriodError] = useState(""); // From >= To error
     // const [errorMessage, setErrorMessage] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [draftId, setDraftId] = useState(null);
@@ -3192,10 +3174,20 @@ const MultiStepForm = () => {
             // Step 1 Validation
             if (formStep === 1) {
 
-                // if (!reportTitle || !subTitle || !industry || !subIndustry || regions.length === 0 || country.length === 0 || !reportType || !publishDate || !coveragePeriodFrom || !coveragePeriodTo) {
-                //     setError(true);
-                //     return;
-                // }
+                if (!reportTitle || !subTitle || !industry || !subIndustry || regions.length === 0 || country.length === 0 || !reportType || !publishDate || !coveragePeriodFrom || !coveragePeriodTo) {
+                    setError(true);
+                    return;
+                }
+                else {
+                    setError(false);       // clear previous errors
+                }
+
+                if (Number(coveragePeriodFrom) >= Number(coveragePeriodTo)) {
+                    setPeriodError("Coverage Period From must be smaller than Coverage Period To");
+                    return;
+                } else {
+                    setPeriodError(""); // clear if valid
+                }
 
                 const payload = {
                     title: reportTitle,
@@ -3216,10 +3208,12 @@ const MultiStepForm = () => {
 
             // Step 2 Validation
             if (formStep === 2) {
-                // if (reportCovers.length === 0 || reportSupports.length === 0) {
-                //     setError(true);
-                //     return;
-                // }
+                if (reportCovers.length === 0 || reportSupports.length === 0) {
+                    setError(true);
+                    return;
+                } else {
+                    setError(false);     // clear previous errors if valid
+                }
 
                 const payload = {
                     covers: reportCovers,
@@ -3231,62 +3225,63 @@ const MultiStepForm = () => {
 
             // Step 3 Validation
             if (formStep === 3) {
-                console.log("step3");
-                // if (!availableReports && !uploadedFile) {
-                //     setError(true);
-                //     return;
-                // }
-                // if (uploadedFile && uploadedFile.type !== "application/pdf") {
-                //     setError(true);
-                //     return;
-                // }
-                // if (!samplePDF) {
-                //     setError(true);
-                //     return;
-                // }
-                // if (samplePDF.type !== "application/pdf") {
-                //     setError(true);
-                //     return;
-                // }
-                // if (charts && charts.type !== "application/pdf") {
-                //     setError(true);
-                //     return;
-                // }
-                // if (image && image.type !== "image/webp") {
-                //     setError(true);
-                //     return;
-                // }
+                if (!availableReports && !uploadedFile) {
+                    setError(true);
+                    return;
+                }
+                if (uploadedFile && uploadedFile.type !== "application/pdf") {
+                    setError(true);
+                    return;
+                }
+                if (!samplePDF) {
+                    setError(true);
+                    return;
+                }
+                if (samplePDF.type !== "application/pdf") {
+                    setError(true);
+                    return;
+                }
+                if (charts && charts.type !== "application/pdf") {
+                    setError(true);
+                    return;
+                }
+                if (image && image.type !== "image/webp") {
+                    setError(true);
+                    return;
+                }
 
-                // const formData = new FormData();
-                // if (availableReports) formData.append("full_asset_id", availableReports);
-                // if (uploadedFile) formData.append("full_pdf", uploadedFile);
-                // if (samplePDF) formData.append("sample_pdf", samplePDF);
-                // if (charts) formData.append("charts_pdf", charts);
-                // if (image) formData.append("image_file", image);
+                setError(false);
 
-                // try {
-                //     const res = await fetch(
-                //         !draftId
-                //             ? `${nURL}/reports/step3/save-draft`
-                //             : `${nURL}/reports/${draftId}/step3`,
-                //         {
-                //             method: !draftId ? "POST" : "PUT",
-                //             body: formData,
-                //             credentials: "include"
-                //         }
-                //     );
+                const formData = new FormData();
+                if (availableReports) formData.append("full_asset_id", availableReports);
+                if (uploadedFile) formData.append("full_pdf", uploadedFile);
+                if (samplePDF) formData.append("sample_pdf", samplePDF);
+                if (charts) formData.append("charts_pdf", charts);
+                if (image) formData.append("image_file", image);
 
-                //     const data = await res.json();
-                //     console.log("step3: ", data);
+                try {
+                    const res = await fetch(
+                        !draftId
+                            ? `${nURL}/reports/step3/save-draft`
+                            : `${nURL}/reports/${draftId}/step3`,
+                        {
+                            method: !draftId ? "POST" : "PUT",
+                            body: formData,
+                            credentials: "include"
+                        }
+                    );
 
-                //     if (!res.ok) {
-                //         //  throw new Error(data.message || "Upload failed");
-                //         console.log("Upload failed");
-                //     }
-                // } catch (err) {
-                //     setError(true);
-                //     return;
-                // }
+                    const data = await res.json();
+                    console.log("step3: ", data);
+
+                    if (!res.ok) {
+                        //  throw new Error(data.message || "Upload failed");
+                        console.log("Upload failed");
+                    }
+                } catch (err) {
+                    setError(true);
+                    return;
+                }
             }
 
             // Step 4 Validation
@@ -3297,9 +3292,13 @@ const MultiStepForm = () => {
 
             // Step 5 Validation
             if (formStep === 5) {
+
+                // console.log("reportPrice",reportPrice);
                 // if (!reportPrice || isNaN(reportPrice) || Number(reportPrice) <= 0) {
                 //     setError(true);
                 //     return;
+                // } else {
+                //     setError(false);
                 // }
 
                 const payload = {
@@ -3314,10 +3313,13 @@ const MultiStepForm = () => {
             // Step 6 Validation and Final Submit
             if (formStep === 6) {
 
-                // if (!seoSlug.trim() || !seoTitle.trim() || !seoKeywords.trim() || !seoDescription.trim() || fHomepage === null) {
-                //     setError(true);
-                //     return;
-                // }
+                if (!seoSlug.trim() || !seoTitle.trim() || !seoKeywords.trim() || !seoDescription.trim() || fHomepage === null) {
+                    setError(true);
+                    return;
+                } else {
+                    setError(false); // clear previous error
+                }
+
 
                 const payload = {
                     status,
@@ -3626,6 +3628,7 @@ const MultiStepForm = () => {
                         getRegions={getRegions}
                         getCountries={getCountries}
                         getReportTypes={getReportTypes}
+                        periodError={periodError}
                     />
                 )}
                 {formStep === 2 && (

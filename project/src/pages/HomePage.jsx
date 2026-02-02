@@ -9,11 +9,15 @@ import c3 from '../assets/c3.svg';
 import c4 from '../assets/c4.svg';
 import { nURL } from '../URL';
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
+import { AuthContext } from '../auth/AuthContext';
 
 const HomePage = () => {
 
+    // for auth
     const navigate = useNavigate();
+
+    const { isAuthenticated, user, setIsAuthenticated, setUser } = useContext(AuthContext);
 
     const handleLogout = async () => {
         try {
@@ -28,7 +32,8 @@ const HomePage = () => {
             console.log(data);
 
             if (data.message) {
-                authMe();
+                setIsAuthenticated(false);
+                setUser(null);
                 alert(data.message);
                 navigate("/login");
             }
@@ -38,48 +43,16 @@ const HomePage = () => {
         }
     }
 
+    console.log("hm", user);
 
+    console.log("ish", isAuthenticated);
 
-     // for test 
-    const authMe = async() => {
-            try {
-                const result = await fetch(`${nURL}/auth/me`, {
-                    method: "GET",
-                    // headers: { "Content-Type": "application/json" },
-                    credentials: "include"
-                });
-    
-                const data = await result.json();
-    
-                console.log("auth: ",data);
-    
-                // if (data.message) {
-                //     alert(data.message);
-                //     navigate("/login");
-                // }
-    
-            } catch (err) {
-                console.error("Something went wrong:", err.message);
-            }
-        }
-    
-        useEffect(() => {
-            authMe();
-        }, []);
-
-        const getAuth = () => {
-            console.log("getAyth");
-        }
-
-
-        setInterval(()=>{
-            getAuth();
-        },3000);
 
     return (
         <>
-            <button onClick={handleLogout} className="border cursor-pointer">logout</button>
             {/* main content w-140 */}
+            <button onClick={handleLogout} className="border cursor-pointer">logout</button>
+            {/* <span>{isAuthenticated && <span>userName:{user || "no name"}</span>}</span> */}
             <div className=" h-120 flex items-center w-full bg-gray-300 hero-bg-img">
                 <div className=" w-80 sm:w-140 xl:w-285 m-auto flex gap-5 justify-center">
                     <div className=" w-80 sm:w-140">
