@@ -19,15 +19,15 @@ const AuthProvider = ({ children }) => {
 
             let data = await result.json();
 
-            console.log("auth: ", data);
+            console.log("auth...: ", data);
 
-            if (data.authenticated) {
+            if (data?.user?.authenticated) {
                 setUser(data?.user?.full_name);
                 setIsAuthenticated(true);
             }
             else {
                 setUser(null);
-                setIsAuthenticated(false);
+                setIsAuthenticated(false);  // for testing only
             }
 
         } catch (err) {
@@ -44,7 +44,7 @@ const AuthProvider = ({ children }) => {
         getAuthUserData();
     }, []);
 
-    // console.log('ath: ',isAuthenticated);
+    console.log('auth: ',isAuthenticated);
 
     return (
         <>
@@ -55,3 +55,6 @@ const AuthProvider = ({ children }) => {
     );
 };
 export { AuthContext, AuthProvider };
+
+
+

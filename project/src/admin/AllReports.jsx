@@ -3,6 +3,7 @@ import { BiEditAlt } from "react-icons/bi";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { nURL } from "../URL";
 
 const AllReports = () => {
 
@@ -14,7 +15,7 @@ const AllReports = () => {
     const getAllReportData = async () => {
         try {
             setLoading(true);
-            let result = await fetch("https://vegetarian-begun-sets-configuration.trycloudflare.com/reports/list", {
+            let result = await fetch(`${nURL}/reports/list`, {
                 method: "GET",
                 credentials: "include"
             });
@@ -37,9 +38,35 @@ const AllReports = () => {
 
     console.log(reportsData);
 
+
+    const handleReportDataDelete = async (index) => {
+        console.log("id: ", index);
+        var confirmation = confirm("Are you sure...");
+        if (confirmation) {
+            try {
+                let data = await fetch(`${nURL}/reports/${index}`, {
+                    method: "DELETE",
+                    credentials: "include"
+                });
+                let result = await data.json();
+                console.log("delete-response: ", result);
+                if (result.success) {
+                    alert("Report delete Successfully");
+                    getAllReportData();
+                }
+            }
+            catch (err) {
+                console.log("something went wrong...");
+            }
+        }
+        else {
+            alert("Data not delete...");
+        }
+    }
+
     return (
         <>
-            <div className="border w-285 m-auto">
+            <div className="border w-285 m-auto my-5">
                 <h1 className="text-primary text-24 font-semibold">All Reports</h1>
                 <div className="border h-9 mt-3">
                     <input type="search" className="border h-full w-full" />
@@ -141,8 +168,8 @@ const AllReports = () => {
 
                                     <div className="border px-2 py-2 w-[120px] flex justify-center items-center gap-3">
                                         <button className="border cursor-pointer" onClick={() => navigate(`/single-report/${itm.report_id}`)}><IoEyeOutline className="text-20" /></button>
-                                        <button className="border cursor-pointer"><BiEditAlt className="text-20" /></button>
-                                        <button className="border cursor-pointer"><RiDeleteBin6Line className="text-20" /></button>
+                                        <button className="border cursor-pointer" onClick={() => navigate(`/add/${itm.report_id}`)}><BiEditAlt className="text-20" /></button>
+                                        <button className="border cursor-pointer" onClick={() => handleReportDataDelete(itm.report_id)}><RiDeleteBin6Line className="text-20" /></button>
                                     </div>
                                 </div>
                             )

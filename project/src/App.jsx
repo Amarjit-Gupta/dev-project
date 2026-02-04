@@ -8,6 +8,7 @@ import Login from "./auth/Login";
 import Dash from "./admin/Dash";
 import AllReports from "./admin/AllReports";
 import SingleReport from "./admin/SingleReport";
+import ReportName from "./components/ReportName";
 import PrivateComponent from "./auth/PrivateComponent";
 
 const App = () => {
@@ -18,8 +19,10 @@ const App = () => {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/report" element={<ReportingList />} />
+          <Route path="/report-name" element={<ReportName />} />
           <Route element={<PrivateComponent />}>
             <Route path="/add" element={<MultiStepForm />} />
+            <Route path="/add/:id" element={<MultiStepForm />} />
             <Route path="/dash" element={<Dash />} />
             <Route path="/all" element={<AllReports />} />
             <Route path="/single-report/:id" element={<SingleReport />} />
@@ -32,4 +35,5 @@ const App = () => {
     </div>
   );
 };
+
 export default App;

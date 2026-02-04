@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 const FormStep6 = ({
+    status,
     setStatus,
     fHomepage,
     setFHomepage,
@@ -35,6 +36,7 @@ const FormStep6 = ({
                                 type="radio"
                                 name="status"
                                 value="draft"
+                                checked={status === "draft"}
                                 onChange={(e) => setStatus(e.target.value)}
                             />
                             <span>Draft</span>
@@ -46,6 +48,7 @@ const FormStep6 = ({
                                 type="radio"
                                 name="status"
                                 value="published"
+                                checked={status === "published"}
                                 onChange={(e) => setStatus(e.target.value)}
                             />
                             <span>Published</span>

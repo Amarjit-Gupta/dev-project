@@ -31,11 +31,16 @@ const HomePage = () => {
 
             console.log(data);
 
-            if (data.message) {
+            console.log("logout msg sdftgyhji: ",data);
+
+            if (data.success) {
+                alert(data.message);
                 setIsAuthenticated(false);
                 setUser(null);
-                alert(data.message);
                 navigate("/login");
+            }
+            else{
+                alert(data.message);
             }
 
         } catch (err) {
@@ -43,9 +48,56 @@ const HomePage = () => {
         }
     }
 
-    console.log("hm", user);
 
-    console.log("ish", isAuthenticated);
+    // const getAuthMe = async () => {
+    //     console.log("authme function called...");
+    //     try {
+    //         let result = await fetch(`${nURL}/auth/me`, {
+    //             method: "GET",
+    //             headers: { "Content-Type": "application/json" },
+    //             credentials: "include"
+    //         });
+
+    //         let data = await result.json();
+
+    //         console.log("auth me api called: ", data);
+
+    //     } catch (err) {
+    //         console.error("Something went wrong:", err.message);
+    //     }
+    // }
+
+
+//     const getAuthMe = async () => {
+//     try {
+//         const result = await fetch(`${nURL}/auth/me`, {
+//             method: "GET",
+//             credentials: "include"
+//         });
+
+//         if (result.status === 401 || result.status === 403) {
+//             console.log("User UNAUTHORIZED (logout working)");
+//             return;
+//         }
+
+//         const data = await result.json();
+//         console.log(" User STILL AUTHENTICATED", data);
+
+//     } catch (err) {
+//         console.error("Error:", err.message);
+//     }
+// };
+
+
+    // useEffect(()=>{
+    //     let interval = setInterval(()=>{
+    //         getAuthMe();
+    //     },3000);
+
+    //     return () => {
+    //         clearInterval(interval);
+    //     }
+    // },[]);
 
 
     return (
