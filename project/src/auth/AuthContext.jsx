@@ -27,7 +27,7 @@ const AuthProvider = ({ children }) => {
             }
             else {
                 setUser(null);
-                setIsAuthenticated(false);  // for testing only
+                setIsAuthenticated(false);
             }
 
         } catch (err) {
@@ -55,6 +55,3 @@ const AuthProvider = ({ children }) => {
     );
 };
 export { AuthContext, AuthProvider };
-
-
-

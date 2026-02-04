@@ -16,6 +16,6 @@ const PrivateComponent = () => {
         );
     }
 
-    return (isAuthenticated ? <Outlet /> : <Navigate to={"/login"} />);
+    return (isAuthenticated ? <Outlet /> : <Navigate to={"/login"} replace />);
 };
 export default PrivateComponent;

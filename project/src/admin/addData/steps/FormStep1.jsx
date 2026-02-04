@@ -143,8 +143,6 @@ const FormStep1 = (
                                             ? item.title.slice(0, 53) + "..."
                                             : item.title}
                                     </option>
-
-
                                 ))}
                             </select>
                         </div>

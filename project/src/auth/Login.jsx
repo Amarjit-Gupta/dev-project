@@ -1,6 +1,8 @@
-import { 
+import {
     useContext,
-     useState } from "react";
+    useEffect,
+    useState
+} from "react";
 // import { IoEyeOutline } from "react-icons/io5";
 import { FaRegEyeSlash } from "react-icons/fa";
 import { FaRegEye } from "react-icons/fa";
@@ -21,14 +23,30 @@ const Login = () => {
 
     const navigate = useNavigate();
 
-    const { isAuthenticated, setIsAuthenticated, getAuthUserData } = useContext(AuthContext);
+    // const { isAuthenticated, setIsAuthenticated, getAuthUserData } = useContext(AuthContext);
 
-    console.log("is", isAuthenticated);
+    // console.log("is", isAuthenticated);
+
+    // if (isAuthenticated) {
+    //     return <Navigate to={"/add"} />
+    // }
+
+    const { isAuthenticated, loading, getAuthUserData } = useContext(AuthContext);
+
+    // if (loading) {
+    //     return null; // ya loader
+    // }
+
+    console.log("is......auth.........", isAuthenticated);
 
     if (isAuthenticated) {
-        return <Navigate to={"/add"} replace />
+        return <Navigate to="/add" replace />;
     }
 
+    // // for test only
+    // useEffect(() => {
+    //     console.log("LOGIN PAGE auth:", isAuthenticated);
+    // }, [isAuthenticated]);
 
 
     const handleChange = (event) => {
@@ -111,8 +129,8 @@ const Login = () => {
                         <button type="button" onClick={() => setShowPass(!showPass)} className="cursor-pointer absolute right-3 top-8 text-xl">{showPass ? <span><FaRegEye /></span> : <span><FaRegEyeSlash /></span>}</button>
                         {error && !inputValue.password && <p className="text-red-500">Please Enter Password</p>}
                     </div>
-                    <div className="border">
-                        <button type="submit" className="py-1 w-full font-medium cursor-pointer rounded">Login</button>
+                    <div className="border border-red-500">
+                        <button type="submit" className="py-1 w-full font-medium cursor-pointer rounded hover:bg-gray-100">Login</button>
                     </div>
                 </form>
             </div>

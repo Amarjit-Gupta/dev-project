@@ -8951,16 +8951,138 @@ const MultiStepForm = () => {
                 }
 
                 setError(false);
-        
 
-            const formData = new FormData();
-            if (availableReports) formData.append("full_asset_id", availableReports);
-            if (uploadedFile) formData.append("full_pdf", uploadedFile);
-            if (samplePDF) formData.append("sample_pdf", samplePDF);
-            if (charts) formData.append("charts_pdf", charts);
-            if (image) formData.append("image_file", image);
 
-            try {
+                const formData = new FormData();
+                if (availableReports) formData.append("full_asset_id", availableReports);
+                if (uploadedFile) formData.append("full_pdf", uploadedFile);
+                if (samplePDF) formData.append("sample_pdf", samplePDF);
+                if (charts) formData.append("charts_pdf", charts);
+                if (image) formData.append("image_file", image);
+
+                try {
+                    const hasExistingId = draftId || index;
+                    const res = await fetch(
+                        hasExistingId
+                            ? `${nURL}/reports/${draftId || index}/step3`
+                            : `${nURL}/reports/step3/save-draft`,
+                        {
+                            method: hasExistingId ? "PUT" : "POST",
+                            body: formData,
+                            credentials: "include"
+                        }
+                    );
+
+                    const data = await res.json();
+                    console.log("step3: ", data);
+
+                    if (!res.ok) {
+                        console.log("Upload failed");
+                    }
+                } catch (err) {
+                    setError(true);
+                    return;
+                }
+            }
+
+            // Step 4 Validation
+            if (formStep === 4) {
+                // No validation needed for step 4
+                // You can add validation here if needed
+            }
+
+            // Step 5 Validation
+            if (formStep === 5) {
+                // Price validation (uncomment if needed)
+                // if (!reportPrice || isNaN(reportPrice) || Number(reportPrice) <= 0) {
+                //     setError(true);
+                //     return;
+                // }
+                // setError(false);
+
+                const payload = {
+                    amount_cents: Number(reportPrice),
+                    download_allowed: true,
+                    online_viewing_allowed: true
+                };
+
+                await saveStepData({ step: 4, payload });
+            }
+
+            // Step 6 Validation and Final Submit
+            if (formStep === 6) {
+                if (!seoSlug.trim() || !seoTitle.trim() || !seoKeywords.trim() || !seoDescription.trim() || fHomepage === null) {
+                    setError(true);
+                    return;
+                }
+                setError(false);
+
+                const payload = {
+                    status,
+                    seo_slug: seoSlug,
+                    seo_title: seoTitle,
+                    seo_keywords: seoKeywords,
+                    seo_description: seoDescription,
+                    feature_homepage: fHomepage
+                };
+
+                await saveStepData({ step: 5, payload });
+
+                console.log("FINAL SUBMIT DONE");
+                alert("Report published successfully!");
+
+                // Redirect after successful submission
+                navigate('/all');
+                return;
+            }
+
+            // Move to next step
+            if (formStep < 6) {
+                setFormStep(formStep + 1);
+            }
+        } catch (err) {
+            console.error("Handle Next Error:", err);
+            setError(true);
+            alert("Error occurred. Please try again.");
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
+
+    const handleSaveDraft = async () => {
+        try {
+            setIsSubmitting(true);
+
+            // For each step, save data without validation
+            if (formStep === 1) {
+                const payload = {
+                    title: reportTitle || "",
+                    subtitle: subTitle || "",
+                    industry_id: industry || "",
+                    sub_industry_id: subIndustry || "",
+                    region_id: regions || [],
+                    country_id: country || [],
+                    report_type_id: reportType || "",
+                    version_id: versionID || "",
+                    coverage_start_year: Number(coveragePeriodFrom) || 0,
+                    coverage_end_year: Number(coveragePeriodTo) || 0,
+                    publish_date: publishDate || ""
+                };
+                await saveStepData({ step: 1, payload });
+            } else if (formStep === 2) {
+                const payload = {
+                    covers: reportCovers || [],
+                    supports_decisions: reportSupports || []
+                };
+                await saveStepData({ step: 2, payload });
+            } else if (formStep === 3) {
+                const formData = new FormData();
+                if (availableReports) formData.append("full_asset_id", availableReports);
+                if (uploadedFile) formData.append("full_pdf", uploadedFile);
+                if (samplePDF) formData.append("sample_pdf", samplePDF);
+                if (charts) formData.append("charts_pdf", charts);
+                if (image) formData.append("image_file", image);
+
                 const hasExistingId = draftId || index;
                 const res = await fetch(
                     hasExistingId
@@ -8973,584 +9095,463 @@ const MultiStepForm = () => {
                     }
                 );
 
-                const data = await res.json();
-                console.log("step3: ", data);
-
                 if (!res.ok) {
-                    console.log("Upload failed");
+                    console.log("Failed to save draft");
                 }
-            } catch (err) {
-                setError(true);
+            } else if (formStep === 5) {
+                const payload = {
+                    amount_cents: Number(reportPrice) || 0,
+                    download_allowed: true,
+                    online_viewing_allowed: true
+                };
+                await saveStepData({ step: 4, payload });
+            } else if (formStep === 6) {
+                const payload = {
+                    status: status || "",
+                    seo_slug: seoSlug || "",
+                    seo_title: seoTitle || "",
+                    seo_keywords: seoKeywords || "",
+                    seo_description: seoDescription || "",
+                    feature_homepage: fHomepage || false
+                };
+                await saveStepData({ step: 5, payload });
+            }
+
+            alert("Draft saved successfully!");
+        } catch (err) {
+            console.error("Save Draft Error:", err);
+            setError(true);
+            alert("Failed to save draft. Please try again.");
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
+
+    const handlePrev = () => {
+        if (formStep === 7) {
+            setFormStep(6);
+        } else if (formStep > 1) {
+            setFormStep(formStep - 1);
+        }
+    };
+
+    const getIndustryData = async () => {
+        try {
+            let result = await fetch(`${nURL}/industries/main`);
+            let data = await result.json();
+            if (data) {
+                setGetIndustry(data?.industries || []);
+            }
+        } catch (err) {
+            console.error("Error fetching industries:", err);
+        }
+    };
+
+    const getSubIndustryData = async () => {
+        if (!industry) return;
+        try {
+            const url = `${nURL}/industries/sub?industry=${encodeURIComponent(industry)}`;
+            const res = await fetch(url);
+            const data = await res.json();
+            if (data) {
+                setGetSubindustry(data?.sub_industries || []);
+            }
+        } catch (err) {
+            console.log("Error fetching sub-industries:", err);
+        }
+    };
+
+    const getRegionsData = async () => {
+        try {
+            let result = await fetch(`${nURL}/regions`);
+            let data = await result.json();
+            if (data) {
+                setGetRegions(data?.regions || []);
+            }
+        } catch (err) {
+            console.log("Error fetching regions:", err);
+        }
+    };
+
+    const getReportData = async () => {
+        try {
+            let result = await fetch(`${nURL}/report-types`);
+            let data = await result.json();
+            if (data) {
+                setGetReportTypes(data?.report_types || []);
+            }
+        } catch (err) {
+            console.log("Error fetching report types:", err);
+        }
+    };
+
+    const getCountriesByRegion = async () => {
+        try {
+            if (!regions || regions.length === 0) {
+                setGetCountries([]);
                 return;
             }
-        }
 
-            // Step 4 Validation
-            if (formStep === 4) {
-            // No validation needed for step 4
-            // You can add validation here if needed
-        }
+            const regionParam = regions.join(",");
+            const url = `${nURL}/countries?region=${encodeURIComponent(regionParam)}`;
+            const res = await fetch(url);
+            if (!res.ok) throw new Error("Failed to fetch countries");
 
-        // Step 5 Validation
-        if (formStep === 5) {
-            // Price validation (uncomment if needed)
-            // if (!reportPrice || isNaN(reportPrice) || Number(reportPrice) <= 0) {
-            //     setError(true);
-            //     return;
-            // }
-            // setError(false);
-
-            const payload = {
-                amount_cents: Number(reportPrice),
-                download_allowed: true,
-                online_viewing_allowed: true
-            };
-
-            await saveStepData({ step: 4, payload });
-        }
-
-        // Step 6 Validation and Final Submit
-        if (formStep === 6) {
-            if (!seoSlug.trim() || !seoTitle.trim() || !seoKeywords.trim() || !seoDescription.trim() || fHomepage === null) {
-                setError(true);
-                return;
+            const data = await res.json();
+            if (data) {
+                setGetCountries(data?.countries || []);
             }
-            setError(false);
-
-            const payload = {
-                status,
-                seo_slug: seoSlug,
-                seo_title: seoTitle,
-                seo_keywords: seoKeywords,
-                seo_description: seoDescription,
-                feature_homepage: fHomepage
-            };
-
-            await saveStepData({ step: 5, payload });
-
-            console.log("FINAL SUBMIT DONE");
-            alert("Report published successfully!");
-
-            // Redirect after successful submission
-            navigate('/all');
-            return;
+        } catch (err) {
+            console.error("Country API Error:", err);
         }
+    };
 
-        // Move to next step
-        if (formStep < 6) {
-            setFormStep(formStep + 1);
-        }
-    } catch (err) {
-        console.error("Handle Next Error:", err);
-        setError(true);
-        alert("Error occurred. Please try again.");
-    } finally {
-        setIsSubmitting(false);
-    }
-};
+    const getAvailableReportsData = async () => {
+        try {
+            const res = await fetch(`${nURL}/report-assets`, {
+                method: "GET",
+                credentials: "include"
+            });
+            if (!res.ok) throw new Error("Failed to fetch available reports");
 
-const handleSaveDraft = async () => {
-    try {
-        setIsSubmitting(true);
-
-        // For each step, save data without validation
-        if (formStep === 1) {
-            const payload = {
-                title: reportTitle || "",
-                subtitle: subTitle || "",
-                industry_id: industry || "",
-                sub_industry_id: subIndustry || "",
-                region_id: regions || [],
-                country_id: country || [],
-                report_type_id: reportType || "",
-                version_id: versionID || "",
-                coverage_start_year: Number(coveragePeriodFrom) || 0,
-                coverage_end_year: Number(coveragePeriodTo) || 0,
-                publish_date: publishDate || ""
-            };
-            await saveStepData({ step: 1, payload });
-        } else if (formStep === 2) {
-            const payload = {
-                covers: reportCovers || [],
-                supports_decisions: reportSupports || []
-            };
-            await saveStepData({ step: 2, payload });
-        } else if (formStep === 3) {
-            const formData = new FormData();
-            if (availableReports) formData.append("full_asset_id", availableReports);
-            if (uploadedFile) formData.append("full_pdf", uploadedFile);
-            if (samplePDF) formData.append("sample_pdf", samplePDF);
-            if (charts) formData.append("charts_pdf", charts);
-            if (image) formData.append("image_file", image);
-
-            const hasExistingId = draftId || index;
-            const res = await fetch(
-                hasExistingId
-                    ? `${nURL}/reports/${draftId || index}/step3`
-                    : `${nURL}/reports/step3/save-draft`,
-                {
-                    method: hasExistingId ? "PUT" : "POST",
-                    body: formData,
-                    credentials: "include"
-                }
-            );
-
-            if (!res.ok) {
-                console.log("Failed to save draft");
+            const fData = await res.json();
+            if (fData) {
+                setGetAvailableReport(fData || []);
             }
-        } else if (formStep === 5) {
-            const payload = {
-                amount_cents: Number(reportPrice) || 0,
-                download_allowed: true,
-                online_viewing_allowed: true
-            };
-            await saveStepData({ step: 4, payload });
-        } else if (formStep === 6) {
-            const payload = {
-                status: status || "",
-                seo_slug: seoSlug || "",
-                seo_title: seoTitle || "",
-                seo_keywords: seoKeywords || "",
-                seo_description: seoDescription || "",
-                feature_homepage: fHomepage || false
-            };
-            await saveStepData({ step: 5, payload });
+        } catch (err) {
+            console.log("Available Reports API Error:", err);
         }
+    };
 
-        alert("Draft saved successfully!");
-    } catch (err) {
-        console.error("Save Draft Error:", err);
-        setError(true);
-        alert("Failed to save draft. Please try again.");
-    } finally {
-        setIsSubmitting(false);
-    }
-};
+    useEffect(() => {
+        getIndustryData();
+        getRegionsData();
+        getReportData();
+        getAvailableReportsData();
+    }, []);
 
-const handlePrev = () => {
-    if (formStep === 7) {
-        setFormStep(6);
-    } else if (formStep > 1) {
-        setFormStep(formStep - 1);
-    }
-};
-
-const getIndustryData = async () => {
-    try {
-        let result = await fetch(`${nURL}/industries/main`);
-        let data = await result.json();
-        if (data) {
-            setGetIndustry(data?.industries || []);
+    useEffect(() => {
+        if (industry) {
+            getSubIndustryData();
         }
-    } catch (err) {
-        console.error("Error fetching industries:", err);
-    }
-};
+    }, [industry]);
 
-const getSubIndustryData = async () => {
-    if (!industry) return;
-    try {
-        const url = `${nURL}/industries/sub?industry=${encodeURIComponent(industry)}`;
-        const res = await fetch(url);
-        const data = await res.json();
-        if (data) {
-            setGetSubindustry(data?.sub_industries || []);
-        }
-    } catch (err) {
-        console.log("Error fetching sub-industries:", err);
-    }
-};
-
-const getRegionsData = async () => {
-    try {
-        let result = await fetch(`${nURL}/regions`);
-        let data = await result.json();
-        if (data) {
-            setGetRegions(data?.regions || []);
-        }
-    } catch (err) {
-        console.log("Error fetching regions:", err);
-    }
-};
-
-const getReportData = async () => {
-    try {
-        let result = await fetch(`${nURL}/report-types`);
-        let data = await result.json();
-        if (data) {
-            setGetReportTypes(data?.report_types || []);
-        }
-    } catch (err) {
-        console.log("Error fetching report types:", err);
-    }
-};
-
-const getCountriesByRegion = async () => {
-    try {
-        if (!regions || regions.length === 0) {
+    useEffect(() => {
+        if (regions.length > 0) {
+            getCountriesByRegion();
+        } else {
             setGetCountries([]);
-            return;
+            setCountry([]);
         }
+    }, [regions]);
 
-        const regionParam = regions.join(",");
-        const url = `${nURL}/countries?region=${encodeURIComponent(regionParam)}`;
-        const res = await fetch(url);
-        if (!res.ok) throw new Error("Failed to fetch countries");
-
-        const data = await res.json();
-        if (data) {
-            setGetCountries(data?.countries || []);
+    useEffect(() => {
+        if (selectedReportId) {
+            getselectedReportIdData();
         }
-    } catch (err) {
-        console.error("Country API Error:", err);
-    }
-};
+    }, [selectedReportId]);
 
-const getAvailableReportsData = async () => {
-    try {
-        const res = await fetch(`${nURL}/report-assets`, {
-            method: "GET",
-            credentials: "include"
-        });
-        if (!res.ok) throw new Error("Failed to fetch available reports");
+    // for edit getdata
+    const getReportDataForEdit = async () => {
+        try {
+            let result = await fetch(`${nURL}/reports/${index}/edit`, {
+                method: "GET",
+                credentials: "include"
+            });
+            let data = await result.json();
+            console.log("getd1", data);
 
-        const fData = await res.json();
-        if (fData) {
-            setGetAvailableReport(fData || []);
+            // Set draftId from edit data if available
+            if (data?.report_id) {
+                setDraftId(data.report_id);
+            }
+
+            // Check step data according to your API response structure
+            if (data?.step_data?.step1) {
+                let stp1 = data?.step_data?.step1;
+                setversionID(stp1?.version_id);
+                setReportTitle(stp1?.title || "");
+                setSubTitle(stp1?.subtitle || "");
+                setIndustry(stp1?.industry_name || "");
+                setSubIndustry(stp1?.sub_industry_name || "");
+                setRegions(stp1?.region_names || []);
+                setCountry(stp1?.country_names || []);
+                setReportType(stp1?.report_type_name || "");
+                setPublishDate(stp1?.publish_date || "");
+                setCoveragePeriodFrom(stp1?.coverage_start_year || "");
+                setCoveragePeriodTo(stp1?.coverage_end_year || "");
+            }
+            if (data?.step_data?.step2) {
+                let stp2 = data?.step_data?.step2;
+                console.log("ste2", stp2);
+                setReportCovers(Array.isArray(stp2?.covers) ? stp2.covers : []);
+                setReportSupports(Array.isArray(stp2?.supports_decisions) ? stp2.supports_decisions : []);
+            }
+
+            if (data?.step_data?.step3) {
+                let stp3 = data?.step_data?.step3;
+                console.log("step3: ", stp3);
+                // Set existing files info if available
+                // Note: You might need to handle file URLs differently
+                // since you can't directly set File objects from API response
+                setAvailableReports(stp3?.full_asset_id || "");
+                // For files, you might want to store URLs or file names
+                // setUploadedFile(stp3?.full_pdf_url || null);
+                // setSamplePDF(stp3?.sample_pdf_url || null);
+                // setImage(stp3?.image_url || null);
+                // setCharts(stp3?.charts_pdf_url || null);
+            }
+
+            // API might return step4 for price and step5 for SEO
+            if (data?.step_data?.step4) {
+                let stp4 = data?.step_data?.step4;
+                console.log("step4: ", stp4);
+                setReportPrice(stp4?.amount_cents || "");
+            }
+            if (data?.step_data?.step5) {
+                let stp5 = data?.step_data?.step5;
+                console.log("step5: ", stp5);
+                setStatus(stp5?.status || "");
+                setFHomepage(stp5?.feature_homepage || false);
+                setSeoSlug(stp5?.seo_slug || "");
+                setSeoTitle(stp5?.seo_title || "");
+                setSeoKeywords(stp5?.seo_keywords || "");
+                setSeoDescription(stp5?.seo_description || "");
+            }
         }
-    } catch (err) {
-        console.log("Available Reports API Error:", err);
-    }
-};
-
-useEffect(() => {
-    getIndustryData();
-    getRegionsData();
-    getReportData();
-    getAvailableReportsData();
-}, []);
-
-useEffect(() => {
-    if (industry) {
-        getSubIndustryData();
-    }
-}, [industry]);
-
-useEffect(() => {
-    if (regions.length > 0) {
-        getCountriesByRegion();
-    } else {
-        setGetCountries([]);
-        setCountry([]);
-    }
-}, [regions]);
-
-useEffect(() => {
-    if (selectedReportId) {
-        getselectedReportIdData();
-    }
-}, [selectedReportId]);
-
-// for edit getdata
-const getReportDataForEdit = async () => {
-    try {
-        let result = await fetch(`${nURL}/reports/${index}/edit`, {
-            method: "GET",
-            credentials: "include"
-        });
-        let data = await result.json();
-        console.log("getd1", data);
-
-        // Set draftId from edit data if available
-        if (data?.report_id) {
-            setDraftId(data.report_id);
-        }
-
-        // Check step data according to your API response structure
-        if (data?.step_data?.step1) {
-            let stp1 = data?.step_data?.step1;
-            setReportTitle(stp1?.title || "");
-            setSubTitle(stp1?.subtitle || "");
-            setIndustry(stp1?.industry_name || "");
-            setSubIndustry(stp1?.sub_industry_name || "");
-            setRegions(stp1?.region_names || []);
-            setCountry(stp1?.country_names || []);
-            setReportType(stp1?.report_type_name || "");
-            setPublishDate(stp1?.publish_date || "");
-            setCoveragePeriodFrom(stp1?.coverage_start_year || "");
-            setCoveragePeriodTo(stp1?.coverage_end_year || "");
-        }
-        if (data?.step_data?.step2) {
-            let stp2 = data?.step_data?.step2;
-            console.log("ste2", stp2);
-            setReportCovers(Array.isArray(stp2?.covers) ? stp2.covers : []);
-            setReportSupports(Array.isArray(stp2?.supports_decisions) ? stp2.supports_decisions : []);
-        }
-
-        if (data?.step_data?.step3) {
-            let stp3 = data?.step_data?.step3;
-            console.log("step3: ", stp3);
-            // Set existing files info if available
-            // Note: You might need to handle file URLs differently
-            // since you can't directly set File objects from API response
-            setAvailableReports(stp3?.full_asset_id || "");
-            // For files, you might want to store URLs or file names
-            // setUploadedFile(stp3?.full_pdf_url || null);
-            // setSamplePDF(stp3?.sample_pdf_url || null);
-            // setImage(stp3?.image_url || null);
-            // setCharts(stp3?.charts_pdf_url || null);
-        }
-
-        // API might return step4 for price and step5 for SEO
-        if (data?.step_data?.step4) {
-            let stp4 = data?.step_data?.step4;
-            console.log("step4: ", stp4);
-            setReportPrice(stp4?.amount_cents || "");
-        }
-        if (data?.step_data?.step5) {
-            let stp5 = data?.step_data?.step5;
-            console.log("step5: ", stp5);
-            setStatus(stp5?.status || "");
-            setFHomepage(stp5?.feature_homepage || false);
-            setSeoSlug(stp5?.seo_slug || "");
-            setSeoTitle(stp5?.seo_title || "");
-            setSeoKeywords(stp5?.seo_keywords || "");
-            setSeoDescription(stp5?.seo_description || "");
+        catch (err) {
+            console.log("Something went wrong...");
         }
     }
-    catch (err) {
-        console.log("Something went wrong...");
-    }
-}
 
-useEffect(() => {
-    if (index) {
-        getReportDataForEdit();
-    }
-}, [index]);
+    useEffect(() => {
+        if (index) {
+            getReportDataForEdit();
+        }
+    }, [index]);
 
-return (
-    <>
-        {/* steps */}
-        <div className="border hidden lg:block">
-            <StepIndicator step={formStep} setStep={setFormStep} />
-        </div>
+    return (
+        <>
+            {/* steps */}
+            <div className="border hidden lg:block">
+                <StepIndicator step={formStep} setStep={setFormStep} />
+            </div>
 
-        <div className="border w-80 sm:w-160 md:w-190 lg:w-230 m-auto p-2">
-            {formStep === 1 && (
-                <FormStep1
-                    selectedOption={selectedOption}
-                    handleRadioChange={handleRadioChange}
-                    reportDirectory={reportDirectory}
-                    selectedReportId={selectedReportId}
-                    setSelectedReportId={setSelectedReportId}
-                    versionNum={versionNum}
-                    reportTitle={reportTitle}
-                    setReportTitle={setReportTitle}
-                    subTitle={subTitle}
-                    setSubTitle={setSubTitle}
-                    industry={industry}
-                    setIndustry={setIndustry}
-                    subIndustry={subIndustry}
-                    setSubIndustry={setSubIndustry}
-                    regions={regions}
-                    setRegions={setRegions}
-                    country={country}
-                    setCountry={setCountry}
-                    reportType={reportType}
-                    setReportType={setReportType}
-                    publishDate={publishDate}
-                    setPublishDate={setPublishDate}
-                    coveragePeriodFrom={coveragePeriodFrom}
-                    setCoveragePeriodFrom={setCoveragePeriodFrom}
-                    coveragePeriodTo={coveragePeriodTo}
-                    setCoveragePeriodTo={setCoveragePeriodTo}
-                    error={error}
-                    getIndustry={getIndustry}
-                    getSubindustry={getSubindustry}
-                    getRegions={getRegions}
-                    getCountries={getCountries}
-                    getReportTypes={getReportTypes}
-                    periodError={periodError}
-                />
-            )}
-            {formStep === 2 && (
-                <FormStep2
-                    reportCovers={reportCovers}
-                    setReportCovers={setReportCovers}
-                    reportSupports={reportSupports}
-                    setReportSupports={setReportSupports}
-                    error={error}
-                    draftId={draftId}
-                />
-            )}
-            {formStep === 3 && (
-                <FormStep3
-                    availableReports={availableReports}
-                    setAvailableReports={setAvailableReports}
-                    uploadedFile={uploadedFile}
-                    setUploadedFile={setUploadedFile}
-                    samplePDF={samplePDF}
-                    setSamplePDF={setSamplePDF}
-                    image={image}
-                    setImage={setImage}
-                    charts={charts}
-                    setCharts={setCharts}
-                    getAvailableReport={getAvailableReport}
-                    error={error}
-                />
-            )}
-            {formStep === 4 && (
-                <FormStep4
-                    sectionName={sectionName}
-                    setSectionName={setSectionName}
-                    sectionGroup={sectionGroup}
-                    setSectionGroup={setSectionGroup}
-                    shortDescription={shortDescription}
-                    setShortDescription={setShortDescription}
-                    previewAvailable={previewAvailable}
-                    setPreviewAvailable={setPreviewAvailable}
-                    sDescription={sDescription}
-                    setSDescription={setSDescription}
-                    fullReport={fullReport}
-                    setFullReport={setFullReport}
-                    sectionPDF={sectionPDF}
-                    setSectionPDF={setSectionPDF}
-                    error={error}
-                />
-            )}
-            {formStep === 5 && (
-                <FormStep5
-                    reportPrice={reportPrice}
-                    setReportPrice={setReportPrice}
-                    error={error}
-                />
-            )}
-            {formStep === 6 && (
-                <FormStep6
-                    status={status}
-                    setStatus={setStatus}
-                    fHomepage={fHomepage}
-                    setFHomepage={setFHomepage}
-                    seoSlug={seoSlug}
-                    setSeoSlug={setSeoSlug}
-                    seoTitle={seoTitle}
-                    setSeoTitle={setSeoTitle}
-                    seoKeywords={seoKeywords}
-                    setSeoKeywords={setSeoKeywords}
-                    seoDescription={seoDescription}
-                    setSeoDescription={setSeoDescription}
-                    error={error}
-                />
-            )}
-            {formStep === 7 && (
-                <ReviewStep
-                    draftId={draftId}
-                    reportTitle={reportTitle}
-                    subTitle={subTitle}
-                    industry={industry}
-                    subIndustry={subIndustry}
-                    regions={regions}
-                    country={country}
-                    reportType={reportType}
-                    publishDate={publishDate}
-                    coveragePeriodFrom={coveragePeriodFrom}
-                    coveragePeriodTo={coveragePeriodTo}
-                    reportCovers={reportCovers}
-                    reportSupports={reportSupports}
-                    availableReports={availableReports}
-                    uploadedFile={uploadedFile}
-                    samplePDF={samplePDF}
-                    image={image}
-                    charts={charts}
-                    sectionName={sectionName}
-                    sectionGroup={sectionGroup}
-                    shortDescription={shortDescription}
-                    previewAvailable={previewAvailable}
-                    sDescription={sDescription}
-                    fullReport={fullReport}
-                    sectionPDF={sectionPDF}
-                    reportPrice={reportPrice}
-                    status={status}
-                    fHomepage={fHomepage}
-                    seoSlug={seoSlug}
-                    seoTitle={seoTitle}
-                    seoKeywords={seoKeywords}
-                    seoDescription={seoDescription}
-                />
-            )}
-        </div>
-
-        {/* Navigation Buttons */}
-        <div className="relative h-14 border w-230 m-auto mt-4">
-            <div className="absolute right-2 top-1/2 -translate-y-1/2 z-50 flex gap-2">
-                {/* Back Button */}
-                {formStep >= 2 && formStep < 7 && (
-                    <button
-                        className="border px-4 h-9 font-medium text-primary border-text-primary hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
-                        onClick={handlePrev}
-                        disabled={isSubmitting}
-                    >
-                        Back
-                    </button>
+            <div className="border w-80 sm:w-160 md:w-190 lg:w-230 m-auto p-2">
+                {formStep === 1 && (
+                    <FormStep1
+                        selectedOption={selectedOption}
+                        handleRadioChange={handleRadioChange}
+                        reportDirectory={reportDirectory}
+                        selectedReportId={selectedReportId}
+                        setSelectedReportId={setSelectedReportId}
+                        versionNum={versionNum}
+                        reportTitle={reportTitle}
+                        setReportTitle={setReportTitle}
+                        subTitle={subTitle}
+                        setSubTitle={setSubTitle}
+                        industry={industry}
+                        setIndustry={setIndustry}
+                        subIndustry={subIndustry}
+                        setSubIndustry={setSubIndustry}
+                        regions={regions}
+                        setRegions={setRegions}
+                        country={country}
+                        setCountry={setCountry}
+                        reportType={reportType}
+                        setReportType={setReportType}
+                        publishDate={publishDate}
+                        setPublishDate={setPublishDate}
+                        coveragePeriodFrom={coveragePeriodFrom}
+                        setCoveragePeriodFrom={setCoveragePeriodFrom}
+                        coveragePeriodTo={coveragePeriodTo}
+                        setCoveragePeriodTo={setCoveragePeriodTo}
+                        error={error}
+                        getIndustry={getIndustry}
+                        getSubindustry={getSubindustry}
+                        getRegions={getRegions}
+                        getCountries={getCountries}
+                        getReportTypes={getReportTypes}
+                        periodError={periodError}
+                    />
                 )}
-
-                {/* Save Draft Button */}
-                {formStep <= 6 && (
-                    <button
-                        className="border px-4 h-9 font-medium text-primary border-text-primary hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
-                        onClick={handleSaveDraft}
-                        disabled={isSubmitting}
-                    >
-                        {isSubmitting ? "Saving..." : "Save Draft"}
-                    </button>
+                {formStep === 2 && (
+                    <FormStep2
+                        reportCovers={reportCovers}
+                        setReportCovers={setReportCovers}
+                        reportSupports={reportSupports}
+                        setReportSupports={setReportSupports}
+                        error={error}
+                        draftId={draftId}
+                    />
                 )}
-
-                {/* Next Button (Steps 1-5) */}
-                {formStep <= 5 && (
-                    <button
-                        className="border px-4 h-9 font-medium text-primary border-text-primary hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
-                        onClick={handleNext}
-                        disabled={isSubmitting}
-                    >
-                        {isSubmitting ? "Processing..." : "Next"}
-                    </button>
+                {formStep === 3 && (
+                    <FormStep3
+                        availableReports={availableReports}
+                        setAvailableReports={setAvailableReports}
+                        uploadedFile={uploadedFile}
+                        setUploadedFile={setUploadedFile}
+                        samplePDF={samplePDF}
+                        setSamplePDF={setSamplePDF}
+                        image={image}
+                        setImage={setImage}
+                        charts={charts}
+                        setCharts={setCharts}
+                        getAvailableReport={getAvailableReport}
+                        error={error}
+                    />
                 )}
-
-                {/* Step 6 Buttons (Review and Publish) */}
+                {formStep === 4 && (
+                    <FormStep4
+                        sectionName={sectionName}
+                        setSectionName={setSectionName}
+                        sectionGroup={sectionGroup}
+                        setSectionGroup={setSectionGroup}
+                        shortDescription={shortDescription}
+                        setShortDescription={setShortDescription}
+                        previewAvailable={previewAvailable}
+                        setPreviewAvailable={setPreviewAvailable}
+                        sDescription={sDescription}
+                        setSDescription={setSDescription}
+                        fullReport={fullReport}
+                        setFullReport={setFullReport}
+                        sectionPDF={sectionPDF}
+                        setSectionPDF={setSectionPDF}
+                        error={error}
+                    />
+                )}
+                {formStep === 5 && (
+                    <FormStep5
+                        reportPrice={reportPrice}
+                        setReportPrice={setReportPrice}
+                        error={error}
+                    />
+                )}
                 {formStep === 6 && (
-                    <>
+                    <FormStep6
+                        status={status}
+                        setStatus={setStatus}
+                        fHomepage={fHomepage}
+                        setFHomepage={setFHomepage}
+                        seoSlug={seoSlug}
+                        setSeoSlug={setSeoSlug}
+                        seoTitle={seoTitle}
+                        setSeoTitle={setSeoTitle}
+                        seoKeywords={seoKeywords}
+                        setSeoKeywords={setSeoKeywords}
+                        seoDescription={seoDescription}
+                        setSeoDescription={setSeoDescription}
+                        error={error}
+                    />
+                )}
+                {formStep === 7 && (
+                    <ReviewStep
+                        draftId={draftId}
+                        reportTitle={reportTitle}
+                        subTitle={subTitle}
+                        industry={industry}
+                        subIndustry={subIndustry}
+                        regions={regions}
+                        country={country}
+                        reportType={reportType}
+                        publishDate={publishDate}
+                        coveragePeriodFrom={coveragePeriodFrom}
+                        coveragePeriodTo={coveragePeriodTo}
+                        reportCovers={reportCovers}
+                        reportSupports={reportSupports}
+                        availableReports={availableReports}
+                        uploadedFile={uploadedFile}
+                        samplePDF={samplePDF}
+                        image={image}
+                        charts={charts}
+                        sectionName={sectionName}
+                        sectionGroup={sectionGroup}
+                        shortDescription={shortDescription}
+                        previewAvailable={previewAvailable}
+                        sDescription={sDescription}
+                        fullReport={fullReport}
+                        sectionPDF={sectionPDF}
+                        reportPrice={reportPrice}
+                        status={status}
+                        fHomepage={fHomepage}
+                        seoSlug={seoSlug}
+                        seoTitle={seoTitle}
+                        seoKeywords={seoKeywords}
+                        seoDescription={seoDescription}
+                    />
+                )}
+            </div>
+
+            {/* Navigation Buttons */}
+            <div className="relative h-14 border w-230 m-auto mt-4">
+                <div className="absolute right-2 top-1/2 -translate-y-1/2 z-50 flex gap-2">
+                    {/* Back Button */}
+                    {formStep >= 2 && formStep < 7 && (
                         <button
                             className="border px-4 h-9 font-medium text-primary border-text-primary hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
-                            onClick={() => setFormStep(7)}
+                            onClick={handlePrev}
                             disabled={isSubmitting}
                         >
-                            Review
+                            Back
                         </button>
+                    )}
+
+                    {/* Save Draft Button */}
+                    {formStep <= 6 && (
+                        <button
+                            className="border px-4 h-9 font-medium text-primary border-text-primary hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                            onClick={handleSaveDraft}
+                            disabled={isSubmitting}
+                        >
+                            {isSubmitting ? "Saving..." : "Save Draft"}
+                        </button>
+                    )}
+
+                    {/* Next Button (Steps 1-5) */}
+                    {formStep <= 5 && (
                         <button
                             className="border px-4 h-9 font-medium text-primary border-text-primary hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                             onClick={handleNext}
                             disabled={isSubmitting}
                         >
-                            {isSubmitting ? "Publishing..." : "Publish Report"}
+                            {isSubmitting ? "Processing..." : "Next"}
                         </button>
-                    </>
-                )}
+                    )}
 
-                {/* Step 7 Back Button */}
-                {formStep === 7 && (
-                    <button
-                        className="border px-4 h-9 font-medium text-primary border-text-primary hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
-                        onClick={() => setFormStep(6)}
-                        disabled={isSubmitting}
-                    >
-                        Back to Edit
-                    </button>
-                )}
+                    {/* Step 6 Buttons (Review and Publish) */}
+                    {formStep === 6 && (
+                        <>
+                            <button
+                                className="border px-4 h-9 font-medium text-primary border-text-primary hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                                onClick={() => setFormStep(7)}
+                                disabled={isSubmitting}
+                            >
+                                Review
+                            </button>
+                            <button
+                                className="border px-4 h-9 font-medium text-primary border-text-primary hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                                onClick={handleNext}
+                                disabled={isSubmitting}
+                            >
+                                {isSubmitting ? "Publishing..." : "Publish Report"}
+                            </button>
+                        </>
+                    )}
+
+                    {/* Step 7 Back Button */}
+                    {formStep === 7 && (
+                        <button
+                            className="border px-4 h-9 font-medium text-primary border-text-primary hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                            onClick={() => setFormStep(6)}
+                            disabled={isSubmitting}
+                        >
+                            Back to Edit
+                        </button>
+                    )}
+                </div>
             </div>
-        </div>
-    </>
-);
+        </>
+    );
 };
 
 export default MultiStepForm;

@@ -31,13 +31,14 @@ const HomePage = () => {
 
             console.log(data);
 
-            console.log("logout msg sdftgyhji: ",data);
+            console.log("logout msg: ",data);
 
             if (data.success) {
-                alert(data.message);
+                
                 setIsAuthenticated(false);
                 setUser(null);
                 navigate("/login");
+                alert(data.message);
             }
             else{
                 alert(data.message);
