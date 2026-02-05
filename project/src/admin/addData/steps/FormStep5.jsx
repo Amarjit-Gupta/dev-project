@@ -14,7 +14,6 @@ const FormStep5 = ({reportPrice,setReportPrice}) => {
                     </label>
                     <input type="text" id="reportTitle" className="w-full border h-10 px-0.5 text-20" placeholder="Full report price" value={reportPrice} onChange={(e)=>setReportPrice(e.target.value)} />
                 </div>
-
             </div>
         </>
     )

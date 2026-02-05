@@ -9,15 +9,15 @@ import c3 from '../assets/c3.svg';
 import c4 from '../assets/c4.svg';
 import { nURL } from '../URL';
 import { useNavigate } from 'react-router-dom';
-import { useContext, useEffect } from 'react';
-import { AuthContext } from '../auth/AuthContext';
+// import { useContext, useEffect } from 'react';
+// import { AuthContext } from '../auth/AuthContext';
 
 const HomePage = () => {
 
     // for auth
     const navigate = useNavigate();
 
-    const { isAuthenticated, user, setIsAuthenticated, setUser } = useContext(AuthContext);
+    // const { isAuthenticated, user, setIsAuthenticated, setUser } = useContext(AuthContext);
 
     const handleLogout = async () => {
         try {
@@ -35,9 +35,9 @@ const HomePage = () => {
 
             if (data.success) {
                 
-                setIsAuthenticated(false);
-                setUser(null);
-                navigate("/login");
+                // setIsAuthenticated(false);
+                // setUser(null);
+                // navigate("/login");
                 alert(data.message);
             }
             else{

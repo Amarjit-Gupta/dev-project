@@ -1,104 +1,165 @@
+import { useEffect, useState } from "react";
 import { IoIosWarning } from "react-icons/io";
+import { nURL } from "../URL";
+import { useNavigate } from "react-router-dom";
 const Dash = () => {
+
+    const [draftDataCard, setDraftDataCard] = useState([]);
+
+    const [loading1, setLoading1] = useState(true);
+
+    const navigate = useNavigate();
+
+    const getDraftData = async () => {
+        try {
+            setLoading1(true);
+            let result = await fetch(`${nURL}/reports/my-drafts`, {
+                method: "GET",
+                credentials: "include"
+            });
+
+            if (!result.ok) {
+                console.log("Failed to fetch drafts:", result.status);
+                setDraftDataCard([]);
+                return;
+            }
+
+            let data = await result.json();
+
+            console.log("drftdt: ", data);
+
+            if (Array.isArray(data)) {
+                setDraftDataCard(data);
+            }
+            else {
+                setDraftDataCard([]);
+            }
+        }
+        catch (err) {
+            console.log("Something went wrong...");
+        } finally {
+            setLoading1(false); // loading off
+        }
+    }
+
+    useEffect(() => {
+        getDraftData();
+    }, []);
+
     return (
-        <div className="border w-293 m-auto">
-            {/* 5 cards */}
-            <div className="border grid grid-cols-5 gap-5.5 mt-13">
-                <div className="border py-4.5 text-center text-primary text-20 font-regular bg-card">
-                    <p>Published Reports</p>
-                    <p>324</p>
-                </div>
-                <div className="border py-4.5 text-center text-primary text-20 font-regular bg-card">
-                    <p>Draft Reports</p>
-                    <p>343</p>
-                </div>
-                <div className="border py-4.5 text-center text-primary text-20 font-regular bg-card">
-                    <p>Purchases (1y)</p>
-                    <p>443</p>
-                </div>
-                <div className="border py-4.5 text-center text-primary text-20 font-regular bg-card">
-                    <p>Revenue (1y)</p>
-                    <p>$34356</p>
-                </div>
-                <div className="border py-4.5 text-center text-primary text-20 font-regular bg-card">
-                    <p>Impressions</p>
-                    <p>23893547</p>
-                </div>
-            </div>
+        <div className="border bg-gray-100">
 
 
-            {/* button */}
-            <div className="border w-174 m-auto grid grid-cols-3 gap-8.5 mt-13">
-                <div className="border w-52 h-13 text-center"><button className="border w-full h-full cursor-pointer text-primary text-16 font-medium">Add New Report</button></div>
-                <div className="border w-52 h-13 text-center"><button className="border w-full h-full cursor-pointer text-primary text-16 font-medium">View All Reports</button></div>
-                <div className="border w-52 h-13 text-center"><button className="border w-full h-full cursor-pointer text-primary text-16 font-medium">View Orders</button></div>
-            </div>
+            <div className="border w-293 m-auto my-11">
+                {/* 5 cards */}
+                <div className="border grid grid-cols-5 gap-5.5">
 
-
-            {/* draft card */}
-            <div className="border w-293 m-auto grid grid-cols-3 gap-8.5 mt-17">
-                <div className="border w-91 h-24 flex p-5 items-center justify-between">
-                    <div className="border"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                        <path d="M3 8.27206L8.27206 3H15.7279L21 8.27206V15.7279L15.7279 21H8.27206L3 15.7279V8.27206Z" fill="#F9A925" />
-                        <path d="M12.0088 14.25C12.423 14.25 12.7588 14.5858 12.7588 15C12.7588 15.4142 12.423 15.75 12.0088 15.75H12C11.5858 15.75 11.25 15.4142 11.25 15C11.25 14.5858 11.5858 14.25 12 14.25H12.0088Z" fill="white" />
-                        <path d="M12.7578 8L12.7578 12C12.7578 12.4142 12.422 12.75 12.0078 12.75C11.5936 12.75 11.2578 12.4142 11.2578 12L11.2578 8C11.2578 7.58579 11.5936 7.25 12.0078 7.25C12.422 7.25 12.7578 7.58579 12.7578 8Z" fill="white" />
-                    </svg></div>
-                    <div className="border">
-                        <p className="text-20 text-primary font-regular">Report Title</p>
-                        <p className="text-15 text-primary font-medium">Edited on: yesterday</p>
+                    {/* <div className="border py-4.5 text-center text-primary text-20 font-regular bg-card"> */}
+                    <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-200 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 text-primary text-20 font-regular">
+                        <p>Published Reports</p>
+                        <p>324</p>
                     </div>
-                    <div className="border w-29.5 h-13"><button className="border h-full w-full cursor-pointer text-primary text-16 font-medium bg-brand">Edit Now</button></div>
-                </div>
-                <div className="border w-91 h-24 flex p-5 items-center justify-between">
-                    <div className="border"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                        <path d="M3 8.27206L8.27206 3H15.7279L21 8.27206V15.7279L15.7279 21H8.27206L3 15.7279V8.27206Z" fill="#F9A925" />
-                        <path d="M12.0088 14.25C12.423 14.25 12.7588 14.5858 12.7588 15C12.7588 15.4142 12.423 15.75 12.0088 15.75H12C11.5858 15.75 11.25 15.4142 11.25 15C11.25 14.5858 11.5858 14.25 12 14.25H12.0088Z" fill="white" />
-                        <path d="M12.7578 8L12.7578 12C12.7578 12.4142 12.422 12.75 12.0078 12.75C11.5936 12.75 11.2578 12.4142 11.2578 12L11.2578 8C11.2578 7.58579 11.5936 7.25 12.0078 7.25C12.422 7.25 12.7578 7.58579 12.7578 8Z" fill="white" />
-                    </svg></div>
-                    <div className="border">
-                        <p className="text-20 text-primary font-regular">Report Title</p>
-                        <p className="text-15 text-primary font-medium">Edited on: yesterday</p>
+                    <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-200 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 text-primary text-20 font-regular">
+                        <p>Draft Reports</p>
+                        <p>343</p>
                     </div>
-                    <div className="border w-29.5 h-13"><button className="border h-full w-full cursor-pointer text-primary text-16 font-medium bg-brand">Edit Now</button></div>
-                </div>
-                <div className="border w-91 h-24 flex p-5 items-center justify-between">
-                    <div className="border"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                        <path d="M3 8.27206L8.27206 3H15.7279L21 8.27206V15.7279L15.7279 21H8.27206L3 15.7279V8.27206Z" fill="#F9A925" />
-                        <path d="M12.0088 14.25C12.423 14.25 12.7588 14.5858 12.7588 15C12.7588 15.4142 12.423 15.75 12.0088 15.75H12C11.5858 15.75 11.25 15.4142 11.25 15C11.25 14.5858 11.5858 14.25 12 14.25H12.0088Z" fill="white" />
-                        <path d="M12.7578 8L12.7578 12C12.7578 12.4142 12.422 12.75 12.0078 12.75C11.5936 12.75 11.2578 12.4142 11.2578 12L11.2578 8C11.2578 7.58579 11.5936 7.25 12.0078 7.25C12.422 7.25 12.7578 7.58579 12.7578 8Z" fill="white" />
-                    </svg></div>
-                    <div className="border">
-                        <p className="text-20 text-primary font-regular">Report Title</p>
-                        <p className="text-15 text-primary font-medium">Edited on: yesterday</p>
+                    <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-200 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 text-primary text-20 font-regular">
+                        <p>Purchases (1y)</p>
+                        <p>443</p>
                     </div>
-                    <div className="border w-29.5 h-13"><button className="border h-full w-full cursor-pointer text-primary text-16 font-medium bg-brand">Edit Now</button></div>
+                    <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-200 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 text-primary text-20 font-regular">
+                        <p>Revenue (1y)</p>
+                        <p>$34356</p>
+                    </div>
+                    <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-200 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 text-primary text-20 font-regular">
+                        <p>Impressions</p>
+                        <p>23893547</p>
+                    </div>
                 </div>
-            </div>
+
+                {/* button */}
+                <div className="border w-174 m-auto grid grid-cols-3 gap-8.5 my-11">
+                    <div className="border w-52 h-13 text-center"><button className="border w-full h-full cursor-pointer bg-brand hover:bg-[var(--color-brand-primary-hover)] text-primary text-16 font-medium" onClick={() => navigate("/add")}>Add New Report</button></div>
+                    <div className="border w-52 h-13 text-center"><button className="border w-full h-full cursor-pointer bg-brand hover:bg-[var(--color-brand-primary-hover)] text-primary text-16 font-medium" onClick={() => navigate("/all")}>View All Reports</button></div>
+                    <div className="border w-52 h-13 text-center"><button className="border w-full h-full cursor-pointer bg-brand hover:bg-[var(--color-brand-primary-hover)] text-primary text-16 font-medium">View Orders</button></div>
+                </div>
+
+                {/* draft card */}
+
+                {loading1 ? <div className="flex justify-center items-center h-10">
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+                </div> :
+                    <div className="border w-293 m-auto grid grid-cols-3 gap-8.5">
+                        {draftDataCard?.map((itm, i) => {
+                            return (
+                                <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-200 hover:shadow-lg hover:-translate-y-1 transition-all duration-300" key={itm.report_id}>
+                                    {/* <div className="border p-4 bg-card" > */}
+                                    <div className="border borderred-500 h-20 flex gap-2 mb-2">
+                                        <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                            <path d="M3 8.27206L8.27206 3H15.7279L21 8.27206V15.7279L15.7279 21H8.27206L3 15.7279V8.27206Z" fill="#F9A925" />
+                                            <path d="M12.0088 14.25C12.423 14.25 12.7588 14.5858 12.7588 15C12.7588 15.4142 12.423 15.75 12.0088 15.75H12C11.5858 15.75 11.25 15.4142 11.25 15C11.25 14.5858 11.5858 14.25 12 14.25H12.0088Z" fill="white" />
+                                            <path d="M12.7578 8L12.7578 12C12.7578 12.4142 12.422 12.75 12.0078 12.75C11.5936 12.75 11.2578 12.4142 11.2578 12L11.2578 8C11.2578 7.58579 11.5936 7.25 12.0078 7.25C12.422 7.25 12.7578 7.58579 12.7578 8Z" fill="white" />
+                                        </svg></span>
+                                        <p className="text-primary font-medium text-16">{(itm?.title).length > 80 ? (itm?.title).slice(0, 80) + "..." : itm?.title}</p>
+                                    </div>
+
+                                    <div className="border flex justify-between items-center">
+                                        <button className="py-2 px-4 bg-brand text-primary font-medium text-15 cursor-pointer hover:bg-[var(--color-brand-primary-hover)]" onClick={() => navigate(`/add/${itm.report_id}`)}>Edit Now</button>
+                                        <span><span className="font-medium">Edit on: </span>
+                                            {
+                                                itm?.updated_at &&
+                                                new Date(itm.updated_at).toLocaleDateString("en-GB", {
+                                                    day: "2-digit",
+                                                    month: "short",
+                                                    year: "numeric"
+                                                })
+                                            }
+                                        </span>
+                                    </div>
+                                </div>
+                            );
+                        })}
+
+                        {/*  */}
+
+                    </div>
+                }
 
 
-            {/* message */}
-            <div className="border w-293 m-auto grid grid-cols-2 gap-15 mt-25.5">
-                <div className="border p-6 bg-card">
-                    <h1 className="text-24 text-primary font-semibold mb-3">Recent Activity</h1>
-                    <p className="text-16 text-primary font-regular">- Report published: "India Nutra Market" (Today)</p>
-                    <p className="text-16 text-primary font-regular">- Price updated: "Vitamin C Market" (Yesterday)</p>
-                    <p className="text-16 text-primary font-regular">- Draft saved: "Germany Pharma" (2 days ago)</p>
-                    <p className="text-16 text-primary font-regular">- Report published: "India Nutra Market" (Today)</p>
-                    <p className="text-16 text-primary font-regular">- Price updated: "Vitamin C Market" (Yesterday)</p>
-                    <p className="text-16 text-primary font-regular">- Draft saved: "Germany Pharma" (2 days ago)</p>
+
+
+
+
+                {/* message */}
+                <div className="border w-293 m-auto grid grid-cols-2 gap-15 mt-11">
+                    {/* <div className="border p-6 bg-card"> */}
+                    <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-200 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                        <h1 className="text-24 text-primary font-semibold mb-3">Recent Activity</h1>
+                        <p className="text-16 text-primary font-regular">- Report published: "India Nutra Market" (Today)</p>
+                        <p className="text-16 text-primary font-regular">- Price updated: "Vitamin C Market" (Yesterday)</p>
+                        <p className="text-16 text-primary font-regular">- Draft saved: "Germany Pharma" (2 days ago)</p>
+                        <p className="text-16 text-primary font-regular">- Report published: "India Nutra Market" (Today)</p>
+                        <p className="text-16 text-primary font-regular">- Price updated: "Vitamin C Market" (Yesterday)</p>
+                        <p className="text-16 text-primary font-regular">- Draft saved: "Germany Pharma" (2 days ago)</p>
+                    </div>
+                    {/* <div className="border p-6 bg-card"> */}
+                    <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-200 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                        <h1 className="text-24 text-primary font-semibold mb-3">Alerts/Warning</h1>
+                        <p className="text-16 text-primary font-regular flex items-center gap-2"><IoIosWarning className="text-yellow-500" /> Drafts older than 14 days: 6</p>
+                        <p className="text-16 text-primary font-regular flex items-center gap-2"><IoIosWarning className="text-yellow-500" />Missing section PDF files: 2 reports</p>
+                        <p className="text-16 text-primary font-regular flex items-center gap-2"><IoIosWarning className="text-yellow-500" />Published reports without preview: 5</p>
+                        <p className="text-16 text-primary font-regular flex items-center gap-2"><IoIosWarning className="text-yellow-500" />Drafts older than 14 days: 6</p>
+                        <p className="text-16 text-primary font-regular flex items-center gap-2"><IoIosWarning className="text-yellow-500" />Missing section PDF files: 2 reports</p>
+                        <p className="text-16 text-primary font-regular flex items-center gap-2"><IoIosWarning className="text-yellow-500" />Published reports without preview: 5</p>
+                    </div>
+
                 </div>
-                <div className="border p-6 bg-card">
-                    <h1 className="text-24 text-primary font-semibold mb-3">Alerts/Warning</h1>
-                    <p className="text-16 text-primary font-regular flex items-center gap-2"><IoIosWarning className="text-yellow-500" /> Drafts older than 14 days: 6</p>
-                    <p className="text-16 text-primary font-regular flex items-center gap-2"><IoIosWarning className="text-yellow-500" />Missing section PDF files: 2 reports</p>
-                    <p className="text-16 text-primary font-regular flex items-center gap-2"><IoIosWarning className="text-yellow-500" />Published reports without preview: 5</p>
-                    <p className="text-16 text-primary font-regular flex items-center gap-2"><IoIosWarning className="text-yellow-500" />Drafts older than 14 days: 6</p>
-                    <p className="text-16 text-primary font-regular flex items-center gap-2"><IoIosWarning className="text-yellow-500" />Missing section PDF files: 2 reports</p>
-                    <p className="text-16 text-primary font-regular flex items-center gap-2"><IoIosWarning className="text-yellow-500" />Published reports without preview: 5</p>
-                </div>
-                
             </div>
         </div>
     );
 };
 export default Dash;
+
+///////////////////////////////////////////////////////////
+// digital2@umangglobal.com
+// 113@Virendra

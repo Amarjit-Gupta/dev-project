@@ -8927,6 +8927,10 @@ const MultiStepForm = () => {
                         setError(true);
                         return;
                     }
+                    if (!image) {
+                        setError(true);
+                        return;
+                    }
                 }
 
                 // File type validation (edit + new dono)
@@ -9331,226 +9335,228 @@ const MultiStepForm = () => {
     }, [index]);
 
     return (
-        <>
-            {/* steps */}
-            <div className="border hidden lg:block">
-                <StepIndicator step={formStep} setStep={setFormStep} />
-            </div>
+        <div className="border bg-gray-100">
+            <>
+                {/* steps */}
+                <div className="border hidden lg:block">
+                    <StepIndicator step={formStep} setStep={setFormStep} />
+                </div>
 
-            <div className="border w-80 sm:w-160 md:w-190 lg:w-230 m-auto p-2">
-                {formStep === 1 && (
-                    <FormStep1
-                        selectedOption={selectedOption}
-                        handleRadioChange={handleRadioChange}
-                        reportDirectory={reportDirectory}
-                        selectedReportId={selectedReportId}
-                        setSelectedReportId={setSelectedReportId}
-                        versionNum={versionNum}
-                        reportTitle={reportTitle}
-                        setReportTitle={setReportTitle}
-                        subTitle={subTitle}
-                        setSubTitle={setSubTitle}
-                        industry={industry}
-                        setIndustry={setIndustry}
-                        subIndustry={subIndustry}
-                        setSubIndustry={setSubIndustry}
-                        regions={regions}
-                        setRegions={setRegions}
-                        country={country}
-                        setCountry={setCountry}
-                        reportType={reportType}
-                        setReportType={setReportType}
-                        publishDate={publishDate}
-                        setPublishDate={setPublishDate}
-                        coveragePeriodFrom={coveragePeriodFrom}
-                        setCoveragePeriodFrom={setCoveragePeriodFrom}
-                        coveragePeriodTo={coveragePeriodTo}
-                        setCoveragePeriodTo={setCoveragePeriodTo}
-                        error={error}
-                        getIndustry={getIndustry}
-                        getSubindustry={getSubindustry}
-                        getRegions={getRegions}
-                        getCountries={getCountries}
-                        getReportTypes={getReportTypes}
-                        periodError={periodError}
-                    />
-                )}
-                {formStep === 2 && (
-                    <FormStep2
-                        reportCovers={reportCovers}
-                        setReportCovers={setReportCovers}
-                        reportSupports={reportSupports}
-                        setReportSupports={setReportSupports}
-                        error={error}
-                        draftId={draftId}
-                    />
-                )}
-                {formStep === 3 && (
-                    <FormStep3
-                        availableReports={availableReports}
-                        setAvailableReports={setAvailableReports}
-                        uploadedFile={uploadedFile}
-                        setUploadedFile={setUploadedFile}
-                        samplePDF={samplePDF}
-                        setSamplePDF={setSamplePDF}
-                        image={image}
-                        setImage={setImage}
-                        charts={charts}
-                        setCharts={setCharts}
-                        getAvailableReport={getAvailableReport}
-                        error={error}
-                    />
-                )}
-                {formStep === 4 && (
-                    <FormStep4
-                        sectionName={sectionName}
-                        setSectionName={setSectionName}
-                        sectionGroup={sectionGroup}
-                        setSectionGroup={setSectionGroup}
-                        shortDescription={shortDescription}
-                        setShortDescription={setShortDescription}
-                        previewAvailable={previewAvailable}
-                        setPreviewAvailable={setPreviewAvailable}
-                        sDescription={sDescription}
-                        setSDescription={setSDescription}
-                        fullReport={fullReport}
-                        setFullReport={setFullReport}
-                        sectionPDF={sectionPDF}
-                        setSectionPDF={setSectionPDF}
-                        error={error}
-                    />
-                )}
-                {formStep === 5 && (
-                    <FormStep5
-                        reportPrice={reportPrice}
-                        setReportPrice={setReportPrice}
-                        error={error}
-                    />
-                )}
-                {formStep === 6 && (
-                    <FormStep6
-                        status={status}
-                        setStatus={setStatus}
-                        fHomepage={fHomepage}
-                        setFHomepage={setFHomepage}
-                        seoSlug={seoSlug}
-                        setSeoSlug={setSeoSlug}
-                        seoTitle={seoTitle}
-                        setSeoTitle={setSeoTitle}
-                        seoKeywords={seoKeywords}
-                        setSeoKeywords={setSeoKeywords}
-                        seoDescription={seoDescription}
-                        setSeoDescription={setSeoDescription}
-                        error={error}
-                    />
-                )}
-                {formStep === 7 && (
-                    <ReviewStep
-                        draftId={draftId}
-                        reportTitle={reportTitle}
-                        subTitle={subTitle}
-                        industry={industry}
-                        subIndustry={subIndustry}
-                        regions={regions}
-                        country={country}
-                        reportType={reportType}
-                        publishDate={publishDate}
-                        coveragePeriodFrom={coveragePeriodFrom}
-                        coveragePeriodTo={coveragePeriodTo}
-                        reportCovers={reportCovers}
-                        reportSupports={reportSupports}
-                        availableReports={availableReports}
-                        uploadedFile={uploadedFile}
-                        samplePDF={samplePDF}
-                        image={image}
-                        charts={charts}
-                        sectionName={sectionName}
-                        sectionGroup={sectionGroup}
-                        shortDescription={shortDescription}
-                        previewAvailable={previewAvailable}
-                        sDescription={sDescription}
-                        fullReport={fullReport}
-                        sectionPDF={sectionPDF}
-                        reportPrice={reportPrice}
-                        status={status}
-                        fHomepage={fHomepage}
-                        seoSlug={seoSlug}
-                        seoTitle={seoTitle}
-                        seoKeywords={seoKeywords}
-                        seoDescription={seoDescription}
-                    />
-                )}
-            </div>
-
-            {/* Navigation Buttons */}
-            <div className="relative h-14 border w-230 m-auto mt-4">
-                <div className="absolute right-2 top-1/2 -translate-y-1/2 z-50 flex gap-2">
-                    {/* Back Button */}
-                    {formStep >= 2 && formStep < 7 && (
-                        <button
-                            className="border px-4 h-9 font-medium text-primary border-text-primary hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
-                            onClick={handlePrev}
-                            disabled={isSubmitting}
-                        >
-                            Back
-                        </button>
+                <div className="border w-80 sm:w-160 md:w-190 lg:w-230 m-auto p-2">
+                    {formStep === 1 && (
+                        <FormStep1
+                            selectedOption={selectedOption}
+                            handleRadioChange={handleRadioChange}
+                            reportDirectory={reportDirectory}
+                            selectedReportId={selectedReportId}
+                            setSelectedReportId={setSelectedReportId}
+                            versionNum={versionNum}
+                            reportTitle={reportTitle}
+                            setReportTitle={setReportTitle}
+                            subTitle={subTitle}
+                            setSubTitle={setSubTitle}
+                            industry={industry}
+                            setIndustry={setIndustry}
+                            subIndustry={subIndustry}
+                            setSubIndustry={setSubIndustry}
+                            regions={regions}
+                            setRegions={setRegions}
+                            country={country}
+                            setCountry={setCountry}
+                            reportType={reportType}
+                            setReportType={setReportType}
+                            publishDate={publishDate}
+                            setPublishDate={setPublishDate}
+                            coveragePeriodFrom={coveragePeriodFrom}
+                            setCoveragePeriodFrom={setCoveragePeriodFrom}
+                            coveragePeriodTo={coveragePeriodTo}
+                            setCoveragePeriodTo={setCoveragePeriodTo}
+                            error={error}
+                            getIndustry={getIndustry}
+                            getSubindustry={getSubindustry}
+                            getRegions={getRegions}
+                            getCountries={getCountries}
+                            getReportTypes={getReportTypes}
+                            periodError={periodError}
+                        />
                     )}
-
-                    {/* Save Draft Button */}
-                    {formStep <= 6 && (
-                        <button
-                            className="border px-4 h-9 font-medium text-primary border-text-primary hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
-                            onClick={handleSaveDraft}
-                            disabled={isSubmitting}
-                        >
-                            {isSubmitting ? "Saving..." : "Save Draft"}
-                        </button>
+                    {formStep === 2 && (
+                        <FormStep2
+                            reportCovers={reportCovers}
+                            setReportCovers={setReportCovers}
+                            reportSupports={reportSupports}
+                            setReportSupports={setReportSupports}
+                            error={error}
+                            draftId={draftId}
+                        />
                     )}
-
-                    {/* Next Button (Steps 1-5) */}
-                    {formStep <= 5 && (
-                        <button
-                            className="border px-4 h-9 font-medium text-primary border-text-primary hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
-                            onClick={handleNext}
-                            disabled={isSubmitting}
-                        >
-                            {isSubmitting ? "Processing..." : "Next"}
-                        </button>
+                    {formStep === 3 && (
+                        <FormStep3
+                            availableReports={availableReports}
+                            setAvailableReports={setAvailableReports}
+                            uploadedFile={uploadedFile}
+                            setUploadedFile={setUploadedFile}
+                            samplePDF={samplePDF}
+                            setSamplePDF={setSamplePDF}
+                            image={image}
+                            setImage={setImage}
+                            charts={charts}
+                            setCharts={setCharts}
+                            getAvailableReport={getAvailableReport}
+                            error={error}
+                        />
                     )}
-
-                    {/* Step 6 Buttons (Review and Publish) */}
+                    {formStep === 4 && (
+                        <FormStep4
+                            sectionName={sectionName}
+                            setSectionName={setSectionName}
+                            sectionGroup={sectionGroup}
+                            setSectionGroup={setSectionGroup}
+                            shortDescription={shortDescription}
+                            setShortDescription={setShortDescription}
+                            previewAvailable={previewAvailable}
+                            setPreviewAvailable={setPreviewAvailable}
+                            sDescription={sDescription}
+                            setSDescription={setSDescription}
+                            fullReport={fullReport}
+                            setFullReport={setFullReport}
+                            sectionPDF={sectionPDF}
+                            setSectionPDF={setSectionPDF}
+                            error={error}
+                        />
+                    )}
+                    {formStep === 5 && (
+                        <FormStep5
+                            reportPrice={reportPrice}
+                            setReportPrice={setReportPrice}
+                            error={error}
+                        />
+                    )}
                     {formStep === 6 && (
-                        <>
+                        <FormStep6
+                            status={status}
+                            setStatus={setStatus}
+                            fHomepage={fHomepage}
+                            setFHomepage={setFHomepage}
+                            seoSlug={seoSlug}
+                            setSeoSlug={setSeoSlug}
+                            seoTitle={seoTitle}
+                            setSeoTitle={setSeoTitle}
+                            seoKeywords={seoKeywords}
+                            setSeoKeywords={setSeoKeywords}
+                            seoDescription={seoDescription}
+                            setSeoDescription={setSeoDescription}
+                            error={error}
+                        />
+                    )}
+                    {formStep === 7 && (
+                        <ReviewStep
+                            draftId={draftId}
+                            reportTitle={reportTitle}
+                            subTitle={subTitle}
+                            industry={industry}
+                            subIndustry={subIndustry}
+                            regions={regions}
+                            country={country}
+                            reportType={reportType}
+                            publishDate={publishDate}
+                            coveragePeriodFrom={coveragePeriodFrom}
+                            coveragePeriodTo={coveragePeriodTo}
+                            reportCovers={reportCovers}
+                            reportSupports={reportSupports}
+                            availableReports={availableReports}
+                            uploadedFile={uploadedFile}
+                            samplePDF={samplePDF}
+                            image={image}
+                            charts={charts}
+                            sectionName={sectionName}
+                            sectionGroup={sectionGroup}
+                            shortDescription={shortDescription}
+                            previewAvailable={previewAvailable}
+                            sDescription={sDescription}
+                            fullReport={fullReport}
+                            sectionPDF={sectionPDF}
+                            reportPrice={reportPrice}
+                            status={status}
+                            fHomepage={fHomepage}
+                            seoSlug={seoSlug}
+                            seoTitle={seoTitle}
+                            seoKeywords={seoKeywords}
+                            seoDescription={seoDescription}
+                        />
+                    )}
+                </div>
+
+                {/* Navigation Buttons */}
+                <div className="relative h-14 border w-230 m-auto mt-4">
+                    <div className="absolute right-2 top-1/2 -translate-y-1/2 z-50 flex gap-2">
+                        {/* Back Button */}
+                        {formStep >= 2 && formStep < 7 && (
                             <button
                                 className="border px-4 h-9 font-medium text-primary border-text-primary hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
-                                onClick={() => setFormStep(7)}
+                                onClick={handlePrev}
                                 disabled={isSubmitting}
                             >
-                                Review
+                                Back
                             </button>
+                        )}
+
+                        {/* Save Draft Button */}
+                        {formStep <= 6 && (
+                            <button
+                                className="border px-4 h-9 font-medium text-primary border-text-primary hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                                onClick={handleSaveDraft}
+                                disabled={isSubmitting}
+                            >
+                                {isSubmitting ? "Saving..." : "Save Draft"}
+                            </button>
+                        )}
+
+                        {/* Next Button (Steps 1-5) */}
+                        {formStep <= 5 && (
                             <button
                                 className="border px-4 h-9 font-medium text-primary border-text-primary hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                                 onClick={handleNext}
                                 disabled={isSubmitting}
                             >
-                                {isSubmitting ? "Publishing..." : "Publish Report"}
+                                {isSubmitting ? "Processing..." : "Next"}
                             </button>
-                        </>
-                    )}
+                        )}
 
-                    {/* Step 7 Back Button */}
-                    {formStep === 7 && (
-                        <button
-                            className="border px-4 h-9 font-medium text-primary border-text-primary hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
-                            onClick={() => setFormStep(6)}
-                            disabled={isSubmitting}
-                        >
-                            Back to Edit
-                        </button>
-                    )}
+                        {/* Step 6 Buttons (Review and Publish) */}
+                        {formStep === 6 && (
+                            <>
+                                <button
+                                    className="border px-4 h-9 font-medium text-primary border-text-primary hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                                    onClick={() => setFormStep(7)}
+                                    disabled={isSubmitting}
+                                >
+                                    Review
+                                </button>
+                                <button
+                                    className="border px-4 h-9 font-medium text-primary border-text-primary hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                                    onClick={handleNext}
+                                    disabled={isSubmitting}
+                                >
+                                    {isSubmitting ? "Publishing..." : "Publish Report"}
+                                </button>
+                            </>
+                        )}
+
+                        {/* Step 7 Back Button */}
+                        {formStep === 7 && (
+                            <button
+                                className="border px-4 h-9 font-medium text-primary border-text-primary hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                                onClick={() => setFormStep(6)}
+                                disabled={isSubmitting}
+                            >
+                                Back to Edit
+                            </button>
+                        )}
+                    </div>
                 </div>
-            </div>
-        </>
+            </>
+        </div>
     );
 };
 

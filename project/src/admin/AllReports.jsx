@@ -65,44 +65,44 @@ const AllReports = () => {
     }
 
     return (
-        <>
+        <div className="border bg-gray-100">
             <div className="border w-285 m-auto my-5">
                 <h1 className="text-primary text-24 font-semibold">All Reports</h1>
                 <div className="border h-9 mt-3">
-                    <input type="search" className="border h-full w-full" />
+                    <input type="search" className="border h-full w-full px-2 bg-surface" placeholder="Search..." />
                 </div>
                 <h2 className="text-primary text-16 font-semibold mt-8">Filters</h2>
                 <div className="border h-9 mt-3 flex gap-3">
                     <div className="border w-50">
-                        <select name="" id="" className="w-full h-full">
+                        <select name="" id="" className="w-full h-full bg-surface">
                             <option value="option1">--- Select status ---</option>
                             <option value="option2">option2</option>
                             <option value="option3">option3</option>
                         </select>
                     </div>
                     <div className="border w-50">
-                        <select name="" id="" className="w-full h-full">
+                        <select name="" id="" className="w-full h-full bg-surface">
                             <option value="option1">--- Select Industry ---</option>
                             <option value="option2">option2</option>
                             <option value="option3">option3</option>
                         </select>
                     </div>
                     <div className="border w-50">
-                        <select name="" id="" className="w-full h-full">
+                        <select name="" id="" className="w-full h-full bg-surface">
                             <option value="option1">--- Select Country ---</option>
                             <option value="option2">option2</option>
                             <option value="option3">option3</option>
                         </select>
                     </div>
                     <div className="border w-50">
-                        <select name="" id="" className="w-full h-full">
+                        <select name="" id="" className="w-full h-full bg-surface">
                             <option value="option1">--- Select Type ---</option>
                             <option value="option2">option2</option>
                             <option value="option3">option3</option>
                         </select>
                     </div>
                     <div className="border w-50">
-                        <select name="" id="" className="w-full h-full">
+                        <select name="" id="" className="w-full h-full bg-surface">
                             <option value="option1">--- Sort ---</option>
                             <option value="option2">option2</option>
                             <option value="option3">option3</option>
@@ -112,7 +112,7 @@ const AllReports = () => {
 
                 {/* table */}
 
-                <div className="mt-10 mx-auto w-[1140px] border flex font-medium bg-gray-50">
+                <div className="mt-10 mx-auto w-[1140px] border flex font-medium">
                     <div className="border px-2 py-2 w-[320px]">Title</div>
                     <div className="border px-2 py-2 w-[220px]">Industry</div>
                     <div className="border px-2 py-2 w-[140px]">Country</div>
@@ -130,7 +130,7 @@ const AllReports = () => {
                     <>
                         {reportsData?.map((itm, i) => {
                             return (
-                                <div className="mx-auto w-[1140px] border flex items-stretch text-16" key={itm.report_id}>
+                                <div className="mx-auto w-[1140px] border flex items-stretch text-16 table-bg" key={itm.report_id}>
                                     <div className="border px-2 py-2 w-[320px] break-words whitespace-normal">
                                         {itm?.title}
                                     </div>
@@ -178,7 +178,7 @@ const AllReports = () => {
 
 
             </div>
-        </>
+        </div>
     );
 };
 export default AllReports;

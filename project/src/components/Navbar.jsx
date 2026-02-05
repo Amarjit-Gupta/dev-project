@@ -1,5 +1,5 @@
 import { RxHamburgerMenu } from "react-icons/rx";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import logo from '../assets/Logo-Integers.svg';
 import { RxCross2 } from "react-icons/rx";
 import { Link, NavLink } from "react-router-dom";
@@ -8,6 +8,19 @@ import logoSmall from '../assets/logo-small.svg';
 const Navbar = () => {
 
     const [menu, setMenu] = useState(false);
+
+    const [openPopup, setOpenPopup] = useState(false);
+
+    const handleClick = (e) => {
+        e.stopPropagation();
+        setOpenPopup(!openPopup);
+    };
+
+    useEffect(() => {
+        const closeMenu = () => setOpenPopup(false);
+        window.addEventListener("click", closeMenu);
+        return () => window.removeEventListener("click", closeMenu);
+    }, []);
 
     return (
         <>
@@ -28,11 +41,35 @@ const Navbar = () => {
                 <button className='lg:hidden text-2xl' onClick={() => setMenu(!menu)}>{menu ? <span><RxCross2 /></span> : <span><RxHamburgerMenu /></span>}</button>
 
                 <ul className={`transition-all duration-500 fixed top-21 lg:top-0 lg:static w-full lg:w-auto h-full lg:h-auto text-center bg-surface ${menu ? "right-0" : "-right-[100%]"}`}>
-                    <li className="block lg:inline-block py-5 lg:py-0"><NavLink to={'/'} onClick={()=>setMenu(false)}>Home</NavLink></li>
+                    <li className="block lg:inline-block py-5 lg:py-0"><NavLink to={'/'} onClick={() => setMenu(false)}>Home</NavLink></li>
                     <li className="block lg:inline-block lg:pl-9 py-5 lg:py-0">Industries</li>
-                    <li className="block lg:inline-block lg:pl-9 py-5 lg:py-0"><NavLink to={'/report'} onClick={()=>setMenu(false)}>Reports</NavLink></li>
+                    <li className="block lg:inline-block lg:pl-9 py-5 lg:py-0"><NavLink to={'/report'} onClick={() => setMenu(false)}>Reports</NavLink></li>
                     <li className="block lg:inline-block lg:pl-9 py-5 lg:py-0">Use Cases</li>
                     <li className="block lg:inline-block lg:pl-9 py-5 lg:py-0"><NavLink to={"/pricing"}>Pricing</NavLink></li>
+
+                    <div className="lg:hidden">
+                        <div className="relative inline-block">
+                            {/* Header Button */}
+                            <button
+                                onClick={handleClick}
+                                className="border bg-brand rounded-full h-9 w-9 text-20 font-medium transition-all cursor-pointer hover:bg-[var(--color-brand-primary-hover)]"
+                            >
+                                A
+                            </button>
+
+                            {/* Popup */}
+                            {openPopup && (
+                                <div className="absolute right-0 top-full z-10 mt-2 rounded shadow-lg">
+                                    <button
+                                        onClick={() => setOpenPopup(false)}
+                                        className="bg-brand w-full rounded py-2 px-3 text-15 text-primary font-medium cursor-pointer hover:bg-[var(--color-brand-primary-hover)]"
+                                    >
+                                        Logout
+                                    </button>
+                                </div>
+                            )}
+                        </div>
+                    </div>
                 </ul>
 
                 <div className="hidden lg:block">
@@ -42,6 +79,30 @@ const Navbar = () => {
                             <path d="M16.4197 16.4197C16.7126 16.1268 17.1874 16.1268 17.4803 16.4197L21.5301 20.4695C21.823 20.7624 21.823 21.2372 21.5301 21.5301C21.2372 21.823 20.7624 21.823 20.4695 21.5301L16.4197 17.4803C16.1268 17.1874 16.1268 16.7126 16.4197 16.4197Z" fill="#3CD690" />
                             <path d="M18.4502 11.0996C18.45 7.0405 15.1588 3.75 11.0996 3.75C7.04063 3.75021 3.75021 7.04063 3.75 11.0996C3.75 15.1588 7.0405 18.45 11.0996 18.4502C15.1589 18.4502 18.4502 15.1589 18.4502 11.0996ZM19.9502 11.0996C19.9502 15.9873 15.9873 19.9502 11.0996 19.9502C6.21207 19.95 2.25 15.9872 2.25 11.0996C2.25021 6.2122 6.2122 2.25021 11.0996 2.25C15.9872 2.25 19.95 6.21207 19.9502 11.0996Z" fill="#3CD690" />
                         </svg>
+                    </div>
+                </div>
+
+                <div className="hidden lg:block">
+                    <div className="relative inline-block">
+                        {/* Header Button */}
+                        <button
+                            onClick={handleClick}
+                            className="border bg-brand rounded-full h-9 w-9 text-20 font-medium transition-all cursor-pointer hover:bg-[var(--color-brand-primary-hover)]"
+                        >
+                            A
+                        </button>
+
+                        {/* Popup */}
+                        {openPopup && (
+                            <div className="absolute right-0 top-full z-10 mt-2 rounded shadow-lg">
+                                <button
+                                    onClick={() => setOpenPopup(false)}
+                                    className="bg-brand w-full rounded py-2 px-3 text-15 text-primary font-medium cursor-pointer hover:bg-[var(--color-brand-primary-hover)]"
+                                >
+                                    Logout
+                                </button>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

@@ -1,6 +1,6 @@
 import {
-    useContext,
-    useEffect,
+    // useContext,
+    // useEffect,
     useState
 } from "react";
 // import { IoEyeOutline } from "react-icons/io5";
@@ -9,7 +9,7 @@ import { FaRegEye } from "react-icons/fa";
 import { Navigate, useNavigate } from 'react-router-dom';
 import { nURL } from "../URL";
 
-import { AuthContext } from "./AuthContext";
+// import { AuthContext } from "./AuthContext";
 
 const Login = () => {
 
@@ -31,17 +31,17 @@ const Login = () => {
     //     return <Navigate to={"/add"} />
     // }
 
-    const { isAuthenticated, loading, getAuthUserData } = useContext(AuthContext);
+    // const { isAuthenticated, loading, getAuthUserData } = useContext(AuthContext);
 
     // if (loading) {
     //     return null; // ya loader
     // }
 
-    console.log("is......auth.........", isAuthenticated);
+    // console.log("is......auth.........", isAuthenticated);
 
-    if (isAuthenticated) {
-        return <Navigate to="/add" replace />;
-    }
+    // if (isAuthenticated) {
+    //     return <Navigate to="/add" replace />;
+    // }
 
     // // for test only
     // useEffect(() => {
@@ -98,9 +98,9 @@ const Login = () => {
             console.log("login: ", data);
 
             if (data.message) {
-                await getAuthUserData();
+                // await getAuthUserData();
                 // setIsAuthenticated(true);
-                navigate("/");
+                // navigate("/");
                 alert(data.message);
             }
             else {
