@@ -84,7 +84,7 @@ const SingleReport = () => {
                                     <a
                                         className="text-blue-500"
                                         href={singleData.step3.full_report_url}
-                                        target="_blank"
+                                        // target="_blank"
                                         rel="noreferrer"
                                     >
                                         Full Report
@@ -98,7 +98,7 @@ const SingleReport = () => {
                                     <a
                                         className="text-blue-500"
                                         href={singleData.step3.sample_report_url}
-                                        target="_blank"
+                                        // target="_blank"
                                         rel="noreferrer"
                                     >
                                         Sample Report
@@ -126,7 +126,7 @@ const SingleReport = () => {
                                     <a
                                         className="text-blue-500"
                                         href={singleData.step3.charts_report_url}
-                                        target="_blank"
+                                        // target="_blank"
                                         rel="noreferrer"
                                     >
                                         Charts Report

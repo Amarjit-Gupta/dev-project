@@ -16,7 +16,7 @@ export const FilterURL = "https://spray-destiny-blonde-trustees.trycloudflare.co
 
 // export const nURL = "https://mating-chicken-river-floating.trycloudflare.com";
 
-export const nURL = "https://duncan-uploaded-illinois-nato.trycloudflare.com";
+export const nURL = "https://upc-survival-sterling-shown.trycloudflare.com";
 
 
 // auth:  {user_id: 'c2d3997e-d3fb-4f7a-a1ed-cffb9e31bbda', authenticated: true}

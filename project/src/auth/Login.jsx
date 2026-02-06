@@ -1,3 +1,4 @@
+import { RiLoader4Fill } from "react-icons/ri";
 import {
     // useContext,
     // useEffect,
@@ -20,6 +21,8 @@ const Login = () => {
 
     const [showPass, setShowPass] = useState(true);
     const [error, setError] = useState(false);
+
+    const [loader2, setLoader2] = useState(false);
 
     const navigate = useNavigate();
 
@@ -87,6 +90,7 @@ const Login = () => {
         }
 
         try {
+            setLoader2(true);
             const result = await fetch(`${nURL}/login`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -110,6 +114,8 @@ const Login = () => {
         } catch (err) {
             setError(false);
             console.error("Something went wrong:", err.message);
+        } finally {
+            setLoader2(false);
         }
     };
 
@@ -119,19 +125,36 @@ const Login = () => {
                 <h1 className="text-24 font-medium text-center py-4">Login here</h1>
                 <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
                     <div className="">
-                        <label htmlFor="" className="font-medium">username Id:</label><br />
-                        <input type="email" name="username" value={inputValue.username} onChange={handleChange} className="border w-full h-9 rounded px-0.5" />
-                        {error && !inputValue.username && <p className="text-red-500">Please Enter username Id</p>}
+                        <label htmlFor="" className="font-medium">Username Id:</label><br />
+                        <input type="email" name="username" value={inputValue.username} onChange={handleChange} className="border w-full h-9 rounded px-1" />
+                        {error && !inputValue.username && <p className="text-red-500">Please Enter Username Id</p>}
                     </div>
                     <div className="relative">
                         <label htmlFor="" className="font-medium">Password:</label><br />
-                        <input type={showPass ? "password" : "text"} name="password" value={inputValue.password} onChange={handleChange} className="border w-full h-9 rounded px-0.5" />
+                        <input type={showPass ? "password" : "text"} name="password" value={inputValue.password} onChange={handleChange} className="border w-full h-9 rounded px-1" />
                         <button type="button" onClick={() => setShowPass(!showPass)} className="cursor-pointer absolute right-3 top-8 text-xl">{showPass ? <span><FaRegEye /></span> : <span><FaRegEyeSlash /></span>}</button>
                         {error && !inputValue.password && <p className="text-red-500">Please Enter Password</p>}
                     </div>
-                    <div className="border border-red-500">
-                        <button type="submit" className="py-1 w-full font-medium cursor-pointer rounded hover:bg-gray-100">Login</button>
+                    {/* <div className="border border-red-500">
+                        <button type="submit" className="py-1 w-full font-medium cursor-pointer rounded hover:bg-gray-100">{loader2?<span>Login </span>:<span className=" flex justify-center items-center gap-2">Login in <RiLoader4Fill className="text-20" /> </span>}</button>
+                    </div> */}
+                    <div className="border">
+                        <button
+                            type="submit"
+                            className="py-1 w-full font-medium cursor-pointer rounded hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50"
+                            disabled={loader2}
+                        >
+                            {loader2 ? (
+                                <span className="flex justify-center items-center gap-2">
+                                    Logging in
+                                    <RiLoader4Fill className="text-20 animate-spin" />
+                                </span>
+                            ) : (
+                                <span>Login</span>
+                            )}
+                        </button>
                     </div>
+
                 </form>
             </div>
         </div>
