@@ -42,7 +42,7 @@ const FAQ = () => {
             <button
               onClick={() => handleClick(i)}
             
-              className="w-full flex justify-between items-center px-4 py-3 text-left bg-gray-100 hover:bg-gray-200 transition"
+              className="w-full flex justify-between items-center px-4 py-3 text-left bg-gray-100 hover:bg-gray-200 transition cursor-pointer"
             >
               <span className="font-medium text-primary text-16">
                 {fq.title}

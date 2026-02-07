@@ -1,6 +1,6 @@
 // export const FilterURL = "https://vids-princess-supplement-bidding.trycloudflare.com";
 
-export const FilterURL = "https://spray-destiny-blonde-trustees.trycloudflare.com";
+export const FilterURL = "https://labels-automation-breeds-services.trycloudflare.com";
 
 // export const FilterURL = "https://allowed-stranger-nurses-booking.trycloudflare.com";  for admin
 
@@ -16,7 +16,7 @@ export const FilterURL = "https://spray-destiny-blonde-trustees.trycloudflare.co
 
 // export const nURL = "https://mating-chicken-river-floating.trycloudflare.com";
 
-export const nURL = "https://upc-survival-sterling-shown.trycloudflare.com";
+export const nURL = "https://house-truly-low-nicole.trycloudflare.com";
 
 
 // auth:  {user_id: 'c2d3997e-d3fb-4f7a-a1ed-cffb9e31bbda', authenticated: true}

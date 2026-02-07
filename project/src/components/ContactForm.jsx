@@ -1,0 +1,225 @@
+import { useState, useRef, useEffect } from "react";
+import { countries, roles } from "./Data";
+import { RxCross2 } from "react-icons/rx";
+
+
+const ContactForm = ({popupOpen,setPopupOpen}) => {
+
+
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [contact, setContact] = useState("");
+    const [companyName, setCompanyName] = useState("");
+    const [message, setMessage] = useState("");
+
+    const [error, setError] = useState(false);
+
+    // for country  state
+    const [search, setSearch] = useState("");
+    const [selectedCountry, setSelectedCountry] = useState("");
+    const [countryOpen, setCountryopen] = useState(false);
+    const dropdownRef = useRef(null);
+
+    // for role  state
+    const [selectedRole, setSelectedRole] = useState("");
+    const [roleOpen, setRoleOpen] = useState(false);
+
+    const roleRef = useRef(null);
+
+
+    // for country
+    // outside click close
+    useEffect(() => {
+        const handleClickOutside = (e) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+                setCountryopen(false);
+            }
+        };
+        document.addEventListener("mousedown", handleClickOutside);
+        return () =>
+            document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
+
+    const filteredCountries = countries.filter((country) =>
+        country.toLowerCase().includes(search.toLowerCase())
+    );
+
+    // for role
+
+    useEffect(() => {
+        const handleClickOutside = (e) => {
+            if (roleRef.current && !roleRef.current.contains(e.target)) {
+                setRoleOpen(false);
+            }
+        };
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
+
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
+        if (!name.trim() || !email.trim() || !contact.trim() || !companyName.trim()) {
+            setError(true);
+            return;
+        }
+
+        console.log("name", name);
+        console.log("email", email);
+        console.log("contact", contact);
+        console.log("companyName", companyName);
+        console.log("selectedRole", selectedRole);
+        console.log("selectedCountry", selectedCountry);
+        console.log("message", message);
+    }
+
+    return (
+        <div className={`h-[100vh] w-full bg-black/50 fixed -top-[100vh] ${popupOpen?"top-0":""}`}>
+
+
+            <div className={`border border-red-500  w-80 sm:w-155 md:w-180 m-auto p-3 h-150 overflow-auto bg-gray-100 fixed -top-[100%] left-1/2 transform -translate-x-1/2 -translate-y-1/2  ${popupOpen?"top-1/2":""}`}>
+
+
+                <button className="border p-0.5 float-right m-2" onClick={()=>setPopupOpen(false)}><RxCross2 className="text-24 text-primary cursor-pointer bg-surface" /></button>
+                {/* text */}
+                <div className="border mt-4">
+                    <h1 className="text-primary text-24 font-regular">Contact with us</h1>
+                    <p className="text-primary text-16 font-regular">Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis saepe commodi ut quod</p>
+                    {/* <p className="text-primary text-24 font-regular">Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis saepe commodi ut quod</p> */}
+                </div>
+                {/* form */}
+
+                <div className="border mt-7">
+                    <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+                        {/*  */}
+                        <div className="border">
+                            <label htmlFor="" className="font-medium">Full Name <sup>*</sup></label>
+                            <input type="text" className="h-9 w-full border bg-surface px-1" placeholder="Enter Full name" value={name} onChange={(e) => setName(e.target.value)} />
+                            {error && !name && <p className="text-15 text-red-500">Please Enter Full Name</p>}
+
+                        </div>
+
+                        {/*  */}
+                        <div className="border">
+                            <label htmlFor="" className="font-medium">Business Email Address <sup>*</sup></label>
+                            <input type="email" className="h-9 w-full border bg-surface px-1" placeholder="Enter Full name" value={email} onChange={(e) => setEmail(e.target.value)} />
+                            {error && !email && <p className="text-15 text-red-500">Please Enter Email</p>}
+                        </div>
+
+                        {/*  */}
+                        <div className="border">
+                            <label htmlFor="" className="font-medium">Contact Number <sup>*</sup></label>
+                            <input type="text" className="h-9 w-full border bg-surface px-1" placeholder="Enter Contact Number" value={contact} onChange={(e) => setContact(e.target.value)} />
+                            {error && !contact && <p className="text-15 text-red-500">Please Enter Contact Number</p>}
+                        </div>
+
+                        {/*  */}
+                        <div className="border">
+                            <label htmlFor="" className="font-medium">Company Name <sup>*</sup></label>
+                            <input type="text" className="h-9 w-full border bg-surface px-1" placeholder="Enter Company Name" value={companyName} onChange={(e) => setCompanyName(e.target.value)} />
+                            {error && !companyName && <p className="text-15 text-red-500">Please Enter Company Name</p>}
+                        </div>
+
+
+                        {/* Role */}
+                        <div ref={roleRef} className="relative w-full border">
+                            <label className="block mb-1 font-medium">
+                                Role <sup>*</sup>
+                            </label>
+
+                            {/* Selected box */}
+                            <div
+                                onClick={() => setRoleOpen(!roleOpen)}
+                                className="border border-gray-300 bg-white px-3 py-2 rounded cursor-pointer select-none"
+                            >
+                                {selectedRole || "---Select Role---"}
+                            </div>
+
+                            {roleOpen && (
+                                <div className="absolute z-20 mt-1 w-full bg-white border border-gray-300 rounded shadow-md">
+                                    {roles.map((role, index) => (
+                                        <div
+                                            key={index}
+                                            onClick={() => {
+                                                setSelectedRole(role);
+                                                setRoleOpen(false);
+                                            }}
+                                            className="px-3 py-2 cursor-pointer hover:bg-gray-200 text-sm"
+                                        >
+                                            {role}
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+
+
+                        {/* country */}
+                        <div ref={dropdownRef} className="relative w-full">
+                            <label className="block mb-1 font-medium">
+                                Location: <sup>*</sup>
+                            </label>
+                            {/* Selected box */}
+                            <div
+                                onClick={() => setCountryopen(!countryOpen)}
+                                className="border border-gray-300 bg-white px-3 py-2 rounded cursor-pointer select-none"
+                            >
+                                {selectedCountry || "---Select Country---"}
+                            </div>
+
+                            {countryOpen && (
+                                <div className="absolute z-20 mt-1 w-full bg-white border border-gray-300 rounded shadow-md">
+                                    {/* Search input */}
+                                    <input
+                                        type="text"
+                                        placeholder="Search country..."
+                                        value={search}
+                                        onChange={(e) => setSearch(e.target.value)}
+                                        className="w-full px-3 py-2 border-b"
+                                    />
+
+                                    {/* List */}
+                                    <div className="max-h-40 overflow-y-auto">
+                                        {filteredCountries.length > 0 ? (
+                                            filteredCountries.map((country, index) => (
+                                                <div
+                                                    key={index}
+                                                    onClick={() => {
+                                                        setSelectedCountry(country);
+                                                        setCountryopen(false);
+                                                        setSearch("");
+                                                    }}
+                                                    className="px-3 py-2 cursor-pointer hover:bg-gray-200 text-sm"
+                                                >
+                                                    {country}
+                                                </div>
+                                            ))
+                                        ) : (
+                                            <div className="px-3 py-2 text-gray-400 text-sm">
+                                                No country found
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+
+                        {/* message */}
+
+                        <div className="border">
+                            <label htmlFor="" className="font-medium">Message</label>
+                            <textarea name="" id="" className="border w-full h-20 resize-none bg-surface p-1" placeholder="Enter Message" value={message} onChange={(e) => setMessage(e.target.value)} ></textarea>
+                        </div>
+
+                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi laborum eos alias porro laboriosam. Itaque, ab veritatis.</p>
+
+                        <button className="h-9 w-35 border font-medium bg-surface">Submit</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    );
+};
+export default ContactForm;

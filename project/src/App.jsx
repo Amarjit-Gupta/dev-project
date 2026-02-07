@@ -9,6 +9,8 @@ import Dash from "./admin/Dash";
 import AllReports from "./admin/AllReports";
 import SingleReport from "./admin/SingleReport";
 import ReportName from "./components/ReportName";
+import ContactForm from "./components/ContactForm";
+import ContactUs from "./components/ContactUs";
 // import PrivateComponent from "./auth/PrivateComponent";
 
 const App = () => {
@@ -18,6 +20,7 @@ const App = () => {
         <Navbar />
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/contact" element={<ContactUs />} />
           <Route path="/report" element={<ReportingList />} />
           <Route path="/report-name" element={<ReportName />} />
           {/* <Route element={<PrivateComponent />}> */}

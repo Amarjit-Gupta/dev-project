@@ -1,7 +1,7 @@
 import image_1 from '../assets/image 1.svg';
 import RelevantReports from './RelevantReports';
 
-const ScopeCoverage = () => {
+const ScopeCoverage = ({setPopupOpen}) => {
     return (
         <div className="border">
 
@@ -84,7 +84,7 @@ const ScopeCoverage = () => {
 
                     <div className="border mt-4 flex gap-2 items-center">
                         <span className='text-primary text-16 font-regular'>To explore more about this topic,</span>
-                        <button className='py-2 px-8 border text-primary text-15 font-medium bg-brand cursor-pointer'>Download Sample Report</button>
+                        <button className='py-2 px-8 border text-primary text-15 font-medium bg-brand cursor-pointer' onClick={()=>setPopupOpen(true)}>Download Sample Report</button>
                     </div>
                 </div>
             </div>

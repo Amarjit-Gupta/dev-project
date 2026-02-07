@@ -47,7 +47,7 @@ const Navbar = () => {
                     <li className="block lg:inline-block lg:pl-9 py-5 lg:py-0">Use Cases</li>
                     <li className="block lg:inline-block lg:pl-9 py-5 lg:py-0"><NavLink to={"/pricing"}>Pricing</NavLink></li>
 
-                    <li className="block lg:inline-block lg:pl-9 py-5 lg:py-0">Contact Us</li>
+                    <li className="block lg:inline-block lg:pl-9 py-5 lg:py-0"><NavLink to={"/contact"} onClick={() => setMenu(false)}>Contact Us</NavLink></li>
 
 
                     <div className="lg:hidden">

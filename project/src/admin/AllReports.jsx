@@ -10,6 +10,33 @@ const AllReports = () => {
     const [reportsData, setReportsData] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    const [filterStatus, setFilterStatus] = useState([]);
+    const [filterIndustry, setFilterIndustry] = useState([]);
+    const [filterCountry, setFilterCountry] = useState([]);
+    const [filterType, setFilterType] = useState([]);
+    const [updateAt, setUpdateAt] = useState("");
+
+    const [allReports, setAllReports] = useState([]);
+
+    const [search, setSearch] = useState("");
+
+
+
+
+    // for filter
+    const [filters, setFilters] = useState({
+        industries: [],
+        status: [],
+        report_types: [],
+        regions: [],
+        countries: [],
+        min_price: 0,
+        max_price: 0,
+        sort: ""
+    });
+
+
+
     const navigate = useNavigate();
 
     const getAllReportData = async () => {
@@ -20,9 +47,13 @@ const AllReports = () => {
                 credentials: "include"
             });
             let data = await result.json();
-            // console.log(data);
-            if (Array.isArray(data.reports)) {
-                setReportsData(data.reports);
+            console.log("all-report: ", data);
+            // if (Array.isArray(data?.reports)) {
+            //     setReportsData(data?.reports);
+            // }
+            if (Array.isArray(data?.reports)) {
+                setAllReports(data.reports);   // ORIGINAL COPY
+                setReportsData(data.reports);  // DISPLAY COPY
             }
         }
         catch (err) {
@@ -32,8 +63,35 @@ const AllReports = () => {
         }
     }
 
+
+
+    const getFilterData = async () => {
+        try {
+            // setLoading(true);
+            let fResult = await fetch(`${nURL}/filters`, {
+                method: "GET",
+                credentials: "include"
+            });
+            let fData = await fResult.json();
+            // console.log("filterData: ", fData);
+            if (fData) {
+                setFilterStatus(fData?.status);
+                setFilterIndustry(fData?.industries);
+                setFilterCountry(fData?.countries);
+                setFilterType(fData?.report_types);
+            }
+        }
+        catch (err) {
+            console.log("something went wrong...", err.message);
+        }
+        // finally {
+        //     setLoading(false); // loading off
+        // }
+    }
+
     useEffect(() => {
         getAllReportData();
+        getFilterData();
     }, []);
 
     console.log(reportsData);
@@ -64,48 +122,175 @@ const AllReports = () => {
         }
     }
 
+
+    const handleSelectChange = (key, value) => {
+        setFilters((prev) => ({
+            ...prev,
+            [key]: value ? [value] : []
+        }));
+    };
+
+    const handleSortChange = (value) => {
+        setFilters((prev) => ({
+            ...prev,
+            sort: value
+        }));
+    };
+
+
+
+    useEffect(() => {
+        // empty call avoid karne ke liye
+        const hasAnyFilter =
+            filters.industries.length ||
+            filters.status.length ||
+            filters.report_types.length ||
+            filters.countries.length ||
+            filters.sort;
+
+        // if (!hasAnyFilter) return;
+        if (!hasAnyFilter) {
+            setReportsData(allReports); // RESET TO ORIGINAL
+            return;
+        }
+
+
+        console.log("hf", hasAnyFilter);
+
+        const applyFilters = async () => {
+            try {
+                setLoading(true);
+                const payload = {
+                    ...filters,
+                    regions: []
+                };
+
+                console.log("pl: ", payload);
+
+                const res = await fetch(`${nURL}/reports/filter`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    credentials: "include",
+                    body: JSON.stringify(payload)
+                });
+
+                const data = await res.json();
+                if (Array.isArray(data.items)) {
+                    setReportsData(data?.items)
+                }
+                console.log("Filtered Data.....:", data);
+            } catch (err) {
+                console.error(err);
+            }
+            finally {
+                setLoading(false);
+            }
+        };
+
+        applyFilters();
+    }, [filters, allReports]); // jaise hi select change hoga
+
+
+
+
+
+    useEffect(() => {
+        // empty search → reset data
+        if (!search.trim()) {
+            setReportsData(allReports);
+            return;
+        }
+
+        const delay = setTimeout(async () => {
+            try {
+                setLoading(true);
+
+                const res = await fetch(
+                    `${nURL}/reports/search?q=${encodeURIComponent(search)}`,
+                    {
+                        method: "GET",
+                        credentials: "include",
+                    }
+                );
+
+                const data = await res.json();
+
+                console.log("search data: ", data);
+
+                if (Array.isArray(data.items)) {
+                    setReportsData(data.items);
+                }
+            } catch (err) {
+                console.error(err);
+            } finally {
+                setLoading(false);
+            }
+        }, 500);
+
+        return () => clearTimeout(delay);
+    }, [search, allReports]);
+
+
+
     return (
         <div className="border bg-gray-100">
             <div className="border w-285 m-auto my-5">
                 <h1 className="text-primary text-24 font-semibold">All Reports</h1>
                 <div className="border h-9 mt-3">
-                    <input type="search" className="border h-full w-full px-2 bg-surface" placeholder="Search..." />
+                    <input type="search" className="border h-full w-full px-2 bg-surface" placeholder="Search..." value={search}
+                        onChange={(e) => setSearch(e.target.value)} />
                 </div>
                 <h2 className="text-primary text-16 font-semibold mt-8">Filters</h2>
                 <div className="border h-9 mt-3 flex gap-3">
                     <div className="border w-50">
-                        <select name="" id="" className="w-full h-full bg-surface">
-                            <option value="option1">--- Select status ---</option>
-                            <option value="option2">option2</option>
-                            <option value="option3">option3</option>
+                        <select name="" id="" className="w-full h-full bg-surface" onChange={(e) => handleSelectChange("status", e.target.value)}>
+                            <option value="">--- Select status ---</option>
+                            {filterStatus.map((st, i) => {
+                                return (
+                                    <option key={i} value={st.name}>{st.name}</option>
+                                );
+                            })}
                         </select>
                     </div>
                     <div className="border w-50">
-                        <select name="" id="" className="w-full h-full bg-surface">
-                            <option value="option1">--- Select Industry ---</option>
-                            <option value="option2">option2</option>
-                            <option value="option3">option3</option>
+                        <select name="" id="" className="w-full h-full bg-surface" onChange={(e) => handleSelectChange("industries", e.target.value)}>
+                            <option value="">--- Select Industry ---</option>
+                            {filterIndustry.map((ind, i) => {
+                                return (
+                                    <option key={ind.id} value={ind.name}>{ind.name}</option>
+                                );
+                            })}
                         </select>
                     </div>
                     <div className="border w-50">
-                        <select name="" id="" className="w-full h-full bg-surface">
-                            <option value="option1">--- Select Country ---</option>
-                            <option value="option2">option2</option>
-                            <option value="option3">option3</option>
+                        <select name="" id="" className="w-full h-full bg-surface" onChange={(e) => handleSelectChange("countries", e.target.value)}>
+                            <option value="">--- Select Country ---</option>
+                            {filterCountry.map((cun, i) => {
+                                return (
+                                    <option key={cun.id} value={cun.name}>{cun.name}</option>
+                                );
+                            })}
                         </select>
                     </div>
                     <div className="border w-50">
-                        <select name="" id="" className="w-full h-full bg-surface">
-                            <option value="option1">--- Select Type ---</option>
-                            <option value="option2">option2</option>
-                            <option value="option3">option3</option>
+                        <select name="" id="" className="w-full h-full bg-surface" onChange={(e) => handleSelectChange("report_types", e.target.value)}>
+                            <option value="">--- Select Report Type ---</option>
+                            {filterType.map((typ, i) => {
+                                return (
+                                    <option key={typ.id} value={typ.name}>{typ.name}</option>
+                                );
+                            })}
                         </select>
                     </div>
                     <div className="border w-50">
-                        <select name="" id="" className="w-full h-full bg-surface">
-                            <option value="option1">--- Sort ---</option>
-                            <option value="option2">option2</option>
-                            <option value="option3">option3</option>
+                        <select name="" id="" className="w-full h-full bg-surface" onChange={(e) => handleSortChange(e.target.value)}>
+                            <option value="">--- Sort ---</option>
+                            <option value="updated_recent">updated_recent</option>
+                            <option value="updated_oldest">updated_oldest</option>
+                            <option value="price_high_low">price_high_low</option>
+                            <option value="price_low_high">price_low_high</option>
                         </select>
                     </div>
                 </div>
