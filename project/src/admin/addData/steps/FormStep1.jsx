@@ -1,6 +1,4 @@
-import { IoArrowForwardSharp } from "react-icons/io5";
 import MultiSelectDropdown from "./MultiSelectDropdown";
-
 
 const FormStep1 = (
     { selectedOption,
@@ -38,21 +36,7 @@ const FormStep1 = (
         periodError }
 ) => {
 
-
-
-    // for select for test only
-    // const [formData, setFormData] = useState({
-    //     regions: [],
-    //     country: []
-    // });
-    // console.log("formData",formData);
-
-
-    //     const [regions, setRegions] = useState([]);
-    // const [country, setCountry] = useState([]);
-
     console.log("reportDirectory", reportDirectory);
-
 
     return (
         <>
@@ -71,12 +55,6 @@ const FormStep1 = (
                                 Insert New
                             </label>
                         </span>
-                        {/* <span className="flex items-center gap-1">
-                            <input type="radio" id="select" name="dataOption" />
-                            <label className="text-15 font-medium text-primary" htmlFor="select">
-                                Select from generated data
-                            </label>
-                        </span> */}
                         <span className="flex items-center gap-1">
                             <input
                                 type="radio"
@@ -105,24 +83,7 @@ const FormStep1 = (
                         {/*  */}
                     </div>
 
-                    {/* <div>
-                        <IoArrowForwardSharp className="text-20 text-primary" />
-                    </div> */}
-
                     <div className="border flex justify-center gap-5">
-
-                        {/* <div className="border w-52.5">
-                            <label className="text-15 font-medium text-primary" htmlFor="options">
-                                Report Directory
-                            </label>
-                            <select className="w-full mt-1 border p-1" id="options">
-                                <option value="option1">option1</option>
-                                <option value="option2">option2</option>
-                                <option value="option3">option3</option>
-                                <option value="option4">option4</option>
-                                <option value="option5">option5</option>
-                            </select>
-                        </div> */}
                         <div className="border w-52.5">
                             <label className="text-15 font-medium text-primary" htmlFor="options">
                                 Report Directory
@@ -171,7 +132,6 @@ const FormStep1 = (
                         <label className="text-16 font-medium text-primary" htmlFor="reportId">Report ID <sup>*</sup>
                         </label><br />
                         <input type="text" id="reportId" className="w-full border h-10 px-0.5 text-20" placeholder="Enter Report ID" />
-
                         {/*  */}
                     </div>
 
@@ -183,26 +143,10 @@ const FormStep1 = (
                     <input type="text" id="marketDescription" className="w-full border h-10 px-0.5 text-20" placeholder="Enter subtitle / market description" value={subTitle} onChange={(e) => setSubTitle(e.target.value)} />
                     {error && !subTitle && <p className="text-red-500 ml-1">Please Enter subTitle...</p>}
                 </div>
-
-                {/* field4 */}
-                {/* <div className="border">
-                    <label className="text-15 font-medium text-primary" htmlFor="options">
-                        Industry <sup>*</sup>
-                    </label>
-                    <select className="w-full mt-1 border h-10 text-20" id="options" value={industry} onChange={(e) => setIndustry(e.target.value)}>
-                        <option value="option1">option1</option>
-                        <option value="option2">option2</option>
-                        <option value="option3">option3</option>
-                        <option value="option4">option4</option>
-                        <option value="option5">option5</option>
-                    </select>
-                    {error && !industry && <p className="text-red-500 ml-1">Please select industry...</p>}
-                </div> */}
                 <div className="border">
                     <label className="text-15 font-medium text-primary">
                         Industry <sup>*</sup>
                     </label>
-
                     <select
                         className="w-full mt-1 border h-10 text-20"
                         value={industry}
@@ -222,23 +166,6 @@ const FormStep1 = (
                     )}
                 </div>
 
-
-
-
-                {/* field5 */}
-                {/* <div className="border">
-                    <label className="text-15 font-medium text-primary" htmlFor="options">
-                        Sub-Industry <sup>*</sup>
-                    </label>
-                    <select className="w-full mt-1 border h-10 text-20" id="options" value={subIndustry} onChange={(e) => setSubIndustry(e.target.value)}>
-                        <option value="option1">option1</option>
-                        <option value="option2">option2</option>
-                        <option value="option3">option3</option>
-                        <option value="option4">option4</option>
-                        <option value="option5">option5</option>
-                    </select>
-                    {error && !subIndustry && <p className="text-red-500 ml-1">Please select subIndustry...</p>}
-                </div> */}
                 <div className="border">
                     <label className="text-15 font-medium text-primary">
                         Sub-Industry <sup>*</sup>
@@ -265,7 +192,6 @@ const FormStep1 = (
                     )}
                 </div>
 
-
                 {/* field6 */}
                 <div className="border">
                     <MultiSelectDropdown
@@ -288,20 +214,6 @@ const FormStep1 = (
                     {error && !country.length && <p className="text-red-500 ml-1">Please select country...</p>}
                 </div>
 
-                {/* field8 */}
-                {/* <div className="border">
-                    <label className="text-15 font-medium text-primary" htmlFor="reportType">
-                        Report Type <sup>*</sup>
-                    </label>
-                    <select className="w-full mt-1 border h-10 text-20" id="reportType" value={reportType} onChange={(e) => setReportType(e.target.value)}>
-                        <option value="option1">option1</option>
-                        <option value="option2">option2</option>
-                        <option value="option3">option3</option>
-                        <option value="option4">option4</option>
-                        <option value="option5">option5</option>
-                    </select>
-                    {error && !reportType && <p className="text-red-500 ml-1">Please select ReportType...</p>}
-                </div> */}
                 <div className="border">
                     <label className="text-15 font-medium text-primary" htmlFor="reportType">
                         Report Type <sup>*</sup>
@@ -329,7 +241,6 @@ const FormStep1 = (
                     )}
                 </div>
 
-
                 {/* field9 */}
                 <div className="border">
                     <label className="text-16 font-medium text-primary" htmlFor="publishDate">Publish Date<sup>*</sup>
@@ -339,13 +250,6 @@ const FormStep1 = (
                     {error && !publishDate && <p className="text-red-500 ml-1">Please select publishDate...</p>}
                 </div>
 
-                {/* field10 */}
-                {/* <div className="border">
-                    <label className="text-16 font-medium text-primary" htmlFor="coveragePeriodFrom">Coverage Period (From)<sup>*</sup>
-                    </label>
-                    <input type="text" id="coveragePeriodFrom" className="w-full border h-10 px-0.5 text-20" value={coveragePeriodFrom} onChange={(e) => setCoveragePeriodFrom(e.target.value)} />
-                    {error && !coveragePeriodFrom && <p className="text-red-500 ml-1">Please Enter coveragePeriodFrom...</p>}
-                </div> */}
                 <div className="border">
                     <label
                         className="text-16 font-medium text-primary"
@@ -372,11 +276,7 @@ const FormStep1 = (
                     )}
                 </div>
 
-
-
-
                 {/* field11 */}
-
                 <div className="border">
                     <label
                         className="text-16 font-medium text-primary"
@@ -396,7 +296,6 @@ const FormStep1 = (
                         onChange={(e) => setCoveragePeriodTo(e.target.value)}
                     />
 
-
                     {error && !coveragePeriodTo && (
                         <p className="text-red-500 ml-1">
                             Please select coverage period year...
@@ -409,8 +308,6 @@ const FormStep1 = (
                         </p>
                     )}
                 </div>
-
-
 
             </div>
         </>

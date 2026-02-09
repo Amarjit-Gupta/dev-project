@@ -9,19 +9,14 @@ const AllReports = () => {
 
     const [reportsData, setReportsData] = useState([]);
     const [loading, setLoading] = useState(true);
-
     const [filterStatus, setFilterStatus] = useState([]);
     const [filterIndustry, setFilterIndustry] = useState([]);
     const [filterCountry, setFilterCountry] = useState([]);
     const [filterType, setFilterType] = useState([]);
-    const [updateAt, setUpdateAt] = useState("");
 
     const [allReports, setAllReports] = useState([]);
 
     const [search, setSearch] = useState("");
-
-
-
 
     // for filter
     const [filters, setFilters] = useState({
@@ -35,8 +30,6 @@ const AllReports = () => {
         sort: ""
     });
 
-
-
     const navigate = useNavigate();
 
     const getAllReportData = async () => {
@@ -48,12 +41,10 @@ const AllReports = () => {
             });
             let data = await result.json();
             console.log("all-report: ", data);
-            // if (Array.isArray(data?.reports)) {
-            //     setReportsData(data?.reports);
-            // }
+            
             if (Array.isArray(data?.reports)) {
-                setAllReports(data.reports);   // ORIGINAL COPY
-                setReportsData(data.reports);  // DISPLAY COPY
+                setAllReports(data.reports);
+                setReportsData(data.reports);
             }
         }
         catch (err) {
@@ -62,7 +53,6 @@ const AllReports = () => {
             setLoading(false); // loading off
         }
     }
-
 
 
     const getFilterData = async () => {
@@ -95,7 +85,6 @@ const AllReports = () => {
     }, []);
 
     console.log(reportsData);
-
 
     const handleReportDataDelete = async (index) => {
         console.log("id: ", index);
@@ -138,7 +127,6 @@ const AllReports = () => {
     };
 
 
-
     useEffect(() => {
         // empty call avoid karne ke liye
         const hasAnyFilter =
@@ -148,12 +136,10 @@ const AllReports = () => {
             filters.countries.length ||
             filters.sort;
 
-        // if (!hasAnyFilter) return;
         if (!hasAnyFilter) {
-            setReportsData(allReports); // RESET TO ORIGINAL
+            setReportsData(allReports);
             return;
         }
-
 
         console.log("hf", hasAnyFilter);
 
@@ -190,10 +176,7 @@ const AllReports = () => {
         };
 
         applyFilters();
-    }, [filters, allReports]); // jaise hi select change hoga
-
-
-
+    }, [filters, allReports]);
 
 
     useEffect(() => {
@@ -231,8 +214,6 @@ const AllReports = () => {
 
         return () => clearTimeout(delay);
     }, [search, allReports]);
-
-
 
     return (
         <div className="border bg-gray-100">
@@ -360,8 +341,6 @@ const AllReports = () => {
                             )
                         })}
                     </>}
-
-
             </div>
         </div>
     );

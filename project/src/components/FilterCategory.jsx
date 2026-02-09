@@ -2,7 +2,6 @@ import { useState } from "react";
 
 const FilterCategory = ({resetFilters,selectedFilters,setSelectedFilters,handleCheckboxChange,industry,sub_industry,report_type,region,country}) => {
 
-
     const [open, setOpen] = useState(null);
 
     const toggle = (id) => {
@@ -62,8 +61,6 @@ const FilterCategory = ({resetFilters,selectedFilters,setSelectedFilters,handleC
                     </div>
                 </div>
             )}
-
-
 
             <div className=" flex flex-col gap-2">
                 <div

@@ -8,7 +8,6 @@ const FormStep5 = ({reportPrice,setReportPrice}) => {
                     <p className="text-16 font-regular text-primary">Set competitive price for report</p>
                 </div>
 
-                {/* field3 */}
                 <div className="border">
                     <label className="text-16 font-medium text-primary" htmlFor="reportTitle">Full Report Price (Fetch)
                     </label>

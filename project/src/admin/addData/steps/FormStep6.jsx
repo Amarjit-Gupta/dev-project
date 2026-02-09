@@ -43,7 +43,6 @@ const FormStep6 = ({
                         </label>
 
                         <label className="flex items-center gap-2 cursor-pointer">
-                            {/* <input type="radio" name="previewAvailable" value="false" className="accent-blue-600" /> */}
                             <input
                                 type="radio"
                                 name="status"
@@ -64,7 +63,6 @@ const FormStep6 = ({
 
                     <div className="flex gap-6 border">
                         <label className="flex items-center gap-2 cursor-pointer">
-                            {/* <input type="radio" name="previewAvailable" value="true" className="accent-blue-600" /> */}
                             <input
                                 type="radio"
                                 name="fHomepage"
@@ -76,8 +74,6 @@ const FormStep6 = ({
                         </label>
 
                         <label className="flex items-center gap-2 cursor-pointer">
-                            {/* <input type="radio" name="previewAvailable" value="false" className="accent-blue-600" />
-                            <span>False</span> */}
                             <input
                                 type="radio"
                                 name="fHomepage"
@@ -109,7 +105,6 @@ const FormStep6 = ({
                     <input type="text" id="reportTitle" className="w-full border h-10 px-0.5 text-20" placeholder="Enter SEO Title" value={seoTitle} onChange={(e) => setSeoTitle(e.target.value)} />
                     {error && !seoTitle && <p className="text-red-500 ml-1">Please Enter SEO Title...</p>}
                 </div>
-
 
                 {/* field5 */}
                 <div className="border">

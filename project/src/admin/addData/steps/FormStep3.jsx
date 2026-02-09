@@ -1,4 +1,3 @@
-import { useState } from "react";
 import FileUpload from "./FileUpload";
 
 const FormStep3 = ({ availableReports,
@@ -25,8 +24,6 @@ const FormStep3 = ({ availableReports,
         setAvailableReports(""); // reset dropdown if file uploaded
     };
 
-
-
     return (
         <>
             <div className="border w-full m-auto flex flex-col gap-5">
@@ -35,49 +32,9 @@ const FormStep3 = ({ availableReports,
                     <p className="text-16 font-regular text-primary">Attach actual content</p>
                 </div>
 
-                {/* <div className="border">
-                    <h1 className="text-20 font-medium text-primary">Upload Report Files</h1>
-                    <div className="border">
-                        <label className="text-15 font-medium text-primary" htmlFor="reportType">
-                            Select from available reports <sup>*</sup>
-                        </label>
-                        <select className="w-full mt-1 border h-10 text-20" id="reportType">
-                            <option value="option1">option1</option>
-                            <option value="option2">option2</option>
-                            <option value="option3">option3</option>
-                            <option value="option4">option4</option>
-                            <option value="option5">option5</option>
-                        </select>
-                    </div>
-                    <FileUpload
-                        label=""
-                        file={samplePDF}
-                        onChange={setSamplePDF}
-                    />
-                </div> */}
                 <div className="border">
                     <h1 className="text-20 font-medium text-primary">Upload Report Files</h1>
 
-                    {/* <div className="border">
-                        <label className="text-15 font-medium text-primary" htmlFor="reportType">
-                            Select from available reports <sup>*</sup>
-                        </label>
-
-                        <select
-                            className="w-full mt-1 border h-10 text-20"
-                            id="reportType"
-                            value={availableReports}
-                            onChange={handleReportChange}
-                            disabled={uploadedFile !== null}
-                        >
-                            <option value="">Select report</option>
-                            <option value="option1">option1</option>
-                            <option value="option2">option2</option>
-                            <option value="option3">option3</option>
-                            <option value="option4">option4</option>
-                            <option value="option5">option5</option>
-                        </select>
-                    </div> */}
                     <div className="border">
                         <label className="text-15 font-medium text-primary" htmlFor="reportType">
                             Select from available reports <sup>*</sup>
@@ -100,7 +57,6 @@ const FormStep3 = ({ availableReports,
                         </select>
                     </div>
 
-
                     <FileUpload
                         label=""
                         file={uploadedFile}
@@ -115,8 +71,6 @@ const FormStep3 = ({ availableReports,
                         <p className="text-red-500 ml-1">Uploaded file must be a PDF</p>
                     )}
                 </div>
-
-
 
                 <div className="border">
                     <FileUpload

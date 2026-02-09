@@ -1,5 +1,5 @@
-import { useState } from "react";
 import FileUpload from "./FileUpload";
+
 const FormStep4 = (
     { sectionName,
         setSectionName,
@@ -81,7 +81,6 @@ const FormStep4 = (
 
                     <div className="flex gap-6 border">
                         <label className="flex items-center gap-2 cursor-pointer">
-                            {/* <input type="radio" name="previewAvailable" value="true" className="accent-blue-600" checked={previewAvailable === true} onChange={() => handleChange(true)} /> */}
                             <input
                                 type="radio"
                                 name="previewAvailable"
@@ -93,7 +92,6 @@ const FormStep4 = (
                         </label>
 
                         <label className="flex items-center gap-2 cursor-pointer">
-                            {/* <input type="radio" name="previewAvailable" value="false" className="accent-blue-600" checked={previewAvailable === false} onChange={() => handleChange(false)} /> */}
                             <input
                                 type="radio"
                                 name="previewAvailable"
@@ -101,7 +99,6 @@ const FormStep4 = (
                                 checked={previewAvailable === false}
                                 onChange={() => setPreviewAvailable(false)}
                             />
-
                             <span>False</span>
                         </label>
 
@@ -132,7 +129,6 @@ const FormStep4 = (
 
                         <div className="flex gap-6 border">
                             <label className="flex items-center gap-2 cursor-pointer">
-                                {/* <input type="radio" name="previewAvailable" value="true" className="accent-blue-600" /> */}
                                 <input
                                     type="radio"
                                     name="fullReport"
@@ -144,7 +140,6 @@ const FormStep4 = (
                             </label>
 
                             <label className="flex items-center gap-2 cursor-pointer">
-                                {/* <input type="radio" name="previewAvailable" value="false" className="accent-blue-600" /> */}
                                 <input
                                     type="radio"
                                     name="fullReport"
@@ -160,26 +155,17 @@ const FormStep4 = (
 
                 {/* field4 */}
                 <div className="border">
-                    {/* <FileUpload
-                        label="Upload Section PDF"
-                        file={formData.sectionPdf}
-                        onChange={(file) =>
-                            setFormData({ ...formData, sectionPdf: file })
-                        }
-                    /> */}
                     <FileUpload
                         label="Upload Section PDF"
                         file={sectionPDF}
                         onChange={setSectionPDF}
                     />
                     
-
                     {error && sectionPDF && sectionPDF.type !== "application/pdf" && (
                         <p className="text-red-500 ml-1">Section PDF must be a PDF file</p>
                     )}
 
                 </div>
-
 
                 <div>
                     <button className="border p-1 font-medium text-primary text-20">+ Add Section</button>

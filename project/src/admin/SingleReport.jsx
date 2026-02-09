@@ -4,7 +4,6 @@ import { nURL } from "../URL";
 
 const SingleReport = () => {
 
-
     const [singleData, setSingleData] = useState(null);
     const [loading, setLoading] = useState(true);
 
@@ -30,7 +29,7 @@ const SingleReport = () => {
         catch (err) {
             console.log("something went wrong...");
         } finally {
-            setLoading(false); // loading off
+            setLoading(false);
         }
     }
 
@@ -40,19 +39,14 @@ const SingleReport = () => {
 
     console.log(singleData);
 
-
-
     return (
         <div className="border w-230 m-auto my-4">
             <div className="border w-230 m-auto p-4 h-150 overflow-auto">
                 <h1 className="text-center text-20 font-medium text-primary pb-4 underline">Single Report Data</h1>
-
                 {loading ?
-                    // <h1>Loading...</h1>
                     <div className="flex justify-center items-center h-40">
                         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
                     </div>
-
                     :
                     <>
                         {/* step1 */}
@@ -133,22 +127,6 @@ const SingleReport = () => {
                                     </a>
                                 </p>
                             )}
-                            {/* <p className=" py-1"><b>Report Files:</b> </p>
-                        <p className=" py-1"><b>Sample PDF:</b></p>
-                        {singleData?.step3?.image_url && (
-                            <p className=" py-1">
-                                <b>Image:</b>{" "}
-                                <a
-                                    className="text-blue-500"
-                                    href={singleData.step3.image_url}
-                                    target="_blank"
-                                    rel="noreferrer"
-                                >
-                                    WebP Image
-                                </a>
-                            </p>
-                        )}
-                        <p className=" py-1"><b>Charts:</b> </p> */}
                         </div>
 
                         {/* step4 */}

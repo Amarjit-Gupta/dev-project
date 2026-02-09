@@ -50,7 +50,7 @@ const ReportingList = () => {
 
     const getListData = async () => {
         try {
-            let listResult = await fetch(`${FilterURL}/reports/filter`, {
+            let listResult = await fetch(`${FilterURL}/reports/filter/display`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(selectedFilters)
@@ -121,9 +121,12 @@ const ReportingList = () => {
 
     useEffect(() => {
         getListData();
+
+        console.log("all data api called...");
     }, [selectedFilters]);
 
-    console.log("list: ", listData);
+    console.log("listdata............: ", listData);
+    console.log("totalReport............: ", totalReport);
 
     return (
         <>
@@ -202,19 +205,15 @@ const ReportingList = () => {
             {/* card view */}
 
             <div className=" w-80 sm:w-144 xl:w-285 m-auto mb-11.5 mt-18">
-
-
                 <div className=" w-80 sm:w-144 xl:w-285 m-auto grid grid-cols-1 xl:grid-cols-[22%_auto] gap-7.5">
-
-
                     <div className=" flex flex-col gap-3 xl:gap-8">
                         <FilterCategory resetFilters={resetFilters} selectedFilters={selectedFilters} setSelectedFilters={setSelectedFilters} handleCheckboxChange={handleCheckboxChange} industry={industry} sub_industry={sub_industry} report_type={report_type} region={region} country={country} />
                     </div>
 
-                    <div className="">
+                    <div>
 
                         <div className=" flex justify-around sm:justify-between items-center">
-                            <div className="">
+                            <div>
                                 {/* <h1 className="text-primary text-20 font-medium">234 reports available</h1> */}
                                 <h1 className="text-primary text-[13px] sm:text-[20px] font-medium">
                                     {totalReport ?? "--"} reports available
@@ -236,13 +235,10 @@ const ReportingList = () => {
                             </div>
                         </div>
 
-
-
-                        {/* grid view w-219 grid-cols-3*/}
+                        {/* grid view */}
                         {view === "grid" && <div className=" w-80 sm:w-144 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 mx-auto xl:w-auto gap-6 mt-7">
                             <GridView listData={listData} />
                         </div>}
-
 
                         {/* list view */}
                         {view === "list" && <div className=" mt-7 flex flex-col gap-6">
@@ -253,13 +249,8 @@ const ReportingList = () => {
 
                         {/* <div className=" w-66 h-6 mx-auto my-12 text-center">Pagination</div> */}
 
-
-
                     </div>
-
-
                 </div>
-
 
                 {/* Relevant Reports */}
                 <RelevantReports />

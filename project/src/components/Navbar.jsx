@@ -49,7 +49,6 @@ const Navbar = () => {
 
                     <li className="block lg:inline-block lg:pl-9 py-5 lg:py-0"><NavLink to={"/contact"} onClick={() => setMenu(false)}>Contact Us</NavLink></li>
 
-
                     <div className="lg:hidden">
                         <div className="relative inline-block">
                             {/* Header Button */}

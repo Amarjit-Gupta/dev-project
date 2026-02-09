@@ -8738,6 +8738,8 @@ const MultiStepForm = () => {
                 });
                 const data = await res.json();
                 if (data) {
+
+                    console.log("reports generating id................", data?.reports);
                     setReportDirectory(data?.reports);
                 }
             } catch (error) {
@@ -8992,7 +8994,7 @@ const MultiStepForm = () => {
             // Step 4 Validation
             if (formStep === 4) {
                 // No validation needed for step 4
-                // You can add validation here if needed
+                // we can add validation here if needed
             }
 
             // Step 5 Validation
@@ -9211,14 +9213,19 @@ const MultiStepForm = () => {
     };
 
     const getAvailableReportsData = async () => {
+        console.log("versionID.............: ", versionID);
+
         try {
-            const res = await fetch(`${nURL}/report-assets`, {
+            const res = await fetch(`${nURL}/report-assets/?report_version_id=${versionID}`, {
                 method: "GET",
                 credentials: "include"
             });
             if (!res.ok) throw new Error("Failed to fetch available reports");
 
             const fData = await res.json();
+
+            console.log("fdata....................", fData);
+
             if (fData) {
                 setGetAvailableReport(fData || []);
             }
@@ -9231,8 +9238,14 @@ const MultiStepForm = () => {
         getIndustryData();
         getRegionsData();
         getReportData();
-        getAvailableReportsData();
+
     }, []);
+
+    useEffect(() => {
+        if(versionID !== ""){
+            getAvailableReportsData();
+        }
+    }, [versionID]);
 
     useEffect(() => {
         if (industry) {
@@ -9267,6 +9280,8 @@ const MultiStepForm = () => {
 
             // Set draftId from edit data if available
             if (data?.report_id) {
+
+                console.log("draftid.....................", data.report_id);
                 setDraftId(data.report_id);
             }
 
@@ -9333,6 +9348,8 @@ const MultiStepForm = () => {
             getReportDataForEdit();
         }
     }, [index]);
+
+    console.log("selected report versionID:...........", versionID);
 
     return (
         <div className="border bg-gray-100">

@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import HomePage from "./pages/HomePage";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import ReportingList from "./components/ReportingList";
@@ -11,6 +10,7 @@ import SingleReport from "./admin/SingleReport";
 import ReportName from "./components/ReportName";
 import ContactForm from "./components/ContactForm";
 import ContactUs from "./components/ContactUs";
+import HomePage from "./components/HomePage";
 // import PrivateComponent from "./auth/PrivateComponent";
 
 const App = () => {
@@ -22,7 +22,7 @@ const App = () => {
           <Route path="/" element={<HomePage />} />
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/report" element={<ReportingList />} />
-          <Route path="/report-name" element={<ReportName />} />
+          <Route path="/report-name/:id" element={<ReportName />} />
           {/* <Route element={<PrivateComponent />}> */}
             <Route path="/add" element={<MultiStepForm />} />
             <Route path="/add/:id" element={<MultiStepForm />} />

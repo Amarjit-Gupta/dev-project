@@ -2,19 +2,17 @@ import { useState, useRef, useEffect } from "react";
 import { countries, roles } from "./Data";
 import { RiLoader4Fill } from "react-icons/ri";
 import { nURL } from "../URL";
+import { IoChevronDown } from "react-icons/io5";
 
 
 const ContactUs = () => {
-
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [contact, setContact] = useState("");
     const [companyName, setCompanyName] = useState("");
     const [message, setMessage] = useState("");
-
     const [loader3, setLoader3] = useState(false);
-
     const [error, setError] = useState(false);
 
     // for country  state
@@ -28,7 +26,6 @@ const ContactUs = () => {
     const [roleOpen, setRoleOpen] = useState(false);
 
     const roleRef = useRef(null);
-
 
     // for country
     // outside click close
@@ -62,11 +59,17 @@ const ContactUs = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        const phoneRegex = /^\+?\d{7,15}$/;
 
         if (!name.trim() || !email.trim() || !contact.trim() || !companyName.trim()) {
             setError(true);
             return;
         }
+        if (!phoneRegex.test(contact)) {
+            alert("Please enter valid Contact No.");
+            return;
+        }
+
         try {
             setLoader3(true);
             console.log("api called...");
@@ -105,8 +108,6 @@ const ContactUs = () => {
             } else {
                 alert(emailData.message || "Your message has not been sent.");
             }
-
-
         }
         catch (err) {
             console.log("something went wrong...", err.message);
@@ -116,62 +117,76 @@ const ContactUs = () => {
     }
 
     return (
+        <div className={`border border-gray-200 rounded w-80 sm:w-155 md:w-180 m-auto p-3 bg-gray-100 my-5`}>
 
-
-
-        <div className={`border border-red-500 w-80 sm:w-155 md:w-180 m-auto p-3 bg-gray-100 my-5`}>
-
-            <div className="border mt-4">
+            <div className="mt-4">
                 <h1 className="text-primary text-24 font-regular">Contact with us</h1>
                 <p className="text-primary text-16 font-regular">Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis saepe commodi ut quod</p>
                 {/* <p className="text-primary text-24 font-regular">Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis saepe commodi ut quod</p> */}
             </div>
-            {/* form */}
 
-            <div className="border mt-7">
+            {/* form */}
+            <div className="mt-7">
                 <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
                     {/*  */}
-                    <div className="border">
+                    <div className="">
                         <label htmlFor="" className="font-medium">Full Name <sup>*</sup></label>
-                        <input type="text" className="h-9 w-full border bg-surface px-1" placeholder="Enter Full name" value={name} onChange={(e) => setName(e.target.value)} />
+                        <input type="text" className="h-9 w-full border border-gray-200 rounded bg-surface px-1" placeholder="Enter Full name" value={name} onChange={(e) => setName(e.target.value)} />
                         {error && !name && <p className="text-15 text-red-500">Please Enter Full Name</p>}
-
                     </div>
 
                     {/*  */}
-                    <div className="border">
+                    <div className="">
                         <label htmlFor="" className="font-medium">Business Email Address <sup>*</sup></label>
-                        <input type="email" className="h-9 w-full border bg-surface px-1" placeholder="Enter Full name" value={email} onChange={(e) => setEmail(e.target.value)} />
+                        <input type="email" className="h-9 w-full border border-gray-200 rounded bg-surface px-1" placeholder="Enter Full name" value={email} onChange={(e) => setEmail(e.target.value)} />
                         {error && !email && <p className="text-15 text-red-500">Please Enter Email</p>}
                     </div>
 
                     {/*  */}
-                    <div className="border">
+                    <div className="">
                         <label htmlFor="" className="font-medium">Contact Number <sup>*</sup></label>
-                        <input type="text" className="h-9 w-full border bg-surface px-1" placeholder="Enter Contact Number" value={contact} onChange={(e) => setContact(e.target.value)} />
+                        <input type="text" className="h-9 w-full border border-gray-200 rounded bg-surface px-1" placeholder="Enter Contact Number" value={contact}
+                            //  onChange={(e) => setContact(e.target.value)}
+                            onChange={(e) => setContact(e.target.value.replace(/[^\d+]/g, ""))}
+                        />
                         {error && !contact && <p className="text-15 text-red-500">Please Enter Contact Number</p>}
                     </div>
 
                     {/*  */}
-                    <div className="border">
+                    <div className="">
                         <label htmlFor="" className="font-medium">Company Name <sup>*</sup></label>
-                        <input type="text" className="h-9 w-full border bg-surface px-1" placeholder="Enter Company Name" value={companyName} onChange={(e) => setCompanyName(e.target.value)} />
+                        <input type="text" className="h-9 w-full border border-gray-200 rounded bg-surface px-1" placeholder="Enter Company Name" value={companyName} onChange={(e) => setCompanyName(e.target.value)} />
                         {error && !companyName && <p className="text-15 text-red-500">Please Enter Company Name</p>}
                     </div>
 
-
                     {/* Role */}
-                    <div ref={roleRef} className="relative w-full border">
+                    <div ref={roleRef} className="relative w-full">
                         <label className="block mb-1 font-medium">
                             Role
                         </label>
 
                         {/* Selected box */}
+                        {/* <div
+                            onClick={() => setRoleOpen(!roleOpen)}
+                            className="border border-gray-200 bg-white px-3 py-1.5 rounded cursor-pointer select-none"
+                        >
+                            {selectedRole || <span className="text-gray-500">---Select Role---</span>}
+                        </div> */}
                         <div
                             onClick={() => setRoleOpen(!roleOpen)}
-                            className="border border-gray-300 bg-white px-3 py-2 rounded cursor-pointer select-none"
+                            className="border border-gray-200 bg-white px-3 py-1.5 rounded cursor-pointer select-none
+             flex items-center justify-between"
                         >
-                            {selectedRole || "---Select Role---"}
+                            <span>
+                                {selectedRole || (
+                                    <span className="text-gray-500">---Select Role---</span>
+                                )}
+                            </span>
+
+                            <IoChevronDown
+                                className={`transition-transform duration-300 ease-in-out text-gray-500 ${roleOpen ? "rotate-180" : ""
+                                    }`}
+                            />
                         </div>
 
                         {roleOpen && (
@@ -192,19 +207,37 @@ const ContactUs = () => {
                         )}
                     </div>
 
-
                     {/* country */}
                     <div ref={dropdownRef} className="relative w-full">
                         <label className="block mb-1 font-medium">
                             Location:
                         </label>
                         {/* Selected box */}
+                        {/* <div
+                            onClick={() => setCountryopen(!countryOpen)}
+                            className="border border-gray-200 bg-white px-3 py-1.5 rounded cursor-pointer select-none"
+                        >
+                            {selectedCountry || <span className="text-gray-500">---Select Country---</span>}
+
+                            
+                        </div> */}
                         <div
                             onClick={() => setCountryopen(!countryOpen)}
-                            className="border border-gray-300 bg-white px-3 py-2 rounded cursor-pointer select-none"
+                            className="border border-gray-200 bg-white px-3 py-1.5 rounded cursor-pointer select-none
+             flex items-center justify-between"
                         >
-                            {selectedCountry || "---Select Country---"}
+                            <span>
+                                {selectedCountry || (
+                                    <span className="text-gray-500">---Select Country---</span>
+                                )}
+                            </span>
+
+                            <IoChevronDown
+                                className={`transition-transform duration-300 ease-in-out text-gray-500 ${countryOpen ? "rotate-180" : "rotate-0"
+                                    }`}
+                            />
                         </div>
+
 
                         {countryOpen && (
                             <div className="absolute z-20 mt-1 w-full bg-white border border-gray-300 rounded shadow-md">
@@ -244,17 +277,15 @@ const ContactUs = () => {
                     </div>
 
                     {/* message */}
-
-                    <div className="border">
+                    <div className="">
                         <label htmlFor="" className="font-medium">Message</label>
-                        <textarea name="" id="" className="border w-full h-20 resize-none bg-surface p-1" placeholder="Enter Message" value={message} onChange={(e) => setMessage(e.target.value)} ></textarea>
+                        <textarea name="" id="" className="border border-gray-200 rounded w-full h-20 resize-none bg-surface p-1" placeholder="Enter Message" value={message} onChange={(e) => setMessage(e.target.value)} ></textarea>
                     </div>
-
                     <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi laborum eos alias porro laboriosam. Itaque, ab veritatis.</p>
 
                     <button
                         type="submit"
-                        className="py-2 w-35 border font-medium cursor-pointer rounded bg-surface hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50"
+                        className="py-2 w-35 border border-gray-300 font-medium cursor-pointer rounded bg-surface hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50"
                         disabled={loader3}
                     >
                         {loader3 ? (
@@ -268,7 +299,6 @@ const ContactUs = () => {
                     </button>
                 </form>
             </div>
-
         </div>
     );
 };

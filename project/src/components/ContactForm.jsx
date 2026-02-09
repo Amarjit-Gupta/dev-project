@@ -2,9 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { countries, roles } from "./Data";
 import { RxCross2 } from "react-icons/rx";
 
-
 const ContactForm = ({popupOpen,setPopupOpen}) => {
-
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -14,13 +12,13 @@ const ContactForm = ({popupOpen,setPopupOpen}) => {
 
     const [error, setError] = useState(false);
 
-    // for country  state
+    // for country state
     const [search, setSearch] = useState("");
     const [selectedCountry, setSelectedCountry] = useState("");
     const [countryOpen, setCountryopen] = useState(false);
     const dropdownRef = useRef(null);
 
-    // for role  state
+    // for role state
     const [selectedRole, setSelectedRole] = useState("");
     const [roleOpen, setRoleOpen] = useState(false);
 
@@ -45,7 +43,6 @@ const ContactForm = ({popupOpen,setPopupOpen}) => {
     );
 
     // for role
-
     useEffect(() => {
         const handleClickOutside = (e) => {
             if (roleRef.current && !roleRef.current.contains(e.target)) {
@@ -77,9 +74,7 @@ const ContactForm = ({popupOpen,setPopupOpen}) => {
     return (
         <div className={`h-[100vh] w-full bg-black/50 fixed -top-[100vh] ${popupOpen?"top-0":""}`}>
 
-
             <div className={`border border-red-500  w-80 sm:w-155 md:w-180 m-auto p-3 h-150 overflow-auto bg-gray-100 fixed -top-[100%] left-1/2 transform -translate-x-1/2 -translate-y-1/2  ${popupOpen?"top-1/2":""}`}>
-
 
                 <button className="border p-0.5 float-right m-2" onClick={()=>setPopupOpen(false)}><RxCross2 className="text-24 text-primary cursor-pointer bg-surface" /></button>
                 {/* text */}
@@ -88,8 +83,8 @@ const ContactForm = ({popupOpen,setPopupOpen}) => {
                     <p className="text-primary text-16 font-regular">Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis saepe commodi ut quod</p>
                     {/* <p className="text-primary text-24 font-regular">Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis saepe commodi ut quod</p> */}
                 </div>
-                {/* form */}
 
+                {/* form */}
                 <div className="border mt-7">
                     <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
                         {/*  */}
@@ -97,7 +92,6 @@ const ContactForm = ({popupOpen,setPopupOpen}) => {
                             <label htmlFor="" className="font-medium">Full Name <sup>*</sup></label>
                             <input type="text" className="h-9 w-full border bg-surface px-1" placeholder="Enter Full name" value={name} onChange={(e) => setName(e.target.value)} />
                             {error && !name && <p className="text-15 text-red-500">Please Enter Full Name</p>}
-
                         </div>
 
                         {/*  */}
@@ -120,7 +114,6 @@ const ContactForm = ({popupOpen,setPopupOpen}) => {
                             <input type="text" className="h-9 w-full border bg-surface px-1" placeholder="Enter Company Name" value={companyName} onChange={(e) => setCompanyName(e.target.value)} />
                             {error && !companyName && <p className="text-15 text-red-500">Please Enter Company Name</p>}
                         </div>
-
 
                         {/* Role */}
                         <div ref={roleRef} className="relative w-full border">
@@ -153,7 +146,6 @@ const ContactForm = ({popupOpen,setPopupOpen}) => {
                                 </div>
                             )}
                         </div>
-
 
                         {/* country */}
                         <div ref={dropdownRef} className="relative w-full">
@@ -206,14 +198,12 @@ const ContactForm = ({popupOpen,setPopupOpen}) => {
                         </div>
 
                         {/* message */}
-
                         <div className="border">
                             <label htmlFor="" className="font-medium">Message</label>
                             <textarea name="" id="" className="border w-full h-20 resize-none bg-surface p-1" placeholder="Enter Message" value={message} onChange={(e) => setMessage(e.target.value)} ></textarea>
                         </div>
 
                         <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi laborum eos alias porro laboriosam. Itaque, ab veritatis.</p>
-
                         <button className="h-9 w-35 border font-medium bg-surface">Submit</button>
                     </form>
                 </div>

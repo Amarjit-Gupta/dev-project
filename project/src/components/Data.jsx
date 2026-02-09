@@ -225,3 +225,26 @@ export const roles = [
   "Sales Manager",
   "Research Analyst",
 ];
+
+export const faqData = [
+    {
+      title: "Lorem ipsum dolor sit amet",
+      description:
+        "Consectetur adipisicing elit. Consequatur ex pariatur modi quos odit, aperiam atque sint molestiae quis cumque. Consectetur adipisicing elit. Consequatur ex pariatur modi quos odit, aperiam atque sint molestiae quis cumque.   Consectetur adipisicing elit. Consequatur ex pariatur modi quos odit, aperiam atque sint molestiae quis cumque.    Consectetur adipisicing elit. Consequatur ex pariatur modi quos odit, aperiam",
+    },
+    {
+      title: "Lorem ipsum dolor sit amet",
+      description:
+        "Consectetur adipisicing elit. Consequatur ex pariatur modi quos odit, aperiam atque sint molestiae quis cumque. Consectetur adipisicing elit. Consequatur ex pariatur modi quos odit, aperiam atque sint molestiae quis cumque.   Consectetur adipisicing elit. Consequatur ex pariatur modi quos odit, aperiam atque sint molestiae quis cumque.    Consectetur adipisicing elit. Consequatur ex pariatur modi quos odit, aperiam",
+    },
+    {
+      title: "Lorem ipsum dolor sit amet",
+      description:
+        "Consectetur adipisicing elit. Consequatur ex pariatur modi quos odit, aperiam atque sint molestiae quis cumque. Consectetur adipisicing elit. Consequatur ex pariatur modi quos odit, aperiam atque sint molestiae quis cumque.   Consectetur adipisicing elit. Consequatur ex pariatur modi quos odit, aperiam atque sint molestiae quis cumque.    Consectetur adipisicing elit. Consequatur ex pariatur modi quos odit, aperiam",
+    },
+    {
+      title: "Lorem ipsum dolor sit amet",
+      description:
+        "Consectetur adipisicing elit. Consequatur ex pariatur modi quos odit, aperiam atque sint molestiae quis cumque.   Consectetur adipisicing elit. Consequatur ex pariatur modi quos odit, aperiam atque sint molestiae quis cumque.    Consectetur adipisicing elit. Consequatur ex pariatur modi quos odit, aperiam atque sint molestiae quis cumque.    Consectetur adipisicing elit. Consequatur ex pariatur modi quos odit, aperiam atque sint molestiae quis cumque.   Consectetur adipisicing elit. Consequatur ex pariatur modi quos odit, aperiam atque sint molestiae quis cumque.",
+    },
+  ];

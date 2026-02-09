@@ -48,30 +48,26 @@ const Dash = () => {
 
     return (
         <div className="border bg-gray-100">
-
-
             <div className="border w-293 m-auto my-11">
                 {/* 5 cards */}
                 <div className="border grid grid-cols-5 gap-5.5">
-
-                    {/* <div className="border py-4.5 text-center text-primary text-20 font-regular bg-card"> */}
-                    <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-200 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 text-primary text-20 font-regular">
+                    <div className="bg-surface rounded-2xl p-5 shadow-sm border border-gray-200 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 text-primary text-20 font-regular">
                         <p>Published Reports</p>
                         <p>324</p>
                     </div>
-                    <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-200 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 text-primary text-20 font-regular">
+                    <div className="bg-surface rounded-2xl p-5 shadow-sm border border-gray-200 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 text-primary text-20 font-regular">
                         <p>Draft Reports</p>
                         <p>343</p>
                     </div>
-                    <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-200 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 text-primary text-20 font-regular">
+                    <div className="bg-surface rounded-2xl p-5 shadow-sm border border-gray-200 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 text-primary text-20 font-regular">
                         <p>Purchases (1y)</p>
                         <p>443</p>
                     </div>
-                    <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-200 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 text-primary text-20 font-regular">
+                    <div className="bg-surface rounded-2xl p-5 shadow-sm border border-gray-200 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 text-primary text-20 font-regular">
                         <p>Revenue (1y)</p>
                         <p>$34356</p>
                     </div>
-                    <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-200 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 text-primary text-20 font-regular">
+                    <div className="bg-surface rounded-2xl p-5 shadow-sm border border-gray-200 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 text-primary text-20 font-regular">
                         <p>Impressions</p>
                         <p>23893547</p>
                     </div>
@@ -85,15 +81,13 @@ const Dash = () => {
                 </div>
 
                 {/* draft card */}
-
                 {loading1 ? <div className="flex justify-center items-center h-10">
                     <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
                 </div> :
                     <div className="border w-293 m-auto grid grid-cols-3 gap-8.5">
                         {draftDataCard?.map((itm, i) => {
                             return (
-                                <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-200 hover:shadow-lg hover:-translate-y-1 transition-all duration-300" key={itm.report_id}>
-                                    {/* <div className="border p-4 bg-card" > */}
+                                <div className="bg-surface rounded-2xl p-5 shadow-sm border border-gray-200 hover:shadow-lg hover:-translate-y-1 transition-all duration-300" key={itm.report_id}>
                                     <div className="border borderred-500 h-20 flex gap-2 mb-2">
                                         <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                             <path d="M3 8.27206L8.27206 3H15.7279L21 8.27206V15.7279L15.7279 21H8.27206L3 15.7279V8.27206Z" fill="#F9A925" />
@@ -119,21 +113,12 @@ const Dash = () => {
                                 </div>
                             );
                         })}
-
-                        {/*  */}
-
                     </div>
                 }
 
-
-
-
-
-
                 {/* message */}
                 <div className="border w-293 m-auto grid grid-cols-2 gap-15 mt-11">
-                    {/* <div className="border p-6 bg-card"> */}
-                    <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-200 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                    <div className="bg-surface rounded-2xl p-5 shadow-sm border border-gray-200 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
                         <h1 className="text-24 text-primary font-semibold mb-3">Recent Activity</h1>
                         <p className="text-16 text-primary font-regular">- Report published: "India Nutra Market" (Today)</p>
                         <p className="text-16 text-primary font-regular">- Price updated: "Vitamin C Market" (Yesterday)</p>
@@ -142,8 +127,8 @@ const Dash = () => {
                         <p className="text-16 text-primary font-regular">- Price updated: "Vitamin C Market" (Yesterday)</p>
                         <p className="text-16 text-primary font-regular">- Draft saved: "Germany Pharma" (2 days ago)</p>
                     </div>
-                    {/* <div className="border p-6 bg-card"> */}
-                    <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-200 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                    
+                    <div className="bg-surface rounded-2xl p-5 shadow-sm border border-gray-200 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
                         <h1 className="text-24 text-primary font-semibold mb-3">Alerts/Warning</h1>
                         <p className="text-16 text-primary font-regular flex items-center gap-2"><IoIosWarning className="text-yellow-500" /> Drafts older than 14 days: 6</p>
                         <p className="text-16 text-primary font-regular flex items-center gap-2"><IoIosWarning className="text-yellow-500" />Missing section PDF files: 2 reports</p>
@@ -152,14 +137,9 @@ const Dash = () => {
                         <p className="text-16 text-primary font-regular flex items-center gap-2"><IoIosWarning className="text-yellow-500" />Missing section PDF files: 2 reports</p>
                         <p className="text-16 text-primary font-regular flex items-center gap-2"><IoIosWarning className="text-yellow-500" />Published reports without preview: 5</p>
                     </div>
-
                 </div>
             </div>
         </div>
     );
 };
 export default Dash;
-
-///////////////////////////////////////////////////////////
-// digital2@umangglobal.com
-// 113@Virendra

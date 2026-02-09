@@ -9,15 +9,8 @@ import c3 from '../assets/c3.svg';
 import c4 from '../assets/c4.svg';
 import { nURL } from '../URL';
 import { useNavigate } from 'react-router-dom';
-// import { useContext, useEffect } from 'react';
-// import { AuthContext } from '../auth/AuthContext';
 
 const HomePage = () => {
-
-    // for auth
-    const navigate = useNavigate();
-
-    // const { isAuthenticated, user, setIsAuthenticated, setUser } = useContext(AuthContext);
 
     const handleLogout = async () => {
         try {
@@ -49,67 +42,14 @@ const HomePage = () => {
         }
     }
 
-
-    // const getAuthMe = async () => {
-    //     console.log("authme function called...");
-    //     try {
-    //         let result = await fetch(`${nURL}/auth/me`, {
-    //             method: "GET",
-    //             headers: { "Content-Type": "application/json" },
-    //             credentials: "include"
-    //         });
-
-    //         let data = await result.json();
-
-    //         console.log("auth me api called: ", data);
-
-    //     } catch (err) {
-    //         console.error("Something went wrong:", err.message);
-    //     }
-    // }
-
-
-//     const getAuthMe = async () => {
-//     try {
-//         const result = await fetch(`${nURL}/auth/me`, {
-//             method: "GET",
-//             credentials: "include"
-//         });
-
-//         if (result.status === 401 || result.status === 403) {
-//             console.log("User UNAUTHORIZED (logout working)");
-//             return;
-//         }
-
-//         const data = await result.json();
-//         console.log(" User STILL AUTHENTICATED", data);
-
-//     } catch (err) {
-//         console.error("Error:", err.message);
-//     }
-// };
-
-
-    // useEffect(()=>{
-    //     let interval = setInterval(()=>{
-    //         getAuthMe();
-    //     },3000);
-
-    //     return () => {
-    //         clearInterval(interval);
-    //     }
-    // },[]);
-
-
     return (
         <>
-            {/* main content w-140 */}
+            {/* main content */}
             <button onClick={handleLogout} className="border cursor-pointer">logout</button>
-            {/* <span>{isAuthenticated && <span>userName:{user || "no name"}</span>}</span> */}
             <div className=" h-120 flex items-center w-full bg-gray-300 hero-bg-img">
                 <div className=" w-80 sm:w-140 xl:w-285 m-auto flex gap-5 justify-center">
                     <div className=" w-80 sm:w-140">
-                        <div className="">
+                        <div>
                             <h1 className="text-32 text-primary font-semibold">Decision-orianted, not feature-orianted</h1>
                             <p className="text-16 text-primary font-regular mt-2 ">Comprehensive market trends, comsumer analysis and competitive landscape <br /> reports</p>
                         </div>
@@ -121,23 +61,11 @@ const HomePage = () => {
                     </div>
 
                     <div className=" w-140 hidden xl:block">
-                        {/* <div className="border">
-                            <h1 className="text-32 text-primary font-semibold">Decision-orianted, not feature-orianted</h1>
-                            <p className="text-16 text-primary font-regular mt-2 border">Comprehensive market trends, comsumer analysis and competitive landscape <br /> reports</p>
-                        </div>
-
-                        <div className="border mt-8 flex gap-7">
-                            <button className="py-2 px-8 bg-surface text-primary text-15 font-medium">Browse Reports</button>
-                            <button className="py-2 px-8 border-text-primary text-primary text-15 font-medium">Search Market Data</button>
-                        </div> */}
                     </div>
                 </div>
             </div>
 
-
-
-            {/* 3 cards responsive done*/}
-
+            {/* 3 cards*/}
             <div className=" w-80 md:w-188 xl:w-285 m-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 py-18">
 
                 {/* card 1 */}
@@ -180,8 +108,6 @@ const HomePage = () => {
                 </div>
             </div>
 
-
-
             {/* why choose us*/}
             <div className=" bg-section">
                 <div className=" py-18">
@@ -223,11 +149,10 @@ const HomePage = () => {
                         </div>
                     </div>
                 </div>
-
             </div>
 
 
-            {/* Curated for your use cases responsive done*/}
+            {/* Curated for your use cases */}
             <div className="">
                 <div className=" py-18">
                     <h1 className="text-24 text-primary font-semibold text-center">Curated for your use cases</h1>
@@ -267,8 +192,8 @@ const HomePage = () => {
                 <div className=" py-18">
                     <h1 className="text-24 text-primary font-semibold text-center">Popular Reports</h1>
                     <div className=" w-67 sm:w-140 grid grid-cols-1 sm:grid-cols-2 xl:w-285 xl:grid-cols-4 gap-6 pt-12 m-auto">
-                        {/* card 1 */}
 
+                        {/* card 1 */}
                         <div className=" h-102 w-67 bg-surface">
                             <div className=" h-[42%]">
                                 <div className=" px-4 pt-4">
@@ -285,7 +210,6 @@ const HomePage = () => {
                                 </div>
                             </div>
 
-
                             <div className=" relative h-[58%]">
                                 <img src={frame1} alt="image" className='h-full w-full' />
                                 <div className=" absolute flex gap-2 px-4 bottom-4">
@@ -295,7 +219,6 @@ const HomePage = () => {
                                 </div>
                             </div>
                         </div>
-
 
                         {/* card 2 */}
                         <div className=" h-102 w-67 bg-surface">
@@ -313,7 +236,6 @@ const HomePage = () => {
                                     </button>
                                 </div>
                             </div>
-
 
                             <div className=" relative h-[58%]">
                                 <img src={frame1} alt="image" className='h-full w-full' />
@@ -342,7 +264,6 @@ const HomePage = () => {
                                 </div>
                             </div>
 
-
                             <div className=" relative h-[58%]">
                                 <img src={frame1} alt="image" className='h-full w-full' />
                                 <div className=" absolute flex gap-2 px-4 bottom-4">
@@ -370,7 +291,6 @@ const HomePage = () => {
                                 </div>
                             </div>
 
-
                             <div className=" relative h-[58%]">
                                 <img src={frame1} alt="image" className='h-full w-full' />
                                 <div className=" absolute flex gap-2 px-4 bottom-4">
@@ -384,8 +304,7 @@ const HomePage = () => {
                 </div>
             </div>
 
-
-            {/* How this helps you decide responsive done */}
+            {/* How this helps you decide */}
             <div className="">
                 <div className=" py-18">
                     <h1 className="text-24 text-primary font-semibold text-center">How this helps you decide</h1>
@@ -417,8 +336,7 @@ const HomePage = () => {
                 </div>
             </div>
 
-
-            {/* How to get modular report responsive done */}
+            {/* How to get modular report */}
             <div className=" bg-section">
                 <div className=" py-18">
                     <h1 className="text-24 text-primary font-semibold text-center">How to get modular report</h1>
@@ -467,7 +385,7 @@ const HomePage = () => {
                 </div>
             </div>
 
-            {/* text container responsive done*/}
+            {/* text container */}
             <div className=" w-80 sm:w-160 lg:w-240 m-auto grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 xl:w-314 xl:grid-cols-7 gap-8.5 text-15 text-primary font-medium py-18">
                 <div className="border-brand-primary py-3 text-center">Explore Reports</div>
                 <div className="border-brand-primary py-3 text-center">View Pricing</div>
@@ -481,104 +399,3 @@ const HomePage = () => {
     );
 };
 export default HomePage;
-
-
-
-
-
-
-
-
-
-
-// import { useState, useEffect } from 'react';
-
-// import { useNavigate } from 'react-router-dom';
- 
-// export default function HomePage() {
-
-//   const [isLoggedIn, setIsLoggedIn] = useState(null);
-
-//   const [redirecting, setRedirecting] = useState(false);
-
-//   const navigate = useNavigate();
- 
-//   useEffect(() => {
-
-//     const authMe = async () => {
-
-//       try {
-
-//         const res = await fetch(`https://andy-joint-playlist-commerce.trycloudflare.com/auth/me`, {
-
-//           method: "GET",
-
-//           credentials: "include"
-
-//         });
- 
-//         if (res.status === 401) {
-
-//           setIsLoggedIn(false);
-
-//           return;
-
-//         }
- 
-//         if (!res.ok) {
-
-//           setIsLoggedIn(false);
-
-//           return;
-
-//         }
- 
-//         const data = await res.json();
-
-//         console.log("auth:", data);
-
-//         setIsLoggedIn(true);
-
-//       } catch (err) {
-
-//         console.error("Auth check failed:", err);
-
-//         setIsLoggedIn(false);
-
-//       }
-
-//     };
- 
-//     authMe();
-
-//   }, []);
- 
-//   // ✅ Safe navigation: only in useEffect, not during render
-
-//   useEffect(() => {
-
-//     if (isLoggedIn === false && !redirecting) {
-
-//       setRedirecting(true);
-
-//       navigate("/login");
-
-//     }
-
-//   }, [isLoggedIn, redirecting, navigate]);
- 
-//   if (isLoggedIn === null) return <div>Loading...</div>;
-
-//   if (isLoggedIn === false) return <div>Redirecting...</div>;
- 
-//   // Authenticated
-
-//   return (
-// <div>
-// <h1>Welcome to Reports Dashboard</h1>
-// </div>
-
-//   );
-
-// }
- 

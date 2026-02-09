@@ -1,39 +1,19 @@
 import { useState } from "react";
 import { RxCaretDown } from "react-icons/rx";
+import { faqData } from "./Data";
 
 const FAQ = () => {
+
   const [openFaq, setOpenFaq] = useState(null);
 
   const handleClick = (index) => {
     setOpenFaq((prev) => (prev === index ? null : index));
   };
 
-  const faqData = [
-    {
-      title: "Lorem ipsum dolor sit amet",
-      description:
-        "Consectetur adipisicing elit. Consequatur ex pariatur modi quos odit, aperiam atque sint molestiae quis cumque. Consectetur adipisicing elit. Consequatur ex pariatur modi quos odit, aperiam atque sint molestiae quis cumque.   Consectetur adipisicing elit. Consequatur ex pariatur modi quos odit, aperiam atque sint molestiae quis cumque.    Consectetur adipisicing elit. Consequatur ex pariatur modi quos odit, aperiam",
-    },
-    {
-      title: "Lorem ipsum dolor sit amet",
-      description:
-        "Consectetur adipisicing elit. Consequatur ex pariatur modi quos odit, aperiam atque sint molestiae quis cumque. Consectetur adipisicing elit. Consequatur ex pariatur modi quos odit, aperiam atque sint molestiae quis cumque.   Consectetur adipisicing elit. Consequatur ex pariatur modi quos odit, aperiam atque sint molestiae quis cumque.    Consectetur adipisicing elit. Consequatur ex pariatur modi quos odit, aperiam",
-    },
-    {
-      title: "Lorem ipsum dolor sit amet",
-      description:
-        "Consectetur adipisicing elit. Consequatur ex pariatur modi quos odit, aperiam atque sint molestiae quis cumque. Consectetur adipisicing elit. Consequatur ex pariatur modi quos odit, aperiam atque sint molestiae quis cumque.   Consectetur adipisicing elit. Consequatur ex pariatur modi quos odit, aperiam atque sint molestiae quis cumque.    Consectetur adipisicing elit. Consequatur ex pariatur modi quos odit, aperiam",
-    },
-    {
-      title: "Lorem ipsum dolor sit amet",
-      description:
-        "Consectetur adipisicing elit. Consequatur ex pariatur modi quos odit, aperiam atque sint molestiae quis cumque.   Consectetur adipisicing elit. Consequatur ex pariatur modi quos odit, aperiam atque sint molestiae quis cumque.    Consectetur adipisicing elit. Consequatur ex pariatur modi quos odit, aperiam atque sint molestiae quis cumque.    Consectetur adipisicing elit. Consequatur ex pariatur modi quos odit, aperiam atque sint molestiae quis cumque.   Consectetur adipisicing elit. Consequatur ex pariatur modi quos odit, aperiam atque sint molestiae quis cumque.",
-    },
-  ];
-
   return (
     <div className="border rounded-md">
       {faqData.map((fq, i) => {
+        
         const isOpen = openFaq === i;
 
         return (

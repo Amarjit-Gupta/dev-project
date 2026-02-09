@@ -1,10 +1,9 @@
 import image_1 from '../assets/image 1.svg';
-import RelevantReports from './RelevantReports';
 
-const ScopeCoverage = ({setPopupOpen}) => {
+const ScopeCoverage = ({ setPopupOpen }) => {
+
     return (
         <div className="border">
-
             {/* card1 */}
             <div className="border">
                 <h1 className="text-primary text-24 font-semibold">What this report covers</h1>
@@ -84,7 +83,7 @@ const ScopeCoverage = ({setPopupOpen}) => {
 
                     <div className="border mt-4 flex gap-2 items-center">
                         <span className='text-primary text-16 font-regular'>To explore more about this topic,</span>
-                        <button className='py-2 px-8 border text-primary text-15 font-medium bg-brand cursor-pointer' onClick={()=>setPopupOpen(true)}>Download Sample Report</button>
+                        <button className='py-2 px-8 border text-primary text-15 font-medium bg-brand cursor-pointer' onClick={() => setPopupOpen(true)}>Download Sample Report</button>
                     </div>
                 </div>
             </div>
@@ -93,7 +92,6 @@ const ScopeCoverage = ({setPopupOpen}) => {
             <div className="border mt-8">
                 <p className='text-primary text-16 font-regular'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore placeat nulla natus? Totam, expedita! Aperiam cupiditate dolorem hic, nemo sit similique placeat perferendis enim maiores distinctio blanditiis velit molestiae sequi odit, ea tempore ipsa laudantium consequuntur at, nam corporis explicabo. Nulla, consectetur quia. Eos impedit, suscipit quidem officia iure sint magnam et, facere distinctio aliquid porro dolores dicta optio amet ipsam doloribus quia, ea dolorum ab itaque consequatur. Id qui quibusdam adipisci veritatis, voluptatum nam minima iusto quae totam quis deleniti nesciunt maxime soluta itaque voluptates dolore consequuntur. Repellat asperiores, in veniam animi porro soluta provident et officia excepturi praesentium nihil voluptates consequuntur assumenda cupiditate minus deserunt libero natus deleniti, iste consectetur inventore! Nam natus quaerat culpa ducimus corrupti accusantium velit dolor ratione magnam sunt ipsa fuga unde voluptatum quo excepturi, odio a, reprehenderit pariatur, similique ut animi! Qui commodi rerum, quia, veritatis illo velit est similique dolorem maxime consequatur architecto reprehenderit. Hic itaque illo sapiente est sed sint autem a corporis? Optio ex possimus laudantium impedit libero? Sequi accusamus fugit perspiciatis deserunt nihil ipsum assumenda quod praesentium illo, voluptatem suscipit ut asperiores tempore rem consequuntur recusandae temporibus ipsa cum autem repudiandae magnam provident! Quaerat at accusamus incidunt reprehenderit, cupiditate pariatur rerum consequuntur dignissimos quia rem dolore animi, culpa commodi quod voluptate eos. Suscipit eaque sapiente molestiae nemo illum! Nam excepturi magnam reiciendis quo, fuga, consectetur corporis natus doloremque, iure atque perspiciatis cum quos. Cumque quos tenetur aperiam beatae mollitia, iusto repellat eveniet dolorum doloribus a enim dignissimos nisi sint iste esse maiores expedita vero officia ea non asperiores. Eaque magnam ipsa praesentium, quos quas doloremque culpa atque ipsam ea expedita minus totam illo. Soluta repellat aliquam magnam ut voluptas nisi consequatur molestias. Voluptates, nostrum. Maxime unde ducimus illum vitae quam distinctio fuga, provident officia aperiam ut deleniti omnis in? Debitis quidem animi commodi error cumque harum nesciunt quo iure neque dolorem reprehenderit nobis assumenda nihil ex eligendi dolores cum suscipit unde, inventore adipisci voluptatum eius eveniet. Aperiam eum ratione dolorem voluptate aliquam totam debitis asperiores ex repudiandae soluta neque quasi amet nam veniam hic, perferendis ea, dolorum sapiente fugiat beatae cumque necessitatibus dolor! Minus doloribus maiores dicta quidem recusandae, magnam illum fuga. Necessitatibus delectus eius exercitationem neque beatae deleniti reiciendis in unde officiis qui, iusto iure est ipsa ratione, consectetur vel aut assumenda a earum perferendis temporibus tempora labore. Distinctio a incidunt vero enim reiciendis corporis aut libero aperiam at fugit esse porro voluptate ea voluptas consequatur, recusandae fuga. Facilis consequatur sequi fugit totam distinctio, magnam reiciendis libero a rerum. Minus incidunt praesentium ab nisi saepe nihil, odit id, ad similique ut quidem optio pariatur at maiores amet suscipit quod nemo! Tenetur quos expedita sed minus, eligendi illum. Obcaecati, temporibus. Tenetur doloribus praesentium dolores, totam quaerat aliquid animi ad voluptatibus quos. Dolores ex magni aliquam laboriosam, maiores fugit, rerum qui unde hic sed iste id dolore nam sit nesciunt a architecto beatae deserunt nostrum saepe reiciendis, libero quaerat. Officiis natus perspiciatis at amet cupiditate dolore deleniti quibusdam nisi possimus.</p>
             </div>
-
 
             {/*  */}
             <div className="border mt-8">
@@ -104,9 +102,6 @@ const ScopeCoverage = ({setPopupOpen}) => {
                     </div>
                 </div>
             </div>
-
-            
-
         </div>
     );
 };

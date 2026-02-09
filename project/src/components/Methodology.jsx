@@ -2,8 +2,8 @@ import FAQ from "./FAQ";
 
 const Methodology = () => {
 
-
     const d1 = ["Market Opportunity Size", "Competitive intensity", "Pricing positioning", "Key growth drivers", "Entry risks (if any)", "Analytics & forecasting"];
+    
     return (
         <div className="border">
 

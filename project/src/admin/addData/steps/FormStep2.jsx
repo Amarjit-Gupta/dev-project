@@ -1,6 +1,3 @@
-import { useEffect, useState } from "react";
-import { nURL } from "../../../URL";
-
 const FormStep2 = (
     { reportCovers, setReportCovers, reportSupports, setReportSupports, error }
 ) => {
@@ -27,7 +24,7 @@ const FormStep2 = (
 
     const checkBox1 = ["Market & Demand", "Competitive Landscape", "Strategic Insights", "Pricing & Economics", "Trade & Supply Chain", "Innovation & Trends", "Geography", "Forecasting & Outlook", "Regulation & Compliance"];
 
-    const checkBox2 = ["Product & Portfolio Decisions", "Competitive Strategy", "Investment & Financial Planning", "Market Entry & Expansion", "Pricing & Commercial Strategy", "Supply Chain & Sourcing", "Risk & Feasibility Assessment", "Strategic Communication"];
+    const checkBox2 = ["Product & Portfolio Decisions", "Competitive Strategy", "Investment & Financial Planning", "Market Entry & Expansion", "Pricing & Commercial Strategy", "Supply Chain & Sourcing", "Risk & Feasibility Assessment", "Strategic Communication","Strategic Communication"];
 
     return (
         <>
@@ -51,9 +48,6 @@ const FormStep2 = (
                                 <span>{item}</span>
                             </label>
                         ))}
-
-                        {/* Debug output */}
-                        {/* <pre className="mt-4 text-sm">{JSON.stringify(selected, null, 2)}</pre> */}
                     </div>
                     {error && !reportCovers.length && <p className="text-red-500 ml-1">Please select value...</p>}
                 </div>
@@ -71,14 +65,9 @@ const FormStep2 = (
                                 <span>{item}</span>
                             </label>
                         ))}
-
-                        {/* Debug output */}
-                        {/* <pre className="mt-4 text-sm">{JSON.stringify(selected1)}</pre> */}
                     </div>
                     {error && !reportSupports.length && <p className="text-red-500 ml-1">Please select value...</p>}
                 </div>
-
-
             </div>
         </>
     )
