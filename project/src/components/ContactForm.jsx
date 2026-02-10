@@ -131,7 +131,7 @@ const ContactForm = ({ popupOpen, setPopupOpen, title }) => {
     return (
         <div className={`h-[100vh] w-full bg-black/50 fixed -top-[100vh] ${popupOpen ? "top-0" : ""}`}>
 
-            <div className={`rounded w-80 sm:w-155 md:w-180 m-auto p-3 h-150 overflow-auto bg-gray-100 fixed -top-[100%] left-1/2 transform -translate-x-1/2 -translate-y-1/2  ${popupOpen ? "top-1/2" : ""}`}>
+            <div className={`z-50 rounded w-80 sm:w-155 md:w-180 m-auto p-3 h-150 overflow-auto bg-red-100 fixed -top-[100%] left-1/2 transform -translate-x-1/2 -translate-y-1/2  ${popupOpen ? "top-1/2" : ""}`}>
 
                 <button className="border rounded-xs p-0.5 float-right m-2" onClick={() => setPopupOpen(false)}><RxCross2 className="text-24 text-primary cursor-pointer bg-surface" /></button>
                 {/* text */}
