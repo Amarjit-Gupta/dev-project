@@ -26,6 +26,7 @@
   --color-text-primary: #1E1E1E;
 
   --color-surface: #FFFFFF;
+  --color-background: #F4F4F4;
   /* // for all text  */
   --color-text-secondary: #5F6368;
   /* light text color */
@@ -124,6 +125,10 @@
     background-color: var(--color-bg-surface);
   }
 
+  .bg-gray-color {
+    background-color: var(--color-background);
+  }
+
   .bg-card {
     background-color: var(--color-bg-card);
   }
@@ -154,7 +159,7 @@
   }
 
   .border-brand-primary {
-    border: 2px solid var(--color-brand-primary);
+    border: 1px solid var(--color-brand-primary);
   }
 
   .border-text-primary {

@@ -1,14 +1,17 @@
 import { useState, useRef, useEffect } from "react";
 import { countries, roles } from "./Data";
 import { RxCross2 } from "react-icons/rx";
+import { RiLoader4Fill } from "react-icons/ri";
+import { base_url } from "../URL";
 
-const ContactForm = ({popupOpen,setPopupOpen}) => {
+const ContactForm = ({ popupOpen, setPopupOpen, title }) => {
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [contact, setContact] = useState("");
     const [companyName, setCompanyName] = useState("");
     const [message, setMessage] = useState("");
+    const [loader4, setLoader4] = useState(false);
 
     const [error, setError] = useState(false);
 
@@ -23,6 +26,9 @@ const ContactForm = ({popupOpen,setPopupOpen}) => {
     const [roleOpen, setRoleOpen] = useState(false);
 
     const roleRef = useRef(null);
+
+
+    // console.log("title:..........",title);
 
 
     // for country
@@ -54,69 +60,120 @@ const ContactForm = ({popupOpen,setPopupOpen}) => {
     }, []);
 
 
-    const handleSubmit = (event) => {
+
+    ///////////
+    const handleSubmit = async (event) => {
+
+        console.log("submit called...");
+
         event.preventDefault();
+        const phoneRegex = /^\+?\d{7,15}$/;
 
         if (!name.trim() || !email.trim() || !contact.trim() || !companyName.trim()) {
             setError(true);
             return;
         }
+        if (!phoneRegex.test(contact)) {
+            alert("Please enter valid Contact No.");
+            return;
+        }
 
-        console.log("name", name);
-        console.log("email", email);
-        console.log("contact", contact);
-        console.log("companyName", companyName);
-        console.log("selectedRole", selectedRole);
-        console.log("selectedCountry", selectedCountry);
-        console.log("message", message);
+        try {
+            setLoader4(true);
+            console.log("api called...");
+            let payload = {
+                full_name: name,
+                business_email_address: email,
+                contact_number: contact,
+                company_name: companyName,
+                role: selectedRole,
+                location: selectedCountry,
+                message: message,
+                title: title
+            }
+
+            console.log("formPayload: ", payload);
+
+            let emailResult = await fetch(`${base_url}/contact/submit`, {
+                method: "POST",
+                body: JSON.stringify(payload),
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                // credentials: "include"
+            });
+            let emailData = await emailResult.json();
+            console.log("emailData: ", emailData);
+            if (emailData.success) {
+                setName("");
+                setEmail("");
+                setContact("");
+                setCompanyName("");
+                setSelectedRole("");
+                setSelectedCountry("");
+                setMessage("");
+                setError(false);
+                setPopupOpen(false);
+                alert(emailData.message || "Your message has been sent.");
+            } else {
+                alert(emailData.message || "Your message has not been sent.");
+            }
+        }
+        catch (err) {
+            console.log("something went wrong...", err.message);
+        } finally {
+            setLoader4(false);
+        }
     }
 
+    //////////////
+
     return (
-        <div className={`h-[100vh] w-full bg-black/50 fixed -top-[100vh] ${popupOpen?"top-0":""}`}>
+        <div className={`h-[100vh] w-full bg-black/50 fixed -top-[100vh] ${popupOpen ? "top-0" : ""}`}>
 
-            <div className={`border border-red-500  w-80 sm:w-155 md:w-180 m-auto p-3 h-150 overflow-auto bg-gray-100 fixed -top-[100%] left-1/2 transform -translate-x-1/2 -translate-y-1/2  ${popupOpen?"top-1/2":""}`}>
+            <div className={`rounded w-80 sm:w-155 md:w-180 m-auto p-3 h-150 overflow-auto bg-gray-100 fixed -top-[100%] left-1/2 transform -translate-x-1/2 -translate-y-1/2  ${popupOpen ? "top-1/2" : ""}`}>
 
-                <button className="border p-0.5 float-right m-2" onClick={()=>setPopupOpen(false)}><RxCross2 className="text-24 text-primary cursor-pointer bg-surface" /></button>
+                <button className="border rounded-xs p-0.5 float-right m-2" onClick={() => setPopupOpen(false)}><RxCross2 className="text-24 text-primary cursor-pointer bg-surface" /></button>
                 {/* text */}
-                <div className="border mt-4">
+                <div className="mt-4">
                     <h1 className="text-primary text-24 font-regular">Contact with us</h1>
                     <p className="text-primary text-16 font-regular">Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis saepe commodi ut quod</p>
                     {/* <p className="text-primary text-24 font-regular">Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis saepe commodi ut quod</p> */}
                 </div>
 
                 {/* form */}
-                <div className="border mt-7">
+                <div className=" mt-7">
                     <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
                         {/*  */}
-                        <div className="border">
+                        <div className="">
                             <label htmlFor="" className="font-medium">Full Name <sup>*</sup></label>
-                            <input type="text" className="h-9 w-full border bg-surface px-1" placeholder="Enter Full name" value={name} onChange={(e) => setName(e.target.value)} />
+                            <input type="text" className="h-9 w-full border border-gray-200 bg-surface px-1" placeholder="Enter Full name" value={name} onChange={(e) => setName(e.target.value)} />
                             {error && !name && <p className="text-15 text-red-500">Please Enter Full Name</p>}
                         </div>
 
                         {/*  */}
-                        <div className="border">
+                        <div className="">
                             <label htmlFor="" className="font-medium">Business Email Address <sup>*</sup></label>
-                            <input type="email" className="h-9 w-full border bg-surface px-1" placeholder="Enter Full name" value={email} onChange={(e) => setEmail(e.target.value)} />
+                            <input type="email" className="h-9 w-full border border-gray-200 bg-surface px-1" placeholder="Enter Full name" value={email} onChange={(e) => setEmail(e.target.value)} />
                             {error && !email && <p className="text-15 text-red-500">Please Enter Email</p>}
                         </div>
 
                         {/*  */}
-                        <div className="border">
+                        <div className="">
                             <label htmlFor="" className="font-medium">Contact Number <sup>*</sup></label>
-                            <input type="text" className="h-9 w-full border bg-surface px-1" placeholder="Enter Contact Number" value={contact} onChange={(e) => setContact(e.target.value)} />
+                            <input type="text" className="h-9 w-full border border-gray-200 bg-surface px-1" placeholder="Enter Contact Number" value={contact} onChange={(e) => setContact(e.target.value)} />
                             {error && !contact && <p className="text-15 text-red-500">Please Enter Contact Number</p>}
                         </div>
 
                         {/*  */}
-                        <div className="border">
+                        <div className="">
                             <label htmlFor="" className="font-medium">Company Name <sup>*</sup></label>
-                            <input type="text" className="h-9 w-full border bg-surface px-1" placeholder="Enter Company Name" value={companyName} onChange={(e) => setCompanyName(e.target.value)} />
+                            <input type="text" className="h-9 w-full border border-gray-200 bg-surface px-1" placeholder="Enter Company Name" value={companyName} onChange={(e) => setCompanyName(e.target.value)} />
                             {error && !companyName && <p className="text-15 text-red-500">Please Enter Company Name</p>}
                         </div>
 
                         {/* Role */}
-                        <div ref={roleRef} className="relative w-full border">
+                        <div ref={roleRef} className="relative w-full">
                             <label className="block mb-1 font-medium">
                                 Role <sup>*</sup>
                             </label>
@@ -124,7 +181,7 @@ const ContactForm = ({popupOpen,setPopupOpen}) => {
                             {/* Selected box */}
                             <div
                                 onClick={() => setRoleOpen(!roleOpen)}
-                                className="border border-gray-300 bg-white px-3 py-2 rounded cursor-pointer select-none"
+                                className="border border-gray-200 bg-white px-3 py-1.5 rounded cursor-pointer select-none"
                             >
                                 {selectedRole || "---Select Role---"}
                             </div>
@@ -155,7 +212,7 @@ const ContactForm = ({popupOpen,setPopupOpen}) => {
                             {/* Selected box */}
                             <div
                                 onClick={() => setCountryopen(!countryOpen)}
-                                className="border border-gray-300 bg-white px-3 py-2 rounded cursor-pointer select-none"
+                                className="border border-gray-200 bg-white px-3 py-1.5 rounded cursor-pointer select-none"
                             >
                                 {selectedCountry || "---Select Country---"}
                             </div>
@@ -198,13 +255,28 @@ const ContactForm = ({popupOpen,setPopupOpen}) => {
                         </div>
 
                         {/* message */}
-                        <div className="border">
+                        <div className="">
                             <label htmlFor="" className="font-medium">Message</label>
-                            <textarea name="" id="" className="border w-full h-20 resize-none bg-surface p-1" placeholder="Enter Message" value={message} onChange={(e) => setMessage(e.target.value)} ></textarea>
+                            <textarea name="" id="" className="border border-gray-200 w-full h-20 resize-none bg-surface p-1" placeholder="Enter Message" value={message} onChange={(e) => setMessage(e.target.value)} ></textarea>
                         </div>
 
                         <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi laborum eos alias porro laboriosam. Itaque, ab veritatis.</p>
-                        <button className="h-9 w-35 border font-medium bg-surface">Submit</button>
+                        <button
+                            type="submit"
+                            className="py-2 w-35 border border-gray-300 font-medium cursor-pointer rounded bg-surface hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50"
+                            disabled={loader4}
+                        >
+                            {loader4 ? (
+
+                                <span className="flex justify-center items-center gap-2">
+                                    Submit in...
+                                    <RiLoader4Fill className="text-20 animate-spin" />
+                                </span>
+
+                            ) : (
+                                <span>Submit</span>
+                            )}
+                        </button>
                     </form>
                 </div>
 

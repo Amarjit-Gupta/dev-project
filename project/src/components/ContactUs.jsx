@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 import { countries, roles } from "./Data";
 import { RiLoader4Fill } from "react-icons/ri";
-import { nURL } from "../URL";
 import { IoChevronDown } from "react-icons/io5";
+import { base_url } from "../URL";
 
 
 const ContactUs = () => {
@@ -85,7 +85,7 @@ const ContactUs = () => {
 
             console.log("formPayload: ", payload);
 
-            let emailResult = await fetch(`${nURL}/contact/submit`, {
+            let emailResult = await fetch(`${base_url}/contact/submit`, {
                 method: "POST",
                 body: JSON.stringify(payload),
                 headers: {
@@ -117,103 +117,104 @@ const ContactUs = () => {
     }
 
     return (
-        <div className={`border border-gray-200 rounded w-80 sm:w-155 md:w-180 m-auto p-3 bg-gray-100 my-5`}>
+        <div className="bg-gray-100 py-5">
+            <div className={`border border-gray-200 rounded w-80 sm:w-155 md:w-180 m-auto p-3 bg-gray-200`}>
 
-            <div className="mt-4">
-                <h1 className="text-primary text-24 font-regular">Contact with us</h1>
-                <p className="text-primary text-16 font-regular">Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis saepe commodi ut quod</p>
-                {/* <p className="text-primary text-24 font-regular">Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis saepe commodi ut quod</p> */}
-            </div>
+                <div className="mt-4">
+                    <h1 className="text-primary text-24 font-regular">Contact with us</h1>
+                    <p className="text-primary text-16 font-regular">Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis saepe commodi ut quod</p>
+                    {/* <p className="text-primary text-24 font-regular">Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis saepe commodi ut quod</p> */}
+                </div>
 
-            {/* form */}
-            <div className="mt-7">
-                <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-                    {/*  */}
-                    <div className="">
-                        <label htmlFor="" className="font-medium">Full Name <sup>*</sup></label>
-                        <input type="text" className="h-9 w-full border border-gray-200 rounded bg-surface px-1" placeholder="Enter Full name" value={name} onChange={(e) => setName(e.target.value)} />
-                        {error && !name && <p className="text-15 text-red-500">Please Enter Full Name</p>}
-                    </div>
+                {/* form */}
+                <div className="mt-7">
+                    <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+                        {/*  */}
+                        <div className="">
+                            <label htmlFor="" className="font-medium">Full Name <sup>*</sup></label>
+                            <input type="text" className="h-9 w-full border border-gray-200 rounded bg-surface px-1" placeholder="Enter Full name" value={name} onChange={(e) => setName(e.target.value)} />
+                            {error && !name && <p className="text-15 text-red-500">Please Enter Full Name</p>}
+                        </div>
 
-                    {/*  */}
-                    <div className="">
-                        <label htmlFor="" className="font-medium">Business Email Address <sup>*</sup></label>
-                        <input type="email" className="h-9 w-full border border-gray-200 rounded bg-surface px-1" placeholder="Enter Full name" value={email} onChange={(e) => setEmail(e.target.value)} />
-                        {error && !email && <p className="text-15 text-red-500">Please Enter Email</p>}
-                    </div>
+                        {/*  */}
+                        <div className="">
+                            <label htmlFor="" className="font-medium">Business Email Address <sup>*</sup></label>
+                            <input type="email" className="h-9 w-full border border-gray-200 rounded bg-surface px-1" placeholder="Enter Full name" value={email} onChange={(e) => setEmail(e.target.value)} />
+                            {error && !email && <p className="text-15 text-red-500">Please Enter Email</p>}
+                        </div>
 
-                    {/*  */}
-                    <div className="">
-                        <label htmlFor="" className="font-medium">Contact Number <sup>*</sup></label>
-                        <input type="text" className="h-9 w-full border border-gray-200 rounded bg-surface px-1" placeholder="Enter Contact Number" value={contact}
-                            //  onChange={(e) => setContact(e.target.value)}
-                            onChange={(e) => setContact(e.target.value.replace(/[^\d+]/g, ""))}
-                        />
-                        {error && !contact && <p className="text-15 text-red-500">Please Enter Contact Number</p>}
-                    </div>
+                        {/*  */}
+                        <div className="">
+                            <label htmlFor="" className="font-medium">Contact Number <sup>*</sup></label>
+                            <input type="text" className="h-9 w-full border border-gray-200 rounded bg-surface px-1" placeholder="Enter Contact Number" value={contact}
+                                //  onChange={(e) => setContact(e.target.value)}
+                                onChange={(e) => setContact(e.target.value.replace(/[^\d+]/g, ""))}
+                            />
+                            {error && !contact && <p className="text-15 text-red-500">Please Enter Contact Number</p>}
+                        </div>
 
-                    {/*  */}
-                    <div className="">
-                        <label htmlFor="" className="font-medium">Company Name <sup>*</sup></label>
-                        <input type="text" className="h-9 w-full border border-gray-200 rounded bg-surface px-1" placeholder="Enter Company Name" value={companyName} onChange={(e) => setCompanyName(e.target.value)} />
-                        {error && !companyName && <p className="text-15 text-red-500">Please Enter Company Name</p>}
-                    </div>
+                        {/*  */}
+                        <div className="">
+                            <label htmlFor="" className="font-medium">Company Name <sup>*</sup></label>
+                            <input type="text" className="h-9 w-full border border-gray-200 rounded bg-surface px-1" placeholder="Enter Company Name" value={companyName} onChange={(e) => setCompanyName(e.target.value)} />
+                            {error && !companyName && <p className="text-15 text-red-500">Please Enter Company Name</p>}
+                        </div>
 
-                    {/* Role */}
-                    <div ref={roleRef} className="relative w-full">
-                        <label className="block mb-1 font-medium">
-                            Role
-                        </label>
+                        {/* Role */}
+                        <div ref={roleRef} className="relative w-full">
+                            <label className="block mb-1 font-medium">
+                                Role
+                            </label>
 
-                        {/* Selected box */}
-                        {/* <div
+                            {/* Selected box */}
+                            {/* <div
                             onClick={() => setRoleOpen(!roleOpen)}
                             className="border border-gray-200 bg-white px-3 py-1.5 rounded cursor-pointer select-none"
                         >
                             {selectedRole || <span className="text-gray-500">---Select Role---</span>}
                         </div> */}
-                        <div
-                            onClick={() => setRoleOpen(!roleOpen)}
-                            className="border border-gray-200 bg-white px-3 py-1.5 rounded cursor-pointer select-none
+                            <div
+                                onClick={() => setRoleOpen(!roleOpen)}
+                                className="border border-gray-200 bg-white px-3 py-1.5 rounded cursor-pointer select-none
              flex items-center justify-between"
-                        >
-                            <span>
-                                {selectedRole || (
-                                    <span className="text-gray-500">---Select Role---</span>
-                                )}
-                            </span>
+                            >
+                                <span>
+                                    {selectedRole || (
+                                        <span className="text-gray-500">---Select Role---</span>
+                                    )}
+                                </span>
 
-                            <IoChevronDown
-                                className={`transition-transform duration-300 ease-in-out text-gray-500 ${roleOpen ? "rotate-180" : ""
-                                    }`}
-                            />
+                                <IoChevronDown
+                                    className={`transition-transform duration-300 ease-in-out text-gray-500 ${roleOpen ? "rotate-180" : ""
+                                        }`}
+                                />
+                            </div>
+
+                            {roleOpen && (
+                                <div className="absolute z-20 mt-1 w-full bg-white border border-gray-300 rounded shadow-md">
+                                    {roles.map((role, index) => (
+                                        <div
+                                            key={index}
+                                            onClick={() => {
+                                                setSelectedRole(role);
+                                                setRoleOpen(false);
+                                            }}
+                                            className="px-3 py-2 cursor-pointer hover:bg-gray-200 text-sm"
+                                        >
+                                            {role}
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
                         </div>
 
-                        {roleOpen && (
-                            <div className="absolute z-20 mt-1 w-full bg-white border border-gray-300 rounded shadow-md">
-                                {roles.map((role, index) => (
-                                    <div
-                                        key={index}
-                                        onClick={() => {
-                                            setSelectedRole(role);
-                                            setRoleOpen(false);
-                                        }}
-                                        className="px-3 py-2 cursor-pointer hover:bg-gray-200 text-sm"
-                                    >
-                                        {role}
-                                    </div>
-                                ))}
-                            </div>
-                        )}
-                    </div>
-
-                    {/* country */}
-                    <div ref={dropdownRef} className="relative w-full">
-                        <label className="block mb-1 font-medium">
-                            Location:
-                        </label>
-                        {/* Selected box */}
-                        {/* <div
+                        {/* country */}
+                        <div ref={dropdownRef} className="relative w-full">
+                            <label className="block mb-1 font-medium">
+                                Location:
+                            </label>
+                            {/* Selected box */}
+                            {/* <div
                             onClick={() => setCountryopen(!countryOpen)}
                             className="border border-gray-200 bg-white px-3 py-1.5 rounded cursor-pointer select-none"
                         >
@@ -221,83 +222,84 @@ const ContactUs = () => {
 
                             
                         </div> */}
-                        <div
-                            onClick={() => setCountryopen(!countryOpen)}
-                            className="border border-gray-200 bg-white px-3 py-1.5 rounded cursor-pointer select-none
+                            <div
+                                onClick={() => setCountryopen(!countryOpen)}
+                                className="border border-gray-200 bg-white px-3 py-1.5 rounded cursor-pointer select-none
              flex items-center justify-between"
-                        >
-                            <span>
-                                {selectedCountry || (
-                                    <span className="text-gray-500">---Select Country---</span>
-                                )}
-                            </span>
+                            >
+                                <span>
+                                    {selectedCountry || (
+                                        <span className="text-gray-500">---Select Country---</span>
+                                    )}
+                                </span>
 
-                            <IoChevronDown
-                                className={`transition-transform duration-300 ease-in-out text-gray-500 ${countryOpen ? "rotate-180" : "rotate-0"
-                                    }`}
-                            />
+                                <IoChevronDown
+                                    className={`transition-transform duration-300 ease-in-out text-gray-500 ${countryOpen ? "rotate-180" : "rotate-0"
+                                        }`}
+                                />
+                            </div>
+
+
+                            {countryOpen && (
+                                <div className="absolute z-20 mt-1 w-full bg-white border border-gray-300 rounded shadow-md">
+                                    {/* Search input */}
+                                    <input
+                                        type="text"
+                                        placeholder="Search country..."
+                                        value={search}
+                                        onChange={(e) => setSearch(e.target.value)}
+                                        className="w-full px-3 py-2 border-b"
+                                    />
+
+                                    {/* List */}
+                                    <div className="max-h-40 overflow-y-auto">
+                                        {filteredCountries.length > 0 ? (
+                                            filteredCountries.map((country, index) => (
+                                                <div
+                                                    key={index}
+                                                    onClick={() => {
+                                                        setSelectedCountry(country);
+                                                        setCountryopen(false);
+                                                        setSearch("");
+                                                    }}
+                                                    className="px-3 py-2 cursor-pointer hover:bg-gray-200 text-sm"
+                                                >
+                                                    {country}
+                                                </div>
+                                            ))
+                                        ) : (
+                                            <div className="px-3 py-2 text-gray-400 text-sm">
+                                                No country found
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                            )}
                         </div>
 
+                        {/* message */}
+                        <div className="">
+                            <label htmlFor="" className="font-medium">Message</label>
+                            <textarea name="" id="" className="border border-gray-200 rounded w-full h-20 resize-none bg-surface p-1" placeholder="Enter Message" value={message} onChange={(e) => setMessage(e.target.value)} ></textarea>
+                        </div>
+                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi laborum eos alias porro laboriosam. Itaque, ab veritatis.</p>
 
-                        {countryOpen && (
-                            <div className="absolute z-20 mt-1 w-full bg-white border border-gray-300 rounded shadow-md">
-                                {/* Search input */}
-                                <input
-                                    type="text"
-                                    placeholder="Search country..."
-                                    value={search}
-                                    onChange={(e) => setSearch(e.target.value)}
-                                    className="w-full px-3 py-2 border-b"
-                                />
-
-                                {/* List */}
-                                <div className="max-h-40 overflow-y-auto">
-                                    {filteredCountries.length > 0 ? (
-                                        filteredCountries.map((country, index) => (
-                                            <div
-                                                key={index}
-                                                onClick={() => {
-                                                    setSelectedCountry(country);
-                                                    setCountryopen(false);
-                                                    setSearch("");
-                                                }}
-                                                className="px-3 py-2 cursor-pointer hover:bg-gray-200 text-sm"
-                                            >
-                                                {country}
-                                            </div>
-                                        ))
-                                    ) : (
-                                        <div className="px-3 py-2 text-gray-400 text-sm">
-                                            No country found
-                                        </div>
-                                    )}
-                                </div>
-                            </div>
-                        )}
-                    </div>
-
-                    {/* message */}
-                    <div className="">
-                        <label htmlFor="" className="font-medium">Message</label>
-                        <textarea name="" id="" className="border border-gray-200 rounded w-full h-20 resize-none bg-surface p-1" placeholder="Enter Message" value={message} onChange={(e) => setMessage(e.target.value)} ></textarea>
-                    </div>
-                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi laborum eos alias porro laboriosam. Itaque, ab veritatis.</p>
-
-                    <button
-                        type="submit"
-                        className="py-2 w-35 border border-gray-300 font-medium cursor-pointer rounded bg-surface hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50"
-                        disabled={loader3}
-                    >
-                        {loader3 ? (
-                            <span className="flex justify-center items-center gap-2">
-                                Submit in...
-                                <RiLoader4Fill className="text-20 animate-spin" />
-                            </span>
-                        ) : (
-                            <span>Submit</span>
-                        )}
-                    </button>
-                </form>
+                        <button
+                            type="submit"
+                            className="py-2 w-35 border border-gray-300 font-medium cursor-pointer rounded bg-surface hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50"
+                            disabled={loader3}
+                        >
+                            {loader3 ? (
+                                <span className="flex justify-center items-center gap-2">
+                                    Submit in...
+                                    <RiLoader4Fill className="text-20 animate-spin" />
+                                </span>
+                            ) : (
+                                <span>Submit</span>
+                            )}
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
     );

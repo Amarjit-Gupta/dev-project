@@ -40,14 +40,14 @@ const FormStep1 = (
 
     return (
         <>
-            <div className="border w-full m-auto flex flex-col gap-5">
-                <div className="border">
-                    <h1 className="text-24 font-medium text-primary">Basic Report Information (form setp1)</h1>
+            <div className="w-full my-2 m-auto flex flex-col gap-5">
+                <div className="">
+                    <h1 className="text-24 font-medium text-primary">Basic Report Information</h1>
                     <p className="text-16 font-regular text-primary">Identify the report correctly (SEO + discovery)</p>
                 </div>
 
                 {/* field1 */}
-                <div className="border flex justify-between items-center gap-3.5">
+                <div className=" flex justify-between items-center gap-3.5">
                     <div className="flex gap-6 items-center">
                         <span className="flex items-center gap-1">
                             <input type="radio" id="insert" name="dataOption" />
@@ -83,14 +83,14 @@ const FormStep1 = (
                         {/*  */}
                     </div>
 
-                    <div className="border flex justify-center gap-5">
-                        <div className="border w-52.5">
+                    <div className="flex justify-center gap-5">
+                        <div className="w-52.5">
                             <label className="text-15 font-medium text-primary" htmlFor="options">
                                 Report Directory
                             </label>
 
                             <select
-                                className="w-full mt-1 border p-1"
+                                className="w-full mt-1 border border-gray-200 p-1"
                                 id="options"
                                 value={selectedReportId}
                                 onChange={(e) => setSelectedReportId(e.target.value)}
@@ -108,7 +108,7 @@ const FormStep1 = (
                             </select>
                         </div>
 
-                        <div className="border w-39">
+                        <div className="w-39">
                             <label className="text-15 font-medium text-primary" htmlFor="options">
                                 Version
                             </label>
@@ -119,36 +119,36 @@ const FormStep1 = (
                 </div>
 
                 {/* field2 */}
-                <div className="border flex justify-between">
-                    <div className="border w-[80.5%]">
+                <div className=" flex justify-between">
+                    <div className="w-[80.5%]">
                         <label className="text-16 font-medium text-primary" htmlFor="reportTitle">Report Title <sup>*</sup>
                         </label><br />
-                        <input type="text" id="reportTitle" className="w-full border h-10 px-0.5 text-20" placeholder="Enter Report Title" value={reportTitle} onChange={(e) => setReportTitle(e.target.value)} />
+                        <input type="text" id="reportTitle" className="w-full border border-gray-200 h-10 px-0.5 text-20" placeholder="Enter Report Title" value={reportTitle} onChange={(e) => setReportTitle(e.target.value)} />
                         {error && !reportTitle && <p className="text-red-500 ml-1">Please Enter ReportTitle...</p>}
                     </div>
 
-                    <div className="border w-[17.3%]">
+                    <div className="w-[17.3%]">
                         {/*  */}
                         <label className="text-16 font-medium text-primary" htmlFor="reportId">Report ID <sup>*</sup>
                         </label><br />
-                        <input type="text" id="reportId" className="w-full border h-10 px-0.5 text-20" placeholder="Enter Report ID" />
+                        <input type="text" id="reportId" className="w-full border border-gray-200 h-10 px-0.5 text-20" placeholder="Enter Report ID" />
                         {/*  */}
                     </div>
 
                 </div>
 
                 {/* field3 */}
-                <div className="border">
+                <div className="">
                     <label className="text-16 font-medium text-primary" htmlFor="marketDescription">Subtitle / Market description <sup>*</sup> </label>
-                    <input type="text" id="marketDescription" className="w-full border h-10 px-0.5 text-20" placeholder="Enter subtitle / market description" value={subTitle} onChange={(e) => setSubTitle(e.target.value)} />
+                    <input type="text" id="marketDescription" className="w-full border border-gray-200 h-10 px-0.5 text-20" placeholder="Enter subtitle / market description" value={subTitle} onChange={(e) => setSubTitle(e.target.value)} />
                     {error && !subTitle && <p className="text-red-500 ml-1">Please Enter subTitle...</p>}
                 </div>
-                <div className="border">
+                <div className="">
                     <label className="text-15 font-medium text-primary">
                         Industry <sup>*</sup>
                     </label>
                     <select
-                        className="w-full mt-1 border h-10 text-20"
+                        className="w-full mt-1 border border-gray-200 h-10"
                         value={industry}
                         onChange={(e) => setIndustry(e.target.value)}
                     >
@@ -166,13 +166,13 @@ const FormStep1 = (
                     )}
                 </div>
 
-                <div className="border">
+                <div className="">
                     <label className="text-15 font-medium text-primary">
                         Sub-Industry <sup>*</sup>
                     </label>
 
                     <select
-                        className="w-full mt-1 border h-10 text-20"
+                        className="w-full mt-1 border border-gray-200 h-10"
                         value={subIndustry}
                         onChange={(e) => setSubIndustry(e.target.value)}
                     >
@@ -193,7 +193,7 @@ const FormStep1 = (
                 </div>
 
                 {/* field6 */}
-                <div className="border">
+                <div className="">
                     <MultiSelectDropdown
                         label="Regions* (Multi select)"
                         options={getRegions?.map((item) => item.name)}
@@ -204,7 +204,7 @@ const FormStep1 = (
                 </div>
 
                 {/* field7 */}
-                <div className="border">
+                <div className="">
                     <MultiSelectDropdown
                         label="Country* (Multi select)"
                         options={getCountries?.map((item) => item.name)}
@@ -214,13 +214,13 @@ const FormStep1 = (
                     {error && !country.length && <p className="text-red-500 ml-1">Please select country...</p>}
                 </div>
 
-                <div className="border">
+                <div>
                     <label className="text-15 font-medium text-primary" htmlFor="reportType">
                         Report Type <sup>*</sup>
                     </label>
 
                     <select
-                        className="w-full mt-1 border h-10 text-20"
+                        className="w-full mt-1 border border-gray-200 h-10"
                         id="reportType"
                         value={reportType}
                         onChange={(e) => setReportType(e.target.value)}
@@ -242,15 +242,15 @@ const FormStep1 = (
                 </div>
 
                 {/* field9 */}
-                <div className="border">
+                <div className="">
                     <label className="text-16 font-medium text-primary" htmlFor="publishDate">Publish Date<sup>*</sup>
                     </label>
                     {/* {publishDate && */}
-                    <input type="date" id="publishDate" className="w-full border h-10 px-0.5 text-20" value={publishDate} onChange={(e) => setPublishDate(e.target.value)} />
+                    <input type="date" id="publishDate" className="w-full border border-gray-200 h-10 px-0.5" value={publishDate} onChange={(e) => setPublishDate(e.target.value)} />
                     {error && !publishDate && <p className="text-red-500 ml-1">Please select publishDate...</p>}
                 </div>
 
-                <div className="border">
+                <div className="">
                     <label
                         className="text-16 font-medium text-primary"
                         htmlFor="coveragePeriodFrom"
@@ -261,7 +261,7 @@ const FormStep1 = (
                     <input
                         type="number"
                         id="coveragePeriodFrom"
-                        className="w-full border h-10 px-0.5 text-20"
+                        className="w-full border border-gray-200 h-10 px-0.5"
                         placeholder="Enter year"
                         min="1900"
                         max="2100"
@@ -277,7 +277,7 @@ const FormStep1 = (
                 </div>
 
                 {/* field11 */}
-                <div className="border">
+                <div className="">
                     <label
                         className="text-16 font-medium text-primary"
                         htmlFor="coveragePeriodTo"
@@ -288,7 +288,7 @@ const FormStep1 = (
                     <input
                         type="number"
                         id="coveragePeriodTo"
-                        className="w-full border h-10 px-0.5 text-20"
+                        className="w-full border border-gray-200 h-10 px-0.5"
                         placeholder="Enter year"
                         min="1900"
                         max="2100"

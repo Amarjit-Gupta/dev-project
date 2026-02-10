@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { nURL } from "../URL";
+import { base_url } from "../URL";
 
 const SingleReport = () => {
 
@@ -13,7 +13,7 @@ const SingleReport = () => {
     const getSingleReportData = async () => {
         try {
             setLoading(true);
-            let result = await fetch(`${nURL}/reports/${index}/preview`, {
+            let result = await fetch(`${base_url}/reports/${index}/preview`, {
                 method: "GET",
                 credentials: "include"
             });
@@ -40,8 +40,11 @@ const SingleReport = () => {
     console.log(singleData);
 
     return (
-        <div className="border w-230 m-auto my-4">
-            <div className="border w-230 m-auto p-4 h-150 overflow-auto">
+        <div className="bg-gray-100 py-4">
+            
+        
+        <div className="w-230 m-auto bg-surface">
+            <div className=" w-230 m-auto p-4 h-150 overflow-auto">
                 <h1 className="text-center text-20 font-medium text-primary pb-4 underline">Single Report Data</h1>
                 {loading ?
                     <div className="flex justify-center items-center h-40">
@@ -146,7 +149,8 @@ const SingleReport = () => {
                     </>
                 }
             </div>
-            <button className="bg-brand font-medium py-2 px-4 cursor-pointer mt-2"><Link to={"/all"}>Go Back</Link></button>
+            <button className="mx-4 mb-4 mt-2 bg-brand font-medium py-2 px-4 cursor-pointer"><Link to={"/all"}>Go Back</Link></button>
+        </div>
         </div>
     );
 };

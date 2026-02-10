@@ -3,7 +3,7 @@ import { useState } from "react";
 import { FaRegEyeSlash } from "react-icons/fa";
 import { FaRegEye } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
-import { nURL } from "../URL";
+import { base_url } from "../URL";
 
 const Login = () => {
 
@@ -34,7 +34,7 @@ const Login = () => {
 
         try {
             setLoader2(true);
-            const result = await fetch(`${nURL}/login`, {
+            const result = await fetch(`${base_url}/login`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 credentials: "include",

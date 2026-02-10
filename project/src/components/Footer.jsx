@@ -2,7 +2,7 @@ import logo1 from '../assets/Logo-Integers1.svg';
 
 const Footer = () => {
     return (
-        <div className=" bg-brand w-full">
+        <div className="bg-brand w-full">
             <div className=" w-80 sm:w-160 grid grid-cols-1 sm:grid-cols-2 xl:w-314 xl:grid-cols-4 py-20 bg-brand gap-8 m-auto">
                 <div className="">
                     <div className="">

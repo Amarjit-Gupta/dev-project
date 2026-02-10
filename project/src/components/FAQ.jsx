@@ -11,7 +11,7 @@ const FAQ = () => {
   };
 
   return (
-    <div className="border rounded-md">
+    <div className=" rounded-md">
       {faqData.map((fq, i) => {
         
         const isOpen = openFaq === i;

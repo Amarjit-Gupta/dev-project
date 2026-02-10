@@ -26,22 +26,22 @@ const FormStep3 = ({ availableReports,
 
     return (
         <>
-            <div className="border w-full m-auto flex flex-col gap-5">
-                <div className="border">
-                    <h1 className="text-24 font-medium text-primary">Upload Report Files (form step3)</h1>
+            <div className=" w-full m-auto flex flex-col gap-5 my-2">
+                <div className="">
+                    <h1 className="text-24 font-medium text-primary">Upload Report Files</h1>
                     <p className="text-16 font-regular text-primary">Attach actual content</p>
                 </div>
 
-                <div className="border">
+                <div className="">
                     <h1 className="text-20 font-medium text-primary">Upload Report Files</h1>
 
-                    <div className="border">
+                    <div className="">
                         <label className="text-15 font-medium text-primary" htmlFor="reportType">
                             Select from available reports <sup>*</sup>
                         </label>
 
                         <select
-                            className="w-full mt-1 border h-10 text-20"
+                            className="w-full mt-1 border border-gray-200 h-10 text-20"
                             id="reportType"
                             value={availableReports}
                             onChange={handleReportChange}
@@ -72,7 +72,7 @@ const FormStep3 = ({ availableReports,
                     )}
                 </div>
 
-                <div className="border">
+                <div className="">
                     <FileUpload
                         label="Upload Sample PDF*"
                         file={samplePDF}
@@ -86,7 +86,7 @@ const FormStep3 = ({ availableReports,
                     )}
                 </div>
 
-                <div className="border">
+                <div className="">
                     <FileUpload
                         label="Upload Image*"
                         file={image}
@@ -102,7 +102,7 @@ const FormStep3 = ({ availableReports,
 
                 </div>
 
-                <div className="border">
+                <div className="">
                     <FileUpload
                         label="Upload charts"
                         file={charts}

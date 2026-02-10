@@ -28,17 +28,17 @@ const FormStep2 = (
 
     return (
         <>
-            <div className="border w-full m-auto flex flex-col gap-5">
-                <div className="border">
-                    <h1 className="text-24 font-medium text-primary">Scope & Decision Value (form setp2)</h1>
+            <div className=" w-full m-auto flex flex-col gap-5 my-2">
+                <div className="">
+                    <h1 className="text-24 font-medium text-primary">Scope & Decision Value</h1>
                     <p className="text-16 font-regular text-primary">Control report positioning & conversion copy</p>
                 </div>
 
-                <div className="border">
+                <div className="">
                     <h1 className="text-20 font-medium text-primary">What this report covers <sup>*</sup></h1>
-                    <div className="border grid grid-cols-1 sm:grid-cols-3 gap-5">
+                    <div className=" grid grid-cols-1 sm:grid-cols-3 gap-5 mt-2">
                         {checkBox1.map((item, index) => (
-                            <label key={index} className="border flex items-center gap-2 cursor-pointer">
+                            <label key={index} className=" flex items-center gap-2 cursor-pointer">
                                 <input
                                     type="checkbox"
                                     value={item}
@@ -51,11 +51,11 @@ const FormStep2 = (
                     </div>
                     {error && !reportCovers.length && <p className="text-red-500 ml-1">Please select value...</p>}
                 </div>
-                <div className="border">
+                <div className="">
                     <h1 className="text-20 font-medium text-primary">What decisions this report supports <sup>*</sup></h1>
-                    <div className="border grid grid-cols-1 sm:grid-cols-3 gap-5">
+                    <div className=" grid grid-cols-1 sm:grid-cols-3 gap-5 mt-2">
                         {checkBox2.map((item, index) => (
-                            <label key={index} className="border flex items-center gap-2 cursor-pointer">
+                            <label key={index} className=" flex items-center gap-2 cursor-pointer">
                                 <input
                                     type="checkbox"
                                     value={item}

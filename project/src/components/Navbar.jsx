@@ -24,9 +24,9 @@ const Navbar = () => {
 
     return (
         <>
-            <div className="border bg-surface h-21 flex justify-around items-center sticky top-0 left-0 z-50">
+            <div className="bg-surface h-21 flex justify-around items-center sticky top-0 left-0 z-50">
                 <div className="w-55 h-11 hidden sm:block"><img src={logo} alt="logo" className='h-full w-full' /></div>
-                <div className="w-11 h-11 sm:hidden border"><img src={logoSmall} alt="logo" className='h-full w-full' /></div>
+                <div className="w-11 h-11 sm:hidden"><img src={logoSmall} alt="logo" className='h-full w-full' /></div>
 
                 <div className="lg:hidden">
                     <div className="h-9 border-brand-primary w-45 sm:w-59 flex py-1 sm:py-2 px-2 sm:px-4 items-center">
@@ -42,10 +42,10 @@ const Navbar = () => {
 
                 <ul className={`transition-all duration-500 fixed top-21 lg:top-0 lg:static w-full lg:w-auto h-full lg:h-auto text-center bg-surface ${menu ? "right-0" : "-right-[100%]"}`}>
                     <li className="block lg:inline-block py-5 lg:py-0"><NavLink to={'/'} onClick={() => setMenu(false)}>Home</NavLink></li>
-                    <li className="block lg:inline-block lg:pl-9 py-5 lg:py-0">Industries</li>
+                    {/* <li className="block lg:inline-block lg:pl-9 py-5 lg:py-0">Industries</li> */}
                     <li className="block lg:inline-block lg:pl-9 py-5 lg:py-0"><NavLink to={'/report'} onClick={() => setMenu(false)}>Reports</NavLink></li>
-                    <li className="block lg:inline-block lg:pl-9 py-5 lg:py-0">Use Cases</li>
-                    <li className="block lg:inline-block lg:pl-9 py-5 lg:py-0"><NavLink to={"/pricing"}>Pricing</NavLink></li>
+                    {/* <li className="block lg:inline-block lg:pl-9 py-5 lg:py-0">Use Cases</li> */}
+                    {/* <li className="block lg:inline-block lg:pl-9 py-5 lg:py-0"><NavLink to={"/pricing"}>Pricing</NavLink></li> */}
 
                     <li className="block lg:inline-block lg:pl-9 py-5 lg:py-0"><NavLink to={"/contact"} onClick={() => setMenu(false)}>Contact Us</NavLink></li>
 

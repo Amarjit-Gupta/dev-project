@@ -6,7 +6,7 @@ import GridView from "./GridView";
 import ListView from "./ListView";
 import { useEffect, useState } from "react";
 import RelevantReports from "./RelevantReports";
-import { FilterURL } from "../URL";
+import { base_url } from "../URL";
 
 const ReportingList = () => {
 
@@ -23,6 +23,8 @@ const ReportingList = () => {
 
 
     const [listData, setListData] = useState([]);
+
+    const [load,setLoad] = useState(false);
 
 
     const [selectedFilters, setSelectedFilters] = useState({
@@ -50,7 +52,8 @@ const ReportingList = () => {
 
     const getListData = async () => {
         try {
-            let listResult = await fetch(`${FilterURL}/reports/filter/display`, {
+            setLoad(true);
+            let listResult = await fetch(`${base_url}/reports/filter/display`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(selectedFilters)
@@ -67,12 +70,14 @@ const ReportingList = () => {
         }
         catch (err) {
             console.log("something went wrong...");
+        }finally{
+            setLoad(false);
         }
     }
 
     const getCheckBoxData = async () => {
         try {
-            let result = await fetch(`${FilterURL}/filters`);
+            let result = await fetch(`${base_url}/filters`);
             let data = await result.json();
             // console.log("checkboxData: ", data);
             if (data) {
@@ -129,7 +134,7 @@ const ReportingList = () => {
     console.log("totalReport............: ", totalReport);
 
     return (
-        <>
+        <div className="bg-gray-color">
             {/* main content */}
             <div className=" h-120 flex items-center w-full bg-gray-300 reportlisting-bg-img">
                 <div className=" w-80 sm:w-140 xl:w-285 m-auto flex gap-5 justify-center">
@@ -204,7 +209,7 @@ const ReportingList = () => {
 
             {/* card view */}
 
-            <div className=" w-80 sm:w-144 xl:w-285 m-auto mb-11.5 mt-18">
+            <div className=" w-80 sm:w-144 xl:w-285 m-auto pb-11.5 mt-18">
                 <div className=" w-80 sm:w-144 xl:w-285 m-auto grid grid-cols-1 xl:grid-cols-[22%_auto] gap-7.5">
                     <div className=" flex flex-col gap-3 xl:gap-8">
                         <FilterCategory resetFilters={resetFilters} selectedFilters={selectedFilters} setSelectedFilters={setSelectedFilters} handleCheckboxChange={handleCheckboxChange} industry={industry} sub_industry={sub_industry} report_type={report_type} region={region} country={country} />
@@ -216,13 +221,13 @@ const ReportingList = () => {
                             <div>
                                 {/* <h1 className="text-primary text-20 font-medium">234 reports available</h1> */}
                                 <h1 className="text-primary text-[13px] sm:text-[20px] font-medium">
-                                    {totalReport ?? "--"} reports available
+                                    {totalReport ?? ""} reports available
                                 </h1>
                             </div>
                             <div className=" flex gap-8">
                                 <div className="hidden xl:block">
-                                    <button className={`border-text-secondary p-2 cursor-pointer ${view == "grid" ? "bg-brand" : ""}`} onClick={() => setView("grid")}><TfiLayoutGrid2 className="h-6 w-6" /></button>
-                                    <button className={`border-text-secondary p-2 cursor-pointer ${view == "list" ? "bg-brand" : ""}`} onClick={() => setView("list")}><RxHamburgerMenu className="h-6 w-6" /></button>
+                                    <button className={`border border-gray-200 rounded transition-all duration-300 p-2 cursor-pointer ${view == "grid" ? "bg-brand" : ""}`} onClick={() => setView("grid")}><TfiLayoutGrid2 className="h-6 w-6" /></button>
+                                    <button className={`ml-0.5 border border-gray-200 rounded transition-all duration-300 p-2 cursor-pointer ${view == "list" ? "bg-brand" : ""}`} onClick={() => setView("list")}><RxHamburgerMenu className="h-6 w-6" /></button>
                                 </div>
                                 <div className="border w-45 sm:w-56 h-10.5 px-3 sm:px-6 py-2 flex gap-2">
                                     <img src={AZ} alt="" />
@@ -236,13 +241,13 @@ const ReportingList = () => {
                         </div>
 
                         {/* grid view */}
-                        {view === "grid" && <div className=" w-80 sm:w-144 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 mx-auto xl:w-auto gap-6 mt-7">
-                            <GridView listData={listData} />
+                        {view === "grid" && <div className="w-80 sm:w-144 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 mx-auto xl:w-auto gap-6 mt-7">
+                            <GridView listData={listData} load={load} />
                         </div>}
 
                         {/* list view */}
-                        {view === "list" && <div className=" mt-7 flex flex-col gap-6">
-                            <ListView listData={listData} />
+                        {view === "list" && <div className="mt-7 flex flex-col gap-6">
+                            <ListView listData={listData} load={load} />
                         </div>}
 
                         {/* pagination */}
@@ -256,7 +261,7 @@ const ReportingList = () => {
                 <RelevantReports />
 
             </div>
-        </>
+        </div>
     );
 };
 export default ReportingList;

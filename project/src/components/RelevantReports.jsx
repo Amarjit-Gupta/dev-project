@@ -5,7 +5,7 @@ const RelevantReports = () => {
     return (
         <>
             <div>
-                <h1 className=" text-24 text-primary font-semibold text-center my-12">Relevant Reports</h1>
+                <h1 className="text-24 text-primary font-semibold text-center my-12">Relevant Reports</h1>
                 <div className=" grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
 
                     {/* card1 */}

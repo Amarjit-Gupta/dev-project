@@ -20,18 +20,18 @@ const FormStep4 = (
 
     return (
         <>
-            <div className="border w-full m-auto flex flex-col gap-5">
-                <div className="border">
-                    <h1 className="text-24 font-medium text-primary">Define Report Sections (form setp4)</h1>
+            <div className=" w-full m-auto flex flex-col gap-5 my-2">
+                <div className="">
+                    <h1 className="text-24 font-medium text-primary">Define Report Sections</h1>
                     <p className="text-16 font-regular text-primary">Enable modular selling</p>
                 </div>
 
                 {/* field1 */}
-                <div className="border">
+                <div className="">
                     <label className="text-15 font-medium text-primary" htmlFor="reportType">
                         Section Name <sup>*</sup>
                     </label>
-                    <select className="w-full mt-1 border h-10 text-20" id="reportType" value={sectionName} onChange={(e) => setSectionName(e.target.value)}>
+                    <select className="w-full mt-1 border border-gray-200 h-10 text-20" id="reportType" value={sectionName} onChange={(e) => setSectionName(e.target.value)}>
                         <option value="option1">option1</option>
                         <option value="option2">option2</option>
                         <option value="option3">option3</option>
@@ -45,11 +45,11 @@ const FormStep4 = (
                 </div>
 
                 {/* field2 */}
-                <div className="border">
+                <div className="">
                     <label className="text-15 font-medium text-primary" htmlFor="reportType">
                         Section Group <sup>*</sup>
                     </label>
-                    <select className="w-full mt-1 border h-10 text-20" id="reportType" value={sectionGroup} onChange={(e) => setSectionGroup(e.target.value)}>
+                    <select className="w-full mt-1 border border-gray-200 h-10 text-20" id="reportType" value={sectionGroup} onChange={(e) => setSectionGroup(e.target.value)}>
                         <option value="option1">option1</option>
                         <option value="option2">option2</option>
                         <option value="option3">option3</option>
@@ -64,22 +64,22 @@ const FormStep4 = (
                 </div>
 
                 {/* field3 */}
-                <div className="border">
+                <div className="">
                     <label className="text-16 font-medium text-primary" htmlFor="reportTitle">Short Description <sup>*</sup>
                     </label>
-                    <input type="text" id="reportTitle" className="w-full border h-10 px-0.5 text-20" placeholder="Enter short description" value={shortDescription} onChange={(e) => setShortDescription(e.target.value)} />
+                    <input type="text" id="reportTitle" className="w-full border border-gray-200 h-10 px-0.5 text-20" placeholder="Enter short description" value={shortDescription} onChange={(e) => setShortDescription(e.target.value)} />
                     {error && !shortDescription && (
                         <p className="text-red-500 ml-1">Please Enter Short Description...</p>
                     )}
                 </div>
 
                 {/* field3 */}
-                <div className="border p-2">
+                <div className="p-2">
                     <label className="text-16 font-medium text-primary block mb-1">
                         Preview Available? <sup>*</sup>
                     </label>
 
-                    <div className="flex gap-6 border">
+                    <div className="flex gap-6">
                         <label className="flex items-center gap-2 cursor-pointer">
                             <input
                                 type="radio"
@@ -110,24 +110,24 @@ const FormStep4 = (
 
 
                 {/* field4 */}
-                <div className="border flex justify-between gap-5">
+                <div className=" flex justify-between gap-5">
                     {/* childfield1 */}
-                    <div className="border w-1/2">
+                    <div className=" w-1/2">
                         <label className="text-16 font-medium text-primary" htmlFor="reportTitle">Section Price<sup>*</sup>
                         </label><br />
-                        <input type="text" id="reportTitle" className="w-full border h-10 px-0.5 text-20" placeholder="Enter short description" value={sDescription} onChange={(e) => setSDescription(e.target.value)} />
+                        <input type="text" id="reportTitle" className="w-full border border-gray-200 h-10 px-0.5 text-20" placeholder="Enter short description" value={sDescription} onChange={(e) => setSDescription(e.target.value)} />
                         {error && !sDescription && (
                             <p className="text-red-500 ml-1">Please Enter Short Description...</p>
                         )}
                     </div>
 
                     {/* childfield2 */}
-                    <div className="border p-2 w-1/2">
+                    <div className="p-2 w-1/2">
                         <label className="text-16 font-medium text-primary block mb-1">
                             Included in full report
                         </label>
 
-                        <div className="flex gap-6 border">
+                        <div className="flex gap-6">
                             <label className="flex items-center gap-2 cursor-pointer">
                                 <input
                                     type="radio"
@@ -154,7 +154,7 @@ const FormStep4 = (
                 </div>
 
                 {/* field4 */}
-                <div className="border">
+                <div className="">
                     <FileUpload
                         label="Upload Section PDF"
                         file={sectionPDF}
@@ -168,7 +168,7 @@ const FormStep4 = (
                 </div>
 
                 <div>
-                    <button className="border p-1 font-medium text-primary text-20">+ Add Section</button>
+                    <button className="border border-gray-200 p-1 font-medium text-primary text-20">+ Add Section</button>
                 </div>
 
             </div>

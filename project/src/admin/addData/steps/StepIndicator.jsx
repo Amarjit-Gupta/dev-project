@@ -4,7 +4,7 @@ const StepIndicator = ({  step, setStep }) => {
     const steps = Array.from({ length: totalSteps }, (_, i) => i + 1);
 
     return (
-        <div className="flex items-center justify-between my-6 w-230 m-auto">
+        <div className="flex items-center justify-between py-6 w-230 m-auto">
             {steps.map((s, i) => {
                 const isActive = step === s;
                 const isCompleted = step > s;

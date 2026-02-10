@@ -7,7 +7,7 @@
 // import ReviewStep from "./steps/ReviewStep";
 // import StepIndicator from "./steps/StepIndicator";
 // import FormStep6 from "./steps/FormStep6";
-// import { nURL } from "../../URL";
+// import { base_url } from "../../URL";
 
 // const totalSteps = 7;
 
@@ -154,7 +154,7 @@
 
 //         if (value === "generated") {
 //             try {
-//                 const res = await fetch(`${nURL}/reports/generating`, {
+//                 const res = await fetch(`${base_url}/reports/generating`, {
 //                     method: "GET",
 //                     credentials: "include"
 //                 });
@@ -173,12 +173,12 @@
 //     const getselectedReportIdData = async () => {
 //         if(!selectedReportId) return;
 //         try {
-//             const res = await fetch(`${nURL}/reports/generating/${selectedReportId}`, {
+//             const res = await fetch(`${base_url}/reports/generating/${selectedReportId}`, {
 //                 method: "GET",
 //                 credentials: "include"
 //             });
 
-//             const url = `${nURL}/reports/generating/${selectedReportId}`.trim();
+//             const url = `${base_url}/reports/generating/${selectedReportId}`.trim();
 
 //             if (!res.ok) throw new Error("Failed to fetch countries");
 
@@ -200,8 +200,8 @@
 //         const isNew = !draftId;
 
 //         const url = isNew
-//             ? `${nURL}/reports/step${step}/save-draft`
-//             : `${nURL}/reports/${draftId}/step${step}`;
+//             ? `${base_url}/reports/step${step}/save-draft`
+//             : `${base_url}/reports/${draftId}/step${step}`;
 
 //         const method = isNew ? "POST" : "PUT";
 
@@ -362,8 +362,8 @@
 
 //             //     await fetch(
 //             //         !draftId
-//             //             ? `${nURL}/reports/step3/save-draft`
-//             //             : `${nURL}/reports/${draftId}/step3`,
+//             //             ? `${base_url}/reports/step3/save-draft`
+//             //             : `${base_url}/reports/${draftId}/step3`,
 //             //         {
 //             //             method: !draftId ? "POST" : "PUT",
 //             //             body: formData,
@@ -424,8 +424,8 @@
 //                 try {
 //                     const res = await fetch(
 //                         !draftId
-//                             ? `${nURL}/reports/step3/save-draft`
-//                             : `${nURL}/reports/${draftId}/step3`,
+//                             ? `${base_url}/reports/step3/save-draft`
+//                             : `${base_url}/reports/${draftId}/step3`,
 //                         {
 //                             method: !draftId ? "POST" : "PUT",
 //                             body: formData,
@@ -633,8 +633,8 @@
 
 //                 // await fetch(
 //                 //     !draftId
-//                 //         ? `${nURL}/reports/step3/save-draft`
-//                 //         : `${nURL}/reports/${draftId}/step3`,
+//                 //         ? `${base_url}/reports/step3/save-draft`
+//                 //         : `${base_url}/reports/${draftId}/step3`,
 //                 //     {
 //                 //         method: !draftId ? "POST" : "PUT",
 //                 //         body: formData,
@@ -647,8 +647,8 @@
 //                 try {
 //                     const res = await fetch(
 //                         !draftId
-//                             ? `${nURL}/reports/step3/save-draft`
-//                             : `${nURL}/reports/${draftId}/step3`,
+//                             ? `${base_url}/reports/step3/save-draft`
+//                             : `${base_url}/reports/${draftId}/step3`,
 //                         {
 //                             method: !draftId ? "POST" : "PUT",
 //                             body: formData,
@@ -735,7 +735,7 @@
 
 //     const getIndustryData = async () => {
 //         try {
-//             let result = await fetch(`${nURL}/industries/main`);
+//             let result = await fetch(`${base_url}/industries/main`);
 //             let data = await result.json();
 //             if (data) {
 //                 setGetIndustry(data?.industries);
@@ -759,7 +759,7 @@
 //         if (!industry) return; // extra safety
 
 //         try {
-//             const url = `${nURL}/industries/sub?industry=${encodeURIComponent(industry)}`;
+//             const url = `${base_url}/industries/sub?industry=${encodeURIComponent(industry)}`;
 //             const res = await fetch(url);
 
 //             // if (!res.ok) throw new Error("Failed to fetch sub-industries");
@@ -786,7 +786,7 @@
 
 //     const getRegionsData = async () => {
 //         try {
-//             let result = await fetch(`${nURL}/regions`);
+//             let result = await fetch(`${base_url}/regions`);
 //             let data = await result.json();
 //             if (data) {
 //                 // setGetIndustry(data?.industries);
@@ -808,7 +808,7 @@
 
 //     const getReportData = async () => {
 //         try {
-//             let result = await fetch(`${nURL}/report-types`);
+//             let result = await fetch(`${base_url}/report-types`);
 //             let data = await result.json();
 //             if (data) {
 //                 // setGetIndustry(data?.industries);
@@ -835,7 +835,7 @@
 //             // Convert array → comma separated string
 //             const regionParam = regions.join(",");
 
-//             const url = `${nURL}/countries?region=${encodeURIComponent(regionParam)}`;
+//             const url = `${base_url}/countries?region=${encodeURIComponent(regionParam)}`;
 
 //             const res = await fetch(url);
 //             if (!res.ok) throw new Error("Failed to fetch countries");
@@ -856,7 +856,7 @@
 
 //     const getAvailableReportsData = async () => {
 //         try {
-//             const res = await fetch(`${nURL}/report-assets`, {
+//             const res = await fetch(`${base_url}/report-assets`, {
 //                 method: "GET",
 //                 credentials: "include"
 //             });
@@ -1075,7 +1075,7 @@
 // import ReviewStep from "./steps/ReviewStep";
 // import StepIndicator from "./steps/StepIndicator";
 // import FormStep6 from "./steps/FormStep6";
-// import { nURL } from "../../URL";
+// import { base_url } from "../../URL";
 
 // const totalSteps = 6;
 
@@ -1222,7 +1222,7 @@
 
 //         if (value === "generated") {
 //             try {
-//                 const res = await fetch(`${nURL}/reports/generating`, {
+//                 const res = await fetch(`${base_url}/reports/generating`, {
 //                     method: "GET",
 //                     credentials: "include"
 //                 });
@@ -1241,12 +1241,12 @@
 //     const getselectedReportIdData = async () => {
 //         if (!selectedReportId) return;
 //         try {
-//             const res = await fetch(`${nURL}/reports/generating/${selectedReportId}`, {
+//             const res = await fetch(`${base_url}/reports/generating/${selectedReportId}`, {
 //                 method: "GET",
 //                 credentials: "include"
 //             });
 
-//             const url = `${nURL}/reports/generating/${selectedReportId}`.trim();
+//             const url = `${base_url}/reports/generating/${selectedReportId}`.trim();
 
 //             if (!res.ok) throw new Error("Failed to fetch countries");
 
@@ -1268,8 +1268,8 @@
 //         const isNew = !draftId;
 
 //         const url = isNew
-//             ? `${nURL}/reports/step${step}/save-draft`
-//             : `${nURL}/reports/${draftId}/step${step}`;
+//             ? `${base_url}/reports/step${step}/save-draft`
+//             : `${base_url}/reports/${draftId}/step${step}`;
 
 //         const method = isNew ? "POST" : "PUT";
 
@@ -1381,8 +1381,8 @@
 //                 try {
 //                     const res = await fetch(
 //                         !draftId
-//                             ? `${nURL}/reports/step3/save-draft`
-//                             : `${nURL}/reports/${draftId}/step3`,
+//                             ? `${base_url}/reports/step3/save-draft`
+//                             : `${base_url}/reports/${draftId}/step3`,
 //                         {
 //                             method: !draftId ? "POST" : "PUT",
 //                             body: formData,
@@ -1598,8 +1598,8 @@
 
 //                 // await fetch(
 //                 //     !draftId
-//                 //         ? `${nURL}/reports/step3/save-draft`
-//                 //         : `${nURL}/reports/${draftId}/step3`,
+//                 //         ? `${base_url}/reports/step3/save-draft`
+//                 //         : `${base_url}/reports/${draftId}/step3`,
 //                 //     {
 //                 //         method: !draftId ? "POST" : "PUT",
 //                 //         body: formData,
@@ -1612,8 +1612,8 @@
 //                 try {
 //                     const res = await fetch(
 //                         !draftId
-//                             ? `${nURL}/reports/step3/save-draft`
-//                             : `${nURL}/reports/${draftId}/step3`,
+//                             ? `${base_url}/reports/step3/save-draft`
+//                             : `${base_url}/reports/${draftId}/step3`,
 //                         {
 //                             method: !draftId ? "POST" : "PUT",
 //                             body: formData,
@@ -1711,7 +1711,7 @@
 
 //     const getIndustryData = async () => {
 //         try {
-//             let result = await fetch(`${nURL}/industries/main`);
+//             let result = await fetch(`${base_url}/industries/main`);
 //             let data = await result.json();
 //             if (data) {
 //                 setGetIndustry(data?.industries);
@@ -1735,7 +1735,7 @@
 //         if (!industry) return; // extra safety
 
 //         try {
-//             const url = `${nURL}/industries/sub?industry=${encodeURIComponent(industry)}`;
+//             const url = `${base_url}/industries/sub?industry=${encodeURIComponent(industry)}`;
 //             const res = await fetch(url);
 
 //             // if (!res.ok) throw new Error("Failed to fetch sub-industries");
@@ -1762,7 +1762,7 @@
 
 //     const getRegionsData = async () => {
 //         try {
-//             let result = await fetch(`${nURL}/regions`);
+//             let result = await fetch(`${base_url}/regions`);
 //             let data = await result.json();
 //             if (data) {
 //                 // setGetIndustry(data?.industries);
@@ -1784,7 +1784,7 @@
 
 //     const getReportData = async () => {
 //         try {
-//             let result = await fetch(`${nURL}/report-types`);
+//             let result = await fetch(`${base_url}/report-types`);
 //             let data = await result.json();
 //             if (data) {
 //                 // setGetIndustry(data?.industries);
@@ -1811,7 +1811,7 @@
 //             // Convert array → comma separated string
 //             const regionParam = regions.join(",");
 
-//             const url = `${nURL}/countries?region=${encodeURIComponent(regionParam)}`;
+//             const url = `${base_url}/countries?region=${encodeURIComponent(regionParam)}`;
 
 //             const res = await fetch(url);
 //             if (!res.ok) throw new Error("Failed to fetch countries");
@@ -1832,7 +1832,7 @@
 
 //     const getAvailableReportsData = async () => {
 //         try {
-//             const res = await fetch(`${nURL}/report-assets`, {
+//             const res = await fetch(`${base_url}/report-assets`, {
 //                 method: "GET",
 //                 credentials: "include"
 //             });
@@ -2213,7 +2213,7 @@
 // import ReviewStep from "./steps/ReviewStep";
 // import StepIndicator from "./steps/StepIndicator";
 // import FormStep6 from "./steps/FormStep6";
-// import { nURL } from "../../URL";
+// import { base_url } from "../../URL";
 
 // const FORM_STEPS = 6;  // Actual form steps
 // const TOTAL_STEPS = 7;  // Including review step
@@ -2294,7 +2294,7 @@
 
 //         if (value === "generated") {
 //             try {
-//                 const res = await fetch(`${nURL}/reports/generating`, {
+//                 const res = await fetch(`${base_url}/reports/generating`, {
 //                     method: "GET",
 //                     credentials: "include"
 //                 });
@@ -2313,7 +2313,7 @@
 //     const getselectedReportIdData = async () => {
 //         if (!selectedReportId) return;
 //         try {
-//             const res = await fetch(`${nURL}/reports/generating/${selectedReportId}`, {
+//             const res = await fetch(`${base_url}/reports/generating/${selectedReportId}`, {
 //                 method: "GET",
 //                 credentials: "include"
 //             });
@@ -2339,8 +2339,8 @@
 //         try {
 //             const isNew = !draftId;
 //             const url = isNew
-//                 ? `${nURL}/reports/step${step}/save-draft`
-//                 : `${nURL}/reports/${draftId}/step${step}`;
+//                 ? `${base_url}/reports/step${step}/save-draft`
+//                 : `${base_url}/reports/${draftId}/step${step}`;
 //             const method = isNew ? "POST" : "PUT";
 
 //             const res = await fetch(url, {
@@ -2450,8 +2450,8 @@
 //                 // try {
 //                 //     const res = await fetch(
 //                 //         !draftId
-//                 //             ? `${nURL}/reports/step3/save-draft`
-//                 //             : `${nURL}/reports/${draftId}/step3`,
+//                 //             ? `${base_url}/reports/step3/save-draft`
+//                 //             : `${base_url}/reports/${draftId}/step3`,
 //                 //         {
 //                 //             method: !draftId ? "POST" : "PUT",
 //                 //             body: formData,
@@ -2572,8 +2572,8 @@
 
 //                 const res = await fetch(
 //                     !draftId
-//                         ? `${nURL}/reports/step3/save-draft`
-//                         : `${nURL}/reports/${draftId}/step3`,
+//                         ? `${base_url}/reports/step3/save-draft`
+//                         : `${base_url}/reports/${draftId}/step3`,
 //                     {
 //                         method: !draftId ? "POST" : "PUT",
 //                         body: formData,
@@ -2622,7 +2622,7 @@
 
 //     const getIndustryData = async () => {
 //         try {
-//             let result = await fetch(`${nURL}/industries/main`);
+//             let result = await fetch(`${base_url}/industries/main`);
 //             let data = await result.json();
 //             if (data) {
 //                 setGetIndustry(data?.industries || []);
@@ -2635,7 +2635,7 @@
 //     const getSubIndustryData = async () => {
 //         if (!industry) return;
 //         try {
-//             const url = `${nURL}/industries/sub?industry=${encodeURIComponent(industry)}`;
+//             const url = `${base_url}/industries/sub?industry=${encodeURIComponent(industry)}`;
 //             const res = await fetch(url);
 //             const data = await res.json();
 //             if (data) {
@@ -2648,7 +2648,7 @@
 
 //     const getRegionsData = async () => {
 //         try {
-//             let result = await fetch(`${nURL}/regions`);
+//             let result = await fetch(`${base_url}/regions`);
 //             let data = await result.json();
 //             if (data) {
 //                 setGetRegions(data?.regions || []);
@@ -2660,7 +2660,7 @@
 
 //     const getReportData = async () => {
 //         try {
-//             let result = await fetch(`${nURL}/report-types`);
+//             let result = await fetch(`${base_url}/report-types`);
 //             let data = await result.json();
 //             if (data) {
 //                 setGetReportTypes(data?.report_types || []);
@@ -2678,7 +2678,7 @@
 //             }
 
 //             const regionParam = regions.join(",");
-//             const url = `${nURL}/countries?region=${encodeURIComponent(regionParam)}`;
+//             const url = `${base_url}/countries?region=${encodeURIComponent(regionParam)}`;
 //             const res = await fetch(url);
 //             if (!res.ok) throw new Error("Failed to fetch countries");
 
@@ -2693,7 +2693,7 @@
 
 //     const getAvailableReportsData = async () => {
 //         try {
-//             const res = await fetch(`${nURL}/report-assets`, {
+//             const res = await fetch(`${base_url}/report-assets`, {
 //                 method: "GET",
 //                 credentials: "include"
 //             });
@@ -3011,7 +3011,7 @@
 // import ReviewStep from "./steps/ReviewStep";
 // import StepIndicator from "./steps/StepIndicator";
 // import FormStep6 from "./steps/FormStep6";
-// import { nURL } from "../../URL";
+// import { base_url } from "../../URL";
 // import { useNavigate, useParams } from "react-router-dom";
 
 // const FORM_STEPS = 6;  // Actual form steps
@@ -3098,7 +3098,7 @@
 
 //         if (value === "generated") {
 //             try {
-//                 const res = await fetch(`${nURL}/reports/generating`, {
+//                 const res = await fetch(`${base_url}/reports/generating`, {
 //                     method: "GET",
 //                     credentials: "include"
 //                 });
@@ -3117,7 +3117,7 @@
 //     const getselectedReportIdData = async () => {
 //         if (!selectedReportId) return;
 //         try {
-//             const res = await fetch(`${nURL}/reports/generating/${selectedReportId}`, {
+//             const res = await fetch(`${base_url}/reports/generating/${selectedReportId}`, {
 //                 method: "GET",
 //                 credentials: "include"
 //             });
@@ -3143,8 +3143,8 @@
 //         try {
 //             const isNew = !draftId;
 //             const url = isNew
-//                 ? `${nURL}/reports/step${step}/save-draft`
-//                 : `${nURL}/reports/${draftId}/step${step}`;
+//                 ? `${base_url}/reports/step${step}/save-draft`
+//                 : `${base_url}/reports/${draftId}/step${step}`;
 //             const method = isNew ? "POST" : "PUT";
 
 //             const res = await fetch(url, {
@@ -3267,8 +3267,8 @@
 //                 try {
 //                     const res = await fetch(
 //                         !draftId || !index
-//                             ? `${nURL}/reports/step3/save-draft`
-//                             : `${nURL}/reports/${draftId || index}/step3`,
+//                             ? `${base_url}/reports/step3/save-draft`
+//                             : `${base_url}/reports/${draftId || index}/step3`,
 //                         {
 //                             method: !draftId ? "POST" : "PUT",
 //                             body: formData,
@@ -3396,8 +3396,8 @@
 
 //                 const res = await fetch(
 //                     !draftId
-//                         ? `${nURL}/reports/step3/save-draft`
-//                         : `${nURL}/reports/${draftId}/step3`,
+//                         ? `${base_url}/reports/step3/save-draft`
+//                         : `${base_url}/reports/${draftId}/step3`,
 //                     {
 //                         method: !draftId ? "POST" : "PUT",
 //                         body: formData,
@@ -3446,7 +3446,7 @@
 
 //     const getIndustryData = async () => {
 //         try {
-//             let result = await fetch(`${nURL}/industries/main`);
+//             let result = await fetch(`${base_url}/industries/main`);
 //             let data = await result.json();
 //             if (data) {
 //                 setGetIndustry(data?.industries || []);
@@ -3459,7 +3459,7 @@
 //     const getSubIndustryData = async () => {
 //         if (!industry) return;
 //         try {
-//             const url = `${nURL}/industries/sub?industry=${encodeURIComponent(industry)}`;
+//             const url = `${base_url}/industries/sub?industry=${encodeURIComponent(industry)}`;
 //             const res = await fetch(url);
 //             const data = await res.json();
 //             if (data) {
@@ -3472,7 +3472,7 @@
 
 //     const getRegionsData = async () => {
 //         try {
-//             let result = await fetch(`${nURL}/regions`);
+//             let result = await fetch(`${base_url}/regions`);
 //             let data = await result.json();
 //             if (data) {
 //                 setGetRegions(data?.regions || []);
@@ -3484,7 +3484,7 @@
 
 //     const getReportData = async () => {
 //         try {
-//             let result = await fetch(`${nURL}/report-types`);
+//             let result = await fetch(`${base_url}/report-types`);
 //             let data = await result.json();
 //             if (data) {
 //                 setGetReportTypes(data?.report_types || []);
@@ -3502,7 +3502,7 @@
 //             }
 
 //             const regionParam = regions.join(",");
-//             const url = `${nURL}/countries?region=${encodeURIComponent(regionParam)}`;
+//             const url = `${base_url}/countries?region=${encodeURIComponent(regionParam)}`;
 //             const res = await fetch(url);
 //             if (!res.ok) throw new Error("Failed to fetch countries");
 
@@ -3517,7 +3517,7 @@
 
 //     const getAvailableReportsData = async () => {
 //         try {
-//             const res = await fetch(`${nURL}/report-assets`, {
+//             const res = await fetch(`${base_url}/report-assets`, {
 //                 method: "GET",
 //                 credentials: "include"
 //             });
@@ -3583,7 +3583,7 @@
 
 //     const getReportDataForEdit = async () => {
 //         try {
-//             let result = await fetch(`${nURL}/reports/${index}/edit`, {
+//             let result = await fetch(`${base_url}/reports/${index}/edit`, {
 //                 method: "GET",
 //                 credentials: "include"
 //             });
@@ -3905,7 +3905,7 @@
 // import ReviewStep from "./steps/ReviewStep";
 // import StepIndicator from "./steps/StepIndicator";
 // import FormStep6 from "./steps/FormStep6";
-// import { nURL } from "../../URL";
+// import { base_url } from "../../URL";
 
 // const totalSteps = 7;
 
@@ -4052,7 +4052,7 @@
 
 //         if (value === "generated") {
 //             try {
-//                 const res = await fetch(`${nURL}/reports/generating`, {
+//                 const res = await fetch(`${base_url}/reports/generating`, {
 //                     method: "GET",
 //                     credentials: "include"
 //                 });
@@ -4071,12 +4071,12 @@
 //     const getselectedReportIdData = async () => {
 //         if(!selectedReportId) return;
 //         try {
-//             const res = await fetch(`${nURL}/reports/generating/${selectedReportId}`, {
+//             const res = await fetch(`${base_url}/reports/generating/${selectedReportId}`, {
 //                 method: "GET",
 //                 credentials: "include"
 //             });
 
-//             const url = `${nURL}/reports/generating/${selectedReportId}`.trim();
+//             const url = `${base_url}/reports/generating/${selectedReportId}`.trim();
 
 //             if (!res.ok) throw new Error("Failed to fetch countries");
 
@@ -4098,8 +4098,8 @@
 //         const isNew = !draftId;
 
 //         const url = isNew
-//             ? `${nURL}/reports/step${step}/save-draft`
-//             : `${nURL}/reports/${draftId}/step${step}`;
+//             ? `${base_url}/reports/step${step}/save-draft`
+//             : `${base_url}/reports/${draftId}/step${step}`;
 
 //         const method = isNew ? "POST" : "PUT";
 
@@ -4260,8 +4260,8 @@
 
 //             //     await fetch(
 //             //         !draftId
-//             //             ? `${nURL}/reports/step3/save-draft`
-//             //             : `${nURL}/reports/${draftId}/step3`,
+//             //             ? `${base_url}/reports/step3/save-draft`
+//             //             : `${base_url}/reports/${draftId}/step3`,
 //             //         {
 //             //             method: !draftId ? "POST" : "PUT",
 //             //             body: formData,
@@ -4322,8 +4322,8 @@
 //                 try {
 //                     const res = await fetch(
 //                         !draftId
-//                             ? `${nURL}/reports/step3/save-draft`
-//                             : `${nURL}/reports/${draftId}/step3`,
+//                             ? `${base_url}/reports/step3/save-draft`
+//                             : `${base_url}/reports/${draftId}/step3`,
 //                         {
 //                             method: !draftId ? "POST" : "PUT",
 //                             body: formData,
@@ -4531,8 +4531,8 @@
 
 //                 // await fetch(
 //                 //     !draftId
-//                 //         ? `${nURL}/reports/step3/save-draft`
-//                 //         : `${nURL}/reports/${draftId}/step3`,
+//                 //         ? `${base_url}/reports/step3/save-draft`
+//                 //         : `${base_url}/reports/${draftId}/step3`,
 //                 //     {
 //                 //         method: !draftId ? "POST" : "PUT",
 //                 //         body: formData,
@@ -4545,8 +4545,8 @@
 //                 try {
 //                     const res = await fetch(
 //                         !draftId
-//                             ? `${nURL}/reports/step3/save-draft`
-//                             : `${nURL}/reports/${draftId}/step3`,
+//                             ? `${base_url}/reports/step3/save-draft`
+//                             : `${base_url}/reports/${draftId}/step3`,
 //                         {
 //                             method: !draftId ? "POST" : "PUT",
 //                             body: formData,
@@ -4633,7 +4633,7 @@
 
 //     const getIndustryData = async () => {
 //         try {
-//             let result = await fetch(`${nURL}/industries/main`);
+//             let result = await fetch(`${base_url}/industries/main`);
 //             let data = await result.json();
 //             if (data) {
 //                 setGetIndustry(data?.industries);
@@ -4657,7 +4657,7 @@
 //         if (!industry) return; // extra safety
 
 //         try {
-//             const url = `${nURL}/industries/sub?industry=${encodeURIComponent(industry)}`;
+//             const url = `${base_url}/industries/sub?industry=${encodeURIComponent(industry)}`;
 //             const res = await fetch(url);
 
 //             // if (!res.ok) throw new Error("Failed to fetch sub-industries");
@@ -4684,7 +4684,7 @@
 
 //     const getRegionsData = async () => {
 //         try {
-//             let result = await fetch(`${nURL}/regions`);
+//             let result = await fetch(`${base_url}/regions`);
 //             let data = await result.json();
 //             if (data) {
 //                 // setGetIndustry(data?.industries);
@@ -4706,7 +4706,7 @@
 
 //     const getReportData = async () => {
 //         try {
-//             let result = await fetch(`${nURL}/report-types`);
+//             let result = await fetch(`${base_url}/report-types`);
 //             let data = await result.json();
 //             if (data) {
 //                 // setGetIndustry(data?.industries);
@@ -4733,7 +4733,7 @@
 //             // Convert array → comma separated string
 //             const regionParam = regions.join(",");
 
-//             const url = `${nURL}/countries?region=${encodeURIComponent(regionParam)}`;
+//             const url = `${base_url}/countries?region=${encodeURIComponent(regionParam)}`;
 
 //             const res = await fetch(url);
 //             if (!res.ok) throw new Error("Failed to fetch countries");
@@ -4754,7 +4754,7 @@
 
 //     const getAvailableReportsData = async () => {
 //         try {
-//             const res = await fetch(`${nURL}/report-assets`, {
+//             const res = await fetch(`${base_url}/report-assets`, {
 //                 method: "GET",
 //                 credentials: "include"
 //             });
@@ -4973,7 +4973,7 @@
 // import ReviewStep from "./steps/ReviewStep";
 // import StepIndicator from "./steps/StepIndicator";
 // import FormStep6 from "./steps/FormStep6";
-// import { nURL } from "../../URL";
+// import { base_url } from "../../URL";
 
 // const totalSteps = 6;
 
@@ -5120,7 +5120,7 @@
 
 //         if (value === "generated") {
 //             try {
-//                 const res = await fetch(`${nURL}/reports/generating`, {
+//                 const res = await fetch(`${base_url}/reports/generating`, {
 //                     method: "GET",
 //                     credentials: "include"
 //                 });
@@ -5139,12 +5139,12 @@
 //     const getselectedReportIdData = async () => {
 //         if (!selectedReportId) return;
 //         try {
-//             const res = await fetch(`${nURL}/reports/generating/${selectedReportId}`, {
+//             const res = await fetch(`${base_url}/reports/generating/${selectedReportId}`, {
 //                 method: "GET",
 //                 credentials: "include"
 //             });
 
-//             const url = `${nURL}/reports/generating/${selectedReportId}`.trim();
+//             const url = `${base_url}/reports/generating/${selectedReportId}`.trim();
 
 //             if (!res.ok) throw new Error("Failed to fetch countries");
 
@@ -5166,8 +5166,8 @@
 //         const isNew = !draftId;
 
 //         const url = isNew
-//             ? `${nURL}/reports/step${step}/save-draft`
-//             : `${nURL}/reports/${draftId}/step${step}`;
+//             ? `${base_url}/reports/step${step}/save-draft`
+//             : `${base_url}/reports/${draftId}/step${step}`;
 
 //         const method = isNew ? "POST" : "PUT";
 
@@ -5279,8 +5279,8 @@
 //                 try {
 //                     const res = await fetch(
 //                         !draftId
-//                             ? `${nURL}/reports/step3/save-draft`
-//                             : `${nURL}/reports/${draftId}/step3`,
+//                             ? `${base_url}/reports/step3/save-draft`
+//                             : `${base_url}/reports/${draftId}/step3`,
 //                         {
 //                             method: !draftId ? "POST" : "PUT",
 //                             body: formData,
@@ -5496,8 +5496,8 @@
 
 //                 // await fetch(
 //                 //     !draftId
-//                 //         ? `${nURL}/reports/step3/save-draft`
-//                 //         : `${nURL}/reports/${draftId}/step3`,
+//                 //         ? `${base_url}/reports/step3/save-draft`
+//                 //         : `${base_url}/reports/${draftId}/step3`,
 //                 //     {
 //                 //         method: !draftId ? "POST" : "PUT",
 //                 //         body: formData,
@@ -5510,8 +5510,8 @@
 //                 try {
 //                     const res = await fetch(
 //                         !draftId
-//                             ? `${nURL}/reports/step3/save-draft`
-//                             : `${nURL}/reports/${draftId}/step3`,
+//                             ? `${base_url}/reports/step3/save-draft`
+//                             : `${base_url}/reports/${draftId}/step3`,
 //                         {
 //                             method: !draftId ? "POST" : "PUT",
 //                             body: formData,
@@ -5609,7 +5609,7 @@
 
 //     const getIndustryData = async () => {
 //         try {
-//             let result = await fetch(`${nURL}/industries/main`);
+//             let result = await fetch(`${base_url}/industries/main`);
 //             let data = await result.json();
 //             if (data) {
 //                 setGetIndustry(data?.industries);
@@ -5633,7 +5633,7 @@
 //         if (!industry) return; // extra safety
 
 //         try {
-//             const url = `${nURL}/industries/sub?industry=${encodeURIComponent(industry)}`;
+//             const url = `${base_url}/industries/sub?industry=${encodeURIComponent(industry)}`;
 //             const res = await fetch(url);
 
 //             // if (!res.ok) throw new Error("Failed to fetch sub-industries");
@@ -5660,7 +5660,7 @@
 
 //     const getRegionsData = async () => {
 //         try {
-//             let result = await fetch(`${nURL}/regions`);
+//             let result = await fetch(`${base_url}/regions`);
 //             let data = await result.json();
 //             if (data) {
 //                 // setGetIndustry(data?.industries);
@@ -5682,7 +5682,7 @@
 
 //     const getReportData = async () => {
 //         try {
-//             let result = await fetch(`${nURL}/report-types`);
+//             let result = await fetch(`${base_url}/report-types`);
 //             let data = await result.json();
 //             if (data) {
 //                 // setGetIndustry(data?.industries);
@@ -5709,7 +5709,7 @@
 //             // Convert array → comma separated string
 //             const regionParam = regions.join(",");
 
-//             const url = `${nURL}/countries?region=${encodeURIComponent(regionParam)}`;
+//             const url = `${base_url}/countries?region=${encodeURIComponent(regionParam)}`;
 
 //             const res = await fetch(url);
 //             if (!res.ok) throw new Error("Failed to fetch countries");
@@ -5730,7 +5730,7 @@
 
 //     const getAvailableReportsData = async () => {
 //         try {
-//             const res = await fetch(`${nURL}/report-assets`, {
+//             const res = await fetch(`${base_url}/report-assets`, {
 //                 method: "GET",
 //                 credentials: "include"
 //             });
@@ -6111,7 +6111,7 @@
 // import ReviewStep from "./steps/ReviewStep";
 // import StepIndicator from "./steps/StepIndicator";
 // import FormStep6 from "./steps/FormStep6";
-// import { nURL } from "../../URL";
+// import { base_url } from "../../URL";
 
 // const FORM_STEPS = 6;  // Actual form steps
 // const TOTAL_STEPS = 7;  // Including review step
@@ -6192,7 +6192,7 @@
 
 //         if (value === "generated") {
 //             try {
-//                 const res = await fetch(`${nURL}/reports/generating`, {
+//                 const res = await fetch(`${base_url}/reports/generating`, {
 //                     method: "GET",
 //                     credentials: "include"
 //                 });
@@ -6211,7 +6211,7 @@
 //     const getselectedReportIdData = async () => {
 //         if (!selectedReportId) return;
 //         try {
-//             const res = await fetch(`${nURL}/reports/generating/${selectedReportId}`, {
+//             const res = await fetch(`${base_url}/reports/generating/${selectedReportId}`, {
 //                 method: "GET",
 //                 credentials: "include"
 //             });
@@ -6237,8 +6237,8 @@
 //         try {
 //             const isNew = !draftId;
 //             const url = isNew
-//                 ? `${nURL}/reports/step${step}/save-draft`
-//                 : `${nURL}/reports/${draftId}/step${step}`;
+//                 ? `${base_url}/reports/step${step}/save-draft`
+//                 : `${base_url}/reports/${draftId}/step${step}`;
 //             const method = isNew ? "POST" : "PUT";
 
 //             const res = await fetch(url, {
@@ -6348,8 +6348,8 @@
 //                 // try {
 //                 //     const res = await fetch(
 //                 //         !draftId
-//                 //             ? `${nURL}/reports/step3/save-draft`
-//                 //             : `${nURL}/reports/${draftId}/step3`,
+//                 //             ? `${base_url}/reports/step3/save-draft`
+//                 //             : `${base_url}/reports/${draftId}/step3`,
 //                 //         {
 //                 //             method: !draftId ? "POST" : "PUT",
 //                 //             body: formData,
@@ -6470,8 +6470,8 @@
 
 //                 const res = await fetch(
 //                     !draftId
-//                         ? `${nURL}/reports/step3/save-draft`
-//                         : `${nURL}/reports/${draftId}/step3`,
+//                         ? `${base_url}/reports/step3/save-draft`
+//                         : `${base_url}/reports/${draftId}/step3`,
 //                     {
 //                         method: !draftId ? "POST" : "PUT",
 //                         body: formData,
@@ -6520,7 +6520,7 @@
 
 //     const getIndustryData = async () => {
 //         try {
-//             let result = await fetch(`${nURL}/industries/main`);
+//             let result = await fetch(`${base_url}/industries/main`);
 //             let data = await result.json();
 //             if (data) {
 //                 setGetIndustry(data?.industries || []);
@@ -6533,7 +6533,7 @@
 //     const getSubIndustryData = async () => {
 //         if (!industry) return;
 //         try {
-//             const url = `${nURL}/industries/sub?industry=${encodeURIComponent(industry)}`;
+//             const url = `${base_url}/industries/sub?industry=${encodeURIComponent(industry)}`;
 //             const res = await fetch(url);
 //             const data = await res.json();
 //             if (data) {
@@ -6546,7 +6546,7 @@
 
 //     const getRegionsData = async () => {
 //         try {
-//             let result = await fetch(`${nURL}/regions`);
+//             let result = await fetch(`${base_url}/regions`);
 //             let data = await result.json();
 //             if (data) {
 //                 setGetRegions(data?.regions || []);
@@ -6558,7 +6558,7 @@
 
 //     const getReportData = async () => {
 //         try {
-//             let result = await fetch(`${nURL}/report-types`);
+//             let result = await fetch(`${base_url}/report-types`);
 //             let data = await result.json();
 //             if (data) {
 //                 setGetReportTypes(data?.report_types || []);
@@ -6576,7 +6576,7 @@
 //             }
 
 //             const regionParam = regions.join(",");
-//             const url = `${nURL}/countries?region=${encodeURIComponent(regionParam)}`;
+//             const url = `${base_url}/countries?region=${encodeURIComponent(regionParam)}`;
 //             const res = await fetch(url);
 //             if (!res.ok) throw new Error("Failed to fetch countries");
 
@@ -6591,7 +6591,7 @@
 
 //     const getAvailableReportsData = async () => {
 //         try {
-//             const res = await fetch(`${nURL}/report-assets`, {
+//             const res = await fetch(`${base_url}/report-assets`, {
 //                 method: "GET",
 //                 credentials: "include"
 //             });
@@ -6909,7 +6909,7 @@
 // import ReviewStep from "./steps/ReviewStep";
 // import StepIndicator from "./steps/StepIndicator";
 // import FormStep6 from "./steps/FormStep6";
-// import { nURL } from "../../URL";
+// import { base_url } from "../../URL";
 // import { useNavigate, useParams } from "react-router-dom";
 
 // const FORM_STEPS = 6;  // Actual form steps
@@ -6996,7 +6996,7 @@
 
 //         if (value === "generated") {
 //             try {
-//                 const res = await fetch(`${nURL}/reports/generating`, {
+//                 const res = await fetch(`${base_url}/reports/generating`, {
 //                     method: "GET",
 //                     credentials: "include"
 //                 });
@@ -7015,7 +7015,7 @@
 //     const getselectedReportIdData = async () => {
 //         if (!selectedReportId) return;
 //         try {
-//             const res = await fetch(`${nURL}/reports/generating/${selectedReportId}`, {
+//             const res = await fetch(`${base_url}/reports/generating/${selectedReportId}`, {
 //                 method: "GET",
 //                 credentials: "include"
 //             });
@@ -7041,8 +7041,8 @@
 //         try {
 //             const isNew = !draftId;
 //             const url = isNew
-//                 ? `${nURL}/reports/step${step}/save-draft`
-//                 : `${nURL}/reports/${draftId}/step${step}`;
+//                 ? `${base_url}/reports/step${step}/save-draft`
+//                 : `${base_url}/reports/${draftId}/step${step}`;
 //             const method = isNew ? "POST" : "PUT";
 
 //             const res = await fetch(url, {
@@ -7165,8 +7165,8 @@
 //                 try {
 //                     const res = await fetch(
 //                         !draftId || !index
-//                             ? `${nURL}/reports/step3/save-draft`
-//                             : `${nURL}/reports/${draftId || index}/step3`,
+//                             ? `${base_url}/reports/step3/save-draft`
+//                             : `${base_url}/reports/${draftId || index}/step3`,
 //                         {
 //                             method: !draftId ? "POST" : "PUT",
 //                             body: formData,
@@ -7294,8 +7294,8 @@
 
 //                 const res = await fetch(
 //                     !draftId
-//                         ? `${nURL}/reports/step3/save-draft`
-//                         : `${nURL}/reports/${draftId}/step3`,
+//                         ? `${base_url}/reports/step3/save-draft`
+//                         : `${base_url}/reports/${draftId}/step3`,
 //                     {
 //                         method: !draftId ? "POST" : "PUT",
 //                         body: formData,
@@ -7344,7 +7344,7 @@
 
 //     const getIndustryData = async () => {
 //         try {
-//             let result = await fetch(`${nURL}/industries/main`);
+//             let result = await fetch(`${base_url}/industries/main`);
 //             let data = await result.json();
 //             if (data) {
 //                 setGetIndustry(data?.industries || []);
@@ -7357,7 +7357,7 @@
 //     const getSubIndustryData = async () => {
 //         if (!industry) return;
 //         try {
-//             const url = `${nURL}/industries/sub?industry=${encodeURIComponent(industry)}`;
+//             const url = `${base_url}/industries/sub?industry=${encodeURIComponent(industry)}`;
 //             const res = await fetch(url);
 //             const data = await res.json();
 //             if (data) {
@@ -7370,7 +7370,7 @@
 
 //     const getRegionsData = async () => {
 //         try {
-//             let result = await fetch(`${nURL}/regions`);
+//             let result = await fetch(`${base_url}/regions`);
 //             let data = await result.json();
 //             if (data) {
 //                 setGetRegions(data?.regions || []);
@@ -7382,7 +7382,7 @@
 
 //     const getReportData = async () => {
 //         try {
-//             let result = await fetch(`${nURL}/report-types`);
+//             let result = await fetch(`${base_url}/report-types`);
 //             let data = await result.json();
 //             if (data) {
 //                 setGetReportTypes(data?.report_types || []);
@@ -7400,7 +7400,7 @@
 //             }
 
 //             const regionParam = regions.join(",");
-//             const url = `${nURL}/countries?region=${encodeURIComponent(regionParam)}`;
+//             const url = `${base_url}/countries?region=${encodeURIComponent(regionParam)}`;
 //             const res = await fetch(url);
 //             if (!res.ok) throw new Error("Failed to fetch countries");
 
@@ -7415,7 +7415,7 @@
 
 //     const getAvailableReportsData = async () => {
 //         try {
-//             const res = await fetch(`${nURL}/report-assets`, {
+//             const res = await fetch(`${base_url}/report-assets`, {
 //                 method: "GET",
 //                 credentials: "include"
 //             });
@@ -7481,7 +7481,7 @@
 
 //     const getReportDataForEdit = async () => {
 //         try {
-//             let result = await fetch(`${nURL}/reports/${index}/edit`, {
+//             let result = await fetch(`${base_url}/reports/${index}/edit`, {
 //                 method: "GET",
 //                 credentials: "include"
 //             });
@@ -7803,7 +7803,7 @@
 // import ReviewStep from "./steps/ReviewStep";
 // import StepIndicator from "./steps/StepIndicator";
 // import FormStep6 from "./steps/FormStep6";
-// import { nURL } from "../../URL";
+// import { base_url } from "../../URL";
 // import { useNavigate, useParams } from "react-router-dom";
 
 // const FORM_STEPS = 6;  // Actual form steps
@@ -7884,7 +7884,7 @@
 
 //         if (value === "generated") {
 //             try {
-//                 const res = await fetch(`${nURL}/reports/generating`, {
+//                 const res = await fetch(`${base_url}/reports/generating`, {
 //                     method: "GET",
 //                     credentials: "include"
 //                 });
@@ -7902,7 +7902,7 @@
 //     const getselectedReportIdData = async () => {
 //         if (!selectedReportId) return;
 //         try {
-//             const res = await fetch(`${nURL}/reports/generating/${selectedReportId}`, {
+//             const res = await fetch(`${base_url}/reports/generating/${selectedReportId}`, {
 //                 method: "GET",
 //                 credentials: "include"
 //             });
@@ -7930,8 +7930,8 @@
 //             console.log("hasExistingId: ", hasExistingId, "draftId:", draftId, "index:", index);
 
 //             const url = hasExistingId
-//                 ? `${nURL}/reports/${draftId || index}/step${step}`
-//                 : `${nURL}/reports/step${step}/save-draft`;
+//                 ? `${base_url}/reports/${draftId || index}/step${step}`
+//                 : `${base_url}/reports/step${step}/save-draft`;
 //             const method = hasExistingId ? "PUT" : "POST";
 
 //             console.log("Calling URL:", url, "with method:", method);
@@ -8053,8 +8053,8 @@
 //                     const hasExistingId = draftId || index;
 //                     const res = await fetch(
 //                         hasExistingId
-//                             ? `${nURL}/reports/${draftId || index}/step3`
-//                             : `${nURL}/reports/step3/save-draft`,
+//                             ? `${base_url}/reports/${draftId || index}/step3`
+//                             : `${base_url}/reports/step3/save-draft`,
 //                         {
 //                             method: hasExistingId ? "PUT" : "POST",
 //                             body: formData,
@@ -8175,8 +8175,8 @@
 //                 const hasExistingId = draftId || index;
 //                 const res = await fetch(
 //                     hasExistingId
-//                         ? `${nURL}/reports/${draftId || index}/step3`
-//                         : `${nURL}/reports/step3/save-draft`,
+//                         ? `${base_url}/reports/${draftId || index}/step3`
+//                         : `${base_url}/reports/step3/save-draft`,
 //                     {
 //                         method: hasExistingId ? "PUT" : "POST",
 //                         body: formData,
@@ -8226,7 +8226,7 @@
 
 //     const getIndustryData = async () => {
 //         try {
-//             let result = await fetch(`${nURL}/industries/main`);
+//             let result = await fetch(`${base_url}/industries/main`);
 //             let data = await result.json();
 //             if (data) {
 //                 setGetIndustry(data?.industries || []);
@@ -8239,7 +8239,7 @@
 //     const getSubIndustryData = async () => {
 //         if (!industry) return;
 //         try {
-//             const url = `${nURL}/industries/sub?industry=${encodeURIComponent(industry)}`;
+//             const url = `${base_url}/industries/sub?industry=${encodeURIComponent(industry)}`;
 //             const res = await fetch(url);
 //             const data = await res.json();
 //             if (data) {
@@ -8252,7 +8252,7 @@
 
 //     const getRegionsData = async () => {
 //         try {
-//             let result = await fetch(`${nURL}/regions`);
+//             let result = await fetch(`${base_url}/regions`);
 //             let data = await result.json();
 //             if (data) {
 //                 setGetRegions(data?.regions || []);
@@ -8264,7 +8264,7 @@
 
 //     const getReportData = async () => {
 //         try {
-//             let result = await fetch(`${nURL}/report-types`);
+//             let result = await fetch(`${base_url}/report-types`);
 //             let data = await result.json();
 //             if (data) {
 //                 setGetReportTypes(data?.report_types || []);
@@ -8282,7 +8282,7 @@
 //             }
 
 //             const regionParam = regions.join(",");
-//             const url = `${nURL}/countries?region=${encodeURIComponent(regionParam)}`;
+//             const url = `${base_url}/countries?region=${encodeURIComponent(regionParam)}`;
 //             const res = await fetch(url);
 //             if (!res.ok) throw new Error("Failed to fetch countries");
 
@@ -8297,7 +8297,7 @@
 
 //     const getAvailableReportsData = async () => {
 //         try {
-//             const res = await fetch(`${nURL}/report-assets`, {
+//             const res = await fetch(`${base_url}/report-assets`, {
 //                 method: "GET",
 //                 credentials: "include"
 //             });
@@ -8343,7 +8343,7 @@
 //     // for edit getdata
 //     const getReportDataForEdit = async () => {
 //         try {
-//             let result = await fetch(`${nURL}/reports/${index}/edit`, {
+//             let result = await fetch(`${base_url}/reports/${index}/edit`, {
 //                 method: "GET",
 //                 credentials: "include"
 //             });
@@ -8651,8 +8651,9 @@ import FormStep5 from "./steps/FormStep5";
 import ReviewStep from "./steps/ReviewStep";
 import StepIndicator from "./steps/StepIndicator";
 import FormStep6 from "./steps/FormStep6";
-import { nURL } from "../../URL";
+
 import { useNavigate, useParams } from "react-router-dom";
+import { base_url } from "../../URL";
 
 const FORM_STEPS = 6;  // Actual form steps
 const TOTAL_STEPS = 7;  // Including review step
@@ -8732,7 +8733,7 @@ const MultiStepForm = () => {
 
         if (value === "generated") {
             try {
-                const res = await fetch(`${nURL}/reports/generating`, {
+                const res = await fetch(`${base_url}/reports/generating`, {
                     method: "GET",
                     credentials: "include"
                 });
@@ -8752,7 +8753,7 @@ const MultiStepForm = () => {
     const getselectedReportIdData = async () => {
         if (!selectedReportId) return;
         try {
-            const res = await fetch(`${nURL}/reports/generating/${selectedReportId}`, {
+            const res = await fetch(`${base_url}/reports/generating/${selectedReportId}`, {
                 method: "GET",
                 credentials: "include"
             });
@@ -8780,8 +8781,8 @@ const MultiStepForm = () => {
             console.log("hasExistingId: ", hasExistingId, "draftId:", draftId, "index:", index);
 
             const url = hasExistingId
-                ? `${nURL}/reports/${draftId || index}/step${step}`
-                : `${nURL}/reports/step${step}/save-draft`;
+                ? `${base_url}/reports/${draftId || index}/step${step}`
+                : `${base_url}/reports/step${step}/save-draft`;
             const method = hasExistingId ? "PUT" : "POST";
 
             console.log("Calling URL:", url, "with method:", method);
@@ -8970,8 +8971,8 @@ const MultiStepForm = () => {
                     const hasExistingId = draftId || index;
                     const res = await fetch(
                         hasExistingId
-                            ? `${nURL}/reports/${draftId || index}/step3`
-                            : `${nURL}/reports/step3/save-draft`,
+                            ? `${base_url}/reports/${draftId || index}/step3`
+                            : `${base_url}/reports/step3/save-draft`,
                         {
                             method: hasExistingId ? "PUT" : "POST",
                             body: formData,
@@ -9092,8 +9093,8 @@ const MultiStepForm = () => {
                 const hasExistingId = draftId || index;
                 const res = await fetch(
                     hasExistingId
-                        ? `${nURL}/reports/${draftId || index}/step3`
-                        : `${nURL}/reports/step3/save-draft`,
+                        ? `${base_url}/reports/${draftId || index}/step3`
+                        : `${base_url}/reports/step3/save-draft`,
                     {
                         method: hasExistingId ? "PUT" : "POST",
                         body: formData,
@@ -9143,7 +9144,7 @@ const MultiStepForm = () => {
 
     const getIndustryData = async () => {
         try {
-            let result = await fetch(`${nURL}/industries/main`);
+            let result = await fetch(`${base_url}/industries/main`);
             let data = await result.json();
             if (data) {
                 setGetIndustry(data?.industries || []);
@@ -9156,7 +9157,7 @@ const MultiStepForm = () => {
     const getSubIndustryData = async () => {
         if (!industry) return;
         try {
-            const url = `${nURL}/industries/sub?industry=${encodeURIComponent(industry)}`;
+            const url = `${base_url}/industries/sub?industry=${encodeURIComponent(industry)}`;
             const res = await fetch(url);
             const data = await res.json();
             if (data) {
@@ -9169,7 +9170,7 @@ const MultiStepForm = () => {
 
     const getRegionsData = async () => {
         try {
-            let result = await fetch(`${nURL}/regions`);
+            let result = await fetch(`${base_url}/regions`);
             let data = await result.json();
             if (data) {
                 setGetRegions(data?.regions || []);
@@ -9181,7 +9182,7 @@ const MultiStepForm = () => {
 
     const getReportData = async () => {
         try {
-            let result = await fetch(`${nURL}/report-types`);
+            let result = await fetch(`${base_url}/report-types`);
             let data = await result.json();
             if (data) {
                 setGetReportTypes(data?.report_types || []);
@@ -9199,7 +9200,7 @@ const MultiStepForm = () => {
             }
 
             const regionParam = regions.join(",");
-            const url = `${nURL}/countries?region=${encodeURIComponent(regionParam)}`;
+            const url = `${base_url}/countries?region=${encodeURIComponent(regionParam)}`;
             const res = await fetch(url);
             if (!res.ok) throw new Error("Failed to fetch countries");
 
@@ -9216,7 +9217,7 @@ const MultiStepForm = () => {
         console.log("versionID.............: ", versionID);
 
         try {
-            const res = await fetch(`${nURL}/report-assets/?report_version_id=${versionID}`, {
+            const res = await fetch(`${base_url}/report-assets/?report_version_id=${versionID}`, {
                 method: "GET",
                 credentials: "include"
             });
@@ -9271,7 +9272,7 @@ const MultiStepForm = () => {
     // for edit getdata
     const getReportDataForEdit = async () => {
         try {
-            let result = await fetch(`${nURL}/reports/${index}/edit`, {
+            let result = await fetch(`${base_url}/reports/${index}/edit`, {
                 method: "GET",
                 credentials: "include"
             });
@@ -9352,14 +9353,14 @@ const MultiStepForm = () => {
     console.log("selected report versionID:...........", versionID);
 
     return (
-        <div className="border bg-gray-100">
+        <div className="bg-gray-100">
             <>
                 {/* steps */}
-                <div className="border hidden lg:block">
+                <div className="hidden lg:block">
                     <StepIndicator step={formStep} setStep={setFormStep} />
                 </div>
 
-                <div className="border w-80 sm:w-160 md:w-190 lg:w-230 m-auto p-2">
+                <div className="border border-gray-200 rounded w-80 sm:w-160 md:w-190 lg:w-230 m-auto p-2 bg-surface">
                     {formStep === 1 && (
                         <FormStep1
                             selectedOption={selectedOption}
@@ -9505,12 +9506,12 @@ const MultiStepForm = () => {
                 </div>
 
                 {/* Navigation Buttons */}
-                <div className="relative h-14 border w-230 m-auto mt-4">
-                    <div className="absolute right-2 top-1/2 -translate-y-1/2 z-50 flex gap-2">
+                <div className="relative h-14 rounded w-230 m-auto my-4">
+                    <div className="absolute right-2 top-1/2 -translate-y-1/2 flex gap-2">
                         {/* Back Button */}
                         {formStep >= 2 && formStep < 7 && (
                             <button
-                                className="border px-4 h-9 font-medium text-primary border-text-primary hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="border px-4 h-9 font-medium cursor-pointer hover:bg-white disabled:opacity-50 disabled:cursor-not-allowed"
                                 onClick={handlePrev}
                                 disabled={isSubmitting}
                             >
@@ -9521,7 +9522,7 @@ const MultiStepForm = () => {
                         {/* Save Draft Button */}
                         {formStep <= 6 && (
                             <button
-                                className="border px-4 h-9 font-medium text-primary border-text-primary hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="border px-4 h-9 font-medium cursor-pointer hover:bg-white disabled:opacity-50 disabled:cursor-not-allowed"
                                 onClick={handleSaveDraft}
                                 disabled={isSubmitting}
                             >
@@ -9532,7 +9533,7 @@ const MultiStepForm = () => {
                         {/* Next Button (Steps 1-5) */}
                         {formStep <= 5 && (
                             <button
-                                className="border px-4 h-9 font-medium text-primary border-text-primary hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="border px-4 h-9 font-medium cursor-pointer hover:bg-white disabled:opacity-50 disabled:cursor-not-allowed"
                                 onClick={handleNext}
                                 disabled={isSubmitting}
                             >

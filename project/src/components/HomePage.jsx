@@ -7,14 +7,14 @@ import c1 from '../assets/c1.svg';
 import c2 from '../assets/c2.svg';
 import c3 from '../assets/c3.svg';
 import c4 from '../assets/c4.svg';
-import { nURL } from '../URL';
 import { useNavigate } from 'react-router-dom';
+import { base_url } from '../URL';
 
 const HomePage = () => {
 
     const handleLogout = async () => {
         try {
-            const result = await fetch(`${nURL}/logout`, {
+            const result = await fetch(`${base_url}/logout`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 credentials: "include"
@@ -45,8 +45,7 @@ const HomePage = () => {
     return (
         <>
             {/* main content */}
-            <button onClick={handleLogout} className="border cursor-pointer">logout</button>
-            <div className=" h-120 flex items-center w-full bg-gray-300 hero-bg-img">
+            <div className=" h-120 flex items-center w-full hero-bg-img">
                 <div className=" w-80 sm:w-140 xl:w-285 m-auto flex gap-5 justify-center">
                     <div className=" w-80 sm:w-140">
                         <div>

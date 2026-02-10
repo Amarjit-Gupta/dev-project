@@ -19,13 +19,13 @@ const FileUpload = ({ label, file, onChange, disabled = false }) => {
     };
 
     return (
-        <div className={`w-full mt-4 border border-green-600 ${disabled ? "opacity-50" : ""}`}>
+        <div className={`w-full mt-4 ${disabled ? "opacity-50" : ""}`}>
             <label className="font-medium text-primary text-20">{label}</label>
             <div
                 onClick={() => !disabled && inputRef.current.click()}
                 onDragOver={(e) => e.preventDefault()}
                 onDrop={handleDrop}
-                className={`p-5 border-2 border-dashed rounded text-center 
+                className={`p-5 border-2 border-dashed border-gray-500 rounded text-center 
                     ${disabled ? "cursor-not-allowed" : "cursor-pointer hover:bg-gray-100"}
                 `}
             >
