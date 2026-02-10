@@ -11,7 +11,7 @@ import ReportName from "./components/ReportName";
 import ContactForm from "./components/ContactForm";
 import ContactUs from "./components/ContactUs";
 import HomePage from "./components/HomePage";
-// import PrivateComponent from "./auth/PrivateComponent";
+import PrivateComponent from "./auth/PrivateComponent";
 
 const App = () => {
   return (
@@ -23,13 +23,13 @@ const App = () => {
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/report" element={<ReportingList />} />
           <Route path="/report-name/:id" element={<ReportName />} />
-          {/* <Route element={<PrivateComponent />}> */}
+          <Route element={<PrivateComponent />}>
             <Route path="/add" element={<MultiStepForm />} />
             <Route path="/add/:id" element={<MultiStepForm />} />
             <Route path="/dash" element={<Dash />} />
             <Route path="/all" element={<AllReports />} />
             <Route path="/single-report/:id" element={<SingleReport />} />
-          {/* </Route> */}
+          </Route>
 
           <Route path="/login" element={<Login />} />
         </Routes>

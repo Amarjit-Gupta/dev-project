@@ -2,14 +2,17 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import { useEffect, useState } from 'react';
 import logo from '../assets/Logo-Integers.svg';
 import { RxCross2 } from "react-icons/rx";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import logoSmall from '../assets/logo-small.svg';
+import { base_url } from "../URL";
 
 const Navbar = () => {
 
     const [menu, setMenu] = useState(false);
 
     const [openPopup, setOpenPopup] = useState(false);
+
+    const navigate = useNavigate();
 
     const handleClick = (e) => {
         e.stopPropagation();
@@ -21,6 +24,46 @@ const Navbar = () => {
         window.addEventListener("click", closeMenu);
         return () => window.removeEventListener("click", closeMenu);
     }, []);
+
+    const handleLogout = async () => {
+        try {
+            const result = await fetch(`${base_url}/logout`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                credentials: "include"
+            });
+
+            const data = await result.json();
+
+            console.log("logout msg: ", data);
+
+            if (data.success) {
+                // setOpenPopup(false)
+                // setIsAuthenticated(false);
+                // setUser(null);
+                localStorage.removeItem("n@xIIktKQXeorj.W*XF5tFrKl");
+                navigate("/login");
+                alert(data.message);
+            }
+            else {
+                // setOpenPopup(false)
+                alert("Logout Failed");
+            }
+
+        } catch (err) {
+            console.error("Something went wrong:", err.message);
+        }
+    }
+
+
+
+
+    let isAuth = localStorage.getItem("n@xIIktKQXeorj.W*XF5tFrKl");
+    console.log("isAuth?????", isAuth);
+
+    let userName = isAuth ? JSON.parse(isAuth) : "";
+
+    let uname = userName ? (userName.full_name).slice(0, 1) : "";
 
     return (
         <>
@@ -49,29 +92,31 @@ const Navbar = () => {
 
                     <li className="block lg:inline-block lg:pl-9 py-5 lg:py-0"><NavLink to={"/contact"} onClick={() => setMenu(false)}>Contact Us</NavLink></li>
 
-                    <div className="lg:hidden">
-                        <div className="relative inline-block">
-                            {/* Header Button */}
-                            <button
-                                onClick={handleClick}
-                                className="border bg-brand rounded-full h-9 w-9 text-20 font-medium transition-all cursor-pointer hover:bg-[var(--color-brand-primary-hover)]"
-                            >
-                                A
-                            </button>
+                    {isAuth &&
+                        <div className="lg:hidden">
+                            <div className="relative inline-block">
+                                {/* Header Button */}
+                                <button
+                                    onClick={handleClick}
+                                    className="border bg-brand rounded-full h-9 w-9 text-20 font-medium transition-all cursor-pointer hover:bg-[var(--color-brand-primary-hover)] capitalize"
+                                >
+                                    {uname}
+                                </button>
 
-                            {/* Popup */}
-                            {openPopup && (
-                                <div className="absolute right-0 top-full z-10 mt-2 rounded shadow-lg">
-                                    <button
-                                        onClick={() => setOpenPopup(false)}
-                                        className="bg-brand w-full rounded py-2 px-3 text-15 text-primary font-medium cursor-pointer hover:bg-[var(--color-brand-primary-hover)]"
-                                    >
-                                        Logout
-                                    </button>
-                                </div>
-                            )}
+                                {/* Popup */}
+                                {openPopup && (
+                                    <div className="absolute right-0 top-full z-10 mt-2 rounded shadow-lg">
+                                        <button
+                                            onClick={handleLogout}
+                                            className="bg-brand w-full rounded py-2 px-3 text-15 text-primary font-medium cursor-pointer hover:bg-[var(--color-brand-primary-hover)]"
+                                        >
+                                            Logout
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
                         </div>
-                    </div>
+                    }
                 </ul>
 
                 <div className="hidden lg:block">
@@ -84,29 +129,31 @@ const Navbar = () => {
                     </div>
                 </div>
 
-                <div className="hidden lg:block">
-                    <div className="relative inline-block">
-                        {/* Header Button */}
-                        <button
-                            onClick={handleClick}
-                            className="border bg-brand rounded-full h-9 w-9 text-20 font-medium transition-all cursor-pointer hover:bg-[var(--color-brand-primary-hover)]"
-                        >
-                            A
-                        </button>
+                {isAuth &&
+                    <div className="hidden lg:block">
+                        <div className="relative inline-block">
+                            {/* Header Button */}
+                            <button
+                                onClick={handleClick}
+                                className="border bg-brand rounded-full h-9 w-9 text-20 font-medium transition-all cursor-pointer hover:bg-[var(--color-brand-primary-hover)] capitalize"
+                            >
+                                {uname}
+                            </button>
 
-                        {/* Popup */}
-                        {openPopup && (
-                            <div className="absolute right-0 top-full z-10 mt-2 rounded shadow-lg">
-                                <button
-                                    onClick={() => setOpenPopup(false)}
-                                    className="bg-brand w-full rounded py-2 px-3 text-15 text-primary font-medium cursor-pointer hover:bg-[var(--color-brand-primary-hover)]"
-                                >
-                                    Logout
-                                </button>
-                            </div>
-                        )}
+                            {/* Popup */}
+                            {openPopup && (
+                                <div className="absolute right-0 top-full z-10 mt-2 rounded shadow-lg">
+                                    <button
+                                        onClick={handleLogout}
+                                        className="bg-brand w-full rounded py-2 px-3 text-15 text-primary font-medium cursor-pointer hover:bg-[var(--color-brand-primary-hover)]"
+                                    >
+                                        Logout
+                                    </button>
+                                </div>
+                            )}
+                        </div>
                     </div>
-                </div>
+                }
             </div>
         </>
     );

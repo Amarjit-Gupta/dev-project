@@ -1,5 +1,5 @@
 import { RiLoader4Fill } from "react-icons/ri";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaRegEyeSlash } from "react-icons/fa";
 import { FaRegEye } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
@@ -44,8 +44,9 @@ const Login = () => {
             const data = await result.json();
             console.log("login: ", data);
 
-            if (data.message) {
-                // navigate("/");
+            if (data.success) {
+                localStorage.setItem("n@xIIktKQXeorj.W*XF5tFrKl", JSON.stringify(data));
+                navigate("/dash");
                 alert(data.message);
             }
             else {
@@ -59,6 +60,13 @@ const Login = () => {
             setLoader2(false);
         }
     };
+
+    useEffect(() => {
+        let authUser = localStorage.getItem("n@xIIktKQXeorj.W*XF5tFrKl");
+        if (authUser) {
+            navigate("/dash");
+        }
+    }, []);
 
     return (
         <div className="h-[90vh] flex justify-center items-center bg-gray-100">

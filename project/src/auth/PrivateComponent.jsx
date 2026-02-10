@@ -1,7 +1,10 @@
-// import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 
-// const PrivateComponent = () => {
+const PrivateComponent = () => {
 
-//     return (isAuthenticated ? <Outlet /> : <Navigate to={"/login"} replace />);
-// };
-// export default PrivateComponent;
+    let isAuthenticated = localStorage.getItem("n@xIIktKQXeorj.W*XF5tFrKl");
+    console.log("isAuthenticated?????", isAuthenticated);
+
+    return (isAuthenticated ? <Outlet /> : <Navigate to={"/login"} />);
+};
+export default PrivateComponent;
