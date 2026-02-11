@@ -8,6 +8,7 @@ const ReviewStep = ({
   regions,
   country,
   reportType,
+  useCases,
   publishDate,
   coveragePeriodFrom,
   coveragePeriodTo,
@@ -55,6 +56,7 @@ const ReviewStep = ({
           <p><span className="font-medium">Region:</span> {regions?.join(", ")}</p>
           <p><span className="font-medium">Country:</span> {country?.join(", ")}</p>
           <p><span className="font-medium">Report Type:</span> {reportType}</p>
+          <p><span className="font-medium">Use Cases:</span> {useCases}</p>
           <p><span className="font-medium">Publish Date:</span> {publishDate}</p>
           <p><span className="font-medium">Coverage From:</span> {coveragePeriodFrom}</p>
           <p><span className="font-medium">Coverage To:</span> {coveragePeriodTo}</p>

@@ -102,6 +102,13 @@ const ContactForm = ({ popupOpen, setPopupOpen, title }) => {
                 },
                 // credentials: "include"
             });
+
+            // console.log("emailResult: ", emailResult);
+
+            if(!emailResult.ok){
+                throw new Error(`HTTP error! status: ${emailResult.status}`);
+            }
+
             let emailData = await emailResult.json();
             console.log("emailData: ", emailData);
             if (emailData.success) {

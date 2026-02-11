@@ -4,6 +4,7 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { base_url } from "../URL";
+import Breadcrumbs from "../components/BreadCrumbs";
 
 const AllReports = () => {
 
@@ -39,9 +40,15 @@ const AllReports = () => {
                 method: "GET",
                 credentials: "include"
             });
+
+            if (!result.ok) {
+                throw new Error(`HTTP error! status: ${result.status}`);
+            }
+
+
             let data = await result.json();
             console.log("all-report: ", data);
-            
+
             if (Array.isArray(data?.reports)) {
                 setAllReports(data.reports);
                 setReportsData(data.reports);
@@ -62,6 +69,12 @@ const AllReports = () => {
                 method: "GET",
                 credentials: "include"
             });
+
+            if (!fResult.ok) {
+                throw new Error(`HTTP error! status: ${fResult.status}`);
+            }
+
+
             let fData = await fResult.json();
             // console.log("filterData: ", fData);
             if (fData) {
@@ -95,6 +108,11 @@ const AllReports = () => {
                     method: "DELETE",
                     credentials: "include"
                 });
+
+                if (!data.ok) {
+                    throw new Error(`HTTP error! status: ${data.status}`);
+                }
+
                 let result = await data.json();
                 console.log("delete-response: ", result);
                 if (result.success) {
@@ -155,12 +173,17 @@ const AllReports = () => {
 
                 const res = await fetch(`${base_url}/reports/filter`, {
                     method: "POST",
+                    body: JSON.stringify(payload),
+                    credentials: "include",
                     headers: {
                         "Content-Type": "application/json"
                     },
-                    credentials: "include",
-                    body: JSON.stringify(payload)
                 });
+
+                if (!res.ok) {
+                    throw new Error(`HTTP error! status: ${res.status}`);
+                }
+
 
                 const data = await res.json();
                 if (Array.isArray(data.items)) {
@@ -198,6 +221,10 @@ const AllReports = () => {
                     }
                 );
 
+                if (!res.ok) {
+                    throw new Error(`HTTP error! status: ${res.status}`);
+                }
+
                 const data = await res.json();
 
                 console.log("search data: ", data);
@@ -218,6 +245,11 @@ const AllReports = () => {
     return (
         <div className=" bg-gray-100">
             <div className=" w-285 m-auto py-5">
+
+                <div className="border">
+                    <Breadcrumbs/>
+                </div>
+
                 <h1 className="text-primary text-24 font-semibold">All Reports</h1>
                 <div className=" h-9 mt-3">
                     <input type="search" className="border border-gray-200 h-full w-full px-2 bg-surface" placeholder="Search..." value={search}
@@ -318,7 +350,10 @@ const AllReports = () => {
                                     </div>
 
                                     <div className="border border-gray-500 border-t-0 px-2 py-2 w-[120px] break-words">
-                                        {itm?.full_price}
+                                        {itm?.full_price?.toString().length > 5
+                                            ? itm?.full_price?.toString().slice(0, 5) + ".."
+                                            : itm?.full_price}
+
                                     </div>
 
                                     <div className="border border-gray-500 border-t-0 px-2 py-2 w-[120px]">

@@ -230,11 +230,12 @@ import ScopeCoverage from './ScopeCoverage';
 import TableContent from './TableContent';
 import SamplePreview from './SamplePreview';
 import Methodology from './Methodology';
-import RelevantReports from './RelevantReports';
+// import RelevantReports from './RelevantReports';
 import ContactForm from './ContactForm';
 import TabButton from './TabButton';
 import { useParams } from 'react-router-dom';
 import { base_url } from '../URL';
+import Breadcrumbs from './BreadCrumbs';
 
 const ReportName = () => {
 
@@ -265,6 +266,11 @@ const ReportName = () => {
         try {
             setLoader5(true);
             let result = await fetch(`${base_url}/reports/${index}/full`);
+
+            if (!result.ok) {
+                throw new Error(`HTTP error! status: ${result.status}`);
+            }
+
             let data = await result.json();
             console.log("report name api called", data);
             if (data) {
@@ -320,7 +326,7 @@ const ReportName = () => {
             <div className="w-80 sm:w-160 lg:w-198 xl:w-285 m-auto">
                 <div className="flex gap-6 items-start">
                     <div className="w-80 sm:w-160 lg:w-198">
-                        <div className=" flex gap-2 text-primary text-16 font-regular">
+                        {/* <div className=" flex gap-2 text-primary text-16 font-regular">
                             <span>Home</span>
                             <span>&gt;</span>
                             <span>Reports</span>
@@ -328,6 +334,10 @@ const ReportName = () => {
                             <span>Industry Name</span>
                             <span>&gt;</span>
                             <span>Report Name</span>
+                        </div> */}
+
+                        <div className="">
+                            <Breadcrumbs />
                         </div>
 
                         {/*  */}
@@ -391,7 +401,7 @@ const ReportName = () => {
 
                                 </div>
                                 <div className=" bg-brand h-10 mt-5 w-full">
-                                    <button className=' h-full w-full text-15 font-medium text-primary cursor-pointer' onClick={() => setPopupOpen(true)}>Buy This Report</button>
+                                    <button className=' h-full w-full text-15 font-medium text-primary cursor-pointer hover:bg-[var(--color-brand-primary-hover)]' onClick={() => setPopupOpen(true)}>Buy This Report</button>
                                 </div>
                             </div>
 
@@ -404,7 +414,7 @@ const ReportName = () => {
                                     <p className='text-primary text-16 font-regular'>Lorem ipsum dolor sit amet consectetur. Blandit massa consectetur sem consequat pellentesque cursus cursus in. Lacus arcu.</p>
                                 </div>
                                 <div className=" bg-brand h-10 mt-5 w-full">
-                                    <button className=' h-full w-full text-15 font-medium text-primary cursor-pointer' onClick={() => setPopupOpen(true)}>Customize Now</button>
+                                    <button className=' h-full w-full text-15 font-medium text-primary cursor-pointer hover:bg-[var(--color-brand-primary-hover)]' onClick={() => setPopupOpen(true)}>Customize Now</button>
                                 </div>
                             </div>
                         </div>
@@ -478,7 +488,7 @@ const ReportName = () => {
                                 </div>
                             </div>
                             <div className=" bg-brand h-10 mt-5 w-full">
-                                <button className=' h-full w-full text-15 font-medium text-primary cursor-pointer' onClick={() => setPopupOpen(true)}>Buy This Report</button>
+                                <button className=' h-full w-full text-15 font-medium text-primary cursor-pointer hover:bg-[var(--color-brand-primary-hover)]' onClick={() => setPopupOpen(true)}>Buy This Report</button>
                             </div>
                         </div>
 
@@ -491,14 +501,14 @@ const ReportName = () => {
                                 <p className='text-primary text-16 font-regular'>Lorem ipsum dolor sit amet consectetur. Blandit massa consectetur sem consequat pellentesque cursus cursus in. Lacus arcu.</p>
                             </div>
                             <div className=" bg-brand h-10 mt-5 w-full">
-                                <button className=' h-full w-full text-15 font-medium text-primary cursor-pointer' onClick={() => setPopupOpen(true)}>Customize Now</button>
+                                <button className=' h-full w-full text-15 font-medium text-primary cursor-pointer hover:bg-[var(--color-brand-primary-hover)]' onClick={() => setPopupOpen(true)}>Customize Now</button>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 {/* Relevant Reports */}
-                <RelevantReports />
+                {/* <RelevantReports /> */}
 
             </div>
             {/* contact form */}

@@ -5,8 +5,9 @@ import { TfiLayoutGrid2 } from "react-icons/tfi";
 import GridView from "./GridView";
 import ListView from "./ListView";
 import { useEffect, useState } from "react";
-import RelevantReports from "./RelevantReports";
+// import RelevantReports from "./RelevantReports";
 import { base_url } from "../URL";
+import Breadcrumbs from "./BreadCrumbs";
 
 const ReportingList = () => {
 
@@ -19,12 +20,13 @@ const ReportingList = () => {
     const [report_type, setReport_type] = useState([]);
     const [sub_industry, setSub_industry] = useState([]);
 
-    const [totalReport, setTotalReport] = useState(null);
+    const [use_cases, setUsecase] = useState([]);
 
+    const [totalReport, setTotalReport] = useState(null);
 
     const [listData, setListData] = useState([]);
 
-    const [load,setLoad] = useState(false);
+    const [load, setLoad] = useState(false);
 
 
     const [selectedFilters, setSelectedFilters] = useState({
@@ -32,7 +34,8 @@ const ReportingList = () => {
         sub_industries: [],
         report_types: [],
         regions: [],
-        countries: []
+        countries: [],
+        use_cases: []
     });
 
 
@@ -52,12 +55,20 @@ const ReportingList = () => {
 
     const getListData = async () => {
         try {
+
+            console.log("selectedFilters:????....", selectedFilters);
+
             setLoad(true);
             let listResult = await fetch(`${base_url}/reports/filter/display`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(selectedFilters)
             });
+
+            if (!listResult.ok) {
+                throw new Error(`HTTP error! status: ${listResult.status}`);
+            }
+
             let listData = await listResult.json();
             console.log("listData: ", listData);
             if (listData) {
@@ -70,7 +81,7 @@ const ReportingList = () => {
         }
         catch (err) {
             console.log("something went wrong...");
-        }finally{
+        } finally {
             setLoad(false);
         }
     }
@@ -78,14 +89,20 @@ const ReportingList = () => {
     const getCheckBoxData = async () => {
         try {
             let result = await fetch(`${base_url}/filters`);
+
+            if (!result.ok) {
+                throw new Error(`HTTP error! status: ${result.status}`);
+            }
+
             let data = await result.json();
-            // console.log("checkboxData: ", data);
+            console.log("checkboxData: ", data);
             if (data) {
                 setIndustry(data?.industries ?? []);
                 setCountry(data?.countries ?? []);
                 setRegion(data?.regions ?? []);
                 setReport_type(data?.report_types ?? []);
                 setSub_industry(data?.sub_industries ?? []);
+                setUsecase(data?.use_case ?? []);
             }
             else {
                 alert("data not found...");
@@ -116,7 +133,8 @@ const ReportingList = () => {
             sub_industries: [],
             report_types: [],
             regions: [],
-            countries: []
+            countries: [],
+            use_cases: []
         });
     };
 
@@ -135,11 +153,13 @@ const ReportingList = () => {
 
     return (
         <div className="bg-gray-color">
+
+
             {/* main content */}
             <div className=" h-120 flex items-center w-full bg-gray-300 reportlisting-bg-img">
                 <div className=" w-80 sm:w-140 xl:w-285 m-auto flex gap-5 justify-center">
                     <div className="w-80 sm:w-140 flex flex-col gap-8">
-                        <div className=" flex gap-2 text-primary text-16 font-regular">
+                        {/* <div className=" flex gap-2 text-primary text-16 font-regular">
                             <span>Home</span>
                             <span>&gt;</span>
                             <span>Reports</span>
@@ -147,7 +167,16 @@ const ReportingList = () => {
                             <span>Industry Name</span>
                             <span>&gt;</span>
                             <span>Report Name</span>
+                        </div> */}
+
+
+                        
+                        <div className="">
+                            <Breadcrumbs />
                         </div>
+
+
+
                         <div className="">
                             <h1 className="text-primary text-32 font-semibold">Health & Wellness</h1>
                             <p className="text-primary text-16 font-regular mt-2">Comprehensive market trends, consumer analysis, and competitive landscape reports.</p>
@@ -212,7 +241,7 @@ const ReportingList = () => {
             <div className=" w-80 sm:w-144 xl:w-285 m-auto pb-11.5 mt-18">
                 <div className=" w-80 sm:w-144 xl:w-285 m-auto grid grid-cols-1 xl:grid-cols-[22%_auto] gap-7.5">
                     <div className=" flex flex-col gap-3 xl:gap-8">
-                        <FilterCategory resetFilters={resetFilters} selectedFilters={selectedFilters} setSelectedFilters={setSelectedFilters} handleCheckboxChange={handleCheckboxChange} industry={industry} sub_industry={sub_industry} report_type={report_type} region={region} country={country} />
+                        <FilterCategory resetFilters={resetFilters} selectedFilters={selectedFilters} setSelectedFilters={setSelectedFilters} handleCheckboxChange={handleCheckboxChange} industry={industry} sub_industry={sub_industry} report_type={report_type} region={region} country={country} use_cases={use_cases} />
                     </div>
 
                     <div>
@@ -226,8 +255,8 @@ const ReportingList = () => {
                             </div>
                             <div className=" flex gap-8">
                                 <div className="hidden xl:block">
-                                    <button className={`border border-gray-200 rounded transition-all duration-300 p-2 cursor-pointer ${view == "grid" ? "bg-brand" : ""}`} onClick={() => setView("grid")}><TfiLayoutGrid2 className="h-6 w-6" /></button>
-                                    <button className={`ml-0.5 border border-gray-200 rounded transition-all duration-300 p-2 cursor-pointer ${view == "list" ? "bg-brand" : ""}`} onClick={() => setView("list")}><RxHamburgerMenu className="h-6 w-6" /></button>
+                                    <button className={`border border-gray-200 rounded transition-all duration-300 p-2 cursor-pointer hover:bg-[var(--color-brand-primary-hover)] ${view == "grid" ? "bg-brand" : ""}`} onClick={() => setView("grid")}><TfiLayoutGrid2 className="h-6 w-6" /></button>
+                                    <button className={`ml-0.5 border border-gray-200 rounded transition-all duration-300 p-2 cursor-pointer hover:bg-[var(--color-brand-primary-hover)] ${view == "list" ? "bg-brand" : ""}`} onClick={() => setView("list")}><RxHamburgerMenu className="h-6 w-6" /></button>
                                 </div>
                                 <div className="border w-45 sm:w-56 h-10.5 px-3 sm:px-6 py-2 flex gap-2">
                                     <img src={AZ} alt="" />
@@ -258,7 +287,7 @@ const ReportingList = () => {
                 </div>
 
                 {/* Relevant Reports */}
-                <RelevantReports />
+                {/* <RelevantReports /> */}
 
             </div>
         </div>

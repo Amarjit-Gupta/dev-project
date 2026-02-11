@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const FilterCategory = ({resetFilters,selectedFilters,setSelectedFilters,handleCheckboxChange,industry,sub_industry,report_type,region,country}) => {
+const FilterCategory = ({resetFilters,selectedFilters,setSelectedFilters,handleCheckboxChange,industry,sub_industry,report_type,region,country,use_cases}) => {
 
     const [open, setOpen] = useState(null);
 
@@ -11,7 +11,7 @@ const FilterCategory = ({resetFilters,selectedFilters,setSelectedFilters,handleC
     return (
         <>
             <div className="">
-                <button className="px-8 py-2 text-primary text-15 font-medium bg-brand cursor-pointer" onClick={resetFilters}>Reset Filter</button>
+                <button className="px-8 py-2 text-primary text-15 font-medium bg-brand cursor-pointer hover:bg-[var(--color-brand-primary-hover)]" onClick={resetFilters}>Reset Filter</button>
             </div>
 
             {/* select filter */}
@@ -227,6 +227,45 @@ const FilterCategory = ({resetFilters,selectedFilters,setSelectedFilters,handleC
                                 />
 
                                 <span className="text-primary text-16 font-regular">{coun?.name}</span>
+                            </label>
+                        )
+                    })}
+                </div>
+            </div>
+
+            {/* use cases */}
+            <div className=" flex flex-col gap-2">
+                <div
+                    className=" flex justify-between items-center cursor-pointer xl:cursor-default"
+                    onClick={() => toggle(6)}
+                >
+                    <h1 className="text-primary text-15 font-medium">Use Cases</h1>
+
+                    <span className={`text-xl font-bold xl:hidden transition-transform duration-300 ${open === 6 ? "rotate-45" : "rotate-0"}`}>+</span>
+
+
+                </div>
+
+                {/* </div> */}
+                <div className={`overflow-hidden transition-all duration-300 ${open === 6 ? "h-auto opacity-100 mt-2" : "max-h-0 opacity-0"} xl:max-h-full xl:opacity-100 xl:mt-2`}>
+
+                    {/* industry */}
+                    {use_cases?.map((uc, i) => {
+                        return (
+                            <label key={uc.id} className="flex items-center gap-2 cursor-pointer">
+                                {/* <input
+                                    type="checkbox"
+                                    // value={uc}
+                                    className="h-4 w-4 accent-[var(--color-brand-primary)]"
+                                /> */}
+                                <input
+                                    type="checkbox"
+                                    className="h-4 w-4 accent-[var(--color-brand-primary)]"
+                                    checked={selectedFilters.use_cases.includes(uc?.name)}
+                                    onChange={() => handleCheckboxChange("use_cases", uc?.name)}
+                                />
+
+                                <span className="text-primary text-16 font-regular">{uc?.name}</span>
                             </label>
                         )
                     })}

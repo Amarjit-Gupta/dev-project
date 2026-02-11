@@ -51,7 +51,7 @@ const ScopeCoverage = ({ setPopupOpen, reportCovers, reportSupports }) => {
 
                     <div className=" mt-4 flex gap-2 items-center">
                         <span className='text-primary text-16 font-regular'>To explore more about this topic,</span>
-                        <button className='py-2 px-8 border text-primary text-15 font-medium bg-brand cursor-pointer' onClick={() => setPopupOpen(true)}>Download Sample Report</button>
+                        <button className='py-2 px-8 text-primary text-15 font-medium bg-brand cursor-pointer hover:bg-[var(--color-brand-primary-hover)]' onClick={() => setPopupOpen(true)}>Download Sample Report</button>
                     </div>
                 </div>
             </div>

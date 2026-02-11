@@ -21,6 +21,8 @@ const FormStep1 = (
         setCountry,
         reportType,
         setReportType,
+        useCases,
+        setUseCases,
         publishDate,
         setPublishDate,
         coveragePeriodFrom,
@@ -33,6 +35,7 @@ const FormStep1 = (
         getRegions,
         getCountries,
         getReportTypes,
+        getuseCases,
         periodError }
 ) => {
 
@@ -143,6 +146,7 @@ const FormStep1 = (
                     <input type="text" id="marketDescription" className="w-full border border-gray-200 h-10 px-0.5 text-20" placeholder="Enter subtitle / market description" value={subTitle} onChange={(e) => setSubTitle(e.target.value)} />
                     {error && !subTitle && <p className="text-red-500 ml-1">Please Enter subTitle...</p>}
                 </div>
+
                 <div className="">
                     <label className="text-15 font-medium text-primary">
                         Industry <sup>*</sup>
@@ -238,6 +242,31 @@ const FormStep1 = (
                         <p className="text-red-500 ml-1">
                             Please select Report Type...
                         </p>
+                    )}
+                </div>
+
+
+                {/* use cases */}
+                <div className="">
+                    <label className="text-15 font-medium text-primary">
+                        Use Cases <sup>*</sup>
+                    </label>
+                    <select
+                        className="w-full mt-1 border border-gray-200 h-10"
+                        value={useCases}
+                        onChange={(e) => setUseCases(e.target.value)}
+                    >
+                        <option value="">-- Select Use Cases --</option>
+
+                        {getuseCases?.map((item, i) => (
+                            <option key={i} value={item.name}>
+                                {item.name}
+                            </option>
+                        ))}
+                    </select>
+
+                    {error && !useCases && (
+                        <p className="text-red-500 ml-1">Please select Use Cases...</p>
                     )}
                 </div>
 

@@ -52,9 +52,15 @@ const ListView = ({ listData, load }) => {
 
                             <div className="">
                                 <div className="flex justify-end gap-8">
-                                    <div className="content-center text-16 text-primary font-regular">${data?.full_price}</div>
+                                    <div className="content-center text-16 text-primary font-regular">$
+                                        {
+                                            data?.full_price?.toString().length > 5
+                                                ? data?.full_price?.toString().slice(0, 5) + "..."
+                                                : data?.full_price
+                                        }
+                                    </div>
                                     <div className="">
-                                        <button className="flex items-center cursor-pointer gap-2 px-6 py-2 bg-brand"
+                                        <button className="flex items-center cursor-pointer gap-2 px-6 py-2 bg-brand hover:bg-[var(--color-brand-primary-hover)]"
                                             //  onClick={() => navigate(`/report-name/${data.report_version_id}`)}
                                             onClick={() => {
                                                 if (!data?.report_version_id) return;

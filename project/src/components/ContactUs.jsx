@@ -3,6 +3,7 @@ import { countries, roles } from "./Data";
 import { RiLoader4Fill } from "react-icons/ri";
 import { IoChevronDown } from "react-icons/io5";
 import { base_url } from "../URL";
+import Breadcrumbs from "./BreadCrumbs";
 
 
 const ContactUs = () => {
@@ -93,6 +94,11 @@ const ContactUs = () => {
                 },
                 // credentials: "include"
             });
+
+            if (!emailResult.ok) {
+                throw new Error(`HTTP error! status: ${emailResult.status}`);
+            }
+
             let emailData = await emailResult.json();
             console.log("emailData: ", emailData);
             if (emailData.success) {
@@ -118,6 +124,10 @@ const ContactUs = () => {
 
     return (
         <div className="bg-gray-100 py-5">
+
+            <div className="w-80 sm:w-155 md:w-180 m-auto py-2">
+                <Breadcrumbs />
+            </div>
             <div className={`border border-gray-200 rounded w-80 sm:w-155 md:w-180 m-auto p-3 bg-gray-200`}>
 
                 <div className="mt-4">

@@ -9,42 +9,16 @@ import c3 from '../assets/c3.svg';
 import c4 from '../assets/c4.svg';
 import { useNavigate } from 'react-router-dom';
 import { base_url } from '../URL';
+import Breadcrumbs from './BreadCrumbs';
 
 const HomePage = () => {
-
-    const handleLogout = async () => {
-        try {
-            const result = await fetch(`${base_url}/logout`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                credentials: "include"
-            });
-
-            const data = await result.json();
-
-            console.log(data);
-
-            console.log("logout msg: ",data);
-
-            if (data.success) {
-                
-                // setIsAuthenticated(false);
-                // setUser(null);
-                // navigate("/login");
-                alert(data.message);
-            }
-            else{
-                alert(data.message);
-            }
-
-        } catch (err) {
-            console.error("Something went wrong:", err.message);
-        }
-    }
 
     return (
         <>
             {/* main content */}
+            {/* <div className="border border-red-500">
+                <Breadcrumbs/>
+            </div> */}
             <div className=" h-120 flex items-center w-full hero-bg-img">
                 <div className=" w-80 sm:w-140 xl:w-285 m-auto flex gap-5 justify-center">
                     <div className=" w-80 sm:w-140">
@@ -187,12 +161,12 @@ const HomePage = () => {
 
 
             {/* Popular Reports */}
-            <div className=" bg-section">
+            {/* <div className=" bg-section">
                 <div className=" py-18">
                     <h1 className="text-24 text-primary font-semibold text-center">Popular Reports</h1>
                     <div className=" w-67 sm:w-140 grid grid-cols-1 sm:grid-cols-2 xl:w-285 xl:grid-cols-4 gap-6 pt-12 m-auto">
 
-                        {/* card 1 */}
+                        
                         <div className=" h-102 w-67 bg-surface">
                             <div className=" h-[42%]">
                                 <div className=" px-4 pt-4">
@@ -219,7 +193,7 @@ const HomePage = () => {
                             </div>
                         </div>
 
-                        {/* card 2 */}
+                    
                         <div className=" h-102 w-67 bg-surface">
                             <div className=" h-[42%]">
                                 <div className=" px-4 pt-4">
@@ -246,7 +220,7 @@ const HomePage = () => {
                             </div>
                         </div>
 
-                        {/* card 3 */}
+                       
                         <div className=" h-102 w-67 bg-surface">
                             <div className=" h-[42%]">
                                 <div className=" px-4 pt-4">
@@ -273,7 +247,7 @@ const HomePage = () => {
                             </div>
                         </div>
 
-                        {/* card 4 */}
+                      
                         <div className=" h-102 w-67 bg-surface">
                             <div className=" h-[42%]">
                                 <div className=" px-4 pt-4">
@@ -301,7 +275,7 @@ const HomePage = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
 
             {/* How this helps you decide */}
             <div className="">

@@ -33,6 +33,10 @@ const Navbar = () => {
                 credentials: "include"
             });
 
+            if (!result.ok) {
+                throw new Error(`HTTP error! status: ${result.status}`);
+            }
+
             const data = await result.json();
 
             console.log("logout msg: ", data);

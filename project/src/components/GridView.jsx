@@ -30,7 +30,12 @@ const GridView = ({ listData, load }) => {
 
                             </div>
                             <div className="mt-3 flex px-4 py-1 justify-between">
-                                <span className='text-primary text-16 font-regular'>${data?.full_price}</span>
+                                <span className='text-primary text-16 font-regular'>
+                                    ${data?.full_price?.toString().length > 5
+                                        ? data?.full_price?.toString().slice(0, 5) + "..."
+                                        : data?.full_price}
+
+                                </span>
                                 <button className='flex gap-2 items-center cursor-pointer'
                                     //  onClick={() => navigate(`/report-name/${data.report_version_id}`)}
                                     onClick={() => {

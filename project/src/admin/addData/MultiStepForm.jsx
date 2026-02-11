@@ -8641,7 +8641,7 @@
 
 
 
-// for test
+// for test  (8644)
 import { useEffect, useState } from "react";
 import FormStep1 from "./steps/FormStep1";
 import FormStep2 from "./steps/FormStep2";
@@ -8654,6 +8654,7 @@ import FormStep6 from "./steps/FormStep6";
 
 import { useNavigate, useParams } from "react-router-dom";
 import { base_url } from "../../URL";
+import Breadcrumbs from "../../components/BreadCrumbs";
 
 const FORM_STEPS = 6;  // Actual form steps
 const TOTAL_STEPS = 7;  // Including review step
@@ -8678,6 +8679,7 @@ const MultiStepForm = () => {
     const [regions, setRegions] = useState([]);
     const [country, setCountry] = useState([]);
     const [reportType, setReportType] = useState("");
+    const [useCases, setUseCases] = useState("");
     const [publishDate, setPublishDate] = useState("");
     const [coveragePeriodFrom, setCoveragePeriodFrom] = useState("");
     const [coveragePeriodTo, setCoveragePeriodTo] = useState("");
@@ -8719,6 +8721,7 @@ const MultiStepForm = () => {
     const [getRegions, setGetRegions] = useState([]);
     const [getCountries, setGetCountries] = useState([]);
     const [getReportTypes, setGetReportTypes] = useState([]);
+    const [getuseCases, setGetUseCases] = useState([]);
     const [getAvailableReport, setGetAvailableReport] = useState([]);
 
     let param = useParams();
@@ -8819,7 +8822,7 @@ const MultiStepForm = () => {
 
             // Step 1 Validation
             if (formStep === 1) {
-                if (!reportTitle || !subTitle || !industry || !subIndustry || regions.length === 0 || country.length === 0 || !reportType || !publishDate || !coveragePeriodFrom || !coveragePeriodTo) {
+                if (!reportTitle || !subTitle || !industry || !subIndustry || regions.length === 0 || country.length === 0 || !reportType || !useCases || !publishDate || !coveragePeriodFrom || !coveragePeriodTo) {
                     setError(true);
                     return;
                 }
@@ -8839,6 +8842,7 @@ const MultiStepForm = () => {
                     region_id: regions,
                     country_id: country,
                     report_type_id: reportType,
+                    use_case_id: useCases,
                     version_id: versionID,
                     coverage_start_year: Number(coveragePeriodFrom),
                     coverage_end_year: Number(coveragePeriodTo),
@@ -8967,6 +8971,8 @@ const MultiStepForm = () => {
                 if (charts) formData.append("charts_pdf", charts);
                 if (image) formData.append("image_file", image);
 
+                console.log("formData.....????????????????", formData);
+
                 try {
                     const hasExistingId = draftId || index;
                     const res = await fetch(
@@ -9070,6 +9076,7 @@ const MultiStepForm = () => {
                     region_id: regions || [],
                     country_id: country || [],
                     report_type_id: reportType || "",
+                    use_case_id: useCases || "",
                     version_id: versionID || "",
                     coverage_start_year: Number(coveragePeriodFrom) || 0,
                     coverage_end_year: Number(coveragePeriodTo) || 0,
@@ -9089,6 +9096,8 @@ const MultiStepForm = () => {
                 if (samplePDF) formData.append("sample_pdf", samplePDF);
                 if (charts) formData.append("charts_pdf", charts);
                 if (image) formData.append("image_file", image);
+
+                console.log("formData.....????????????????", [...formData]);
 
                 const hasExistingId = draftId || index;
                 const res = await fetch(
@@ -9186,7 +9195,9 @@ const MultiStepForm = () => {
             let data = await result.json();
             if (data) {
                 setGetReportTypes(data?.report_types || []);
+                setGetUseCases(data?.use_cases || []);
             }
+            //////////////////////////////////////////////////////////////////////////////
         } catch (err) {
             console.log("Error fetching report types:", err);
         }
@@ -9243,10 +9254,16 @@ const MultiStepForm = () => {
     }, []);
 
     useEffect(() => {
-        if(versionID !== ""){
+        if (versionID) {
             getAvailableReportsData();
         }
     }, [versionID]);
+
+    // useEffect(() => {
+
+    //         getAvailableReportsData();
+
+    // }, []);
 
     useEffect(() => {
         if (industry) {
@@ -9297,6 +9314,7 @@ const MultiStepForm = () => {
                 setRegions(stp1?.region_names || []);
                 setCountry(stp1?.country_names || []);
                 setReportType(stp1?.report_type_name || "");
+                setUseCases(stp1?.use_case_name || "");
                 setPublishDate(stp1?.publish_date || "");
                 setCoveragePeriodFrom(stp1?.coverage_start_year || "");
                 setCoveragePeriodTo(stp1?.coverage_end_year || "");
@@ -9355,6 +9373,11 @@ const MultiStepForm = () => {
     return (
         <div className="bg-gray-100">
             <>
+
+                {/* breadcrumbs */}
+                <div className="border w-80 sm:w-160 md:w-190 lg:w-230 m-auto py-2">
+                    <Breadcrumbs />
+                </div>
                 {/* steps */}
                 <div className="hidden lg:block">
                     <StepIndicator step={formStep} setStep={setFormStep} />
@@ -9383,6 +9406,8 @@ const MultiStepForm = () => {
                             setCountry={setCountry}
                             reportType={reportType}
                             setReportType={setReportType}
+                            useCases={useCases}
+                            setUseCases={setUseCases}
                             publishDate={publishDate}
                             setPublishDate={setPublishDate}
                             coveragePeriodFrom={coveragePeriodFrom}
@@ -9395,6 +9420,7 @@ const MultiStepForm = () => {
                             getRegions={getRegions}
                             getCountries={getCountries}
                             getReportTypes={getReportTypes}
+                            getuseCases={getuseCases}
                             periodError={periodError}
                         />
                     )}
@@ -9477,6 +9503,7 @@ const MultiStepForm = () => {
                             regions={regions}
                             country={country}
                             reportType={reportType}
+                            useCases={useCases}
                             publishDate={publishDate}
                             coveragePeriodFrom={coveragePeriodFrom}
                             coveragePeriodTo={coveragePeriodTo}

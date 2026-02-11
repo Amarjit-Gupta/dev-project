@@ -41,6 +41,12 @@ const Login = () => {
                 body: JSON.stringify(inputValue)
             });
 
+            console.log("rseult login", result);
+
+            if(!result.ok){
+                throw new Error(`HTTP error! status: ${result.status}`);
+            }
+
             const data = await result.json();
             console.log("login: ", data);
 
@@ -54,7 +60,6 @@ const Login = () => {
             }
 
         } catch (err) {
-            setError(false);
             console.error("Something went wrong:", err.message);
         } finally {
             setLoader2(false);
