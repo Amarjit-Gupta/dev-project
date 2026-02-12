@@ -60,7 +60,7 @@ const ReportingList = () => {
             console.log("selectedFilters:????....", selectedFilters);
 
             setLoad(true);
-            let listResult = await fetch(`${base_url}/reports/filter/displa`, {
+            let listResult = await fetch(`${base_url}/reports/filter/display`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(selectedFilters)
