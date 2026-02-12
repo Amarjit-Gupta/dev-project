@@ -4,7 +4,7 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { base_url } from "../URL";
-import Breadcrumbs from "../components/BreadCrumbs";
+// import Breadcrumbs from "../components/BreadCrumbs";
 
 const AllReports = () => {
 
@@ -55,6 +55,7 @@ const AllReports = () => {
             }
         }
         catch (err) {
+            alert(err.message);
             console.log("something went wrong...");
         } finally {
             setLoading(false); // loading off
@@ -85,6 +86,7 @@ const AllReports = () => {
             }
         }
         catch (err) {
+            alert(err.message);
             console.log("something went wrong...", err.message);
         }
         // finally {
@@ -121,6 +123,7 @@ const AllReports = () => {
                 }
             }
             catch (err) {
+                alert(err.message);
                 console.log("something went wrong...");
             }
         }
@@ -191,6 +194,7 @@ const AllReports = () => {
                 }
                 console.log("Filtered Data.....:", data);
             } catch (err) {
+                alert(err.message);
                 console.error(err);
             }
             finally {
@@ -233,6 +237,7 @@ const AllReports = () => {
                     setReportsData(data.items);
                 }
             } catch (err) {
+                alert(err.message);
                 console.error(err);
             } finally {
                 setLoading(false);
@@ -246,9 +251,9 @@ const AllReports = () => {
         <div className=" bg-gray-100">
             <div className=" w-285 m-auto py-5">
 
-                <div className="border">
+                {/* <div className="border">
                     <Breadcrumbs/>
-                </div>
+                </div> */}
 
                 <h1 className="text-primary text-24 font-semibold">All Reports</h1>
                 <div className=" h-9 mt-3">

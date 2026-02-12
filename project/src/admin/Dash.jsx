@@ -36,6 +36,7 @@ const Dash = () => {
             }
         }
         catch (err) {
+            alert(err.message);
             console.log("Something went wrong...");
         } finally {
             setLoading1(false); // loading off
@@ -127,7 +128,7 @@ const Dash = () => {
                         <p className="text-16 text-primary font-regular">- Price updated: "Vitamin C Market" (Yesterday)</p>
                         <p className="text-16 text-primary font-regular">- Draft saved: "Germany Pharma" (2 days ago)</p>
                     </div>
-                    
+
                     <div className="bg-surface rounded-2xl p-5 shadow-sm border border-gray-200 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
                         <h1 className="text-24 text-primary font-semibold mb-3">Alerts/Warning</h1>
                         <p className="text-16 text-primary font-regular flex items-center gap-2"><IoIosWarning className="text-yellow-500" /> Drafts older than 14 days: 6</p>

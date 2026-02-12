@@ -1,18 +1,279 @@
+// import { RxHamburgerMenu } from "react-icons/rx";
+// import { useEffect, useState } from 'react';
+// import logo from '../assets/Logo-Integers.svg';
+// import { RxCross2 } from "react-icons/rx";
+// import { Link, NavLink, useNavigate } from "react-router-dom";
+// import logoSmall from '../assets/logo-small.svg';
+// import { base_url } from "../URL";
+
+// const Navbar = () => {
+
+//     const [menu, setMenu] = useState(false);
+
+//     const [openPopup, setOpenPopup] = useState(false);
+
+//     const navigate = useNavigate();
+
+//     const handleClick = (e) => {
+//         e.stopPropagation();
+//         setOpenPopup(!openPopup);
+//     };
+
+//     useEffect(() => {
+//         const closeMenu = () => setOpenPopup(false);
+//         window.addEventListener("click", closeMenu);
+//         return () => window.removeEventListener("click", closeMenu);
+//     }, []);
+
+//     const handleLogout = async () => {
+//         try {
+//             const result = await fetch(`${base_url}/logout`, {
+//                 method: "POST",
+//                 headers: { "Content-Type": "application/json" },
+//                 credentials: "include"
+//             });
+
+//             if (!result.ok) {
+//                 throw new Error(`HTTP error! status: ${result.status}`);
+//             }
+
+//             const data = await result.json();
+
+//             console.log("logout msg: ", data);
+
+//             if (data.success) {
+//                 // setOpenPopup(false)
+//                 // setIsAuthenticated(false);
+//                 // setUser(null);
+//                 localStorage.removeItem("n@xIIktKQXeorj.W*XF5tFrKl");
+//                 navigate("/login");
+//                 alert(data.message);
+//             }
+//             else {
+//                 // setOpenPopup(false)
+//                 alert("Logout Failed");
+//             }
+
+//         } catch (err) {
+//             console.error("Something went wrong:", err.message);
+//         }
+//     }
+
+
+
+
+//     let isAuth = localStorage.getItem("n@xIIktKQXeorj.W*XF5tFrKl");
+//     console.log("isAuth?????", isAuth);
+
+//     let userName = isAuth ? JSON.parse(isAuth) : "";
+
+//     let uname = userName ? (userName.full_name).slice(0, 1) : "";
+
+//     return (
+//         <>
+//             <div className="bg-surface h-21 flex justify-around items-center sticky top-0 left-0 z-50">
+//                 <div className="w-55 h-11 hidden sm:block"><img src={logo} alt="logo" className='h-full w-full' /></div>
+//                 <div className="w-11 h-11 sm:hidden"><img src={logoSmall} alt="logo" className='h-full w-full' /></div>
+
+//                 <div className="lg:hidden">
+//                     <div className="h-9 border-brand-primary w-45 sm:w-59 flex py-1 sm:py-2 px-2 sm:px-4 items-center">
+//                         <input type="search" className='h-full text-16 outline-0 w-full' placeholder='Search report...' />
+//                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+//                             <path d="M16.4197 16.4197C16.7126 16.1268 17.1874 16.1268 17.4803 16.4197L21.5301 20.4695C21.823 20.7624 21.823 21.2372 21.5301 21.5301C21.2372 21.823 20.7624 21.823 20.4695 21.5301L16.4197 17.4803C16.1268 17.1874 16.1268 16.7126 16.4197 16.4197Z" fill="#3CD690" />
+//                             <path d="M18.4502 11.0996C18.45 7.0405 15.1588 3.75 11.0996 3.75C7.04063 3.75021 3.75021 7.04063 3.75 11.0996C3.75 15.1588 7.0405 18.45 11.0996 18.4502C15.1589 18.4502 18.4502 15.1589 18.4502 11.0996ZM19.9502 11.0996C19.9502 15.9873 15.9873 19.9502 11.0996 19.9502C6.21207 19.95 2.25 15.9872 2.25 11.0996C2.25021 6.2122 6.2122 2.25021 11.0996 2.25C15.9872 2.25 19.95 6.21207 19.9502 11.0996Z" fill="#3CD690" />
+//                         </svg>
+//                     </div>
+//                 </div>
+
+//                 <button className='lg:hidden text-2xl' onClick={() => setMenu(!menu)}>{menu ? <span><RxCross2 /></span> : <span><RxHamburgerMenu /></span>}</button>
+
+//                 <ul className={`transition-all duration-500 fixed top-21 lg:top-0 lg:static w-full lg:w-auto h-full lg:h-auto text-center bg-surface ${menu ? "right-0" : "-right-[100%]"}`}>
+//                     <li className="block lg:inline-block py-5 lg:py-0"><NavLink to={'/'} onClick={() => setMenu(false)}>Home</NavLink></li>
+//                     {/* <li className="block lg:inline-block lg:pl-9 py-5 lg:py-0">Industries</li> */}
+//                     <li className="block lg:inline-block lg:pl-9 py-5 lg:py-0"><NavLink to={'/report'} onClick={() => setMenu(false)}>Reports</NavLink></li>
+//                     {/* <li className="block lg:inline-block lg:pl-9 py-5 lg:py-0">Use Cases</li> */}
+//                     {/* <li className="block lg:inline-block lg:pl-9 py-5 lg:py-0"><NavLink to={"/pricing"}>Pricing</NavLink></li> */}
+
+//                     <li className="block lg:inline-block lg:pl-9 py-5 lg:py-0"><NavLink to={"/contact"} onClick={() => setMenu(false)}>Contact Us</NavLink></li>
+
+//                     {isAuth &&
+//                         <div className="lg:hidden">
+//                             <div className="relative inline-block">
+//                                 {/* Header Button */}
+//                                 <button
+//                                     onClick={handleClick}
+//                                     className="border bg-brand rounded-full h-9 w-9 text-20 font-medium transition-all cursor-pointer hover:bg-[var(--color-brand-primary-hover)] capitalize"
+//                                 >
+//                                     {uname}
+//                                 </button>
+
+//                                 {/* Popup */}
+//                                 {openPopup && (
+//                                     <div className="absolute right-0 top-full z-10 mt-2 rounded shadow-lg">
+//                                         <button
+//                                             onClick={handleLogout}
+//                                             className="bg-brand w-full rounded py-2 px-3 text-15 text-primary font-medium cursor-pointer hover:bg-[var(--color-brand-primary-hover)]"
+//                                         >
+//                                             Logout
+//                                         </button>
+//                                     </div>
+//                                 )}
+//                             </div>
+//                         </div>
+//                     }
+//                 </ul>
+
+//                 <div className="hidden lg:block">
+//                     <div className="h-9 border-brand-primary w-59 flex py-2 px-4 items-center">
+//                         <input type="search" className='h-full text-16 outline-0 w-full' placeholder='Search report...' />
+//                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+//                             <path d="M16.4197 16.4197C16.7126 16.1268 17.1874 16.1268 17.4803 16.4197L21.5301 20.4695C21.823 20.7624 21.823 21.2372 21.5301 21.5301C21.2372 21.823 20.7624 21.823 20.4695 21.5301L16.4197 17.4803C16.1268 17.1874 16.1268 16.7126 16.4197 16.4197Z" fill="#3CD690" />
+//                             <path d="M18.4502 11.0996C18.45 7.0405 15.1588 3.75 11.0996 3.75C7.04063 3.75021 3.75021 7.04063 3.75 11.0996C3.75 15.1588 7.0405 18.45 11.0996 18.4502C15.1589 18.4502 18.4502 15.1589 18.4502 11.0996ZM19.9502 11.0996C19.9502 15.9873 15.9873 19.9502 11.0996 19.9502C6.21207 19.95 2.25 15.9872 2.25 11.0996C2.25021 6.2122 6.2122 2.25021 11.0996 2.25C15.9872 2.25 19.95 6.21207 19.9502 11.0996Z" fill="#3CD690" />
+//                         </svg>
+//                     </div>
+//                 </div>
+
+//                 {isAuth &&
+//                     <div className="hidden lg:block">
+//                         <div className="relative inline-block">
+//                             {/* Header Button */}
+//                             <button
+//                                 onClick={handleClick}
+//                                 className="border bg-brand rounded-full h-9 w-9 text-20 font-medium transition-all cursor-pointer hover:bg-[var(--color-brand-primary-hover)] capitalize"
+//                             >
+//                                 {uname}
+//                             </button>
+
+//                             {/* Popup */}
+//                             {openPopup && (
+//                                 <div className="absolute right-0 top-full z-10 mt-2 rounded shadow-lg">
+//                                     <button
+//                                         onClick={handleLogout}
+//                                         className="bg-brand w-full rounded py-2 px-3 text-15 text-primary font-medium cursor-pointer hover:bg-[var(--color-brand-primary-hover)]"
+//                                     >
+//                                         Logout
+//                                     </button>
+//                                 </div>
+//                             )}
+//                         </div>
+//                     </div>
+//                 }
+//             </div>
+//         </>
+//     );
+// };
+// export default Navbar;
+
+
+
+
+
+
+
+
 import { RxHamburgerMenu } from "react-icons/rx";
 import { useEffect, useState } from 'react';
 import logo from '../assets/Logo-Integers.svg';
 import { RxCross2 } from "react-icons/rx";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import logoSmall from '../assets/logo-small.svg';
+import logoSmall from '../assets/Logo-Integers1.svg';
+import { FiChevronDown } from "react-icons/fi";
+import { FiChevronUp } from "react-icons/fi";
 import { base_url } from "../URL";
 
 const Navbar = () => {
 
     const [menu, setMenu] = useState(false);
-
+    const [activeMegaMenu, setActiveMegaMenu] = useState(null);
     const [openPopup, setOpenPopup] = useState(false);
-
     const navigate = useNavigate();
+
+    // Mega Menu Data
+    const megaMenus = {
+        industries: {
+            title: "Industries",
+            sections: [
+                {
+                    // title: { name: "Consumer Goods", link: "Consumer Goods" },
+                    title: "Consumer Goods",
+                    items: [
+                        { name: "Food & Drink", link: "Food & Drink" },
+                        { name: "Beauty & Personal Care", link: "Beauty & Personal Care" },
+                        { name: "Household", link: "Household" },
+                    ]
+                },
+                {
+                    // title: { name: "Health & Wellness", title: "Health & Wellness" },
+                    title: "Health & Wellness",
+                    items: [
+                        { name: "Pharmaceuticals", link: "Pharmaceuticals" },
+                        { name: "Nutraceuticals", link: "Nutraceuticals" },
+                        { name: "Medical Nutrition", link: "Medical Nutrition" },
+                    ]
+                },
+                {
+                    // title: { name: "Ingredients & Materials", link: "Ingredients & Materials" },
+                    title: "Ingredients & Materials",
+                    items: [
+                        { name: "Vitamins & Minerals", link: "Vitamins & Minerals" },
+                        { name: "Amino Acids", link: "Amino Acids" },
+                        { name: "Herbal Extracts", link: "Herbal Extracts" },
+                        { name: "Functional Ingredients", link: "Functional Ingredients" },
+                    ]
+                },
+                {
+                    // title: { name: "Future Updates", link: "Future Updates" },
+                    title: "Future Updates",
+                    items: [
+                        { name: "Chemicals", link: "Chemicals" },
+                        { name: "Agriculture", link: "Agriculture" },
+                    ]
+                }
+            ]
+        },
+        reports: {
+            title: "Reports",
+            sections: [
+                {
+                    title: "Market Intelligence",
+                    items: [
+                        { name: "Market Intelligence Reports", link: "/reports/market-intelligence" },
+                        { name: "Market Size & Forecast", link: "/reports/market-size" },
+                        { name: "Competitive Landscape", link: "/reports/competitive-landscape" },
+                        { name: "Pricing & Cost Analysis", link: "/reports/pricing-analysis" },
+                    ]
+                },
+                {
+                    title: "Consumer & Trade Insights",
+                    items: [
+                        { name: "Consumer / Usage Insights", link: "/reports/consumer-insights" },
+                        { name: "Import / Export & Trade", link: "/reports/trade" },
+                        { name: "Regulatory Environment", link: "/reports/regulatory" },
+                        { name: "Innovation & Trends", link: "/reports/innovation-trends" },
+                    ]
+                }
+            ]
+        },
+        useCases: {
+            title: "Use Cases",
+            items: [
+                { name: "New Product Launch", link: "/usecases/new-product" },
+                { name: "Market Entry (Country)", link: "/usecases/market-entry" },
+                { name: "Competitor Benchmarking", link: "/usecases/competitor-benchmarking" },
+                { name: "Investor/Board Presentations", link: "/usecases/investor-presentations" },
+                { name: "Pricing Strategy", link: "/usecases/pricing-strategy" },
+            ]
+        }
+    };
+
+    // Click functions for mobile accordion
+    const handleMobileMenuToggle = (menuName) => {
+        if (activeMegaMenu === menuName) {
+            setActiveMegaMenu(null);
+        } else {
+            setActiveMegaMenu(menuName);
+        }
+    };
 
     const handleClick = (e) => {
         e.stopPropagation();
@@ -26,6 +287,7 @@ const Navbar = () => {
     }, []);
 
     const handleLogout = async () => {
+        // setOpenPopup(false);
         try {
             const result = await fetch(`${base_url}/logout`, {
                 method: "POST",
@@ -33,9 +295,9 @@ const Navbar = () => {
                 credentials: "include"
             });
 
-            if (!result.ok) {
-                throw new Error(`HTTP error! status: ${result.status}`);
-            }
+            // if (!result.ok) {
+            //     throw new Error(`HTTP error! status: ${result.status}`);
+            // }
 
             const data = await result.json();
 
@@ -45,6 +307,7 @@ const Navbar = () => {
                 // setOpenPopup(false)
                 // setIsAuthenticated(false);
                 // setUser(null);
+                setMenu(false);
                 localStorage.removeItem("n@xIIktKQXeorj.W*XF5tFrKl");
                 navigate("/login");
                 alert(data.message);
@@ -55,12 +318,10 @@ const Navbar = () => {
             }
 
         } catch (err) {
+            alert(err.message);
             console.error("Something went wrong:", err.message);
         }
     }
-
-
-
 
     let isAuth = localStorage.getItem("n@xIIktKQXeorj.W*XF5tFrKl");
     console.log("isAuth?????", isAuth);
@@ -69,14 +330,23 @@ const Navbar = () => {
 
     let uname = userName ? (userName.full_name).slice(0, 1) : "";
 
+
+    //   let isAuth = true;
+    //   console.log("isAuth?????", isAuth);
+
+    //   let userName = isAuth ? JSON.parse(isAuth) : "";
+
+    //   let uname = "Hii"
+
+
     return (
         <>
-            <div className="bg-surface h-21 flex justify-around items-center sticky top-0 left-0 z-50">
+            <div className="border bg-surface h-21 flex justify-around items-center sticky top-0 left-0 z-50">
                 <div className="w-55 h-11 hidden sm:block"><img src={logo} alt="logo" className='h-full w-full' /></div>
-                <div className="w-11 h-11 sm:hidden"><img src={logoSmall} alt="logo" className='h-full w-full' /></div>
+                <div className="w-11 h-11 sm:hidden bg-red-500"><img src={logoSmall} alt="logo" className='h-full w-full' /></div>
 
-                <div className="lg:hidden">
-                    <div className="h-9 border-brand-primary w-45 sm:w-59 flex py-1 sm:py-2 px-2 sm:px-4 items-center">
+                <div className="lg:hidden border">
+                    <div className="h-9 border-brand-primary w-45 sm:w-58 flex py-1 sm:py-2 px-2 sm:px-4 items-center">
                         <input type="search" className='h-full text-16 outline-0 w-full' placeholder='Search report...' />
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                             <path d="M16.4197 16.4197C16.7126 16.1268 17.1874 16.1268 17.4803 16.4197L21.5301 20.4695C21.823 20.7624 21.823 21.2372 21.5301 21.5301C21.2372 21.823 20.7624 21.823 20.4695 21.5301L16.4197 17.4803C16.1268 17.1874 16.1268 16.7126 16.4197 16.4197Z" fill="#3CD690" />
@@ -85,46 +355,371 @@ const Navbar = () => {
                     </div>
                 </div>
 
-                <button className='lg:hidden text-2xl' onClick={() => setMenu(!menu)}>{menu ? <span><RxCross2 /></span> : <span><RxHamburgerMenu /></span>}</button>
+                <button className='lg:hidden text-2xl' onClick={() => setMenu(!menu)}>
+                    {menu ? <RxCross2 /> : <RxHamburgerMenu />}
+                </button>
 
-                <ul className={`transition-all duration-500 fixed top-21 lg:top-0 lg:static w-full lg:w-auto h-full lg:h-auto text-center bg-surface ${menu ? "right-0" : "-right-[100%]"}`}>
-                    <li className="block lg:inline-block py-5 lg:py-0"><NavLink to={'/'} onClick={() => setMenu(false)}>Home</NavLink></li>
-                    {/* <li className="block lg:inline-block lg:pl-9 py-5 lg:py-0">Industries</li> */}
-                    <li className="block lg:inline-block lg:pl-9 py-5 lg:py-0"><NavLink to={'/report'} onClick={() => setMenu(false)}>Reports</NavLink></li>
-                    {/* <li className="block lg:inline-block lg:pl-9 py-5 lg:py-0">Use Cases</li> */}
-                    {/* <li className="block lg:inline-block lg:pl-9 py-5 lg:py-0"><NavLink to={"/pricing"}>Pricing</NavLink></li> */}
+                {/* desktop nav */}
+                <div
+                    className="hidden lg:block relative"
+                >
+                    <ul className="flex items-center space-x-8">
+                        <li className="block lg:inline-block">
+                            <NavLink
+                                to={'/'}
+                            // className={({ isActive }) => `py-2 text-gray-700 hover:text-brand-primary transition-colors ${isActive ? 'text-brand-primary font-medium' : ''}`}
+                            >
+                                Home
+                            </NavLink>
+                        </li>
 
-                    <li className="block lg:inline-block lg:pl-9 py-5 lg:py-0"><NavLink to={"/contact"} onClick={() => setMenu(false)}>Contact Us</NavLink></li>
+                        {/* Industries Mega Menu */}
+                        <li className="relative group border-2 border-red-500">
+                            <div className="flex items-center space-x-1 py-2 text-primary cursor-pointer">
+                                <span>Industries</span>
+                                <FiChevronDown className="group-hover:rotate-180 transition-transform duration-200" />
+                            </div>
 
-                    {isAuth &&
-                        <div className="lg:hidden">
-                            <div className="relative inline-block">
-                                {/* Header Button */}
-                                <button
-                                    onClick={handleClick}
-                                    className="border bg-brand rounded-full h-9 w-9 text-20 font-medium transition-all cursor-pointer hover:bg-[var(--color-brand-primary-hover)] capitalize"
-                                >
-                                    {uname}
-                                </button>
+                            <div className="absolute -left-[100%] top-full mt-2 w-[750px] xl:w-[800px] bg-white shadow-2xl rounded-lg border border-gray-200 z-50 p-6 
+                                opacity-0 invisible 
+                                group-hover:opacity-100 group-hover:visible 
+                                transition-all duration-300 ease-in-out 
+                                transform translate-y-2 group-hover:translate-y-0">
+                                <div className="grid grid-cols-4 gap-8">
+                                    {megaMenus.industries.sections.map((section, index) => (
+                                        <div key={index}>
+                                            <h3 className="font-semibold text-lg mb-3 text-gray-900 border-red-500 border">
+                                                {/* {section.title} */}
 
-                                {/* Popup */}
-                                {openPopup && (
-                                    <div className="absolute right-0 top-full z-10 mt-2 rounded shadow-lg">
-                                        <button
-                                            onClick={handleLogout}
-                                            className="bg-brand w-full rounded py-2 px-3 text-15 text-primary font-medium cursor-pointer hover:bg-[var(--color-brand-primary-hover)]"
-                                        >
-                                            Logout
-                                        </button>
-                                    </div>
-                                )}
+
+                                                <Link
+                                                    to={`/report/${encodeURIComponent(section.title)}`}
+                                                    className="text-primary hover:underline"
+                                                    onClick={() => setActiveMegaMenu(null)}
+                                                >
+                                                    {section.title}
+                                                </Link>
+
+
+                                            </h3>
+                                            <ul className="space-y-2">
+                                                {section.items.map((item, idx) => (
+                                                    <li key={idx}>
+                                                        <Link
+                                                            // to={encodeURIComponent(item.link)}
+                                                            to={`/report/${encodeURIComponent(item.link)}`}
+                                                            className="text-primary block py-1"
+                                                            onClick={() => setActiveMegaMenu(null)}
+                                                        >
+                                                            {item.name}
+                                                        </Link>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </li>
+
+                        {/* Reports Mega Menu */}
+                        <li className="relative group border-2 border-red-500">
+                            <div className="flex items-center space-x-1 py-2 text-primary cursor-pointer">
+                                <span>Reports</span>
+                                <FiChevronDown className="group-hover:rotate-180 transition-transform duration-200" />
+                            </div>
+
+                            <div className="absolute -left-[100%] top-full mt-2 w-[550px] bg-white shadow-2xl rounded-lg border border-gray-200 z-50 p-6 
+                                opacity-0 invisible 
+                                group-hover:opacity-100 group-hover:visible 
+                                transition-all duration-300 ease-in-out 
+                                transform translate-y-2 group-hover:translate-y-0">
+                                <div className="grid grid-cols-2 gap-8">
+                                    {megaMenus.reports.sections.map((section, index) => (
+                                        <div key={index}>
+                                            <h3 className="font-semibold text-lg mb-3 text-gray-900">
+                                                {section.title}
+                                            </h3>
+                                            <ul className="space-y-2">
+                                                {section.items.map((item, idx) => (
+                                                    <li key={idx}>
+                                                        <Link
+                                                            to={item.link}
+                                                            className="text--primary transition-colors block py-1"
+                                                            onClick={() => setActiveMegaMenu(null)}
+                                                        >
+                                                            {item.name}
+                                                        </Link>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </li>
+
+                        {/* Use Cases Mega Menu */}
+                        <li className="relative group border-2 border-red-500">
+                            <div className="flex items-center space-x-1 py-2 text-primary cursor-pointer">
+                                <span>Use Cases</span>
+                                <FiChevronDown className="group-hover:rotate-180 transition-transform duration-200" />
+                            </div>
+
+                            <div className="absolute -left-[100%] top-full mt-2 w-[300px] bg-white shadow-2xl rounded-lg border border-gray-200 z-50 p-6 
+                                opacity-0 invisible 
+                                group-hover:opacity-100 group-hover:visible 
+                                transition-all duration-300 ease-in-out 
+                                transform translate-y-2 group-hover:translate-y-0">
+                                <h3 className="font-semibold text-lg mb-3 text-gray-900">
+                                    Business Applications
+                                </h3>
+                                <ul className="space-y-2">
+                                    {megaMenus.useCases.items.map((item, idx) => (
+                                        <li key={idx}>
+                                            <Link
+                                                to={item.link}
+                                                className="text-primary block py-2"
+                                                onClick={() => setActiveMegaMenu(null)}
+                                            >
+                                                {item.name}
+                                            </Link>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li className="block lg:inline-block">
+                            <NavLink
+                                to={"/contact"}
+                            // className={({ isActive }) => `py-2 text-gray-700 hover:text-brand-primary transition-colors ${isActive ? 'text-brand-primary font-medium' : ''}`}
+                            >
+                                Contact Us
+                            </NavLink>
+                        </li>
+                    </ul>
+                </div>
+
+                {/* Mobile Menu - Accordion Style */}
+                <div className={`fixed top-21 right-0 w-full h-[calc(100vh-84px)] bg-surface overflow-y-auto transition-all duration-300 transform ${menu ? "translate-x-0" : "translate-x-full"} lg:hidden z-40  border-2 border-red-500`}>
+                    <div className="p-4 space-y-1">
+                        {/* Home */}
+                        <div className="mb-2 border">
+                            <NavLink
+                                to={'/'}
+                                // className={({ isActive }) => `block w-full text-left py-2 px-4 rounded-lg ${isActive ? 'text-brand-primary font-medium bg-brand/10' : 'text-gray-700 hover:bg-gray-50'}`}
+
+                                className="block w-full text-left py-2 px-4 rounded-lg hover:bg-gray-200"
+
+                                onClick={() => setMenu(false)}
+                            >
+                                Home
+                            </NavLink>
+                        </div>
+
+                        {/* Industries Accordion */}
+                        <div className="mb-2 border-2 border-red-500">
+                            <button
+                                onClick={() => handleMobileMenuToggle('industries')}
+                                className="flex items-center justify-between w-full text-left py-2 px-4 rounded-lg text-primary hover:bg-gray-200"
+                            >
+                                <span className="font-medium">Industries</span>
+                                <span className="text-gray-500">
+                                    {activeMegaMenu === 'industries' ? <FiChevronUp /> : <FiChevronDown />}
+                                </span>
+                            </button>
+
+                            {/* Accordion Content with Animation */}
+                            <div className={`border border-red-500 overflow-hidden transition-all duration-300 ${activeMegaMenu === 'industries' ? 'max-h-[1000px] opacity-100' : 'max-h-0 opacity-0'}`}>
+                                <div className="pl-4 pr-4 pb-4 space-y-4">
+                                    {megaMenus.industries.sections.map((section, index) => (
+                                        <div key={index} className="space-y-2">
+                                            <h3 className="font-semibold text-gray-900 text-sm">
+                                                {/* {section.title} */}
+                                                <Link
+                                                    to={`/report/${encodeURIComponent(section.title)}`}
+                                                    className="text-primary hover:underline"
+                                                    // onClick={() => setActiveMegaMenu(null)}
+                                                    onClick={() => {
+                                                        setActiveMegaMenu(null);
+                                                        setMenu(false);
+                                                    }}
+                                                >
+                                                    {section.title}
+                                                </Link>
+                                            </h3>
+                                            <ul className="space-y-1">
+                                                {section.items.map((item, idx) => (
+                                                    <li key={idx}>
+                                                        <Link
+                                                            to={item.link}
+                                                            className="text-primary block py-2 pl-2 text-sm"
+                                                            onClick={() => {
+                                                                setActiveMegaMenu(null);
+                                                                setMenu(false);
+                                                            }}
+                                                        >
+                                                            {item.name}
+                                                        </Link>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
                         </div>
-                    }
-                </ul>
 
-                <div className="hidden lg:block">
-                    <div className="h-9 border-brand-primary w-59 flex py-2 px-4 items-center">
+                        {/* Reports Accordion */}
+                        <div className="mb-2  border-2 border-red-500">
+                            <button
+                                onClick={() => handleMobileMenuToggle('reports')}
+                                className="flex items-center justify-between w-full text-left py-2 px-4 rounded-lg text-primary hover:bg-gray-200"
+                            >
+                                <span className="font-medium">Reports</span>
+                                <span className="text-primary">
+                                    {activeMegaMenu === 'reports' ? <FiChevronUp /> : <FiChevronDown />}
+                                </span>
+                            </button>
+
+                            <div className={`overflow-hidden transition-all duration-300 ${activeMegaMenu === 'reports' ? 'max-h-[800px] opacity-100' : 'max-h-0 opacity-0'}`}>
+                                <div className="pl-4 pr-4 pb-4 space-y-4">
+                                    {megaMenus.reports.sections.map((section, index) => (
+                                        <div key={index} className="space-y-2">
+                                            <h3 className="font-semibold text-primary text-sm">
+                                                {section.title}
+                                            </h3>
+                                            <ul className="space-y-1">
+                                                {section.items.map((item, idx) => (
+                                                    <li key={idx}>
+                                                        <Link
+                                                            to={item.link}
+                                                            className="text-primary block py-2 pl-2 text-sm"
+                                                            onClick={() => {
+                                                                setActiveMegaMenu(null);
+                                                                setMenu(false);
+                                                            }}
+                                                        >
+                                                            {item.name}
+                                                        </Link>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Use Cases Accordion */}
+                        <div className="mb-2  border-2 border-red-500">
+                            <button
+                                onClick={() => handleMobileMenuToggle('useCases')}
+                                className="flex items-center justify-between w-full text-left py-2 px-4 rounded-lg text-primary hover:bg-gray-200"
+                            >
+                                <span className="font-medium">Use Cases</span>
+                                <span className="text-gray-500">
+                                    {activeMegaMenu === 'useCases' ? <FiChevronUp /> : <FiChevronDown />}
+                                </span>
+                            </button>
+
+                            <div className={`overflow-hidden transition-all duration-300 ${activeMegaMenu === 'useCases' ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'}`}>
+                                <div className="pl-4 pr-4 pb-4">
+                                    <div className="space-y-2">
+                                        <h3 className="font-semibold text-primary text-sm mb-3">
+                                            Use Cases
+                                        </h3>
+                                        <ul className="space-y-1">
+                                            {megaMenus.useCases.items.map((item, idx) => (
+                                                <li key={idx}>
+                                                    <Link
+                                                        to={item.link}
+                                                        className="text-primary block py-2 pl-2 text-sm"
+                                                        onClick={() => {
+                                                            setActiveMegaMenu(null);
+                                                            setMenu(false);
+                                                        }}
+                                                    >
+                                                        {item.name}
+                                                    </Link>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Contact Us */}
+                        <div className="mb-6 border">
+                            <NavLink
+                                to={"/contact"}
+
+                                // className={({ isActive }) => `block w-full text-left py-4 px-4 rounded-lg ${isActive ? 'text-brand-primary font-medium bg-brand/10' : 'text-gray-700 hover:bg-gray-50'}`}
+
+                                className="block w-full text-left py-2 px-4 rounded-lg hover:bg-gray-200"
+                                onClick={() => setMenu(false)}
+                            >
+                                Contact Us
+                            </NavLink>
+                        </div>
+
+                        {/* User Profile Section for Mobile */}
+                        {/* {isAuth && (
+              <div className="mt-8 pt-6 border-t border-gray-200 border border-red-500">
+                <div className="flex items-center space-x-3 px-4 mb-4">
+                  <div className="border bg-brand rounded-full h-10 w-10 flex items-center justify-center text-lg font-medium text-white">
+                    {uname}
+                  </div>
+                </div>
+
+                {openPopup && (
+                  <div className="mt-2 px-4 border border-blue-500 bg-red-500">
+                    <button
+                      onClick={handleLogout}
+                      className="w-full py-3 px-4 rounded-lg bg-red-50 text-red-600 hover:bg-red-100 transition-colors text-sm font-medium"
+                    >
+                      Logout
+                    </button>
+                  </div>
+                )}
+              </div>
+            )} */}
+                        {isAuth &&
+                            <div className="lg:hidden border border-red-500 px-4">
+                                <div className="relative inline-block">
+                                    {/* Header Button */}
+                                    <button
+                                        onClick={handleClick}
+                                        className="border bg-brand rounded-full h-9 w-9 text-20 font-medium transition-all cursor-pointer hover:bg-[var(--color-brand-primary-hover)] capitalize"
+                                    >
+                                        {uname}
+                                    </button>
+
+                                    {/* Popup */}
+                                    {openPopup && (
+                                        <div className="absolute top-full z-10 mt-2 rounded shadow-lg border border-blue-500">
+                                            <button
+                                                onClick={handleLogout}
+                                                className="bg-brand w-full rounded py-2 px-3 text-15 text-primary font-medium cursor-pointer hover:bg-[var(--color-brand-primary-hover)]"
+                                            >
+                                                Logout
+                                            </button>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        }
+
+
+
+
+                    </div>
+                </div>
+
+                <div className="hidden lg:block border">
+                    <div className="h-9 border-brand-primary w-58 flex py-2 px-4 items-center">
                         <input type="search" className='h-full text-16 outline-0 w-full' placeholder='Search report...' />
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                             <path d="M16.4197 16.4197C16.7126 16.1268 17.1874 16.1268 17.4803 16.4197L21.5301 20.4695C21.823 20.7624 21.823 21.2372 21.5301 21.5301C21.2372 21.823 20.7624 21.823 20.4695 21.5301L16.4197 17.4803C16.1268 17.1874 16.1268 16.7126 16.4197 16.4197Z" fill="#3CD690" />
@@ -134,7 +729,7 @@ const Navbar = () => {
                 </div>
 
                 {isAuth &&
-                    <div className="hidden lg:block">
+                    <div className="hidden lg:block border border-red-500">
                         <div className="relative inline-block">
                             {/* Header Button */}
                             <button
@@ -146,7 +741,7 @@ const Navbar = () => {
 
                             {/* Popup */}
                             {openPopup && (
-                                <div className="absolute right-0 top-full z-10 mt-2 rounded shadow-lg">
+                                <div className="absolute right-0 top-full z-10 mt-2 rounded shadow-lg border border-blue-500">
                                     <button
                                         onClick={handleLogout}
                                         className="bg-brand w-full rounded py-2 px-3 text-15 text-primary font-medium cursor-pointer hover:bg-[var(--color-brand-primary-hover)]"
@@ -162,4 +757,5 @@ const Navbar = () => {
         </>
     );
 };
+
 export default Navbar;

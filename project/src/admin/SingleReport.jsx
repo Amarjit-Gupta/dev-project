@@ -32,6 +32,7 @@ const SingleReport = () => {
             // }
         }
         catch (err) {
+            alert(err.message);
             console.log("something went wrong...");
         } finally {
             setLoading(false);

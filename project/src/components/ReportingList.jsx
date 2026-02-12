@@ -7,7 +7,8 @@ import ListView from "./ListView";
 import { useEffect, useState } from "react";
 // import RelevantReports from "./RelevantReports";
 import { base_url } from "../URL";
-import Breadcrumbs from "./BreadCrumbs";
+// import Breadcrumbs from "./BreadCrumbs";
+import toast, { Toaster } from 'react-hot-toast';
 
 const ReportingList = () => {
 
@@ -75,11 +76,14 @@ const ReportingList = () => {
                 setListData(listData?.items ?? []);
                 setTotalReport(listData?.total ?? null);
             }
-            else {
-                alert("data not found...");
-            }
+            // else {
+            //     alert("data not found...");
+            // }
         }
         catch (err) {
+            // alert("something went wrong...");
+            // alert("err....", err.message);
+            toast.error(err.message);
             console.log("something went wrong...");
         } finally {
             setLoad(false);
@@ -104,11 +108,13 @@ const ReportingList = () => {
                 setSub_industry(data?.sub_industries ?? []);
                 setUsecase(data?.use_case ?? []);
             }
-            else {
-                alert("data not found...");
-            }
+            // else {
+            //     alert("data not found...");
+            // }
         }
         catch (err) {
+            // alert("err......",err.message);
+            toast.error(err.message);
             console.log("something went wrong...");
         }
     }
@@ -170,10 +176,10 @@ const ReportingList = () => {
                         </div> */}
 
 
-                        
-                        <div className="">
+
+                        {/* <div className="">
                             <Breadcrumbs />
-                        </div>
+                        </div> */}
 
 
 

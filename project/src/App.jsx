@@ -12,16 +12,22 @@ import ContactForm from "./components/ContactForm";
 import ContactUs from "./components/ContactUs";
 import HomePage from "./components/HomePage";
 import PrivateComponent from "./auth/PrivateComponent";
+import { Toaster } from 'react-hot-toast';
 
 const App = () => {
   return (
     <div>
+      <Toaster position="top-right" reverseOrder={false}/>
       <BrowserRouter>
         <Navbar />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/report" element={<ReportingList />} />
+
+          <Route path="/report/:industry" element={<ReportingList />} />
+
+
           <Route path="/report-name/:id" element={<ReportName />} />
           <Route element={<PrivateComponent />}>
             <Route path="/add" element={<MultiStepForm />} />

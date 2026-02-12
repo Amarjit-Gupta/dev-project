@@ -105,9 +105,9 @@ const ContactForm = ({ popupOpen, setPopupOpen, title }) => {
 
             // console.log("emailResult: ", emailResult);
 
-            if(!emailResult.ok){
-                throw new Error(`HTTP error! status: ${emailResult.status}`);
-            }
+            // if(!emailResult.ok){
+            //     throw new Error(`HTTP error! status: ${emailResult.status}`);
+            // }
 
             let emailData = await emailResult.json();
             console.log("emailData: ", emailData);
@@ -127,6 +127,7 @@ const ContactForm = ({ popupOpen, setPopupOpen, title }) => {
             }
         }
         catch (err) {
+            alert(err.message);
             console.log("something went wrong...", err.message);
         } finally {
             setLoader4(false);

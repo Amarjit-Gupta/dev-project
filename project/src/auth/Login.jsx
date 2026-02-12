@@ -41,11 +41,7 @@ const Login = () => {
                 body: JSON.stringify(inputValue)
             });
 
-            console.log("rseult login", result);
-
-            if(!result.ok){
-                throw new Error(`HTTP error! status: ${result.status}`);
-            }
+            console.log("result login", result);
 
             const data = await result.json();
             console.log("login: ", data);

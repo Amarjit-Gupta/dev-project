@@ -8654,7 +8654,7 @@ import FormStep6 from "./steps/FormStep6";
 
 import { useNavigate, useParams } from "react-router-dom";
 import { base_url } from "../../URL";
-import Breadcrumbs from "../../components/BreadCrumbs";
+// import Breadcrumbs from "../../components/BreadCrumbs";
 
 const FORM_STEPS = 6;  // Actual form steps
 const TOTAL_STEPS = 7;  // Including review step
@@ -9375,9 +9375,9 @@ const MultiStepForm = () => {
             <>
 
                 {/* breadcrumbs */}
-                <div className="border w-80 sm:w-160 md:w-190 lg:w-230 m-auto py-2">
+                {/* <div className="border w-80 sm:w-160 md:w-190 lg:w-230 m-auto py-2">
                     <Breadcrumbs />
-                </div>
+                </div> */}
                 {/* steps */}
                 <div className="hidden lg:block">
                     <StepIndicator step={formStep} setStep={setFormStep} />

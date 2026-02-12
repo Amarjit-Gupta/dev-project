@@ -9,7 +9,7 @@ import c3 from '../assets/c3.svg';
 import c4 from '../assets/c4.svg';
 import { useNavigate } from 'react-router-dom';
 import { base_url } from '../URL';
-import Breadcrumbs from './BreadCrumbs';
+// import Breadcrumbs from './BreadCrumbs';
 
 const HomePage = () => {
 

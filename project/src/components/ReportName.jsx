@@ -235,7 +235,7 @@ import ContactForm from './ContactForm';
 import TabButton from './TabButton';
 import { useParams } from 'react-router-dom';
 import { base_url } from '../URL';
-import Breadcrumbs from './BreadCrumbs';
+// import Breadcrumbs from './BreadCrumbs';
 
 const ReportName = () => {
 
@@ -293,6 +293,7 @@ const ReportName = () => {
             }
         }
         catch (err) {
+            alert(err.message);
             console.log("Something went wrong...");
         } finally {
             setLoader5(false);
@@ -336,9 +337,9 @@ const ReportName = () => {
                             <span>Report Name</span>
                         </div> */}
 
-                        <div className="">
+                        {/* <div className="">
                             <Breadcrumbs />
-                        </div>
+                        </div> */}
 
                         {/*  */}
                         <div className=" flex gap-1.5 xl:gap-4 mt-6">
