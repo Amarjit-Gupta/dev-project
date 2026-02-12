@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 // import RelevantReports from "./RelevantReports";
 import { base_url } from "../URL";
 // import Breadcrumbs from "./BreadCrumbs";
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 
 const ReportingList = () => {
 
@@ -60,7 +60,7 @@ const ReportingList = () => {
             console.log("selectedFilters:????....", selectedFilters);
 
             setLoad(true);
-            let listResult = await fetch(`${base_url}/reports/filter/display`, {
+            let listResult = await fetch(`${base_url}/reports/filter/displa`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(selectedFilters)

@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { base_url } from "../URL";
+import toast from 'react-hot-toast';
 
 const SingleReport = () => {
 
@@ -32,7 +33,8 @@ const SingleReport = () => {
             // }
         }
         catch (err) {
-            alert(err.message);
+            // alert(err.message);
+            toast.error(err.message);
             console.log("something went wrong...");
         } finally {
             setLoading(false);

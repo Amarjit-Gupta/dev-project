@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { base_url } from "../URL";
 // import Breadcrumbs from "../components/BreadCrumbs";
+import toast from 'react-hot-toast';
 
 const AllReports = () => {
 
@@ -55,7 +56,8 @@ const AllReports = () => {
             }
         }
         catch (err) {
-            alert(err.message);
+            // alert(err.message);
+            toast.error(err.message);
             console.log("something went wrong...");
         } finally {
             setLoading(false); // loading off
@@ -86,7 +88,8 @@ const AllReports = () => {
             }
         }
         catch (err) {
-            alert(err.message);
+            // alert(err.message);
+            toast.error(err.message);
             console.log("something went wrong...", err.message);
         }
         // finally {
@@ -118,17 +121,18 @@ const AllReports = () => {
                 let result = await data.json();
                 console.log("delete-response: ", result);
                 if (result.success) {
-                    alert("Report delete Successfully");
+                    toast.success("Report delete Successfully");
                     getAllReportData();
                 }
             }
             catch (err) {
-                alert(err.message);
+                // alert(err.message);
+                toast.error(err.message);
                 console.log("something went wrong...");
             }
         }
         else {
-            alert("Data not delete...");
+            toast.error("Data not delete...");
         }
     }
 
@@ -194,7 +198,8 @@ const AllReports = () => {
                 }
                 console.log("Filtered Data.....:", data);
             } catch (err) {
-                alert(err.message);
+                // alert(err.message);
+                toast.error(err.message);
                 console.error(err);
             }
             finally {
@@ -237,7 +242,8 @@ const AllReports = () => {
                     setReportsData(data.items);
                 }
             } catch (err) {
-                alert(err.message);
+                // alert(err.message);
+                toast.error(err.message);
                 console.error(err);
             } finally {
                 setLoading(false);

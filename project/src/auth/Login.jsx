@@ -4,6 +4,7 @@ import { FaRegEyeSlash } from "react-icons/fa";
 import { FaRegEye } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 import { base_url } from "../URL";
+import toast from 'react-hot-toast';
 
 const Login = () => {
 
@@ -49,13 +50,16 @@ const Login = () => {
             if (data.success) {
                 localStorage.setItem("n@xIIktKQXeorj.W*XF5tFrKl", JSON.stringify(data));
                 navigate("/dash");
-                alert(data.message);
+                // alert(data.message);
+                toast.success(data.message);
             }
             else {
-                alert(data.detail);
+                // alert(data.detail);
+                toast.error(data.detail);
             }
 
         } catch (err) {
+            toast.error(err.message);
             console.error("Something went wrong:", err.message);
         } finally {
             setLoader2(false);

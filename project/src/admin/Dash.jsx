@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { IoIosWarning } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import { base_url } from "../URL";
+import toast from 'react-hot-toast';
+
 const Dash = () => {
 
     const [draftDataCard, setDraftDataCard] = useState([]);
@@ -36,7 +38,8 @@ const Dash = () => {
             }
         }
         catch (err) {
-            alert(err.message);
+            // alert(err.message);
+            toast.error(err.message);
             console.log("Something went wrong...");
         } finally {
             setLoading1(false); // loading off
