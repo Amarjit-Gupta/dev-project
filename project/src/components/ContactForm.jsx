@@ -3,6 +3,7 @@ import { countries, roles } from "./Data";
 import { RxCross2 } from "react-icons/rx";
 import { RiLoader4Fill } from "react-icons/ri";
 import { base_url } from "../URL";
+import toast from 'react-hot-toast';
 
 const ContactForm = ({ popupOpen, setPopupOpen, title }) => {
 
@@ -74,7 +75,8 @@ const ContactForm = ({ popupOpen, setPopupOpen, title }) => {
             return;
         }
         if (!phoneRegex.test(contact)) {
-            alert("Please enter valid Contact No.");
+            toast.error("Please enter valid Contact No.");
+            //alert("Please enter valid Contact No.");
             return;
         }
 
@@ -121,13 +123,13 @@ const ContactForm = ({ popupOpen, setPopupOpen, title }) => {
                 setMessage("");
                 setError(false);
                 setPopupOpen(false);
-                alert(emailData.message || "Your message has been sent.");
+                toast.success(emailData.message || "Your message has been sent.");
             } else {
-                alert(emailData.message || "Your message has not been sent.");
+                toast.error(emailData.message || "Your message has not been sent.");
             }
         }
         catch (err) {
-            alert(err.message);
+            toast.error(err.message);
             console.log("something went wrong...", err.message);
         } finally {
             setLoader4(false);

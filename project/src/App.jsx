@@ -27,7 +27,6 @@ const App = () => {
 
           <Route path="/report/:industry" element={<ReportingList />} />
 
-
           <Route path="/report-name/:id" element={<ReportName />} />
           <Route element={<PrivateComponent />}>
             <Route path="/add" element={<MultiStepForm />} />

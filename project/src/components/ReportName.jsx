@@ -236,6 +236,7 @@ import TabButton from './TabButton';
 import { useParams } from 'react-router-dom';
 import { base_url } from '../URL';
 // import Breadcrumbs from './BreadCrumbs';
+import toast from 'react-hot-toast';
 
 const ReportName = () => {
 
@@ -293,7 +294,7 @@ const ReportName = () => {
             }
         }
         catch (err) {
-            alert(err.message);
+            toast.error(err.message);
             console.log("Something went wrong...");
         } finally {
             setLoader5(false);

@@ -4,6 +4,7 @@ import { RiLoader4Fill } from "react-icons/ri";
 import { IoChevronDown } from "react-icons/io5";
 import { base_url } from "../URL";
 // import Breadcrumbs from "./BreadCrumbs";
+import toast from 'react-hot-toast';
 
 
 const ContactUs = () => {
@@ -67,7 +68,7 @@ const ContactUs = () => {
             return;
         }
         if (!phoneRegex.test(contact)) {
-            alert("Please enter valid Contact No.");
+            toast.error("Please enter valid Contact No.");
             return;
         }
 
@@ -110,12 +111,13 @@ const ContactUs = () => {
                 setSelectedCountry("");
                 setMessage("");
                 setError(false);
-                alert(emailData.message || "Your message has been sent.");
+                toast.success(emailData.message || "Your message has been sent.");
             } else {
-                alert(emailData.message || "Your message has not been sent.");
+                toast.error(emailData.message || "Your message has not been sent.");
             }
         }
         catch (err) {
+            toast.error("something went wrong...");
             console.log("something went wrong...", err.message);
         } finally {
             setLoader3(false);

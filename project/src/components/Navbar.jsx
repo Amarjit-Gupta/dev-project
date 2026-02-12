@@ -180,6 +180,7 @@ import logoSmall from '../assets/Logo-Integers1.svg';
 import { FiChevronDown } from "react-icons/fi";
 import { FiChevronUp } from "react-icons/fi";
 import { base_url } from "../URL";
+import toast from 'react-hot-toast';
 
 const Navbar = () => {
 
@@ -310,15 +311,15 @@ const Navbar = () => {
                 setMenu(false);
                 localStorage.removeItem("n@xIIktKQXeorj.W*XF5tFrKl");
                 navigate("/login");
-                alert(data.message);
+                toast.success(data.message);
             }
             else {
                 // setOpenPopup(false)
-                alert("Logout Failed");
+                toast.error("Logout Failed");
             }
 
         } catch (err) {
-            alert(err.message);
+            toast.error(err.message);
             console.error("Something went wrong:", err.message);
         }
     }
@@ -416,8 +417,13 @@ const Navbar = () => {
                                                     </li>
                                                 ))}
                                             </ul>
+
+
+                                           
                                         </div>
                                     ))}
+
+                                    <p className="font-medium"><NavLink to={'/report'}>See All Reports</NavLink></p>
                                 </div>
                             </div>
                         </li>
