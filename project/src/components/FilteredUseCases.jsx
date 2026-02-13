@@ -172,14 +172,14 @@ const FilteredUseCases = () => {
 
 
 
-    useEffect(() => {
-        if (decodedUseCase) {
-            setSelectedFilters(prev => ({
-                ...prev,
-                use_cases: [decodedUseCase]
-            }));
-        }
-    }, [decodedUseCase]);
+    // useEffect(() => {
+    //     if (decodedUseCase) {
+    //         setSelectedFilters(prev => ({
+    //             ...prev,
+    //             use_cases: [decodedUseCase]
+    //         }));
+    //     }
+    // }, [decodedUseCase]);
 
     /// for test <><><><><>
 

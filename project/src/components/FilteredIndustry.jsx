@@ -335,6 +335,868 @@
 
 
 
+// /// ye work kar raha hai
+
+// import FilterCategory from "./FilterCategory";
+// import AZ from '../assets/sorting-a-z-02.svg';
+// import { RxHamburgerMenu } from "react-icons/rx";
+// import { TfiLayoutGrid2 } from "react-icons/tfi";
+// import GridView from "./GridView";
+// import ListView from "./ListView";
+// import { useEffect, useState } from "react";
+// // import RelevantReports from "./RelevantReports";
+// import { base_url } from "../URL";
+// // import Breadcrumbs from "./BreadCrumbs";
+// import toast from 'react-hot-toast';
+// import { useParams } from "react-router-dom";
+
+
+// const FilteredIndustry = () => {
+
+//     const [view, setView] = useState('grid');
+
+//     // filter category
+//     const [industry, setIndustry] = useState([]);
+//     const [country, setCountry] = useState([]);
+//     const [region, setRegion] = useState([]);
+//     const [report_type, setReport_type] = useState([]);
+//     const [sub_industry, setSub_industry] = useState([]);
+//     const [use_cases, setUsecase] = useState([]);
+//     const [totalReport, setTotalReport] = useState(null);
+//     const [listData, setListData] = useState([]);
+//     const [load, setLoad] = useState(false);
+
+
+//     // industry based filtered data
+
+//     const [mainTitle, setMainTitle] = useState("");
+//     const [mainSubTitle, setMainSubTitle] = useState("");
+//     const [mainImage, setMainImage] = useState("");
+
+
+
+
+//     const { slug } = useParams();
+//     const decodedIndustry = slug ? decodeURIComponent(slug) : "";
+
+//     console.log("decodeSludg", decodedIndustry);
+
+
+
+
+//     const [selectedFilters, setSelectedFilters] = useState({
+//         industries: [],
+//         sub_industries: [],
+//         report_types: [],
+//         regions: [],
+//         countries: [],
+//         use_cases: []
+//     });
+
+
+//     const handleCheckboxChange = (group, value) => {
+//         setSelectedFilters(prev => {
+//             const exists = prev[group].includes(value);
+
+//             return {
+//                 ...prev,
+//                 [group]: exists
+//                     ? prev[group].filter(item => item !== value)
+//                     : [...prev[group], value]
+//             };
+//         });
+//     };
+
+
+//     const getListData = async () => {
+//         try {
+
+//             // console.log("selectedFilters:????....", selectedFilters);
+//             setLoad(true);
+//             let listResult = await fetch(`${base_url}/industries/${decodedIndustry}`);
+
+//             if (!listResult.ok) {
+//                 throw new Error(`HTTP error! status: ${listResult.status}`);
+//             }
+
+//             let listData = await listResult.json();
+//             console.log("listData for industry: ", listData);
+//             if (listData) {
+//                 setListData(listData?.reports ?? []);
+//                 setTotalReport(listData?.total_reports ?? null);
+
+//                 setMainTitle(listData?.industry ?? "");
+//                 setMainSubTitle(listData?.subtitle ?? "");
+//                 setMainImage(listData?.img_path ?? "");
+//             }
+//             // else {
+//             //     alert("data not found...");
+//             // }
+//         }
+//         catch (err) {
+//             // alert("something went wrong...");
+//             // alert("err....", err.message);
+//             toast.error(err.message);
+//             console.log("something went wrong...");
+//         } finally {
+//             setLoad(false);
+//         }
+//     }
+
+//     const getCheckBoxData = async () => {
+//         try {
+//             let result = await fetch(`${base_url}/filters`);
+
+//             if (!result.ok) {
+//                 throw new Error(`HTTP error! status: ${result.status}`);
+//             }
+
+//             let data = await result.json();
+//             console.log("checkboxData: ", data);
+//             if (data) {
+//                 setIndustry(data?.industries ?? []);
+//                 setCountry(data?.countries ?? []);
+//                 setRegion(data?.regions ?? []);
+//                 setReport_type(data?.report_types ?? []);
+//                 setSub_industry(data?.sub_industries ?? []);
+//                 setUsecase(data?.use_case ?? []);
+//             }
+//             // else {
+//             //     alert("data not found...");
+//             // }
+//         }
+//         catch (err) {
+//             // alert("err......",err.message);
+//             toast.error(err.message);
+//             console.log("something went wrong...");
+//         }
+//     }
+
+//     // console.log("industry", industry);
+//     // console.log("country", country);
+//     // console.log("region", region);
+//     // console.log("report_type", report_type);
+//     // console.log("sub_industry", sub_industry);
+
+
+
+
+//     // console.log("Selected Filters:", selectedFilters);
+
+
+
+
+//     const resetFilters = () => {
+//         setSelectedFilters({
+//             industries: [],
+//             sub_industries: [],
+//             report_types: [],
+//             regions: [],
+//             countries: [],
+//             use_cases: []
+//         });
+//     };
+
+//     useEffect(() => {
+//         getCheckBoxData();
+//     }, []);
+
+//     // useEffect(() => {
+//     //     if (decodedIndustry) {
+//     //         setSelectedFilters(prev => ({
+//     //             ...prev,
+//     //             industries: [decodedIndustry]
+//     //         }));
+//     //     }
+//     // }, [decodedIndustry]);
+
+
+//     /// for test <><><><><>
+
+
+//     const getListData1 = async () => {
+//         try {
+
+//             console.log("selectedFilters:????....", selectedFilters);
+
+//             setLoad(true);
+//             let listResult = await fetch(`${base_url}/reports/filter/display`, {
+//                 method: "POST",
+//                 headers: { "Content-Type": "application/json" },
+//                 body: JSON.stringify(selectedFilters)
+//             });
+
+//             if (!listResult.ok) {
+//                 throw new Error(`HTTP error! status: ${listResult.status}`);
+//             }
+
+//             let listData = await listResult.json();
+//             console.log("listData after selected: ", listData);
+//             if (listData) {
+//                 setListData(listData?.items ?? []);
+//                 setTotalReport(listData?.total ?? null);
+//             }
+//             // else {
+//             //     alert("data not found...");
+//             // }
+//         }
+//         catch (err) {
+//             // alert("something went wrong...");
+//             // alert("err....", err.message);
+//             toast.error(err.message);
+//             console.log("something went wrong...");
+//         } finally {
+//             setLoad(false);
+//         }
+//     }
+//     useEffect(() => {
+//         getListData1();
+
+//         console.log("all data api called...");
+//     }, [selectedFilters]);
+
+//     console.log("selectedFilters<><><><>", selectedFilters);
+//     //////
+
+//     useEffect(() => {
+//         getListData();
+
+//         console.log("all data api called...");
+//     }, [decodedIndustry]);
+
+//     console.log("listdata............: ", listData);
+//     console.log("totalReport............: ", totalReport);
+
+//     return (
+//         <div className="bg-gray-color">
+
+
+//             {/* main content */}
+//             <div className=" h-120 flex items-center w-full bg-gray-300"
+//                 style={{
+//                     backgroundImage: `url(${mainImage})`,
+//                     backgroundSize: "cover",
+//                     backgroundPosition: "center",
+//                     backgroundRepeat: "no-repeat"
+//                 }}
+//             >
+//                 <div className=" w-80 sm:w-140 xl:w-285 m-auto flex gap-5 justify-center">
+//                     <div className="w-80 sm:w-140 flex flex-col gap-8">
+//                         {/* <div className=" flex gap-2 text-primary text-16 font-regular">
+//                             <span>Home</span>
+//                             <span>&gt;</span>
+//                             <span>Reports</span>
+//                             <span>&gt;</span>
+//                             <span>Industry Name</span>
+//                             <span>&gt;</span>
+//                             <span>Report Name</span>
+//                         </div> */}
+
+
+//                         {/* 
+//                         <div className="">
+//                             <Breadcrumbs />
+//                         </div> */}
+
+
+//                         <div className="">
+//                             <h1 className="text-primary text-32 font-semibold">{mainTitle}</h1>
+//                             <p className="text-primary text-16 font-regular mt-2">{mainSubTitle}</p>
+//                         </div>
+//                         <div className=" flex flex-col gap-4">
+//                             <div className=" flex gap-14">
+
+//                                 <div className=" w-42 flex gap-2">
+//                                     <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+//                                         <path d="M21.25 12C21.25 17.1086 17.1086 21.25 12 21.25C6.89137 21.25 2.75 17.1086 2.75 12C2.75 6.89137 6.89137 2.75 12 2.75C17.1086 2.75 21.25 6.89137 21.25 12ZM22.75 12C22.75 6.06294 17.9371 1.25 12 1.25C6.06294 1.25 1.25 6.06294 1.25 12C1.25 17.9371 6.06294 22.75 12 22.75C17.9371 22.75 22.75 17.9371 22.75 12Z" fill="#001413" />
+//                                         <path d="M15.6406 7.3418C16.004 7.14341 16.4595 7.27735 16.6582 7.64062C16.8566 8.00397 16.7226 8.45954 16.3594 8.6582C14.931 9.43951 13.6153 11.0545 12.6279 12.5664C12.1436 13.3081 11.7554 13.9983 11.4883 14.5029C11.3549 14.7548 11.2523 14.96 11.1836 15.1006C11.1492 15.1709 11.1224 15.2248 11.1055 15.2607C11.097 15.2787 11.0909 15.2922 11.0869 15.3008C11.0851 15.3047 11.0839 15.3077 11.083 15.3096L11.082 15.3115C11.082 15.3115 11.083 15.312 11.082 15.3115C10.9662 15.5648 10.7195 15.7337 10.4414 15.749C10.1632 15.7644 9.89986 15.6238 9.75684 15.3848C9.4238 14.828 8.90274 14.3321 8.43457 13.9619C8.20542 13.7807 7.99927 13.6378 7.85156 13.541C7.77797 13.4928 7.71948 13.4562 7.68066 13.4326C7.66128 13.4208 7.64658 13.4125 7.6377 13.4072C7.63325 13.4046 7.6305 13.4023 7.62891 13.4014C7.6283 13.4024 7.62892 13.4014 7.62891 13.4014C7.26929 13.1962 7.14369 12.7386 7.34863 12.3789C7.55378 12.0192 8.01133 11.8937 8.37109 12.0986L8.38086 12.1035C8.38535 12.1061 8.39109 12.1099 8.39844 12.1143C8.41338 12.1231 8.43404 12.1356 8.45996 12.1514C8.51177 12.1829 8.58501 12.228 8.67383 12.2861C8.85107 12.4022 9.09461 12.5712 9.36523 12.7852C9.64294 13.0047 9.95961 13.2823 10.2666 13.6074C10.5427 13.0963 10.9166 12.4436 11.3721 11.7461C12.3846 10.1957 13.8692 8.31057 15.6406 7.3418Z" fill="#001413" />
+//                                     </svg></span>
+//                                     <span className="text-primary text-16 font-regular">First Bullet Here</span>
+//                                 </div>
+
+//                                 <div className=" w-42 flex gap-2">
+//                                     <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+//                                         <path d="M21.25 12C21.25 17.1086 17.1086 21.25 12 21.25C6.89137 21.25 2.75 17.1086 2.75 12C2.75 6.89137 6.89137 2.75 12 2.75C17.1086 2.75 21.25 6.89137 21.25 12ZM22.75 12C22.75 6.06294 17.9371 1.25 12 1.25C6.06294 1.25 1.25 6.06294 1.25 12C1.25 17.9371 6.06294 22.75 12 22.75C17.9371 22.75 22.75 17.9371 22.75 12Z" fill="#001413" />
+//                                         <path d="M15.6406 7.3418C16.004 7.14341 16.4595 7.27735 16.6582 7.64062C16.8566 8.00397 16.7226 8.45954 16.3594 8.6582C14.931 9.43951 13.6153 11.0545 12.6279 12.5664C12.1436 13.3081 11.7554 13.9983 11.4883 14.5029C11.3549 14.7548 11.2523 14.96 11.1836 15.1006C11.1492 15.1709 11.1224 15.2248 11.1055 15.2607C11.097 15.2787 11.0909 15.2922 11.0869 15.3008C11.0851 15.3047 11.0839 15.3077 11.083 15.3096L11.082 15.3115C11.082 15.3115 11.083 15.312 11.082 15.3115C10.9662 15.5648 10.7195 15.7337 10.4414 15.749C10.1632 15.7644 9.89986 15.6238 9.75684 15.3848C9.4238 14.828 8.90274 14.3321 8.43457 13.9619C8.20542 13.7807 7.99927 13.6378 7.85156 13.541C7.77797 13.4928 7.71948 13.4562 7.68066 13.4326C7.66128 13.4208 7.64658 13.4125 7.6377 13.4072C7.63325 13.4046 7.6305 13.4023 7.62891 13.4014C7.6283 13.4024 7.62892 13.4014 7.62891 13.4014C7.26929 13.1962 7.14369 12.7386 7.34863 12.3789C7.55378 12.0192 8.01133 11.8937 8.37109 12.0986L8.38086 12.1035C8.38535 12.1061 8.39109 12.1099 8.39844 12.1143C8.41338 12.1231 8.43404 12.1356 8.45996 12.1514C8.51177 12.1829 8.58501 12.228 8.67383 12.2861C8.85107 12.4022 9.09461 12.5712 9.36523 12.7852C9.64294 13.0047 9.95961 13.2823 10.2666 13.6074C10.5427 13.0963 10.9166 12.4436 11.3721 11.7461C12.3846 10.1957 13.8692 8.31057 15.6406 7.3418Z" fill="#001413" />
+//                                     </svg></span>
+//                                     <span className="text-primary text-16 font-regular">Second Bullet Here</span>
+//                                 </div>
+//                             </div>
+
+//                             <div className=" flex gap-14">
+
+//                                 <div className=" w-42 flex gap-2">
+//                                     <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+//                                         <path d="M21.25 12C21.25 17.1086 17.1086 21.25 12 21.25C6.89137 21.25 2.75 17.1086 2.75 12C2.75 6.89137 6.89137 2.75 12 2.75C17.1086 2.75 21.25 6.89137 21.25 12ZM22.75 12C22.75 6.06294 17.9371 1.25 12 1.25C6.06294 1.25 1.25 6.06294 1.25 12C1.25 17.9371 6.06294 22.75 12 22.75C17.9371 22.75 22.75 17.9371 22.75 12Z" fill="#001413" />
+//                                         <path d="M15.6406 7.3418C16.004 7.14341 16.4595 7.27735 16.6582 7.64062C16.8566 8.00397 16.7226 8.45954 16.3594 8.6582C14.931 9.43951 13.6153 11.0545 12.6279 12.5664C12.1436 13.3081 11.7554 13.9983 11.4883 14.5029C11.3549 14.7548 11.2523 14.96 11.1836 15.1006C11.1492 15.1709 11.1224 15.2248 11.1055 15.2607C11.097 15.2787 11.0909 15.2922 11.0869 15.3008C11.0851 15.3047 11.0839 15.3077 11.083 15.3096L11.082 15.3115C11.082 15.3115 11.083 15.312 11.082 15.3115C10.9662 15.5648 10.7195 15.7337 10.4414 15.749C10.1632 15.7644 9.89986 15.6238 9.75684 15.3848C9.4238 14.828 8.90274 14.3321 8.43457 13.9619C8.20542 13.7807 7.99927 13.6378 7.85156 13.541C7.77797 13.4928 7.71948 13.4562 7.68066 13.4326C7.66128 13.4208 7.64658 13.4125 7.6377 13.4072C7.63325 13.4046 7.6305 13.4023 7.62891 13.4014C7.6283 13.4024 7.62892 13.4014 7.62891 13.4014C7.26929 13.1962 7.14369 12.7386 7.34863 12.3789C7.55378 12.0192 8.01133 11.8937 8.37109 12.0986L8.38086 12.1035C8.38535 12.1061 8.39109 12.1099 8.39844 12.1143C8.41338 12.1231 8.43404 12.1356 8.45996 12.1514C8.51177 12.1829 8.58501 12.228 8.67383 12.2861C8.85107 12.4022 9.09461 12.5712 9.36523 12.7852C9.64294 13.0047 9.95961 13.2823 10.2666 13.6074C10.5427 13.0963 10.9166 12.4436 11.3721 11.7461C12.3846 10.1957 13.8692 8.31057 15.6406 7.3418Z" fill="#001413" />
+//                                     </svg></span>
+//                                     <span className="text-primary text-16 font-regular">Third Bullet Here</span>
+//                                 </div>
+//                                 <div className=" w-42 flex gap-2">
+//                                     <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+//                                         <path d="M21.25 12C21.25 17.1086 17.1086 21.25 12 21.25C6.89137 21.25 2.75 17.1086 2.75 12C2.75 6.89137 6.89137 2.75 12 2.75C17.1086 2.75 21.25 6.89137 21.25 12ZM22.75 12C22.75 6.06294 17.9371 1.25 12 1.25C6.06294 1.25 1.25 6.06294 1.25 12C1.25 17.9371 6.06294 22.75 12 22.75C17.9371 22.75 22.75 17.9371 22.75 12Z" fill="#001413" />
+//                                         <path d="M15.6406 7.3418C16.004 7.14341 16.4595 7.27735 16.6582 7.64062C16.8566 8.00397 16.7226 8.45954 16.3594 8.6582C14.931 9.43951 13.6153 11.0545 12.6279 12.5664C12.1436 13.3081 11.7554 13.9983 11.4883 14.5029C11.3549 14.7548 11.2523 14.96 11.1836 15.1006C11.1492 15.1709 11.1224 15.2248 11.1055 15.2607C11.097 15.2787 11.0909 15.2922 11.0869 15.3008C11.0851 15.3047 11.0839 15.3077 11.083 15.3096L11.082 15.3115C11.082 15.3115 11.083 15.312 11.082 15.3115C10.9662 15.5648 10.7195 15.7337 10.4414 15.749C10.1632 15.7644 9.89986 15.6238 9.75684 15.3848C9.4238 14.828 8.90274 14.3321 8.43457 13.9619C8.20542 13.7807 7.99927 13.6378 7.85156 13.541C7.77797 13.4928 7.71948 13.4562 7.68066 13.4326C7.66128 13.4208 7.64658 13.4125 7.6377 13.4072C7.63325 13.4046 7.6305 13.4023 7.62891 13.4014C7.6283 13.4024 7.62892 13.4014 7.62891 13.4014C7.26929 13.1962 7.14369 12.7386 7.34863 12.3789C7.55378 12.0192 8.01133 11.8937 8.37109 12.0986L8.38086 12.1035C8.38535 12.1061 8.39109 12.1099 8.39844 12.1143C8.41338 12.1231 8.43404 12.1356 8.45996 12.1514C8.51177 12.1829 8.58501 12.228 8.67383 12.2861C8.85107 12.4022 9.09461 12.5712 9.36523 12.7852C9.64294 13.0047 9.95961 13.2823 10.2666 13.6074C10.5427 13.0963 10.9166 12.4436 11.3721 11.7461C12.3846 10.1957 13.8692 8.31057 15.6406 7.3418Z" fill="#001413" />
+//                                     </svg></span>
+//                                     <span className="text-primary text-16 font-regular">Forth Bullet Here</span>
+//                                 </div>
+//                             </div>
+//                         </div>
+//                     </div>
+
+//                     <div className=" w-140 hidden xl:block">
+//                         {/* <div className="">
+//                             <h1 className="text-32 text-primary font-semibold">Decision-orianted, not feature-orianted</h1>
+//                             <p className="text-16 text-primary font-regular mt-2 ">Comprehensive market trends, comsumer analysis and competitive landscape <br /> reports</p>
+//                         </div>
+
+//                         <div className=" mt-8 flex gap-7">
+//                             <button className="py-2 px-8 bg-surface text-primary text-15 font-medium">Browse Reports</button>
+//                             <button className="py-2 px-8 -text-primary text-primary text-15 font-medium">Search Market Data</button>
+//                         </div> */}
+//                     </div>
+//                 </div>
+//             </div>
+
+
+//             {/* card view */}
+
+//             <div className=" w-80 sm:w-144 xl:w-285 m-auto pb-11.5 mt-18">
+//                 <div className=" w-80 sm:w-144 xl:w-285 m-auto grid grid-cols-1 xl:grid-cols-[22%_auto] gap-7.5">
+//                     <div className=" flex flex-col gap-3 xl:gap-8">
+//                         <FilterCategory
+//                             resetFilters={resetFilters}
+//                             selectedFilters={selectedFilters}
+//                             setSelectedFilters={setSelectedFilters}
+//                             handleCheckboxChange={handleCheckboxChange}
+//                             // industry={industry}
+//                             // sub_industry={sub_industry}
+//                             report_type={report_type}
+//                             region={region}
+//                             country={country}
+//                             use_cases={use_cases}
+//                         />
+//                     </div>
+
+//                     <div>
+
+//                         <div className=" flex justify-around sm:justify-between items-center">
+//                             <div>
+//                                 {/* <h1 className="text-primary text-20 font-medium">234 reports available</h1> */}
+//                                 <h1 className="text-primary text-[13px] sm:text-[20px] font-medium">
+//                                     {totalReport ?? ""} reports available
+//                                 </h1>
+//                             </div>
+//                             <div className=" flex gap-8">
+//                                 <div className="hidden xl:block">
+//                                     <button className={`border border-gray-200 rounded transition-all duration-300 p-2 cursor-pointer hover:bg-[var(--color-brand-primary-hover)] ${view == "grid" ? "bg-brand" : ""}`} onClick={() => setView("grid")}><TfiLayoutGrid2 className="h-6 w-6" /></button>
+//                                     <button className={`ml-0.5 border border-gray-200 rounded transition-all duration-300 p-2 cursor-pointer hover:bg-[var(--color-brand-primary-hover)] ${view == "list" ? "bg-brand" : ""}`} onClick={() => setView("list")}><RxHamburgerMenu className="h-6 w-6" /></button>
+//                                 </div>
+//                                 <div className="border w-45 sm:w-56 h-10.5 px-3 sm:px-6 py-2 flex gap-2">
+//                                     <img src={AZ} alt="" />
+//                                     <select name="" id="" className="text-primary text-15 font-medium outline-0">
+//                                         <option value="">Sort By Alphabet</option>
+//                                         <option value="">Sort By A-Z</option>
+//                                         <option value="">Sort By Z-A</option>
+//                                     </select>
+//                                 </div>
+//                             </div>
+//                         </div>
+
+//                         {/* grid view */}
+//                         {view === "grid" && <div className="w-80 sm:w-144 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 mx-auto xl:w-auto gap-6 mt-7">
+//                             <GridView listData={listData} load={load} />
+//                         </div>}
+
+//                         {/* list view */}
+//                         {view === "list" && <div className="mt-7 flex flex-col gap-6">
+//                             <ListView listData={listData} load={load} />
+//                         </div>}
+
+//                         {/* pagination */}
+
+//                         {/* <div className=" w-66 h-6 mx-auto my-12 text-center">Pagination</div> */}
+
+//                     </div>
+//                 </div>
+
+//                 {/* Relevant Reports */}
+//                 {/* <RelevantReports /> */}
+
+//             </div>
+//         </div>
+//     );
+// };
+// export default FilteredIndustry;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// for test
+
+
+
+
+
+// import FilterCategory from "./FilterCategory";
+// import AZ from '../assets/sorting-a-z-02.svg';
+// import { RxHamburgerMenu } from "react-icons/rx";
+// import { TfiLayoutGrid2 } from "react-icons/tfi";
+// import GridView from "./GridView";
+// import ListView from "./ListView";
+// import { useEffect, useState } from "react";
+// // import RelevantReports from "./RelevantReports";
+// import { base_url } from "../URL";
+// // import Breadcrumbs from "./BreadCrumbs";
+// import toast from 'react-hot-toast';
+// import { useParams } from "react-router-dom";
+
+
+// const FilteredIndustry = () => {
+
+//     const [view, setView] = useState('grid');
+
+//     // filter category
+//     const [industry, setIndustry] = useState([]);
+//     const [country, setCountry] = useState([]);
+//     const [region, setRegion] = useState([]);
+//     const [report_type, setReport_type] = useState([]);
+//     const [sub_industry, setSub_industry] = useState([]);
+//     const [use_cases, setUsecase] = useState([]);
+//     const [totalReport, setTotalReport] = useState(null);
+//     const [listData, setListData] = useState([]);
+//     const [load, setLoad] = useState(false);
+
+
+//     // industry based filtered data
+
+//     const [mainTitle, setMainTitle] = useState("");
+//     const [mainSubTitle, setMainSubTitle] = useState("");
+//     const [mainImage, setMainImage] = useState("");
+
+
+
+
+//     const { slug } = useParams();
+//     // const decodedIndustry = slug ? decodeURIComponent(slug) : "";
+
+//     const decodedIndustry = slug || "";
+
+
+//     console.log("decodeSludg", decodedIndustry);
+
+
+
+
+//     const [selectedFilters, setSelectedFilters] = useState({
+//         industries: [],
+//         sub_industries: [],
+//         report_types: [],
+//         regions: [],
+//         countries: [],
+//         use_cases: []
+//     });
+
+
+
+
+//     const buildQueryString = () => {
+//         const params = new URLSearchParams();
+
+//         if (selectedFilters.regions?.length) {
+//             params.set("region", selectedFilters.regions.join(","));
+//         }
+
+//         if (selectedFilters.countries?.length) {
+//             params.set("country", selectedFilters.countries.join(","));
+//         }
+
+//         if (selectedFilters.report_types?.length) {
+//             params.set("report_type", selectedFilters.report_types.join(","));
+//         }
+
+//         if (selectedFilters.sub_industries?.length) {
+//             params.set("sub_industry", selectedFilters.sub_industries.join(","));
+//         }
+
+//         if (selectedFilters.use_cases?.length) {
+//             params.set("use_case", selectedFilters.use_cases.join(","));
+//         }
+
+//         return params.toString();
+//     };
+
+
+
+//     const handleCheckboxChange = (group, value) => {
+//         setSelectedFilters(prev => {
+//             const exists = prev[group].includes(value);
+
+//             return {
+//                 ...prev,
+//                 [group]: exists
+//                     ? prev[group].filter(item => item !== value)
+//                     : [...prev[group], value]
+//             };
+//         });
+//     };
+
+
+//     const getListData = async () => {
+//         try {
+//             setLoad(true);
+
+//             const queryString = buildQueryString();
+
+//             console.log("querystring:", queryString);
+
+//             // const url = queryString
+//             //     ? `${base_url}/industries/${decodedIndustry}?${queryString}`
+//             //     : `${base_url}/industries/${decodedIndustry}`;
+
+//             let url = `${base_url}/industries/${decodedIndustry}`;
+
+//             if (queryString) {
+//                 url += `?${queryString}`;
+//             }
+
+
+//             console.log("Final URL:", url);
+
+//             let listResult = await fetch(url);
+
+
+
+//             if (!listResult.ok) {
+//                 throw new Error(`HTTP error! status: ${listResult.status}`);
+//             }
+
+//             let listData = await listResult.json();
+
+//             console.log("listresult:::>>>>?????",listData);
+
+//             if (listData) {
+//                 setListData(listData?.reports ?? []);
+//                 setTotalReport(listData?.total_reports ?? null);
+//                 setMainTitle(listData?.industry ?? "");
+//                 setMainSubTitle(listData?.subtitle ?? "");
+//                 setMainImage(listData?.img_path ?? "");
+//             }
+
+//         } catch (err) {
+//             console.log("knjn", err.message);
+//             toast.error(err.message);
+//         } finally {
+//             setLoad(false);
+//         }
+//     };
+
+
+//     const getCheckBoxData = async () => {
+//         try {
+//             let result = await fetch(`${base_url}/filters`);
+
+//             if (!result.ok) {
+//                 throw new Error(`HTTP error! status: ${result.status}`);
+//             }
+
+//             let data = await result.json();
+//             console.log("checkboxData: ", data);
+//             if (data) {
+//                 setIndustry(data?.industries ?? []);
+//                 setCountry(data?.countries ?? []);
+//                 setRegion(data?.regions ?? []);
+//                 setReport_type(data?.report_types ?? []);
+//                 setSub_industry(data?.sub_industries ?? []);
+//                 setUsecase(data?.use_case ?? []);
+//             }
+//             // else {
+//             //     alert("data not found...");
+//             // }
+//         }
+//         catch (err) {
+//             // alert("err......",err.message);
+//             toast.error(err.message);
+//             console.log("something went wrong...");
+//         }
+//     }
+
+//     // console.log("industry", industry);
+//     // console.log("country", country);
+//     // console.log("region", region);
+//     // console.log("report_type", report_type);
+//     // console.log("sub_industry", sub_industry);
+
+
+
+
+//     // console.log("Selected Filters:", selectedFilters);
+
+
+
+
+//     const resetFilters = () => {
+//         setSelectedFilters({
+//             industries: [],
+//             sub_industries: [],
+//             report_types: [],
+//             regions: [],
+//             countries: [],
+//             use_cases: []
+//         });
+//     };
+
+//     useEffect(() => {
+//         getCheckBoxData();
+//     }, []);
+
+//     // useEffect(() => {
+//     //     if (decodedIndustry) {
+//     //         setSelectedFilters(prev => ({
+//     //             ...prev,
+//     //             industries: [decodedIndustry]
+//     //         }));
+//     //     }
+//     // }, [decodedIndustry]);
+
+
+//     /// for test <><><><><>
+
+
+//     // const getListData1 = async () => {
+//     //     try {
+
+//     //         console.log("selectedFilters:????....", selectedFilters);
+
+//     //         setLoad(true);
+//     //         let listResult = await fetch(`${base_url}/reports/filter/display`, {
+//     //             method: "POST",
+//     //             headers: { "Content-Type": "application/json" },
+//     //             body: JSON.stringify(selectedFilters)
+//     //         });
+
+//     //         if (!listResult.ok) {
+//     //             throw new Error(`HTTP error! status: ${listResult.status}`);
+//     //         }
+
+//     //         let listData = await listResult.json();
+//     //         console.log("listData after selected: ", listData);
+//     //         if (listData) {
+//     //             setListData(listData?.items ?? []);
+//     //             setTotalReport(listData?.total ?? null);
+//     //         }
+//     //         // else {
+//     //         //     alert("data not found...");
+//     //         // }
+//     //     }
+//     //     catch (err) {
+//     //         // alert("something went wrong...");
+//     //         // alert("err....", err.message);
+//     //         toast.error(err.message);
+//     //         console.log("something went wrong...");
+//     //     } finally {
+//     //         setLoad(false);
+//     //     }
+//     // }
+//     // useEffect(() => {
+//     //     getListData1();
+
+//     //     console.log("all data api called...");
+//     // }, [selectedFilters]);
+
+//     // console.log("selectedFilters<><><><>", selectedFilters);
+//     //////
+
+//     useEffect(() => {
+//         if (decodedIndustry) {
+//             getListData();
+//         }
+//     }, [selectedFilters, decodedIndustry]);
+
+
+//     console.log("listdata............: ", listData);
+//     console.log("totalReport............: ", totalReport);
+
+//     return (
+//         <div className="bg-gray-color">
+
+
+//             {/* main content */}
+//             <div className=" h-120 flex items-center w-full bg-gray-300"
+//                 style={{
+//                     backgroundImage: `url(${mainImage})`,
+//                     backgroundSize: "cover",
+//                     backgroundPosition: "center",
+//                     backgroundRepeat: "no-repeat"
+//                 }}
+//             >
+//                 <div className=" w-80 sm:w-140 xl:w-285 m-auto flex gap-5 justify-center">
+//                     <div className="w-80 sm:w-140 flex flex-col gap-8">
+//                         {/* <div className=" flex gap-2 text-primary text-16 font-regular">
+//                             <span>Home</span>
+//                             <span>&gt;</span>
+//                             <span>Reports</span>
+//                             <span>&gt;</span>
+//                             <span>Industry Name</span>
+//                             <span>&gt;</span>
+//                             <span>Report Name</span>
+//                         </div> */}
+
+
+//                         {/* 
+//                         <div className="">
+//                             <Breadcrumbs />
+//                         </div> */}
+
+
+//                         <div className="">
+//                             <h1 className="text-primary text-32 font-semibold">{mainTitle}</h1>
+//                             <p className="text-primary text-16 font-regular mt-2">{mainSubTitle}</p>
+//                         </div>
+//                         <div className=" flex flex-col gap-4">
+//                             <div className=" flex gap-14">
+
+//                                 <div className=" w-42 flex gap-2">
+//                                     <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+//                                         <path d="M21.25 12C21.25 17.1086 17.1086 21.25 12 21.25C6.89137 21.25 2.75 17.1086 2.75 12C2.75 6.89137 6.89137 2.75 12 2.75C17.1086 2.75 21.25 6.89137 21.25 12ZM22.75 12C22.75 6.06294 17.9371 1.25 12 1.25C6.06294 1.25 1.25 6.06294 1.25 12C1.25 17.9371 6.06294 22.75 12 22.75C17.9371 22.75 22.75 17.9371 22.75 12Z" fill="#001413" />
+//                                         <path d="M15.6406 7.3418C16.004 7.14341 16.4595 7.27735 16.6582 7.64062C16.8566 8.00397 16.7226 8.45954 16.3594 8.6582C14.931 9.43951 13.6153 11.0545 12.6279 12.5664C12.1436 13.3081 11.7554 13.9983 11.4883 14.5029C11.3549 14.7548 11.2523 14.96 11.1836 15.1006C11.1492 15.1709 11.1224 15.2248 11.1055 15.2607C11.097 15.2787 11.0909 15.2922 11.0869 15.3008C11.0851 15.3047 11.0839 15.3077 11.083 15.3096L11.082 15.3115C11.082 15.3115 11.083 15.312 11.082 15.3115C10.9662 15.5648 10.7195 15.7337 10.4414 15.749C10.1632 15.7644 9.89986 15.6238 9.75684 15.3848C9.4238 14.828 8.90274 14.3321 8.43457 13.9619C8.20542 13.7807 7.99927 13.6378 7.85156 13.541C7.77797 13.4928 7.71948 13.4562 7.68066 13.4326C7.66128 13.4208 7.64658 13.4125 7.6377 13.4072C7.63325 13.4046 7.6305 13.4023 7.62891 13.4014C7.6283 13.4024 7.62892 13.4014 7.62891 13.4014C7.26929 13.1962 7.14369 12.7386 7.34863 12.3789C7.55378 12.0192 8.01133 11.8937 8.37109 12.0986L8.38086 12.1035C8.38535 12.1061 8.39109 12.1099 8.39844 12.1143C8.41338 12.1231 8.43404 12.1356 8.45996 12.1514C8.51177 12.1829 8.58501 12.228 8.67383 12.2861C8.85107 12.4022 9.09461 12.5712 9.36523 12.7852C9.64294 13.0047 9.95961 13.2823 10.2666 13.6074C10.5427 13.0963 10.9166 12.4436 11.3721 11.7461C12.3846 10.1957 13.8692 8.31057 15.6406 7.3418Z" fill="#001413" />
+//                                     </svg></span>
+//                                     <span className="text-primary text-16 font-regular">First Bullet Here</span>
+//                                 </div>
+
+//                                 <div className=" w-42 flex gap-2">
+//                                     <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+//                                         <path d="M21.25 12C21.25 17.1086 17.1086 21.25 12 21.25C6.89137 21.25 2.75 17.1086 2.75 12C2.75 6.89137 6.89137 2.75 12 2.75C17.1086 2.75 21.25 6.89137 21.25 12ZM22.75 12C22.75 6.06294 17.9371 1.25 12 1.25C6.06294 1.25 1.25 6.06294 1.25 12C1.25 17.9371 6.06294 22.75 12 22.75C17.9371 22.75 22.75 17.9371 22.75 12Z" fill="#001413" />
+//                                         <path d="M15.6406 7.3418C16.004 7.14341 16.4595 7.27735 16.6582 7.64062C16.8566 8.00397 16.7226 8.45954 16.3594 8.6582C14.931 9.43951 13.6153 11.0545 12.6279 12.5664C12.1436 13.3081 11.7554 13.9983 11.4883 14.5029C11.3549 14.7548 11.2523 14.96 11.1836 15.1006C11.1492 15.1709 11.1224 15.2248 11.1055 15.2607C11.097 15.2787 11.0909 15.2922 11.0869 15.3008C11.0851 15.3047 11.0839 15.3077 11.083 15.3096L11.082 15.3115C11.082 15.3115 11.083 15.312 11.082 15.3115C10.9662 15.5648 10.7195 15.7337 10.4414 15.749C10.1632 15.7644 9.89986 15.6238 9.75684 15.3848C9.4238 14.828 8.90274 14.3321 8.43457 13.9619C8.20542 13.7807 7.99927 13.6378 7.85156 13.541C7.77797 13.4928 7.71948 13.4562 7.68066 13.4326C7.66128 13.4208 7.64658 13.4125 7.6377 13.4072C7.63325 13.4046 7.6305 13.4023 7.62891 13.4014C7.6283 13.4024 7.62892 13.4014 7.62891 13.4014C7.26929 13.1962 7.14369 12.7386 7.34863 12.3789C7.55378 12.0192 8.01133 11.8937 8.37109 12.0986L8.38086 12.1035C8.38535 12.1061 8.39109 12.1099 8.39844 12.1143C8.41338 12.1231 8.43404 12.1356 8.45996 12.1514C8.51177 12.1829 8.58501 12.228 8.67383 12.2861C8.85107 12.4022 9.09461 12.5712 9.36523 12.7852C9.64294 13.0047 9.95961 13.2823 10.2666 13.6074C10.5427 13.0963 10.9166 12.4436 11.3721 11.7461C12.3846 10.1957 13.8692 8.31057 15.6406 7.3418Z" fill="#001413" />
+//                                     </svg></span>
+//                                     <span className="text-primary text-16 font-regular">Second Bullet Here</span>
+//                                 </div>
+//                             </div>
+
+//                             <div className=" flex gap-14">
+
+//                                 <div className=" w-42 flex gap-2">
+//                                     <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+//                                         <path d="M21.25 12C21.25 17.1086 17.1086 21.25 12 21.25C6.89137 21.25 2.75 17.1086 2.75 12C2.75 6.89137 6.89137 2.75 12 2.75C17.1086 2.75 21.25 6.89137 21.25 12ZM22.75 12C22.75 6.06294 17.9371 1.25 12 1.25C6.06294 1.25 1.25 6.06294 1.25 12C1.25 17.9371 6.06294 22.75 12 22.75C17.9371 22.75 22.75 17.9371 22.75 12Z" fill="#001413" />
+//                                         <path d="M15.6406 7.3418C16.004 7.14341 16.4595 7.27735 16.6582 7.64062C16.8566 8.00397 16.7226 8.45954 16.3594 8.6582C14.931 9.43951 13.6153 11.0545 12.6279 12.5664C12.1436 13.3081 11.7554 13.9983 11.4883 14.5029C11.3549 14.7548 11.2523 14.96 11.1836 15.1006C11.1492 15.1709 11.1224 15.2248 11.1055 15.2607C11.097 15.2787 11.0909 15.2922 11.0869 15.3008C11.0851 15.3047 11.0839 15.3077 11.083 15.3096L11.082 15.3115C11.082 15.3115 11.083 15.312 11.082 15.3115C10.9662 15.5648 10.7195 15.7337 10.4414 15.749C10.1632 15.7644 9.89986 15.6238 9.75684 15.3848C9.4238 14.828 8.90274 14.3321 8.43457 13.9619C8.20542 13.7807 7.99927 13.6378 7.85156 13.541C7.77797 13.4928 7.71948 13.4562 7.68066 13.4326C7.66128 13.4208 7.64658 13.4125 7.6377 13.4072C7.63325 13.4046 7.6305 13.4023 7.62891 13.4014C7.6283 13.4024 7.62892 13.4014 7.62891 13.4014C7.26929 13.1962 7.14369 12.7386 7.34863 12.3789C7.55378 12.0192 8.01133 11.8937 8.37109 12.0986L8.38086 12.1035C8.38535 12.1061 8.39109 12.1099 8.39844 12.1143C8.41338 12.1231 8.43404 12.1356 8.45996 12.1514C8.51177 12.1829 8.58501 12.228 8.67383 12.2861C8.85107 12.4022 9.09461 12.5712 9.36523 12.7852C9.64294 13.0047 9.95961 13.2823 10.2666 13.6074C10.5427 13.0963 10.9166 12.4436 11.3721 11.7461C12.3846 10.1957 13.8692 8.31057 15.6406 7.3418Z" fill="#001413" />
+//                                     </svg></span>
+//                                     <span className="text-primary text-16 font-regular">Third Bullet Here</span>
+//                                 </div>
+//                                 <div className=" w-42 flex gap-2">
+//                                     <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+//                                         <path d="M21.25 12C21.25 17.1086 17.1086 21.25 12 21.25C6.89137 21.25 2.75 17.1086 2.75 12C2.75 6.89137 6.89137 2.75 12 2.75C17.1086 2.75 21.25 6.89137 21.25 12ZM22.75 12C22.75 6.06294 17.9371 1.25 12 1.25C6.06294 1.25 1.25 6.06294 1.25 12C1.25 17.9371 6.06294 22.75 12 22.75C17.9371 22.75 22.75 17.9371 22.75 12Z" fill="#001413" />
+//                                         <path d="M15.6406 7.3418C16.004 7.14341 16.4595 7.27735 16.6582 7.64062C16.8566 8.00397 16.7226 8.45954 16.3594 8.6582C14.931 9.43951 13.6153 11.0545 12.6279 12.5664C12.1436 13.3081 11.7554 13.9983 11.4883 14.5029C11.3549 14.7548 11.2523 14.96 11.1836 15.1006C11.1492 15.1709 11.1224 15.2248 11.1055 15.2607C11.097 15.2787 11.0909 15.2922 11.0869 15.3008C11.0851 15.3047 11.0839 15.3077 11.083 15.3096L11.082 15.3115C11.082 15.3115 11.083 15.312 11.082 15.3115C10.9662 15.5648 10.7195 15.7337 10.4414 15.749C10.1632 15.7644 9.89986 15.6238 9.75684 15.3848C9.4238 14.828 8.90274 14.3321 8.43457 13.9619C8.20542 13.7807 7.99927 13.6378 7.85156 13.541C7.77797 13.4928 7.71948 13.4562 7.68066 13.4326C7.66128 13.4208 7.64658 13.4125 7.6377 13.4072C7.63325 13.4046 7.6305 13.4023 7.62891 13.4014C7.6283 13.4024 7.62892 13.4014 7.62891 13.4014C7.26929 13.1962 7.14369 12.7386 7.34863 12.3789C7.55378 12.0192 8.01133 11.8937 8.37109 12.0986L8.38086 12.1035C8.38535 12.1061 8.39109 12.1099 8.39844 12.1143C8.41338 12.1231 8.43404 12.1356 8.45996 12.1514C8.51177 12.1829 8.58501 12.228 8.67383 12.2861C8.85107 12.4022 9.09461 12.5712 9.36523 12.7852C9.64294 13.0047 9.95961 13.2823 10.2666 13.6074C10.5427 13.0963 10.9166 12.4436 11.3721 11.7461C12.3846 10.1957 13.8692 8.31057 15.6406 7.3418Z" fill="#001413" />
+//                                     </svg></span>
+//                                     <span className="text-primary text-16 font-regular">Forth Bullet Here</span>
+//                                 </div>
+//                             </div>
+//                         </div>
+//                     </div>
+
+//                     <div className=" w-140 hidden xl:block">
+//                         {/* <div className="">
+//                             <h1 className="text-32 text-primary font-semibold">Decision-orianted, not feature-orianted</h1>
+//                             <p className="text-16 text-primary font-regular mt-2 ">Comprehensive market trends, comsumer analysis and competitive landscape <br /> reports</p>
+//                         </div>
+
+//                         <div className=" mt-8 flex gap-7">
+//                             <button className="py-2 px-8 bg-surface text-primary text-15 font-medium">Browse Reports</button>
+//                             <button className="py-2 px-8 -text-primary text-primary text-15 font-medium">Search Market Data</button>
+//                         </div> */}
+//                     </div>
+//                 </div>
+//             </div>
+
+
+//             {/* card view */}
+
+//             <div className=" w-80 sm:w-144 xl:w-285 m-auto pb-11.5 mt-18">
+//                 <div className=" w-80 sm:w-144 xl:w-285 m-auto grid grid-cols-1 xl:grid-cols-[22%_auto] gap-7.5">
+//                     <div className=" flex flex-col gap-3 xl:gap-8">
+//                         <FilterCategory
+//                             resetFilters={resetFilters}
+//                             selectedFilters={selectedFilters}
+//                             setSelectedFilters={setSelectedFilters}
+//                             handleCheckboxChange={handleCheckboxChange}
+//                             // industry={industry}
+//                             // sub_industry={sub_industry}
+//                             report_type={report_type}
+//                             region={region}
+//                             country={country}
+//                             use_cases={use_cases}
+//                         />
+//                     </div>
+
+//                     <div>
+
+//                         <div className=" flex justify-around sm:justify-between items-center">
+//                             <div>
+//                                 {/* <h1 className="text-primary text-20 font-medium">234 reports available</h1> */}
+//                                 <h1 className="text-primary text-[13px] sm:text-[20px] font-medium">
+//                                     {totalReport ?? ""} reports available
+//                                 </h1>
+//                             </div>
+//                             <div className=" flex gap-8">
+//                                 <div className="hidden xl:block">
+//                                     <button className={`border border-gray-200 rounded transition-all duration-300 p-2 cursor-pointer hover:bg-[var(--color-brand-primary-hover)] ${view == "grid" ? "bg-brand" : ""}`} onClick={() => setView("grid")}><TfiLayoutGrid2 className="h-6 w-6" /></button>
+//                                     <button className={`ml-0.5 border border-gray-200 rounded transition-all duration-300 p-2 cursor-pointer hover:bg-[var(--color-brand-primary-hover)] ${view == "list" ? "bg-brand" : ""}`} onClick={() => setView("list")}><RxHamburgerMenu className="h-6 w-6" /></button>
+//                                 </div>
+//                                 <div className="border w-45 sm:w-56 h-10.5 px-3 sm:px-6 py-2 flex gap-2">
+//                                     <img src={AZ} alt="" />
+//                                     <select name="" id="" className="text-primary text-15 font-medium outline-0">
+//                                         <option value="">Sort By Alphabet</option>
+//                                         <option value="">Sort By A-Z</option>
+//                                         <option value="">Sort By Z-A</option>
+//                                     </select>
+//                                 </div>
+//                             </div>
+//                         </div>
+
+//                         {/* grid view */}
+//                         {view === "grid" && <div className="w-80 sm:w-144 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 mx-auto xl:w-auto gap-6 mt-7">
+//                             <GridView listData={listData} load={load} />
+//                         </div>}
+
+//                         {/* list view */}
+//                         {view === "list" && <div className="mt-7 flex flex-col gap-6">
+//                             <ListView listData={listData} load={load} />
+//                         </div>}
+
+//                         {/* pagination */}
+
+//                         {/* <div className=" w-66 h-6 mx-auto my-12 text-center">Pagination</div> */}
+
+//                     </div>
+//                 </div>
+
+//                 {/* Relevant Reports */}
+//                 {/* <RelevantReports /> */}
+
+//             </div>
+//         </div>
+//     );
+// };
+// export default FilteredIndustry;
+
+
+
+
+// new one
+
 
 
 import FilterCategory from "./FilterCategory";
@@ -349,7 +1211,6 @@ import { base_url } from "../URL";
 // import Breadcrumbs from "./BreadCrumbs";
 import toast from 'react-hot-toast';
 import { useParams } from "react-router-dom";
-
 
 const FilteredIndustry = () => {
 
@@ -376,16 +1237,25 @@ const FilteredIndustry = () => {
 
 
 
+    // const { slug } = useParams();
+    // // const decodedIndustry = slug ? decodeURIComponent(slug) : "";
+    // const decodedIndustry = slug || "";
+    // console.log("decodeSludg", decodedIndustry);
+    // const [selectedFilters, setSelectedFilters] = useState({
+    //     industries: [],
+    //     sub_industries: [],
+    //     report_types: [],
+    //     regions: [],
+    //     countries: [],
+    //     use_cases: []
+    // });
+
     const { slug } = useParams();
-    const decodedIndustry = slug ? decodeURIComponent(slug) : "";
-
-    console.log("decodeSludg", decodedIndustry);
-
+    const decodedIndustry = slug || "";
 
 
 
     const [selectedFilters, setSelectedFilters] = useState({
-        industries: [],
         sub_industries: [],
         report_types: [],
         regions: [],
@@ -394,54 +1264,128 @@ const FilteredIndustry = () => {
     });
 
 
-    const handleCheckboxChange = (group, value) => {
-        setSelectedFilters(prev => {
-            const exists = prev[group].includes(value);
 
-            return {
-                ...prev,
-                [group]: exists
-                    ? prev[group].filter(item => item !== value)
-                    : [...prev[group], value]
-            };
-        });
-    };
+    
+
+console.log("selectedfilter::L::::::::",selectedFilters)
+
+
+const handleCheckboxChange = (group, value) => {
+    setSelectedFilters(prev => {
+        const exists = prev[group].includes(value);
+
+        const updatedValues = exists
+            ? prev[group].filter(item => item !== value)
+            : [...prev[group], value];
+
+        return {
+            ...prev,
+            [group]: updatedValues
+        };
+    });
+};
+
+
+
+
+
+const resetFilters = () => {
+    setSelectedFilters({
+        regions: [],
+        countries: [],
+        report_types: [],
+        sub_industries: [],
+        use_cases: []
+    });
+};
+
+
+
+   
+
 
 
     const getListData = async () => {
-        try {
+    try {
+        setLoad(true);
 
-            // console.log("selectedFilters:????....", selectedFilters);
-            setLoad(true);
-            let listResult = await fetch(`${base_url}/industries/${decodedIndustry}`);
+        const params = new URLSearchParams();
 
-            if (!listResult.ok) {
-                throw new Error(`HTTP error! status: ${listResult.status}`);
-            }
+        if (selectedFilters.regions.length)
+            params.append("region", selectedFilters.regions.join(","));
 
-            let listData = await listResult.json();
-            console.log("listData for industry: ", listData);
-            if (listData) {
-                setListData(listData?.reports ?? []);
-                setTotalReport(listData?.total_reports ?? null);
+        if (selectedFilters.countries.length)
+            params.append("country", selectedFilters.countries.join(","));
 
-                setMainTitle(listData?.industry ?? "");
-                setMainSubTitle(listData?.subtitle ?? "");
-                setMainImage(listData?.img_path ?? "");
-            }
-            // else {
-            //     alert("data not found...");
-            // }
+        if (selectedFilters.report_types.length)
+            params.append("report_type", selectedFilters.report_types.join(","));
+
+        if (selectedFilters.sub_industries.length)
+            params.append("sub_industry", selectedFilters.sub_industries.join(","));
+
+        if (selectedFilters.use_cases.length)
+            params.append("use_case", selectedFilters.use_cases.join(","));
+
+        let url = `${base_url}/industries/${decodedIndustry}`;
+
+        if (params.toString()) {
+            url += `?${params.toString()}`;
         }
-        catch (err) {
-            // alert("something went wrong...");
-            // alert("err....", err.message);
-            toast.error(err.message);
-            console.log("something went wrong...");
-        } finally {
-            setLoad(false);
+
+        console.log("Final API URL:", url);
+
+        let listResult = await fetch(url); // GET hi rahega
+
+        if (!listResult.ok) {
+            throw new Error(`HTTP error! status: ${listResult.status}`);
         }
+
+        let listData = await listResult.json();
+
+        console.log("listdtaa???><>><>><??>>??",listData);
+
+        setListData(listData?.reports ?? []);
+        setTotalReport(listData?.total_reports ?? null);
+        setMainTitle(listData?.industry ?? "");
+        setMainSubTitle(listData?.subtitle ?? "");
+        setMainImage(listData?.img_path ?? "");
+
+    } catch (err) {
+        toast.error(err.message);
+    } finally {
+        setLoad(false);
     }
+};
+
+
+// useEffect(() => {
+//     const params = new URLSearchParams();
+
+//     if (selectedFilters.regions.length)
+//         params.set("region", selectedFilters.regions.join(","));
+
+//     if (selectedFilters.countries.length)
+//         params.set("country", selectedFilters.countries.join(","));
+
+//     if (selectedFilters.report_types.length)
+//         params.set("report_type", selectedFilters.report_types.join(","));
+
+//     if (selectedFilters.sub_industries.length)
+//         params.set("sub_industry", selectedFilters.sub_industries.join(","));
+
+//     if (selectedFilters.use_cases.length)
+//         params.set("use_case", selectedFilters.use_cases.join(","));
+
+//     // Important: Only update if changed
+//     if (params.toString() !== searchParams.toString()) {
+//         setSearchParams(params);
+//     }
+
+// }, [selectedFilters]);
+
+
+
+
 
     const getCheckBoxData = async () => {
         try {
@@ -483,86 +1427,96 @@ const FilteredIndustry = () => {
 
     // console.log("Selected Filters:", selectedFilters);
 
+useEffect(() => {
+    if (!decodedIndustry) return;
+    getListData();
+}, [decodedIndustry, selectedFilters]);
 
 
 
-    const resetFilters = () => {
-        setSelectedFilters({
-            industries: [],
-            sub_industries: [],
-            report_types: [],
-            regions: [],
-            countries: [],
-            use_cases: []
-        });
-    };
 
     useEffect(() => {
         getCheckBoxData();
     }, []);
 
-    useEffect(() => {
-        if (decodedIndustry) {
-            setSelectedFilters(prev => ({
-                ...prev,
-                industries: [decodedIndustry]
-            }));
-        }
-    }, [decodedIndustry]);
+    // useEffect(() => {
+    //     if (decodedIndustry) {
+    //         setSelectedFilters(prev => ({
+    //             ...prev,
+    //             industries: [decodedIndustry]
+    //         }));
+    //     }
+    // }, [decodedIndustry]);
 
 
     /// for test <><><><><>
 
 
-    const getListData1 = async () => {
-        try {
+    // const getListData1 = async () => {
+    //     try {
 
-            console.log("selectedFilters:????....", selectedFilters);
+    //         console.log("selectedFilters:????....", selectedFilters);
 
-            setLoad(true);
-            let listResult = await fetch(`${base_url}/reports/filter/display`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(selectedFilters)
-            });
+    //         setLoad(true);
+    //         let listResult = await fetch(`${base_url}/reports/filter/display`, {
+    //             method: "POST",
+    //             headers: { "Content-Type": "application/json" },
+    //             body: JSON.stringify(selectedFilters)
+    //         });
 
-            if (!listResult.ok) {
-                throw new Error(`HTTP error! status: ${listResult.status}`);
-            }
+    //         if (!listResult.ok) {
+    //             throw new Error(`HTTP error! status: ${listResult.status}`);
+    //         }
 
-            let listData = await listResult.json();
-            console.log("listData after selected: ", listData);
-            if (listData) {
-                setListData(listData?.items ?? []);
-                setTotalReport(listData?.total ?? null);
-            }
-            // else {
-            //     alert("data not found...");
-            // }
-        }
-        catch (err) {
-            // alert("something went wrong...");
-            // alert("err....", err.message);
-            toast.error(err.message);
-            console.log("something went wrong...");
-        } finally {
-            setLoad(false);
-        }
-    }
-    useEffect(() => {
-        getListData1();
+    //         let listData = await listResult.json();
+    //         console.log("listData after selected: ", listData);
+    //         if (listData) {
+    //             setListData(listData?.items ?? []);
+    //             setTotalReport(listData?.total ?? null);
+    //         }
+    //         // else {
+    //         //     alert("data not found...");
+    //         // }
+    //     }
+    //     catch (err) {
+    //         // alert("something went wrong...");
+    //         // alert("err....", err.message);
+    //         toast.error(err.message);
+    //         console.log("something went wrong...");
+    //     } finally {
+    //         setLoad(false);
+    //     }
+    // }
+    // useEffect(() => {
+    //     getListData1();
 
-        console.log("all data api called...");
-    }, [selectedFilters]);
+    //     console.log("all data api called...");
+    // }, [selectedFilters]);
 
-    console.log("selectedFilters<><><><>", selectedFilters);
+    // console.log("selectedFilters<><><><>", selectedFilters);
     //////
 
-    useEffect(() => {
-        getListData();
 
-        console.log("all data api called...");
-    }, [decodedIndustry]);
+
+
+//     useEffect(() => {
+//     const region = searchParams.get("region");
+//     const country = searchParams.get("country");
+//     const report_type = searchParams.get("report_type");
+//     const sub_industry = searchParams.get("sub_industry");
+//     const use_case = searchParams.get("use_case");
+
+//     setSelectedFilters({
+//         regions: region ? region.split(",") : [],
+//         countries: country ? country.split(",") : [],
+//         report_types: report_type ? report_type.split(",") : [],
+//         sub_industries: sub_industry ? sub_industry.split(",") : [],
+//         use_cases: use_case ? use_case.split(",") : []
+//     });
+
+// }, [searchParams]);
+
+
 
     console.log("listdata............: ", listData);
     console.log("totalReport............: ", totalReport);
@@ -666,7 +1620,7 @@ const FilteredIndustry = () => {
                         <FilterCategory
                             resetFilters={resetFilters}
                             selectedFilters={selectedFilters}
-                            setSelectedFilters={setSelectedFilters}
+                            // setSelectedFilters={setSelectedFilters}
                             handleCheckboxChange={handleCheckboxChange}
                             // industry={industry}
                             // sub_industry={sub_industry}

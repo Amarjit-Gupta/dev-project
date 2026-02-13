@@ -170,14 +170,14 @@ const FilteredReportType = () => {
         getCheckBoxData();
     }, []);
 
-     useEffect(() => {
-        if (decodedReportType) {
-            setSelectedFilters(prev => ({
-                ...prev,
-                industries: [decodedReportType]
-            }));
-        }
-    }, [decodedReportType]);
+    //  useEffect(() => {
+    //     if (decodedReportType) {
+    //         setSelectedFilters(prev => ({
+    //             ...prev,
+    //             industries: [decodedReportType]
+    //         }));
+    //     }
+    // }, [decodedReportType]);
 
     /// for test <><><><><>
 
