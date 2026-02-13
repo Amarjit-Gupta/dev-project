@@ -13,19 +13,26 @@ import ContactUs from "./components/ContactUs";
 import HomePage from "./components/HomePage";
 import PrivateComponent from "./auth/PrivateComponent";
 import { Toaster } from 'react-hot-toast';
+import FilteredIndustry from "./components/FilteredIndustry";
+import FilteredReportType from "./components/FilteredReportType";
+import FilteredUseCases from "./components/FilteredUseCases";
 
 const App = () => {
   return (
     <div>
-      <Toaster position="top-right" reverseOrder={false}/>
+      <Toaster position="top-right" reverseOrder={false} />
       <BrowserRouter>
         <Navbar />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/contact" element={<ContactUs />} />
-          <Route path="/report" element={<ReportingList />} />
 
-          <Route path="/report/:industry" element={<ReportingList />} />
+
+          <Route path="/report" element={<ReportingList />} />
+          <Route path="/industry/:slug" element={<FilteredIndustry />} />
+          <Route path="/report-type/:slug" element={<FilteredReportType />} />
+          <Route path="/usecase/:slug" element={<FilteredUseCases />} />
+
 
           <Route path="/report-name/:id" element={<ReportName />} />
           <Route element={<PrivateComponent />}>

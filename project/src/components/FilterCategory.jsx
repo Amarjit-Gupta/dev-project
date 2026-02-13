@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const FilterCategory = ({resetFilters,selectedFilters,setSelectedFilters,handleCheckboxChange,industry,sub_industry,report_type,region,country,use_cases}) => {
+const FilterCategory = ({ resetFilters, selectedFilters, setSelectedFilters, handleCheckboxChange, industry, sub_industry, report_type, region, country, use_cases }) => {
 
     const [open, setOpen] = useState(null);
 
@@ -62,109 +62,114 @@ const FilterCategory = ({resetFilters,selectedFilters,setSelectedFilters,handleC
                 </div>
             )}
 
-            <div className=" flex flex-col gap-2">
-                <div
-                    className=" flex justify-between items-center cursor-pointer xl:cursor-default"
-                    onClick={() => toggle(1)}
-                >
-                    <h1 className="text-primary text-15 font-medium">Industries</h1>
+            {industry &&
+                <div className=" flex flex-col gap-2">
+                    <div
+                        className=" flex justify-between items-center cursor-pointer xl:cursor-default"
+                        onClick={() => toggle(1)}
+                    >
+                        <h1 className="text-primary text-15 font-medium">Industries</h1>
 
-                    <span className={`text-xl font-bold xl:hidden transition-transform duration-300 ${open === 1 ? "rotate-45" : "rotate-0"}`}>+</span>
+                        <span className={`text-xl font-bold xl:hidden transition-transform duration-300 ${open === 1 ? "rotate-45" : "rotate-0"}`}>+</span>
 
 
-                </div>
+                    </div>
 
-                {/* </div> */}
-                <div className={`overflow-hidden transition-all duration-300 ${open === 1 ? "h-auto opacity-100 mt-2" : "max-h-0 opacity-0"} xl:max-h-full xl:opacity-100 xl:mt-2`}>
+                    {/* </div> */}
+                    <div className={`overflow-hidden transition-all duration-300 ${open === 1 ? "h-auto opacity-100 mt-2" : "max-h-0 opacity-0"} xl:max-h-full xl:opacity-100 xl:mt-2`}>
 
-                    {/* industry */}
-                    {industry?.map((ind, i) => {
-                        return (
-                            <label key={ind.id} className="flex items-center gap-2 cursor-pointer">
-                                {/* <input
+                        {/* industry */}
+                        {industry?.map((ind, i) => {
+                            return (
+                                <label key={ind.id} className="flex items-center gap-2 cursor-pointer">
+                                    {/* <input
                                     type="checkbox"
                                     // value={ind}
                                     className="h-4 w-4 accent-[var(--color-brand-primary)]"
                                 /> */}
-                                <input
-                                    type="checkbox"
-                                    className="h-4 w-4 accent-[var(--color-brand-primary)]"
-                                    checked={selectedFilters.industries.includes(ind?.name)}
-                                    onChange={() => handleCheckboxChange("industries", ind?.name)}
-                                />
+                                    <input
+                                        type="checkbox"
+                                        className="h-4 w-4 accent-[var(--color-brand-primary)]"
+                                        checked={selectedFilters.industries.includes(ind?.name)}
+                                        onChange={() => handleCheckboxChange("industries", ind?.name)}
+                                    />
 
-                                <span className="text-primary text-16 font-regular">{ind?.name}</span>
-                            </label>
-                        )
-                    })}
-                </div>
-            </div>
+                                    <span className="text-primary text-16 font-regular">{ind?.name}</span>
+                                </label>
+                            )
+                        })}
+                    </div>
+                </div>}
 
-            <div className=" flex flex-col gap-2">
-                <div
-                    className=" flex justify-between items-center cursor-pointer xl:cursor-default"
-                    onClick={() => toggle(2)}
-                >
-                    <h1 className="text-primary text-15 font-medium">Sub Industries</h1>
-                    <span className={`text-xl font-bold xl:hidden transition-transform duration-300 ${open === 2 ? "rotate-45" : "rotate-0"}`}>+</span>
-                </div>
-                <div className={` overflow-hidden transition-all duration-300 ${open === 2 ? "h-auto opacity-100 mt-2" : "max-h-0 opacity-0"} xl:max-h-full xl:opacity-100 xl:mt-2`}>
+            {industry &&
+                <div className=" flex flex-col gap-2">
+                    <div
+                        className=" flex justify-between items-center cursor-pointer xl:cursor-default"
+                        onClick={() => toggle(2)}
+                    >
+                        <h1 className="text-primary text-15 font-medium">Sub Industries</h1>
+                        <span className={`text-xl font-bold xl:hidden transition-transform duration-300 ${open === 2 ? "rotate-45" : "rotate-0"}`}>+</span>
+                    </div>
+                    <div className={` overflow-hidden transition-all duration-300 ${open === 2 ? "h-auto opacity-100 mt-2" : "max-h-0 opacity-0"} xl:max-h-full xl:opacity-100 xl:mt-2`}>
 
-                    {/* sub industry */}
-                    {sub_industry?.map((sub, i) => {
-                        return (
-                            <label key={sub.id} className="flex items-center gap-2 cursor-pointer">
-                                {/* <input
+                        {/* sub industry */}
+                        {sub_industry?.map((sub, i) => {
+                            return (
+                                <label key={sub.id} className="flex items-center gap-2 cursor-pointer">
+                                    {/* <input
                                     type="checkbox"
                                     // value={ind}
                                     className="h-4 w-4 accent-[var(--color-brand-primary)]"
                                 /> */}
-                                <input
-                                    type="checkbox"
-                                    className="h-4 w-4 accent-[var(--color-brand-primary)]"
-                                    checked={selectedFilters.sub_industries.includes(sub?.name)}
-                                    onChange={() => handleCheckboxChange("sub_industries", sub?.name)}
-                                />
+                                    <input
+                                        type="checkbox"
+                                        className="h-4 w-4 accent-[var(--color-brand-primary)]"
+                                        checked={selectedFilters.sub_industries.includes(sub?.name)}
+                                        onChange={() => handleCheckboxChange("sub_industries", sub?.name)}
+                                    />
 
-                                <span className="text-primary text-16 font-regular">{sub?.name}</span>
-                            </label>
-                        )
-                    })}
-                </div>
-            </div>
+                                    <span className="text-primary text-16 font-regular">{sub?.name}</span>
+                                </label>
+                            )
+                        })}
+                    </div>
+                </div>}
 
-            <div className=" flex flex-col gap-2">
-                <div
-                    className=" flex justify-between items-center cursor-pointer xl:cursor-default"
-                    onClick={() => toggle(3)}
-                >
-                    <h1 className="text-primary text-15 font-medium">Report Types</h1>
-                    <span className={`text-xl font-bold xl:hidden transition-transform duration-300 ${open === 3 ? "rotate-45" : "rotate-0"}`}>+</span>
-                </div>
-                <div className={` overflow-hidden transition-all duration-300 ${open === 3 ? "h-auto opacity-100 mt-2" : "max-h-0 opacity-0"} xl:max-h-full xl:opacity-100 xl:mt-2`}>
-                    {/* report_types */}
-                    {report_type?.map((report, i) => {
-                        return (
-                            <label key={report.id} className="flex items-center gap-2 cursor-pointer">
-                                {/* <input
+
+            {report_type &&
+                <div className=" flex flex-col gap-2">
+                    <div
+                        className=" flex justify-between items-center cursor-pointer xl:cursor-default"
+                        onClick={() => toggle(3)}
+                    >
+                        <h1 className="text-primary text-15 font-medium">Report Types</h1>
+                        <span className={`text-xl font-bold xl:hidden transition-transform duration-300 ${open === 3 ? "rotate-45" : "rotate-0"}`}>+</span>
+                    </div>
+                    <div className={` overflow-hidden transition-all duration-300 ${open === 3 ? "h-auto opacity-100 mt-2" : "max-h-0 opacity-0"} xl:max-h-full xl:opacity-100 xl:mt-2`}>
+                        {/* report_types */}
+                        {report_type?.map((report, i) => {
+                            return (
+                                <label key={report.id} className="flex items-center gap-2 cursor-pointer">
+                                    {/* <input
                                     type="checkbox"
                                     // value={report}
                                     className="h-4 w-4 accent-[var(--color-brand-primary)]"
                                 /> */}
-                                <input
-                                    type="checkbox"
-                                    className="h-4 w-4 accent-[var(--color-brand-primary)]"
-                                    checked={selectedFilters.report_types.includes(report?.name)}
-                                    onChange={() => handleCheckboxChange("report_types", report?.name)}
-                                />
+                                    <input
+                                        type="checkbox"
+                                        className="h-4 w-4 accent-[var(--color-brand-primary)]"
+                                        checked={selectedFilters.report_types.includes(report?.name)}
+                                        onChange={() => handleCheckboxChange("report_types", report?.name)}
+                                    />
 
-                                <span className="text-primary text-16 font-regular">{report?.name}</span>
-                            </label>
-                        )
-                    })}
+                                    <span className="text-primary text-16 font-regular">{report?.name}</span>
+                                </label>
+                            )
+                        })}
 
+                    </div>
                 </div>
-            </div>
+            }
 
             <div className=" flex flex-col gap-2">
                 <div
@@ -234,43 +239,45 @@ const FilterCategory = ({resetFilters,selectedFilters,setSelectedFilters,handleC
             </div>
 
             {/* use cases */}
-            <div className=" flex flex-col gap-2">
-                <div
-                    className=" flex justify-between items-center cursor-pointer xl:cursor-default"
-                    onClick={() => toggle(6)}
-                >
-                    <h1 className="text-primary text-15 font-medium">Use Cases</h1>
+            {use_cases &&
+                <div className=" flex flex-col gap-2">
+                    <div
+                        className=" flex justify-between items-center cursor-pointer xl:cursor-default"
+                        onClick={() => toggle(6)}
+                    >
+                        <h1 className="text-primary text-15 font-medium">Use Cases</h1>
 
-                    <span className={`text-xl font-bold xl:hidden transition-transform duration-300 ${open === 6 ? "rotate-45" : "rotate-0"}`}>+</span>
+                        <span className={`text-xl font-bold xl:hidden transition-transform duration-300 ${open === 6 ? "rotate-45" : "rotate-0"}`}>+</span>
 
 
-                </div>
+                    </div>
 
-                {/* </div> */}
-                <div className={`overflow-hidden transition-all duration-300 ${open === 6 ? "h-auto opacity-100 mt-2" : "max-h-0 opacity-0"} xl:max-h-full xl:opacity-100 xl:mt-2`}>
+                    {/* </div> */}
+                    <div className={`overflow-hidden transition-all duration-300 ${open === 6 ? "h-auto opacity-100 mt-2" : "max-h-0 opacity-0"} xl:max-h-full xl:opacity-100 xl:mt-2`}>
 
-                    {/* industry */}
-                    {use_cases?.map((uc, i) => {
-                        return (
-                            <label key={uc.id} className="flex items-center gap-2 cursor-pointer">
-                                {/* <input
+                        {/* industry */}
+                        {use_cases?.map((uc, i) => {
+                            return (
+                                <label key={uc.id} className="flex items-center gap-2 cursor-pointer">
+                                    {/* <input
                                     type="checkbox"
                                     // value={uc}
                                     className="h-4 w-4 accent-[var(--color-brand-primary)]"
                                 /> */}
-                                <input
-                                    type="checkbox"
-                                    className="h-4 w-4 accent-[var(--color-brand-primary)]"
-                                    checked={selectedFilters.use_cases.includes(uc?.name)}
-                                    onChange={() => handleCheckboxChange("use_cases", uc?.name)}
-                                />
+                                    <input
+                                        type="checkbox"
+                                        className="h-4 w-4 accent-[var(--color-brand-primary)]"
+                                        checked={selectedFilters.use_cases.includes(uc?.name)}
+                                        onChange={() => handleCheckboxChange("use_cases", uc?.name)}
+                                    />
 
-                                <span className="text-primary text-16 font-regular">{uc?.name}</span>
-                            </label>
-                        )
-                    })}
+                                    <span className="text-primary text-16 font-regular">{uc?.name}</span>
+                                </label>
+                            )
+                        })}
+                    </div>
                 </div>
-            </div>
+            }
         </>
     );
 };

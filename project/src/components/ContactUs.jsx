@@ -3,7 +3,7 @@ import { countries, roles } from "./Data";
 import { RiLoader4Fill } from "react-icons/ri";
 import { IoChevronDown } from "react-icons/io5";
 import { base_url } from "../URL";
-// import Breadcrumbs from "./BreadCrumbs";
+import Breadcrumbs from "./BreadCrumbs";
 import toast from 'react-hot-toast';
 
 
@@ -127,9 +127,9 @@ const ContactUs = () => {
     return (
         <div className="bg-gray-100 py-5">
 
-            {/* <div className="w-80 sm:w-155 md:w-180 m-auto py-2">
+            <div className="w-80 sm:w-155 md:w-180 m-auto py-2">
                 <Breadcrumbs />
-            </div> */}
+            </div>
             <div className={`border border-gray-200 rounded w-80 sm:w-155 md:w-180 m-auto p-3 bg-gray-200`}>
 
                 <div className="mt-4">

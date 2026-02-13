@@ -236,21 +236,21 @@ const Navbar = () => {
             title: "Reports",
             sections: [
                 {
-                    title: "Market Intelligence",
+                    title: "Types of reports",
                     items: [
-                        { name: "Market Intelligence Reports", link: "/reports/market-intelligence" },
-                        { name: "Market Size & Forecast", link: "/reports/market-size" },
-                        { name: "Competitive Landscape", link: "/reports/competitive-landscape" },
-                        { name: "Pricing & Cost Analysis", link: "/reports/pricing-analysis" },
+                        { name: "Market Intelligence Reports", link: "Market Intelligence Reports" },
+                        { name: "Market Size & Forecast", link: "Market Size & Forecast" },
+                        { name: "Competitive Landscape", link: "Competitive Landscape" },
+                        { name: "Pricing & Cost Analysis", link: "Pricing & Cost Analysis" },
                     ]
                 },
                 {
-                    title: "Consumer & Trade Insights",
+                    title: "",
                     items: [
-                        { name: "Consumer / Usage Insights", link: "/reports/consumer-insights" },
-                        { name: "Import / Export & Trade", link: "/reports/trade" },
-                        { name: "Regulatory Environment", link: "/reports/regulatory" },
-                        { name: "Innovation & Trends", link: "/reports/innovation-trends" },
+                        { name: "Consumer / Usage Insights", link: "Consumer / Usage Insights" },
+                        { name: "Import / Export & Trade", link: "Import / Export & Trade" },
+                        { name: "Regulatory Environment", link: "Regulatory Environment" },
+                        { name: "Innovation & Trends", link: "Innovation & Trends" },
                     ]
                 }
             ]
@@ -258,11 +258,11 @@ const Navbar = () => {
         useCases: {
             title: "Use Cases",
             items: [
-                { name: "New Product Launch", link: "/usecases/new-product" },
-                { name: "Market Entry (Country)", link: "/usecases/market-entry" },
-                { name: "Competitor Benchmarking", link: "/usecases/competitor-benchmarking" },
-                { name: "Investor/Board Presentations", link: "/usecases/investor-presentations" },
-                { name: "Pricing Strategy", link: "/usecases/pricing-strategy" },
+                { name: "New Product Launch", link: "New Product Launch" },
+                { name: "Market Entry (Country)", link: "Market Entry (Country)" },
+                { name: "Competitor Benchmarking", link: "Competitor Benchmarking" },
+                { name: "Investor/Board Presentations", link: "Investor/Board Presentations" },
+                { name: "Pricing Strategy", link: "Pricing Strategy" },
             ]
         }
     };
@@ -344,7 +344,7 @@ const Navbar = () => {
         <>
             <div className="border bg-surface h-21 flex justify-around items-center sticky top-0 left-0 z-50">
                 <div className="w-55 h-11 hidden sm:block"><img src={logo} alt="logo" className='h-full w-full' /></div>
-                <div className="w-11 h-11 sm:hidden bg-red-500"><img src={logoSmall} alt="logo" className='h-full w-full' /></div>
+                <div className="w-11 h-11 sm:hidden"><img src={logoSmall} alt="logo" className='h-full w-full' /></div>
 
                 <div className="lg:hidden border">
                     <div className="h-9 border-brand-primary w-45 sm:w-58 flex py-1 sm:py-2 px-2 sm:px-4 items-center">
@@ -375,7 +375,7 @@ const Navbar = () => {
                         </li>
 
                         {/* Industries Mega Menu */}
-                        <li className="relative group border-2 border-red-500">
+                        <li className="relative group">
                             <div className="flex items-center space-x-1 py-2 text-primary cursor-pointer">
                                 <span>Industries</span>
                                 <FiChevronDown className="group-hover:rotate-180 transition-transform duration-200" />
@@ -389,37 +389,55 @@ const Navbar = () => {
                                 <div className="grid grid-cols-4 gap-8">
                                     {megaMenus.industries.sections.map((section, index) => (
                                         <div key={index}>
-                                            <h3 className="font-semibold text-lg mb-3 text-gray-900 border-red-500 border">
+                                            <h3 className="font-semibold text-lg mb-3 text-gray-900">
                                                 {/* {section.title} */}
 
 
                                                 <Link
-                                                    to={`/report/${encodeURIComponent(section.title)}`}
+                                                    to={`/industry/${encodeURIComponent(section.title)}`}
                                                     className="text-primary hover:underline"
                                                     onClick={() => setActiveMegaMenu(null)}
                                                 >
                                                     {section.title}
                                                 </Link>
 
+                                                {/* <Link
+                                                    to={`/industry/${encodeURIComponent(section.title)}`}
+                                                    className="text-primary hover:underline"
+                                                    onClick={() => setActiveMegaMenu(null)}
+                                                >
+                                                    {section.title}
+                                                </Link> */}
+
+
 
                                             </h3>
                                             <ul className="space-y-2">
                                                 {section.items.map((item, idx) => (
                                                     <li key={idx}>
-                                                        <Link
+                                                        {/* <Link
                                                             // to={encodeURIComponent(item.link)}
                                                             to={`/report/${encodeURIComponent(item.link)}`}
                                                             className="text-primary block py-1"
                                                             onClick={() => setActiveMegaMenu(null)}
                                                         >
                                                             {item.name}
+                                                        </Link> */}
+
+                                                        <Link
+                                                            to={`/industry/${encodeURIComponent(item.link)}`}
+                                                            className="text-primary block py-1"
+                                                            onClick={() => setActiveMegaMenu(null)}
+                                                        >
+                                                            {item.name}
                                                         </Link>
+
                                                     </li>
                                                 ))}
                                             </ul>
 
 
-                                           
+
                                         </div>
                                     ))}
 
@@ -429,7 +447,7 @@ const Navbar = () => {
                         </li>
 
                         {/* Reports Mega Menu */}
-                        <li className="relative group border-2 border-red-500">
+                        <li className="relative group">
                             <div className="flex items-center space-x-1 py-2 text-primary cursor-pointer">
                                 <span>Reports</span>
                                 <FiChevronDown className="group-hover:rotate-180 transition-transform duration-200" />
@@ -447,7 +465,7 @@ const Navbar = () => {
                                                 {section.title}
                                             </h3>
                                             <ul className="space-y-2">
-                                                {section.items.map((item, idx) => (
+                                                {/* {section.items.map((item, idx) => (
                                                     <li key={idx}>
                                                         <Link
                                                             to={item.link}
@@ -457,7 +475,20 @@ const Navbar = () => {
                                                             {item.name}
                                                         </Link>
                                                     </li>
+                                                ))} */}
+
+                                                {section.items.map((item, idx) => (
+                                                    <li key={idx}>
+                                                        <Link
+                                                            to={`/report-type/${encodeURIComponent(item.link)}`}
+                                                            className="text-primary transition-colors block py-1"
+                                                            onClick={() => setActiveMegaMenu(null)}
+                                                        >
+                                                            {item.name}
+                                                        </Link>
+                                                    </li>
                                                 ))}
+
                                             </ul>
                                         </div>
                                     ))}
@@ -466,7 +497,7 @@ const Navbar = () => {
                         </li>
 
                         {/* Use Cases Mega Menu */}
-                        <li className="relative group border-2 border-red-500">
+                        <li className="relative group">
                             <div className="flex items-center space-x-1 py-2 text-primary cursor-pointer">
                                 <span>Use Cases</span>
                                 <FiChevronDown className="group-hover:rotate-180 transition-transform duration-200" />
@@ -478,18 +509,26 @@ const Navbar = () => {
                                 transition-all duration-300 ease-in-out 
                                 transform translate-y-2 group-hover:translate-y-0">
                                 <h3 className="font-semibold text-lg mb-3 text-gray-900">
-                                    Business Applications
+                                    Use Cases
                                 </h3>
                                 <ul className="space-y-2">
                                     {megaMenus.useCases.items.map((item, idx) => (
                                         <li key={idx}>
-                                            <Link
+                                            {/* <Link
                                                 to={item.link}
                                                 className="text-primary block py-2"
                                                 onClick={() => setActiveMegaMenu(null)}
                                             >
                                                 {item.name}
+                                            </Link> */}
+                                            <Link
+                                                to={`/usecase/${encodeURIComponent(item.link)}`}
+                                                className="text-primary block py-2"
+                                                onClick={() => setActiveMegaMenu(null)}
+                                            >
+                                                {item.name}
                                             </Link>
+
                                         </li>
                                     ))}
                                 </ul>
@@ -508,10 +547,10 @@ const Navbar = () => {
                 </div>
 
                 {/* Mobile Menu - Accordion Style */}
-                <div className={`fixed top-21 right-0 w-full h-[calc(100vh-84px)] bg-surface overflow-y-auto transition-all duration-300 transform ${menu ? "translate-x-0" : "translate-x-full"} lg:hidden z-40  border-2 border-red-500`}>
+                <div className={`fixed top-21 right-0 w-full h-[calc(100vh-84px)] bg-surface overflow-y-auto transition-all duration-300 transform ${menu ? "translate-x-0" : "translate-x-full"} lg:hidden z-40`}>
                     <div className="p-4 space-y-1">
                         {/* Home */}
-                        <div className="mb-2 border">
+                        <div className="mb-2">
                             <NavLink
                                 to={'/'}
                                 // className={({ isActive }) => `block w-full text-left py-2 px-4 rounded-lg ${isActive ? 'text-brand-primary font-medium bg-brand/10' : 'text-gray-700 hover:bg-gray-50'}`}
@@ -525,28 +564,39 @@ const Navbar = () => {
                         </div>
 
                         {/* Industries Accordion */}
-                        <div className="mb-2 border-2 border-red-500">
+                        <div className="mb-2">
                             <button
                                 onClick={() => handleMobileMenuToggle('industries')}
                                 className="flex items-center justify-between w-full text-left py-2 px-4 rounded-lg text-primary hover:bg-gray-200"
                             >
-                                <span className="font-medium">Industries</span>
-                                <span className="text-gray-500">
+                                <span>Industries</span>
+                                <span className="text-primary">
                                     {activeMegaMenu === 'industries' ? <FiChevronUp /> : <FiChevronDown />}
                                 </span>
                             </button>
 
                             {/* Accordion Content with Animation */}
-                            <div className={`border border-red-500 overflow-hidden transition-all duration-300 ${activeMegaMenu === 'industries' ? 'max-h-[1000px] opacity-100' : 'max-h-0 opacity-0'}`}>
+                            <div className={`overflow-hidden transition-all duration-300 ${activeMegaMenu === 'industries' ? 'max-h-[1000px] opacity-100' : 'max-h-0 opacity-0'}`}>
                                 <div className="pl-4 pr-4 pb-4 space-y-4">
                                     {megaMenus.industries.sections.map((section, index) => (
                                         <div key={index} className="space-y-2">
                                             <h3 className="font-semibold text-gray-900 text-sm">
                                                 {/* {section.title} */}
-                                                <Link
+                                                {/* <Link
                                                     to={`/report/${encodeURIComponent(section.title)}`}
                                                     className="text-primary hover:underline"
                                                     // onClick={() => setActiveMegaMenu(null)}
+                                                    onClick={() => {
+                                                        setActiveMegaMenu(null);
+                                                        setMenu(false);
+                                                    }}
+                                                >
+                                                    {section.title}
+                                                </Link> */}
+
+                                                <Link
+                                                    to={`/industry/${encodeURIComponent(section.title)}`}
+                                                    className="text-primary hover:underline"
                                                     onClick={() => {
                                                         setActiveMegaMenu(null);
                                                         setMenu(false);
@@ -558,8 +608,19 @@ const Navbar = () => {
                                             <ul className="space-y-1">
                                                 {section.items.map((item, idx) => (
                                                     <li key={idx}>
-                                                        <Link
+                                                        {/* <Link
                                                             to={item.link}
+                                                            className="text-primary block py-2 pl-2 text-sm"
+                                                            onClick={() => {
+                                                                setActiveMegaMenu(null);
+                                                                setMenu(false);
+                                                            }}
+                                                        >
+                                                            {item.name}
+                                                        </Link> */}
+
+                                                        <Link
+                                                            to={`/industry/${encodeURIComponent(item.link)}`}
                                                             className="text-primary block py-2 pl-2 text-sm"
                                                             onClick={() => {
                                                                 setActiveMegaMenu(null);
@@ -578,12 +639,12 @@ const Navbar = () => {
                         </div>
 
                         {/* Reports Accordion */}
-                        <div className="mb-2  border-2 border-red-500">
+                        <div className="mb-2">
                             <button
                                 onClick={() => handleMobileMenuToggle('reports')}
                                 className="flex items-center justify-between w-full text-left py-2 px-4 rounded-lg text-primary hover:bg-gray-200"
                             >
-                                <span className="font-medium">Reports</span>
+                                <span>Reports</span>
                                 <span className="text-primary">
                                     {activeMegaMenu === 'reports' ? <FiChevronUp /> : <FiChevronDown />}
                                 </span>
@@ -599,8 +660,19 @@ const Navbar = () => {
                                             <ul className="space-y-1">
                                                 {section.items.map((item, idx) => (
                                                     <li key={idx}>
-                                                        <Link
+                                                        {/* <Link
                                                             to={item.link}
+                                                            className="text-primary block py-2 pl-2 text-sm"
+                                                            onClick={() => {
+                                                                setActiveMegaMenu(null);
+                                                                setMenu(false);
+                                                            }}
+                                                        >
+                                                            {item.name}
+                                                        </Link> */}
+
+                                                        <Link
+                                                            to={`/report-type/${encodeURIComponent(item.link)}`}
                                                             className="text-primary block py-2 pl-2 text-sm"
                                                             onClick={() => {
                                                                 setActiveMegaMenu(null);
@@ -619,13 +691,13 @@ const Navbar = () => {
                         </div>
 
                         {/* Use Cases Accordion */}
-                        <div className="mb-2  border-2 border-red-500">
+                        <div className="mb-2">
                             <button
                                 onClick={() => handleMobileMenuToggle('useCases')}
                                 className="flex items-center justify-between w-full text-left py-2 px-4 rounded-lg text-primary hover:bg-gray-200"
                             >
-                                <span className="font-medium">Use Cases</span>
-                                <span className="text-gray-500">
+                                <span>Use Cases</span>
+                                <span className="text-primary">
                                     {activeMegaMenu === 'useCases' ? <FiChevronUp /> : <FiChevronDown />}
                                 </span>
                             </button>
@@ -639,7 +711,7 @@ const Navbar = () => {
                                         <ul className="space-y-1">
                                             {megaMenus.useCases.items.map((item, idx) => (
                                                 <li key={idx}>
-                                                    <Link
+                                                    {/* <Link
                                                         to={item.link}
                                                         className="text-primary block py-2 pl-2 text-sm"
                                                         onClick={() => {
@@ -648,7 +720,26 @@ const Navbar = () => {
                                                         }}
                                                     >
                                                         {item.name}
+                                                    </Link> */}
+
+                                                    <Link
+                                                        to={`/usecase/${encodeURIComponent(item.link)}`}
+                                                        className="text-primary block py-2"
+                                                        onClick={() => {
+                                                            setActiveMegaMenu(null);
+                                                            setMenu(false);
+                                                        }}
+                                                    >
+                                                        {item.name}
                                                     </Link>
+
+                                                    {/* <Link
+                                                        to={`/usecase/${encodeURIComponent(item.link)}`}
+                                                        className="text-primary block py-2"
+                                                        onClick={() => setActiveMegaMenu(null)}
+                                                    >
+                                                        {item.name}
+                                                    </Link> */}
                                                 </li>
                                             ))}
                                         </ul>
@@ -658,7 +749,7 @@ const Navbar = () => {
                         </div>
 
                         {/* Contact Us */}
-                        <div className="mb-6 border">
+                        <div className="mb-6">
                             <NavLink
                                 to={"/contact"}
 
@@ -693,19 +784,19 @@ const Navbar = () => {
               </div>
             )} */}
                         {isAuth &&
-                            <div className="lg:hidden border border-red-500 px-4">
+                            <div className="lg:hidden px-4">
                                 <div className="relative inline-block">
                                     {/* Header Button */}
                                     <button
                                         onClick={handleClick}
-                                        className="border bg-brand rounded-full h-9 w-9 text-20 font-medium transition-all cursor-pointer hover:bg-[var(--color-brand-primary-hover)] capitalize"
+                                        className="border border-green-500 bg-brand rounded-full h-9 w-9 text-20 font-medium transition-all cursor-pointer hover:bg-[var(--color-brand-primary-hover)] capitalize"
                                     >
                                         {uname}
                                     </button>
 
                                     {/* Popup */}
                                     {openPopup && (
-                                        <div className="absolute top-full z-10 mt-2 rounded shadow-lg border border-blue-500">
+                                        <div className="absolute top-full z-10 mt-2 rounded shadow-lg">
                                             <button
                                                 onClick={handleLogout}
                                                 className="bg-brand w-full rounded py-2 px-3 text-15 text-primary font-medium cursor-pointer hover:bg-[var(--color-brand-primary-hover)]"
@@ -735,19 +826,19 @@ const Navbar = () => {
                 </div>
 
                 {isAuth &&
-                    <div className="hidden lg:block border border-red-500">
+                    <div className="hidden lg:block">
                         <div className="relative inline-block">
                             {/* Header Button */}
                             <button
                                 onClick={handleClick}
-                                className="border bg-brand rounded-full h-9 w-9 text-20 font-medium transition-all cursor-pointer hover:bg-[var(--color-brand-primary-hover)] capitalize"
+                                className="border border-green-500 bg-brand rounded-full h-9 w-9 text-20 font-medium transition-all cursor-pointer hover:bg-[var(--color-brand-primary-hover)] capitalize"
                             >
                                 {uname}
                             </button>
 
                             {/* Popup */}
                             {openPopup && (
-                                <div className="absolute right-0 top-full z-10 mt-2 rounded shadow-lg border border-blue-500">
+                                <div className="absolute right-0 top-full z-10 mt-2 rounded shadow-lg">
                                     <button
                                         onClick={handleLogout}
                                         className="bg-brand w-full rounded py-2 px-3 text-15 text-primary font-medium cursor-pointer hover:bg-[var(--color-brand-primary-hover)]"
