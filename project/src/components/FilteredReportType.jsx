@@ -394,6 +394,8 @@ const FilteredReportType = () => {
                                         <option value="">Sort By Z-A</option>
                                     </select>
                                 </div>
+
+                                {/* <SortDropDown AZ={AZ} /> */}
                             </div>
                         </div>
 

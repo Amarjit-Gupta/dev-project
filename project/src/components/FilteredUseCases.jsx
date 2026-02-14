@@ -87,7 +87,7 @@ const FilteredUseCases = () => {
             setLoad(true);
 
             const params = new URLSearchParams();
-            console.log("params:::>>>>????",params.toString());
+            console.log("params:::>>>>????", params.toString());
 
             if (selectedFilters.regions.length)
                 params.append("region", selectedFilters.regions.join(","));
@@ -416,6 +416,7 @@ const FilteredUseCases = () => {
                                         <option value="">Sort By Z-A</option>
                                     </select>
                                 </div>
+                                {/* <SortDropDown AZ={AZ} /> */}
                             </div>
                         </div>
 

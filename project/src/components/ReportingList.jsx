@@ -264,14 +264,21 @@ const ReportingList = () => {
                                     <button className={`border border-gray-200 rounded transition-all duration-300 p-2 cursor-pointer hover:bg-[var(--color-brand-primary-hover)] ${view == "grid" ? "bg-brand" : ""}`} onClick={() => setView("grid")}><TfiLayoutGrid2 className="h-6 w-6" /></button>
                                     <button className={`ml-0.5 border border-gray-200 rounded transition-all duration-300 p-2 cursor-pointer hover:bg-[var(--color-brand-primary-hover)] ${view == "list" ? "bg-brand" : ""}`} onClick={() => setView("list")}><RxHamburgerMenu className="h-6 w-6" /></button>
                                 </div>
+
+
                                 <div className="border w-45 sm:w-56 h-10.5 px-3 sm:px-6 py-2 flex gap-2">
                                     <img src={AZ} alt="" />
-                                    <select name="" id="" className="text-primary text-15 font-medium outline-0">
+                                    <select name="" id="" className="w-full text-primary text-15 font-medium outline-0">
                                         <option value="">Sort By Alphabet</option>
                                         <option value="">Sort By A-Z</option>
                                         <option value="">Sort By Z-A</option>
                                     </select>
                                 </div>
+
+                                {/* <SortDropDown AZ={AZ} /> */}
+
+
+
                             </div>
                         </div>
 

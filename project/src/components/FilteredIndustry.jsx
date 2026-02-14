@@ -1253,7 +1253,7 @@ const FilteredIndustry = () => {
     const { slug } = useParams();
     const decodedIndustry = slug || "";
 
-    console.log("industry params:?>?>?><>>>?>?> ",decodedIndustry);
+    console.log("industry params:?>?>?><>>>?>?> ", decodedIndustry);
 
 
 
@@ -1267,123 +1267,123 @@ const FilteredIndustry = () => {
 
 
 
-    
-
-console.log("selectedfilter::L::::::::",selectedFilters)
 
 
-const handleCheckboxChange = (group, value) => {
-    setSelectedFilters(prev => {
-        const exists = prev[group].includes(value);
-
-        const updatedValues = exists
-            ? prev[group].filter(item => item !== value)
-            : [...prev[group], value];
-
-        return {
-            ...prev,
-            [group]: updatedValues
-        };
-    });
-};
+    console.log("selectedfilter::L::::::::", selectedFilters)
 
 
+    const handleCheckboxChange = (group, value) => {
+        setSelectedFilters(prev => {
+            const exists = prev[group].includes(value);
+
+            const updatedValues = exists
+                ? prev[group].filter(item => item !== value)
+                : [...prev[group], value];
+
+            return {
+                ...prev,
+                [group]: updatedValues
+            };
+        });
+    };
 
 
 
-const resetFilters = () => {
-    setSelectedFilters({
-        regions: [],
-        countries: [],
-        report_types: [],
-        sub_industries: [],
-        use_cases: []
-    });
-};
+
+
+    const resetFilters = () => {
+        setSelectedFilters({
+            regions: [],
+            countries: [],
+            report_types: [],
+            sub_industries: [],
+            use_cases: []
+        });
+    };
 
 
 
-   
+
 
 
 
     const getListData = async () => {
-    try {
-        setLoad(true);
+        try {
+            setLoad(true);
 
-        const params = new URLSearchParams();
+            const params = new URLSearchParams();
 
-        if (selectedFilters.regions.length)
-            params.append("region", selectedFilters.regions.join(","));
+            if (selectedFilters.regions.length)
+                params.append("region", selectedFilters.regions.join(","));
 
-        if (selectedFilters.countries.length)
-            params.append("country", selectedFilters.countries.join(","));
+            if (selectedFilters.countries.length)
+                params.append("country", selectedFilters.countries.join(","));
 
-        if (selectedFilters.report_types.length)
-            params.append("report_type", selectedFilters.report_types.join(","));
+            if (selectedFilters.report_types.length)
+                params.append("report_type", selectedFilters.report_types.join(","));
 
-        if (selectedFilters.sub_industries.length)
-            params.append("sub_industry", selectedFilters.sub_industries.join(","));
+            if (selectedFilters.sub_industries.length)
+                params.append("sub_industry", selectedFilters.sub_industries.join(","));
 
-        if (selectedFilters.use_cases.length)
-            params.append("use_case", selectedFilters.use_cases.join(","));
+            if (selectedFilters.use_cases.length)
+                params.append("use_case", selectedFilters.use_cases.join(","));
 
-        let url = `${base_url}/industries/${decodedIndustry}`;
+            let url = `${base_url}/industries/${decodedIndustry}`;
 
-        if (params.toString()) {
-            url += `?${params.toString()}`;
+            if (params.toString()) {
+                url += `?${params.toString()}`;
+            }
+
+            console.log("Final API URL:", url);
+
+            let listResult = await fetch(url); // GET hi rahega
+
+            if (!listResult.ok) {
+                throw new Error(`HTTP error! status: ${listResult.status}`);
+            }
+
+            let listData = await listResult.json();
+
+            console.log("listdtaa???><>><>><??>>??", listData);
+
+            setListData(listData?.reports ?? []);
+            setTotalReport(listData?.total_reports ?? null);
+            setMainTitle(listData?.industry ?? "");
+            setMainSubTitle(listData?.subtitle ?? "");
+            setMainImage(listData?.img_path ?? "");
+
+        } catch (err) {
+            toast.error(err.message);
+        } finally {
+            setLoad(false);
         }
-
-        console.log("Final API URL:", url);
-
-        let listResult = await fetch(url); // GET hi rahega
-
-        if (!listResult.ok) {
-            throw new Error(`HTTP error! status: ${listResult.status}`);
-        }
-
-        let listData = await listResult.json();
-
-        console.log("listdtaa???><>><>><??>>??",listData);
-
-        setListData(listData?.reports ?? []);
-        setTotalReport(listData?.total_reports ?? null);
-        setMainTitle(listData?.industry ?? "");
-        setMainSubTitle(listData?.subtitle ?? "");
-        setMainImage(listData?.img_path ?? "");
-
-    } catch (err) {
-        toast.error(err.message);
-    } finally {
-        setLoad(false);
-    }
-};
+    };
 
 
-// useEffect(() => {
-//     const params = new URLSearchParams();
+    // useEffect(() => {
+    //     const params = new URLSearchParams();
 
-//     if (selectedFilters.regions.length)
-//         params.set("region", selectedFilters.regions.join(","));
+    //     if (selectedFilters.regions.length)
+    //         params.set("region", selectedFilters.regions.join(","));
 
-//     if (selectedFilters.countries.length)
-//         params.set("country", selectedFilters.countries.join(","));
+    //     if (selectedFilters.countries.length)
+    //         params.set("country", selectedFilters.countries.join(","));
 
-//     if (selectedFilters.report_types.length)
-//         params.set("report_type", selectedFilters.report_types.join(","));
+    //     if (selectedFilters.report_types.length)
+    //         params.set("report_type", selectedFilters.report_types.join(","));
 
-//     if (selectedFilters.sub_industries.length)
-//         params.set("sub_industry", selectedFilters.sub_industries.join(","));
+    //     if (selectedFilters.sub_industries.length)
+    //         params.set("sub_industry", selectedFilters.sub_industries.join(","));
 
-//     if (selectedFilters.use_cases.length)
-//         params.set("use_case", selectedFilters.use_cases.join(","));
+    //     if (selectedFilters.use_cases.length)
+    //         params.set("use_case", selectedFilters.use_cases.join(","));
 
-//     // Important: Only update if changed
-//     if (params.toString() !== searchParams.toString()) {
-//         setSearchParams(params);
-//     }
+    //     // Important: Only update if changed
+    //     if (params.toString() !== searchParams.toString()) {
+    //         setSearchParams(params);
+    //     }
 
-// }, [selectedFilters]);
+    // }, [selectedFilters]);
 
 
 
@@ -1429,10 +1429,10 @@ const resetFilters = () => {
 
     // console.log("Selected Filters:", selectedFilters);
 
-useEffect(() => {
-    if (!decodedIndustry) return;
-    getListData();
-}, [decodedIndustry, selectedFilters]);
+    useEffect(() => {
+        if (!decodedIndustry) return;
+        getListData();
+    }, [decodedIndustry, selectedFilters]);
 
 
 
@@ -1501,22 +1501,22 @@ useEffect(() => {
 
 
 
-//     useEffect(() => {
-//     const region = searchParams.get("region");
-//     const country = searchParams.get("country");
-//     const report_type = searchParams.get("report_type");
-//     const sub_industry = searchParams.get("sub_industry");
-//     const use_case = searchParams.get("use_case");
+    //     useEffect(() => {
+    //     const region = searchParams.get("region");
+    //     const country = searchParams.get("country");
+    //     const report_type = searchParams.get("report_type");
+    //     const sub_industry = searchParams.get("sub_industry");
+    //     const use_case = searchParams.get("use_case");
 
-//     setSelectedFilters({
-//         regions: region ? region.split(",") : [],
-//         countries: country ? country.split(",") : [],
-//         report_types: report_type ? report_type.split(",") : [],
-//         sub_industries: sub_industry ? sub_industry.split(",") : [],
-//         use_cases: use_case ? use_case.split(",") : []
-//     });
+    //     setSelectedFilters({
+    //         regions: region ? region.split(",") : [],
+    //         countries: country ? country.split(",") : [],
+    //         report_types: report_type ? report_type.split(",") : [],
+    //         sub_industries: sub_industry ? sub_industry.split(",") : [],
+    //         use_cases: use_case ? use_case.split(",") : []
+    //     });
 
-// }, [searchParams]);
+    // }, [searchParams]);
 
 
 
