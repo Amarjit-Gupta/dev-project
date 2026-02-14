@@ -10,7 +10,7 @@ const Footer = () => {
                         <p className="text-16 text-primary font-regular mt-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae quibusdam natus molestiae ratione deserunt commodi doloribus, unde reprehenderit eaque quae.</p>
                     </div>
                     <div className=" mt-6">
-                        <button className=" py-2 px-8 text-16 text-primary font-medium bg-surface">Subscribe Now</button>
+                        <button className=" py-2 px-8 text-16 text-primary font-medium bg-surface cursor-pointer hover:bg-gray-100">Subscribe Now</button>
                     </div>
                 </div>
                 <div className="">

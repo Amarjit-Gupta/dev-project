@@ -10,8 +10,13 @@ import c4 from '../assets/c4.svg';
 import { useNavigate } from 'react-router-dom';
 import { base_url } from '../URL';
 import Breadcrumbs from './BreadCrumbs';
+import { curatedData, howThisHelpsYou, textContainerData } from './Data';
+import WhyChooseUs from './WhyChooseUs';
+import HomePageCards from './HomePageCards';
 
 const HomePage = () => {
+
+    const navigate = useNavigate();
 
     return (
         <>
@@ -28,8 +33,8 @@ const HomePage = () => {
                         </div>
 
                         <div className=" mt-8 flex gap-7">
-                            <button className="py-2 px-8 bg-surface text-primary text-15 font-medium">Browse Reports</button>
-                            <button className="py-2 px-8 border-text-primary text-primary text-15 font-medium">Search Market Data</button>
+                            <button className="py-2 px-8 bg-surface text-primary text-15 font-medium cursor-pointer hover:bg-gray-100" onClick={()=>navigate("/report")}>Browse Reports</button>
+                            <button className="py-2 px-8 border-text-primary text-primary text-15 font-medium cursor-pointer">Search Market Data</button>
                         </div>
                     </div>
 
@@ -42,43 +47,31 @@ const HomePage = () => {
             <div className=" w-80 md:w-188 xl:w-285 m-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 py-18">
 
                 {/* card 1 */}
-                <div className=" p-4 w-80 md:w-91 h-54 flex flex-col justify-between bg-card1">
-                    <div className="">
-                        <h1 className="text-24 text-primary font-semibold">Consumer Goods</h1>
-                        <p className="text-16 text-primary font-regular">Designed to support product launches, portfolio expansion, and market sizing desicions.</p>
-                    </div>
-                    <div className=" flex gap-2">
-                        <div className="border-text-secondary text-13 text-primary font-regular px-2 py-0.5 bg-surface">market study</div>
-                        <div className="border-text-secondary text-13 text-primary font-regular px-2 py-0.5 bg-surface">importers</div>
-                        <div className="border-text-secondary text-13 text-primary font-regular px-2 py-0.5 bg-surface">pricing</div>
-                    </div>
-                </div>
+                <HomePageCards
+                    txt1={"Consumer Goods"}
+                    txt2={"Designed to support product launches, portfolio expansion, and market sizing desicions."}
+                    label1={"market study"}
+                    label2={"importers"}
+                    label3={"pricing"}
+                />
 
                 {/* card 2 */}
-                <div className=" p-4 w-80 md:w-91 h-54 flex flex-col justify-between bg-card2">
-                    <div className="">
-                        <h1 className="text-24 text-primary font-semibold">Health & Wellness</h1>
-                        <p className="text-16 text-primary font-regular">Data-driven insights covering nutraceuticals, supplements, wellness ingredients, and preventive health markets</p>
-                    </div>
-                    <div className=" flex gap-2">
-                        <div className="border-text-secondary text-13 text-primary font-regular px-2 py-0.5 bg-surface">market study</div>
-                        <div className="border-text-secondary text-13 text-primary font-regular px-2 py-0.5 bg-surface">importers</div>
-                        <div className="border-text-secondary text-13 text-primary font-regular px-2 py-0.5 bg-surface">pricing</div>
-                    </div>
-                </div>
+                <HomePageCards
+                    txt1={"Health & Wellness"}
+                    txt2={"Data-driven insights covering nutraceuticals, supplements, wellness ingredients, and preventive health markets"}
+                    label1={"market study"}
+                    label2={"importers"}
+                    label3={"pricing"}
+                />
 
                 {/* card 3 */}
-                <div className=" p-4 w-80 md:w-91 h-54 flex flex-col justify-between bg-card3">
-                    <div className="">
-                        <h1 className="text-24 text-primary font-semibold">Ingredients & Materials</h1>
-                        <p className="text-16 text-primary font-regular">In-depth analysis of functional ingredients, raw materials, excipients, and specialty chemicals.</p>
-                    </div>
-                    <div className=" flex gap-2">
-                        <div className="border-text-secondary text-13 text-primary font-regular px-2 py-0.5 bg-surface">market study</div>
-                        <div className="border-text-secondary text-13 text-primary font-regular px-2 py-0.5 bg-surface">importers</div>
-                        <div className="border-text-secondary text-13 text-primary font-regular px-2 py-0.5 bg-surface">pricing</div>
-                    </div>
-                </div>
+                <HomePageCards
+                    txt1={"Ingredients & Materials"}
+                    txt2={"In-depth analysis of functional ingredients, raw materials, excipients, and specialty chemicals."}
+                    label1={"market study"}
+                    label2={"importers"}
+                    label3={"pricing"}
+                />
             </div>
 
             {/* why choose us*/}
@@ -87,39 +80,33 @@ const HomePage = () => {
                     <h1 className="text-24 text-primary font-semibold text-center">Why Choose Us</h1>
                     <div className=" w-63.5 grid grid-cols-1 sm:w-138 sm:grid-cols-2 xl:w-287 xl:grid-cols-4 gap-11 pt-12  m-auto">
                         {/* card 1 */}
-                        <div className=" w-63.5 h-72 content-center">
-                            <div className=" h-30 w-30 m-auto"><img src={c1} alt="card1" /></div>
-                            <div className=" mt-3">
-                                <h1 className="text-20 text-primary font-medium text-center">Generic Credible</h1>
-                                <p className="text-16 text-primary font-regular text-center">Our reports are built using verified public data sources, trade statistics, company disclosures and structured research ensuring reliability without unnecessary assumptions.</p>
-                            </div>
-                        </div>
+                        <WhyChooseUs
+                            imgPath={c1}
+                            title={"Generic Credible"}
+                            subtitle={"Our reports are built using verified public data sources, trade statistics, company disclosures and structured research ensuring reliability without unnecessary assumptions."}
+                        />
+
                         {/* card 2 */}
-                        <div className=" w-63.5 h-72 content-center">
-                            <div className=" h-30 w-30 m-auto"><img src={c2} alt="card1" /></div>
-                            <div className=" mt-3">
-                                <h1 className="text-20 text-primary font-medium text-center">Updated Frequently</h1>
-                                <p className="text-16 text-primary font-regular text-center">Markets change fast. We regularly update key data points, pricing signals, and competitive landscapes so decisions are based on current information, not outdated reports</p>
-                            </div>
-                        </div>
+                        <WhyChooseUs
+                            imgPath={c2}
+                            title={"Updated Frequently"}
+                            subtitle={"Markets change fast. We regularly update key data points, pricing signals, and competitive landscapes so decisions are based on current information, not outdated reports"}
+                        />
 
                         {/* card 3 */}
-                        <div className=" w-63.5 h-72 content-center">
-                            <div className=" h-30 w-30 m-auto"><img src={c3} alt="card1" /></div>
-                            <div className=" mt-3">
-                                <h1 className="text-20 text-primary font-medium text-center">Methodology Transparency</h1>
-                                <p className="text-16 text-primary font-regular text-center">Each report clearly explains data sources, assumptions, estimation logic, and limitations; so you know exactly how insights are derived and can trust the outcomes.</p>
-                            </div>
-                        </div>
+                        <WhyChooseUs
+                            imgPath={c3}
+                            title={"Methodology Transparency"}
+                            subtitle={"Each report clearly explains data sources, assumptions, estimation logic, and limitations; so you know exactly how insights are derived and can trust the outcomes"}
+                        />
 
                         {/* card 4 */}
-                        <div className=" w-63.5 h-72 content-center">
-                            <div className=" h-30 w-30 m-auto"><img src={c4} alt="card1" /></div>
-                            <div className=" mt-3">
-                                <h1 className="text-20 text-primary font-medium text-center">In-Detail Study</h1>
-                                <p className="text-16 text-primary font-regular text-center">Beyond surface-level summaries, our reports dive into market structure, value chains, competitor positioning, pricing layers, and future outlooks enabling confident decision-making.</p>
-                            </div>
-                        </div>
+
+                        <WhyChooseUs
+                            imgPath={c4}
+                            title={"In-Detail Study"}
+                            subtitle={"Beyond surface-level summaries, our reports dive into market structure, value chains, competitor positioning, pricing layers, and future outlooks enabling confident decision-making"}
+                        />
                     </div>
                 </div>
             </div>
@@ -131,29 +118,16 @@ const HomePage = () => {
                     <h1 className="text-24 text-primary font-semibold text-center">Curated for your use cases</h1>
                     <div className=" w-80 sm:w-111 lg:w-225 xl:w-285 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-3 pt-12 m-auto">
                         {/* card 1 */}
-                        <div className="border-brand-primary p-5 w-full sm:w-54 h-24 text-center content-center">
-                            <h1 className="text-20 text-primary font-medium">New Product Launch</h1>
-                        </div>
 
-                        {/* card 2 */}
-                        <div className="border-brand-primary p-5 w-full sm:w-54 h-24 text-center content-center">
-                            <h1 className="text-20 text-primary font-medium">Market Entry</h1>
-                        </div>
-
-                        {/* card 3 */}
-                        <div className="border-brand-primary p-5 w-full sm:w-54 h-24 text-center content-center">
-                            <h1 className="text-20 text-primary font-medium">Competitors Analysis</h1>
-                        </div>
-
-                        {/* card 4 */}
-                        <div className="border-brand-primary p-5 w-full sm:w-54 h-24 text-center content-center">
-                            <h1 className="text-20 text-primary font-medium">Pricing strategy</h1>
-                        </div>
-
-                        {/* card 5 */}
-                        <div className="border-brand-primary p-5 w-full sm:w-54 h-24 text-center content-center">
-                            <h1 className="text-20 text-primary font-medium">Investor/Board Presentation</h1>
-                        </div>
+                        {
+                            curatedData?.map((curated, i) => {
+                                return (
+                                    <div className="border-brand-primary p-5 w-full sm:w-54 h-24 text-center content-center" key={i}>
+                                        <h1 className="text-20 text-primary font-medium">{curated}</h1>
+                                    </div>
+                                )
+                            })
+                        }
 
                     </div>
                 </div>
@@ -283,28 +257,16 @@ const HomePage = () => {
                     <h1 className="text-24 text-primary font-semibold text-center">How this helps you decide</h1>
                     <div className=" w-80 grid grid-cols-1 sm:w-160 sm:grid-cols-2 xl:grid-cols-4 gap-6 py-20 xl:w-285 m-auto pt-12">
                         {/* card 1 */}
-                        <div className="border-text-secondary w-full sm:w-67 h-24 bg-surface text-center content-center relative">
-                            <h1 className="text-20 text-primary font-regular">Validate New Product</h1>
-                            <div className="div border-brand-primary absolute bottom-0 w-full"></div>
-                        </div>
-
-                        {/* card 2 */}
-                        <div className="border-text-secondary w-full sm:w-67 h-24 bg-surface text-center content-center relative">
-                            <h1 className="text-20 text-primary font-regular">Compare Competitors</h1>
-                            <div className="div border-brand-primary absolute bottom-0 w-full"></div>
-                        </div>
-
-                        {/* card 3 */}
-                        <div className="border-text-secondary w-full sm:w-67 h-24 bg-surface text-center content-center relative">
-                            <h1 className="text-20 text-primary font-regular">Understand Pricing</h1>
-                            <div className="div border-brand-primary absolute bottom-0 w-full"></div>
-                        </div>
-
-                        {/* card 4 */}
-                        <div className="border-text-secondary w-full sm:w-67 h-24 bg-surface text-center content-center relative">
-                            <h1 className="text-20 text-primary font-regular">Reduce market entry risk</h1>
-                            <div className="div border-brand-primary absolute bottom-0 w-full"></div>
-                        </div>
+                        {
+                            howThisHelpsYou?.map((titleText, i) => {
+                                return (
+                                    <div className="border-text-secondary w-full sm:w-67 h-24 bg-surface text-center content-center relative" key={i}>
+                                        <h1 className="text-20 text-primary font-regular">{titleText}</h1>
+                                        <div className="div border-brand-primary absolute bottom-0 w-full"></div>
+                                    </div>
+                                )
+                            })
+                        }
                     </div>
                 </div>
             </div>
@@ -360,13 +322,13 @@ const HomePage = () => {
 
             {/* text container */}
             <div className=" w-80 sm:w-160 lg:w-240 m-auto grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 xl:w-314 xl:grid-cols-7 gap-8.5 text-15 text-primary font-medium py-18">
-                <div className="border-brand-primary py-3 text-center">Explore Reports</div>
-                <div className="border-brand-primary py-3 text-center">View Pricing</div>
-                <div className="border-brand-primary py-3 text-center">Explore Trends</div>
-                <div className="border-brand-primary py-3 text-center">Todays Offer</div>
-                <div className="border-brand-primary py-3 text-center">Trending News</div>
-                <div className="border-brand-primary py-3 text-center">Buyers Favourite</div>
-                <div className="border-brand-primary py-3 text-center">Best Ingredients</div>
+                {
+                    textContainerData?.map((textContainerTitle, i) => {
+                        return (
+                            <div className="border-brand-primary py-3 text-center" key={i}>{textContainerTitle}</div>
+                        )
+                    })
+                }
             </div>
         </>
     );

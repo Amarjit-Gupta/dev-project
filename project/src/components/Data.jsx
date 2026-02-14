@@ -268,3 +268,31 @@ export const faqData = [
     'Missing section PDF files: 2 reports',
     'Published reports without preview: 5'
   ]
+
+export const curatedData = [
+    'New Product Launch',
+    'Market Entry',
+    'Competitors Analysis',
+    'Pricing strategy',
+    'Investor/Board Presentation'
+  ]
+
+
+
+  export const howThisHelpsYou = [
+    'Validate New Product',
+    'Compare Competitors',
+    'Understand Pricing',
+    'Reduce market entry risk'
+  ]
+
+
+  export const textContainerData = [
+    'Explore Reports',
+    'View Pricing',
+    'Explore Trends',
+    'Todays Offer',
+    'Trending News',
+    'Buyers Favourite',
+    'Best Ingredients'
+  ];
