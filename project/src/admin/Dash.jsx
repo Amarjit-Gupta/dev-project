@@ -3,6 +3,7 @@ import { IoIosWarning } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import { base_url } from "../URL";
 import toast from 'react-hot-toast';
+import { recentActivity, warningData } from "../components/Data";
 
 const Dash = () => {
 
@@ -124,22 +125,24 @@ const Dash = () => {
                 <div className=" w-293 m-auto grid grid-cols-2 gap-15 mt-11">
                     <div className="bg-surface rounded-2xl p-5 shadow-sm border border-gray-200 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
                         <h1 className="text-24 text-primary font-semibold mb-3">Recent Activity</h1>
-                        <p className="text-16 text-primary font-regular">- Report published: "India Nutra Market" (Today)</p>
-                        <p className="text-16 text-primary font-regular">- Price updated: "Vitamin C Market" (Yesterday)</p>
-                        <p className="text-16 text-primary font-regular">- Draft saved: "Germany Pharma" (2 days ago)</p>
-                        <p className="text-16 text-primary font-regular">- Report published: "India Nutra Market" (Today)</p>
-                        <p className="text-16 text-primary font-regular">- Price updated: "Vitamin C Market" (Yesterday)</p>
-                        <p className="text-16 text-primary font-regular">- Draft saved: "Germany Pharma" (2 days ago)</p>
+                        {
+                            recentActivity?.map((item, i) => {
+                                return (
+                                    <p className="text-16 text-primary font-regular" key={i}>- {item}</p>
+                                )
+                            })
+                        }
                     </div>
 
                     <div className="bg-surface rounded-2xl p-5 shadow-sm border border-gray-200 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
                         <h1 className="text-24 text-primary font-semibold mb-3">Alerts/Warning</h1>
-                        <p className="text-16 text-primary font-regular flex items-center gap-2"><IoIosWarning className="text-yellow-500" /> Drafts older than 14 days: 6</p>
-                        <p className="text-16 text-primary font-regular flex items-center gap-2"><IoIosWarning className="text-yellow-500" />Missing section PDF files: 2 reports</p>
-                        <p className="text-16 text-primary font-regular flex items-center gap-2"><IoIosWarning className="text-yellow-500" />Published reports without preview: 5</p>
-                        <p className="text-16 text-primary font-regular flex items-center gap-2"><IoIosWarning className="text-yellow-500" />Drafts older than 14 days: 6</p>
-                        <p className="text-16 text-primary font-regular flex items-center gap-2"><IoIosWarning className="text-yellow-500" />Missing section PDF files: 2 reports</p>
-                        <p className="text-16 text-primary font-regular flex items-center gap-2"><IoIosWarning className="text-yellow-500" />Published reports without preview: 5</p>
+                        {
+                            warningData?.map((itm, i) => {
+                                return (
+                                    <p className="text-16 text-primary font-regular flex items-center gap-2" key={i}><IoIosWarning className="text-yellow-500" />{itm}</p>
+                                )
+                            })
+                        }
                     </div>
                 </div>
             </div>

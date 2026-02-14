@@ -1,4 +1,4 @@
-import logo1 from '../assets/Logo-Integers1.svg';
+import logo1 from '../assets/Logo-footer.svg';
 
 const Footer = () => {
     return (
