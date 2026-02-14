@@ -1253,6 +1253,8 @@ const FilteredIndustry = () => {
     const { slug } = useParams();
     const decodedIndustry = slug || "";
 
+    console.log("industry params:?>?>?><>>>?>?> ",decodedIndustry);
+
 
 
     const [selectedFilters, setSelectedFilters] = useState({
@@ -1620,7 +1622,7 @@ useEffect(() => {
                         <FilterCategory
                             resetFilters={resetFilters}
                             selectedFilters={selectedFilters}
-                            // setSelectedFilters={setSelectedFilters}
+                            setSelectedFilters={setSelectedFilters}
                             handleCheckboxChange={handleCheckboxChange}
                             // industry={industry}
                             // sub_industry={sub_industry}

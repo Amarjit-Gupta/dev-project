@@ -184,7 +184,7 @@ const ReportingList = () => {
 
 
                         <div className="">
-                            <h1 className="text-primary text-32 font-semibold">Types Of Report</h1>
+                            <h1 className="text-primary text-32 font-semibold">Reports</h1>
                             <p className="text-primary text-16 font-regular mt-2">Find the perfect report to answer your business questions fast.</p>
                         </div>
                         <div className=" flex flex-col gap-4">

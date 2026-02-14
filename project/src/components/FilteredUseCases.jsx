@@ -37,7 +37,7 @@ const FilteredUseCases = () => {
 
 
     const { slug } = useParams();
-    const decodedUseCase = slug ? decodeURIComponent(slug) : "";
+    const decodedUseCase = slug || "";
 
     console.log("decodeSludg", decodedUseCase);
 
@@ -50,7 +50,7 @@ const FilteredUseCases = () => {
         report_types: [],
         regions: [],
         countries: [],
-        use_cases: []
+        // use_cases: []
     });
 
 
@@ -58,47 +58,78 @@ const FilteredUseCases = () => {
         setSelectedFilters(prev => {
             const exists = prev[group].includes(value);
 
+            const updatedValues = exists
+                ? prev[group].filter(item => item !== value)
+                : [...prev[group], value];
+
             return {
                 ...prev,
-                [group]: exists
-                    ? prev[group].filter(item => item !== value)
-                    : [...prev[group], value]
+                [group]: updatedValues
             };
         });
     };
 
 
+
+    const resetFilters = () => {
+        setSelectedFilters({
+            industries: [],
+            sub_industries: [],
+            report_types: [],
+            regions: [],
+            countries: [],
+            // use_cases: []       
+        });
+    };
+
     const getListData = async () => {
         try {
-
-            // console.log("selectedFilters:????....", selectedFilters);
-
             setLoad(true);
-            let listResult = await fetch(`${base_url}/use-cases/${decodedUseCase}`);
+
+            const params = new URLSearchParams();
+            console.log("params:::>>>>????",params.toString());
+
+            if (selectedFilters.regions.length)
+                params.append("region", selectedFilters.regions.join(","));
+
+            if (selectedFilters.countries.length)
+                params.append("country", selectedFilters.countries.join(","));
+
+            if (selectedFilters.report_types.length)
+                params.append("report_type", selectedFilters.report_types.join(","));
+
+            if (selectedFilters.sub_industries.length)
+                params.append("sub_industry", selectedFilters.sub_industries.join(","));
+
+            if (selectedFilters.industries.length)
+                params.append("industries", selectedFilters.industries.join(","));
+
+            let url = `${base_url}/use-cases/${decodedUseCase}`;
+
+            if (params.toString()) {
+                url += `?${params.toString()}`;
+            }
+
+            console.log("Final API URL:", url);
+
+            let listResult = await fetch(url); // GET hi rahega
 
             if (!listResult.ok) {
                 throw new Error(`HTTP error! status: ${listResult.status}`);
             }
 
             let listData = await listResult.json();
-            console.log("listData for use cases: ", listData);
-            if (listData) {
-                setListData(listData?.reports ?? []);
-                setTotalReport(listData?.total_reports ?? null);
 
-                setMainTitle(listData?.use_case ?? "");
-                setMainSubTitle(listData?.subtitle ?? "");
-                setMainImage(listData?.img_path ?? "");
-            }
-            // else {
-            //     alert("data not found...");
-            // }
-        }
-        catch (err) {
-            // alert("something went wrong...");
-            // alert("err....", err.message);
+            console.log("listdtaa???><>><>><??>>??", listData);
+
+            setListData(listData?.reports ?? []);
+            setTotalReport(listData?.total_reports ?? null);
+            setMainTitle(listData?.use_case ?? "");
+            setMainSubTitle(listData?.subtitle ?? "");
+            setMainImage(listData?.img_path ?? "");
+
+        } catch (err) {
             toast.error(err.message);
-            console.log("something went wrong...");
         } finally {
             setLoad(false);
         }
@@ -154,17 +185,12 @@ const FilteredUseCases = () => {
 
 
 
+    useEffect(() => {
+        if (!decodedUseCase) return;
+        getListData();
+    }, [decodedUseCase, selectedFilters]);
 
-    const resetFilters = () => {
-        setSelectedFilters({
-            industries: [],
-            sub_industries: [],
-            report_types: [],
-            regions: [],
-            countries: [],
-            use_cases: []
-        });
-    };
+
 
     useEffect(() => {
         getCheckBoxData();
@@ -184,56 +210,56 @@ const FilteredUseCases = () => {
     /// for test <><><><><>
 
 
-    const getListData1 = async () => {
-        try {
+    // const getListData1 = async () => {
+    //     try {
 
-            console.log("selectedFilters:????....", selectedFilters);
+    //         console.log("selectedFilters:????....", selectedFilters);
 
-            setLoad(true);
-            let listResult = await fetch(`${base_url}/reports/filter/display`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(selectedFilters)
-            });
+    //         setLoad(true);
+    //         let listResult = await fetch(`${base_url}/reports/filter/display`, {
+    //             method: "POST",
+    //             headers: { "Content-Type": "application/json" },
+    //             body: JSON.stringify(selectedFilters)
+    //         });
 
-            if (!listResult.ok) {
-                throw new Error(`HTTP error! status: ${listResult.status}`);
-            }
+    //         if (!listResult.ok) {
+    //             throw new Error(`HTTP error! status: ${listResult.status}`);
+    //         }
 
-            let listData = await listResult.json();
-            console.log("listData after selected: ", listData);
-            if (listData) {
-                setListData(listData?.items ?? []);
-                setTotalReport(listData?.total ?? null);
-            }
-            // else {
-            //     alert("data not found...");
-            // }
-        }
-        catch (err) {
-            // alert("something went wrong...");
-            // alert("err....", err.message);
-            toast.error(err.message);
-            console.log("something went wrong...");
-        } finally {
-            setLoad(false);
-        }
-    }
-    useEffect(() => {
-        getListData1();
+    //         let listData = await listResult.json();
+    //         console.log("listData after selected: ", listData);
+    //         if (listData) {
+    //             setListData(listData?.items ?? []);
+    //             setTotalReport(listData?.total ?? null);
+    //         }
+    //         // else {
+    //         //     alert("data not found...");
+    //         // }
+    //     }
+    //     catch (err) {
+    //         // alert("something went wrong...");
+    //         // alert("err....", err.message);
+    //         toast.error(err.message);
+    //         console.log("something went wrong...");
+    //     } finally {
+    //         setLoad(false);
+    //     }
+    // }
+    // useEffect(() => {
+    //     getListData1();
 
-        console.log("all data api called...");
-    }, [selectedFilters]);
+    //     console.log("all data api called...");
+    // }, [selectedFilters]);
 
-    console.log("selectedFilters<><><><>", selectedFilters);
-    //////
+    // console.log("selectedFilters<><><><>", selectedFilters);
+    // //////
 
 
-    useEffect(() => {
-        getListData();
+    // useEffect(() => {
+    //     getListData();
 
-        console.log("all data api called...");
-    }, [decodedUseCase]);
+    //     console.log("all data api called...");
+    // }, [decodedUseCase]);
 
     console.log("listdata............: ", listData);
     console.log("totalReport............: ", totalReport);
@@ -258,7 +284,7 @@ const FilteredUseCases = () => {
 
 
             {/* main content */}
-            {console.log("mainImage>>>>>>>>>", mainImage)}
+            {/* {console.log("mainImage>>>>>>>>>", mainImage)} */}
 
             <div className=" h-120 flex items-center w-full bg-gray-300"
 
@@ -364,7 +390,7 @@ const FilteredUseCases = () => {
                             report_type={report_type}
                             region={region}
                             country={country}
-                            // use_cases={use_cases}
+                        // use_cases={use_cases}
                         />
                     </div>
 

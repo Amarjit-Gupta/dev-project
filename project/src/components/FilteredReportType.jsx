@@ -37,7 +37,7 @@ const FilteredReportType = () => {
 
 
     const { slug } = useParams();
-    const decodedReportType = slug ? decodeURIComponent(slug) : "";
+    const decodedReportType = slug || "";
 
     console.log("decodeSludg", decodedReportType);
 
@@ -47,58 +47,91 @@ const FilteredReportType = () => {
     const [selectedFilters, setSelectedFilters] = useState({
         industries: [],
         sub_industries: [],
-        report_types: [],
+        // report_types: [],
         regions: [],
         countries: [],
         use_cases: []
     });
+
+    console.log("selectedfilter::L::::::::", selectedFilters)
 
 
     const handleCheckboxChange = (group, value) => {
         setSelectedFilters(prev => {
             const exists = prev[group].includes(value);
 
+            const updatedValues = exists
+                ? prev[group].filter(item => item !== value)
+                : [...prev[group], value];
+
             return {
                 ...prev,
-                [group]: exists
-                    ? prev[group].filter(item => item !== value)
-                    : [...prev[group], value]
+                [group]: updatedValues
             };
+        });
+    };
+
+
+    const resetFilters = () => {
+        setSelectedFilters({
+            industries:[],
+            regions: [],
+            countries: [],
+            // report_types: [],
+            sub_industries: [],
+            use_cases: []
         });
     };
 
 
     const getListData = async () => {
         try {
-
-            // console.log("selectedFilters:????....", selectedFilters);
-
             setLoad(true);
-            let listResult = await fetch(`${base_url}/report-types/${decodedReportType}`);
+
+            const params = new URLSearchParams();
+
+            if (selectedFilters.regions.length)
+                params.append("region", selectedFilters.regions.join(","));
+
+            if (selectedFilters.countries.length)
+                params.append("country", selectedFilters.countries.join(","));
+
+            if (selectedFilters.industries.length)
+                params.append("industries", selectedFilters.industries.join(","));
+
+            if (selectedFilters.sub_industries.length)
+                params.append("sub_industry", selectedFilters.sub_industries.join(","));
+
+            if (selectedFilters.use_cases.length)
+                params.append("use_case", selectedFilters.use_cases.join(","));
+
+
+            let url = `${base_url}/report-types/${decodedReportType}`;
+
+            if (params.toString()) {
+                url += `?${params.toString()}`;
+            }
+
+            console.log("Final API URL:", url);
+
+            let listResult = await fetch(url); // GET hi rahega
 
             if (!listResult.ok) {
                 throw new Error(`HTTP error! status: ${listResult.status}`);
             }
 
             let listData = await listResult.json();
-            console.log("listData for report type: ", listData);
-            if (listData) {
-                setListData(listData?.reports ?? []);
-                setTotalReport(listData?.total_reports ?? null);
 
-                setMainTitle(listData?.report_type ?? "");
-                setMainSubTitle(listData?.subtitle ?? "");
-                setMainImage(listData?.img_path ?? "");
-            }
-            // else {
-            //     alert("data not found...");
-            // }
-        }
-        catch (err) {
-            // alert("something went wrong...");
-            // alert("err....", err.message);
+            console.log("listdtaa???><>><>><??>>??",listData);
+
+            setListData(listData?.reports ?? []);
+            setTotalReport(listData?.total_reports ?? null);
+            setMainTitle(listData?.report_type ?? "");
+            setMainSubTitle(listData?.subtitle ?? "");
+            setMainImage(listData?.img_path ?? "");
+
+        } catch (err) {
             toast.error(err.message);
-            console.log("something went wrong...");
         } finally {
             setLoad(false);
         }
@@ -153,18 +186,10 @@ const FilteredReportType = () => {
     // console.log("Selected Filters:", selectedFilters);
 
 
-
-
-    const resetFilters = () => {
-        setSelectedFilters({
-            industries: [],
-            sub_industries: [],
-            report_types: [],
-            regions: [],
-            countries: [],
-            use_cases: []
-        });
-    };
+    useEffect(() => {
+        if (!decodedReportType) return;
+        getListData();
+    }, [decodedReportType, selectedFilters]);
 
     useEffect(() => {
         getCheckBoxData();
@@ -182,55 +207,55 @@ const FilteredReportType = () => {
     /// for test <><><><><>
 
 
-    const getListData1 = async () => {
-        try {
+    // const getListData1 = async () => {
+    //     try {
 
-            console.log("selectedFilters:????....", selectedFilters);
+    //         console.log("selectedFilters:????....", selectedFilters);
 
-            setLoad(true);
-            let listResult = await fetch(`${base_url}/reports/filter/display`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(selectedFilters)
-            });
+    //         setLoad(true);
+    //         let listResult = await fetch(`${base_url}/reports/filter/display`, {
+    //             method: "POST",
+    //             headers: { "Content-Type": "application/json" },
+    //             body: JSON.stringify(selectedFilters)
+    //         });
 
-            if (!listResult.ok) {
-                throw new Error(`HTTP error! status: ${listResult.status}`);
-            }
+    //         if (!listResult.ok) {
+    //             throw new Error(`HTTP error! status: ${listResult.status}`);
+    //         }
 
-            let listData = await listResult.json();
-            console.log("listData after selected: ", listData);
-            if (listData) {
-                setListData(listData?.items ?? []);
-                setTotalReport(listData?.total ?? null);
-            }
-            // else {
-            //     alert("data not found...");
-            // }
-        }
-        catch (err) {
-            // alert("something went wrong...");
-            // alert("err....", err.message);
-            toast.error(err.message);
-            console.log("something went wrong...");
-        } finally {
-            setLoad(false);
-        }
-    }
-    useEffect(() => {
-        getListData1();
+    //         let listData = await listResult.json();
+    //         console.log("listData after selected: ", listData);
+    //         if (listData) {
+    //             setListData(listData?.items ?? []);
+    //             setTotalReport(listData?.total ?? null);
+    //         }
+    //         // else {
+    //         //     alert("data not found...");
+    //         // }
+    //     }
+    //     catch (err) {
+    //         // alert("something went wrong...");
+    //         // alert("err....", err.message);
+    //         toast.error(err.message);
+    //         console.log("something went wrong...");
+    //     } finally {
+    //         setLoad(false);
+    //     }
+    // }
+    // useEffect(() => {
+    //     getListData1();
 
-        console.log("all data api called...");
-    }, [selectedFilters]);
+    //     console.log("all data api called...");
+    // }, [selectedFilters]);
 
-    console.log("selectedFilters<><><><>", selectedFilters);
-    //////
+    // console.log("selectedFilters<><><><>", selectedFilters);
+    // //////
 
-    useEffect(() => {
-        getListData();
+    // useEffect(() => {
+    //     getListData();
 
-        console.log("all data api called...");
-    }, [decodedReportType]);
+    //     console.log("all data api called...");
+    // }, [decodedReportType]);
 
     console.log("listdata............: ", listData);
     console.log("totalReport............: ", totalReport);
@@ -270,6 +295,7 @@ const FilteredReportType = () => {
 
                         <div className="">
                             <h1 className="text-primary text-32 font-semibold">{mainTitle}</h1>
+                            {console.log("maintitle>>>??>D>>>>>>>",mainTitle)}
                             <p className="text-primary text-16 font-regular mt-2">{mainSubTitle}</p>
                         </div>
                         <div className=" flex flex-col gap-4">
@@ -332,18 +358,18 @@ const FilteredReportType = () => {
             <div className=" w-80 sm:w-144 xl:w-285 m-auto pb-11.5 mt-18">
                 <div className=" w-80 sm:w-144 xl:w-285 m-auto grid grid-cols-1 xl:grid-cols-[22%_auto] gap-7.5">
                     <div className=" flex flex-col gap-3 xl:gap-8">
-                        <FilterCategory 
-                        resetFilters={resetFilters}
-                         selectedFilters={selectedFilters}
-                          setSelectedFilters={setSelectedFilters}
-                           handleCheckboxChange={handleCheckboxChange}
-                            industry={industry} 
+                        <FilterCategory
+                            resetFilters={resetFilters}
+                            selectedFilters={selectedFilters}
+                            setSelectedFilters={setSelectedFilters}
+                            handleCheckboxChange={handleCheckboxChange}
+                            industry={industry}
                             sub_industry={sub_industry}
                             //  report_type={report_type}
-                              region={region}
-                               country={country}
-                                use_cases={use_cases}
-                                 />
+                            region={region}
+                            country={country}
+                            use_cases={use_cases}
+                        />
                     </div>
 
                     <div>
